@@ -3,22 +3,6 @@
 @use 'space';
 
 :root {
-  color-scheme: light;
-  --desk: #f0e0d0;
-  --card: #fff8f0;
-  --input: #ffffff;
-  --ink: #302060;
-  --pencil: #606060;
-  --icon-ink: #000000;
-  --shadow: #00000040;
-  --no: #c04040;
-  --negative: #c08000;
-  --neutral: #808080;
-  --positive: #4080c0;
-  --yes: #40a040;
-}
-
-:root[data-theme="dark"] {
   color-scheme: dark;
   --desk: #040810;
   --card: #081020;
@@ -27,6 +11,22 @@
   --pencil: #80c0a0;
   --icon-ink: #081020;
   --shadow: #000000;
+  --no: #c04040;
+  --negative: #c08000;
+  --neutral: #808080;
+  --positive: #4080c0;
+  --yes: #40a040;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --desk: #f0e0d0;
+  --card: #fff8f0;
+  --input: #ffffff;
+  --ink: #302060;
+  --pencil: #606060;
+  --icon-ink: #000000;
+  --shadow: #00000040;
 }
 
 * {

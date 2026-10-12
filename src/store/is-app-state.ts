@@ -23,7 +23,7 @@ export const isAppState = (value: unknown): value is AppState => {
     return false;
   }
 
-  if (typeof state.darkMode !== 'boolean') {
+  if (typeof state.lightMode !== 'boolean') {
     return false;
   }
 

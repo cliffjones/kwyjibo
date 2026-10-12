@@ -17,7 +17,7 @@ export type AppState = {
   items: QuizItem[];
   customData: string;
   initializing: boolean;
-  darkMode: boolean;
+  lightMode: boolean;
   selectedTopics: string[];
   remainingIds: number[];
   currentId: number | null;

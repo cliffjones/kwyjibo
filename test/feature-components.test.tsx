@@ -1,10 +1,13 @@
+/// <reference types="jest" />
+/// <reference types="@testing-library/jest-dom" />
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { App } from '../src/app';
 import { Header } from '../src/features/header';
 import { InitialSetup } from '../src/features/initial-setup';
 import { CUSTOM_DATA_EXAMPLE } from '../src/features/initial-setup/constants';
-import { createAppStore, rateConfidence, setCustomData, setDarkMode, startQuiz } from '../src/store';
+import { createAppStore, rateConfidence, setCustomData, setLightMode, startQuiz } from '../src/store';
 import { getStorageKey } from '../src/store/constants';
 import { loadItems } from '../src/store/load-items';
 import type { QuizItem } from '../src/store/types';
@@ -57,11 +60,11 @@ describe('feature and application components', () => {
     fireEvent.click(toggle);
 
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
-    expect(store.getState().kwyjibo.darkMode).toBe(false);
-    expect(JSON.parse(window.localStorage.getItem(getStorageKey('/test')) ?? '{}').darkMode).toBe(false);
+    expect(store.getState().kwyjibo.lightMode).toBe(true);
+    expect(JSON.parse(window.localStorage.getItem(getStorageKey('/test')) ?? '{}').lightMode).toBe(true);
 
     const restoredStore = createAppStore('/test');
-    expect(restoredStore.getState().kwyjibo.darkMode).toBe(false);
+    expect(restoredStore.getState().kwyjibo.lightMode).toBe(true);
 
     unmount();
     render(
@@ -73,7 +76,7 @@ describe('feature and application components', () => {
 
     fireEvent.click(screen.getByTitle('Switch to Dark Mode'));
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
-    expect(restoredStore.getState().kwyjibo.darkMode).toBe(true);
+    expect(restoredStore.getState().kwyjibo.lightMode).toBe(false);
   });
 
   it('persists independent app state for each route', () => {
@@ -82,7 +85,7 @@ describe('feature and application components', () => {
       items: [],
       customData: 'legacy shared quiz',
       initializing: true,
-      darkMode: true,
+      lightMode: false,
       selectedTopics: [],
       remainingIds: [],
       currentId: null
@@ -90,22 +93,22 @@ describe('feature and application components', () => {
 
     const scienceStore = createAppStore('/science');
     expect(scienceStore.getState().kwyjibo.customData).toBe('');
-    expect(scienceStore.getState().kwyjibo.darkMode).toBe(true);
+    expect(scienceStore.getState().kwyjibo.lightMode).toBe(false);
     scienceStore.dispatch(setCustomData('Science-specific quiz'));
-    scienceStore.dispatch(setDarkMode(false));
+    scienceStore.dispatch(setLightMode(true));
 
     const mathStore = createAppStore('/math');
     expect(mathStore.getState().kwyjibo.customData).toBe('');
-    expect(mathStore.getState().kwyjibo.darkMode).toBe(true);
+    expect(mathStore.getState().kwyjibo.lightMode).toBe(false);
     mathStore.dispatch(setCustomData('Math-specific quiz'));
 
     const restoredScienceStore = createAppStore('/science');
     expect(restoredScienceStore.getState().kwyjibo.customData).toBe('Science-specific quiz');
-    expect(restoredScienceStore.getState().kwyjibo.darkMode).toBe(false);
+    expect(restoredScienceStore.getState().kwyjibo.lightMode).toBe(true);
 
     const restoredMathStore = createAppStore('/math');
     expect(restoredMathStore.getState().kwyjibo.customData).toBe('Math-specific quiz');
-    expect(restoredMathStore.getState().kwyjibo.darkMode).toBe(true);
+    expect(restoredMathStore.getState().kwyjibo.lightMode).toBe(false);
   });
 
   it('lists unique topics in order, updates selection, and starts the quiz', () => {
@@ -187,7 +190,7 @@ describe('feature and application components', () => {
     mockedLoadItems.mockResolvedValue([]);
     const store = createAppStore('/test');
     store.dispatch(setCustomData(CUSTOM_DATA_EXAMPLE));
-    store.dispatch(setDarkMode(true));
+    store.dispatch(setLightMode(false));
     store.dispatch(startQuiz());
     store.dispatch(rateConfidence(5));
 
@@ -203,6 +206,6 @@ describe('feature and application components', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Yes' }));
     expect(await screen.findByText('What do you want to learn today?')).toBeInTheDocument();
     expect(mockedLoadItems).toHaveBeenCalledWith('/test');
-    expect(store.getState().kwyjibo.darkMode).toBe(true);
+    expect(store.getState().kwyjibo.lightMode).toBe(false);
   });
 });

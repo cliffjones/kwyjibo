@@ -8,7 +8,7 @@ import type { AppState, QuizItem } from './types';
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
-export const setDarkMode = createAction<boolean>('kwyjibo/setDarkMode');
+export const setLightMode = createAction<boolean>('kwyjibo/setLightMode');
 export const startQuiz = createAction('kwyjibo/startQuiz');
 export const rateConfidence = createAction<number>('kwyjibo/rateConfidence');
 export const reset = createAsyncThunk(
@@ -21,7 +21,7 @@ const createInitialState = (
   loadedItems: QuizItem[] = [],
   customData = '',
   initializing = true,
-  darkMode = true
+  lightMode = false
 ): AppState => {
   const items = loadedItems.map((item, index) => ({ ...item, id: index }));
   if (!initializing) {
@@ -39,7 +39,7 @@ const createInitialState = (
     items,
     customData,
     initializing,
-    darkMode,
+    lightMode,
     sourcePath,
     selectedTopics: [...new Set(items.map(item => item.topic))],
     remainingIds: ids,
@@ -89,13 +89,13 @@ const createAppReducer = (initialState: AppState) => {
         state.customData = action.payload;
       })
 
-      .addCase(setDarkMode, (state, action) => {
-        state.darkMode = action.payload;
+      .addCase(setLightMode, (state, action) => {
+        state.lightMode = action.payload;
       })
 
       .addCase(startQuiz, state => {
         const selectedItems = state.items.filter(item => state.selectedTopics.includes(item.topic));
-        return createInitialState(state.sourcePath, selectedItems, state.customData, false, state.darkMode);
+        return createInitialState(state.sourcePath, selectedItems, state.customData, false, state.lightMode);
       })
 
       .addCase(reset.fulfilled, (state, action) => {
@@ -104,7 +104,7 @@ const createAppReducer = (initialState: AppState) => {
           action.payload.items,
           state.customData,
           true,
-          state.darkMode
+          state.lightMode
         );
         nextState.selectedTopics = state.selectedTopics;
         return nextState;

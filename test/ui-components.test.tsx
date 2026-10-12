@@ -1,3 +1,5 @@
+import { describe, expect, it, jest } from '@jest/globals';
+import '@testing-library/jest-dom/jest-globals';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Card } from '../src/features/card';
 import { Confidence } from '../src/features/confidence';
@@ -121,7 +123,7 @@ describe('UI and display components', () => {
 
     expect(screen.getByRole('link', { name: 'Cliff Jones Jr.' })).toHaveAttribute(
       'href',
-      'https://ko-fi.com/cliff'
+      'https://gofund.me/e965a3bab'
     );
   });
 });

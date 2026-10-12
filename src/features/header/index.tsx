@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDarkMode, type AppDispatch, type RootState } from '../../store';
+import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
 import './style.scss';
@@ -13,13 +13,13 @@ type HeaderProps = {
 export const Header = ({ confirmReset, confirmingReset }: HeaderProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
-  const darkMode = useSelector((state: RootState) => state.kwyjibo.darkMode);
+  const lightMode = useSelector((state: RootState) => state.kwyjibo.lightMode);
   const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
 
   useEffect(() => {
-    document.documentElement.dataset.theme = darkMode ? 'dark' : 'light';
-  }, [darkMode]);
+    document.documentElement.dataset.theme = lightMode ? 'light' : 'dark';
+  }, [lightMode]);
 
   let remainingMessage = `${itemCount} card${itemCount === 1 ? '' : 's'}`;
   if (remainingIds.length === itemCount) {
@@ -35,9 +35,9 @@ export const Header = ({ confirmReset, confirmingReset }: HeaderProps) => {
       <div className="header-toolbar">
         <Button
           className="button--text"
-          onClick={() => dispatch(setDarkMode(!darkMode))}
-          title={`Switch to ${darkMode ? 'Light' : 'Dark'} Mode`}
-        ><Icon name={darkMode ? 'sun' : 'moon'} /></Button>
+          onClick={() => dispatch(setLightMode(!lightMode))}
+          title={`Switch to ${lightMode ? 'Dark' : 'Light'} Mode`}
+        ><Icon name={lightMode ? 'moon' : 'sun'} /></Button>
       </div>
 
       {initializing ? null : (
