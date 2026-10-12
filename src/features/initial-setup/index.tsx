@@ -51,21 +51,27 @@ export const InitialSetup = ({ customData, handleTextChange }: InitialSetupProps
   return (
     <Card message="What do you want to learn today?">
       {availableTopics.length ? (
-        <OptionList label="Preloaded topics:">
-          {availableTopics.map(topic => (
-            <Option
-              key={topic}
-              value={topic}
-              label={`${topic || 'Unspecified'} (${itemCounts[topic]})`}
-              checked={selectedTopics.includes(topic)}
-              onChange={() => toggleTopic(topic)}
-            />
-          ))}
+        <OptionList label="Preloaded cards:">
+          {availableTopics.map(topic => {
+            let itemCountText = '';
+            if (itemCounts[topic] > 1) {
+              itemCountText = ` (${itemCounts[topic]})`;
+            }
+            return (
+              <Option
+                key={topic}
+                value={topic}
+                label={`${topic || 'General'}${itemCountText}`}
+                checked={selectedTopics.includes(topic)}
+                onChange={() => toggleTopic(topic)}
+              />
+            );
+          })}
         </OptionList>
       ) : null}
 
       <InputBox
-        label="Custom quiz data:"
+        label="Custom card data:"
         placeholder={CUSTOM_DATA_EXAMPLE}
         value={customData}
         onChange={handleTextChange}

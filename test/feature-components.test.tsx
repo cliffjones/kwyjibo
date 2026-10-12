@@ -123,12 +123,12 @@ describe('feature and application components', () => {
     );
 
     expect(screen.getAllByRole('checkbox').map(option => option.parentElement?.textContent))
-      .toEqual(['Alpha (2)', 'Zulu (1)']);
-    expect(screen.getByLabelText('Custom quiz data:')).toHaveValue('custom quiz');
+      .toEqual(['Alpha (2)', 'Zulu']);
+    expect(screen.getByLabelText('Custom card data:')).toHaveValue('custom quiz');
     expect(screen.getByRole('button', { name: 'Start' })).toBeEnabled();
 
     fireEvent.click(screen.getByRole('checkbox', { name: 'Alpha (2)' }));
-    fireEvent.change(screen.getByLabelText('Custom quiz data:'), {
+    fireEvent.change(screen.getByLabelText('Custom card data:'), {
       target: { value: 'updated quiz' }
     });
     expect(store.getState().kwyjibo.selectedTopics).toEqual(['Zulu']);
