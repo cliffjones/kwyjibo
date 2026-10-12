@@ -17,7 +17,7 @@ export const loadItems = async (path = '/'): Promise<QuizItem[]> => {
       return [];
     }
 
-    return [`${stem}.kwyz`];
+    return [`${stem}.k`];
   }))];
 
   const itemGroups = await Promise.all(

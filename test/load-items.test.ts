@@ -28,8 +28,8 @@ describe('loadItems', () => {
     const items = await loadItems('/science/dev');
 
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
-      '/data/science.kwyz',
-      '/data/dev.kwyz'
+      '/data/science.k',
+      '/data/dev.k'
     ]);
     expect(items.map(({ topic, question }) => ({ topic, question }))).toEqual([
       { topic: 'Science', question: 'What is a cell?' },
@@ -45,8 +45,8 @@ describe('loadItems', () => {
 
     expect(await loadItems('/missing/not-found')).toEqual([]);
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
-      '/data/missing.kwyz',
-      '/data/not-found.kwyz'
+      '/data/missing.k',
+      '/data/not-found.k'
     ]);
   });
 
@@ -56,7 +56,7 @@ describe('loadItems', () => {
     globalThis.fetch = fetchMock;
 
     expect(await loadItems('/missing')).toEqual([]);
-    expect(fetchMock).toHaveBeenCalledWith('/data/missing.kwyz');
+    expect(fetchMock).toHaveBeenCalledWith('/data/missing.k');
   });
 
   it('ignores HTML quiz responses even when their content type is incorrect', async () => {
@@ -75,13 +75,13 @@ describe('loadItems', () => {
     await loadItems('/%2e%2e/%2Fsecret/dev');
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock).toHaveBeenCalledWith('/data/dev.kwyz');
+    expect(fetchMock).toHaveBeenCalledWith('/data/dev.k');
   });
 
   it('reports errors other than a missing quiz file', async () => {
     globalThis.fetch = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>()
       .mockResolvedValue(createResponse('', 500));
 
-    await expect(loadItems('/dev')).rejects.toThrow('Unable to load dev.kwyz: 500');
+    await expect(loadItems('/dev')).rejects.toThrow('Unable to load dev.k: 500');
   });
 });

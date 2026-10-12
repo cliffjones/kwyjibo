@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 import packageJson from './package.json' with { type: 'json' }
 
 const base = new URL(packageJson.homepage).pathname.replace(/\/?$/, '/')
@@ -17,7 +17,7 @@ const apacheSpaFallback = {
         `RewriteBase ${base}`,
         'RewriteRule ^data/?$ index.html [L]',
         'RewriteCond %{REQUEST_FILENAME} -f',
-        'RewriteRule ^data/[^/]+\\.kwyz$ - [L]',
+        'RewriteRule ^data/[^/]+\\.k$ - [L]',
         'RewriteRule ^data/ - [F,L]',
         'RewriteCond %{REQUEST_FILENAME} -f',
         'RewriteRule ^ - [L]',
