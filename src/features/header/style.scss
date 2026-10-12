@@ -1,0 +1,32 @@
+@use '../../style/color';
+@use '../../style/space';
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: space.$mid;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.header-toolbar {
+  align-items: center;
+  display: flex;
+  gap: space.$mid;
+  position: absolute;
+  right: space.$mid;
+  top: space.$mid;
+}
+
+.header-info {
+  align-items: center;
+  color: color.$pencil;
+  display: flex;
+  gap: space.$small;
+  justify-content: center;
+  line-height: 1;
+}

@@ -1,0 +1,20 @@
+@use '../../style/color';
+@use '../../style/space';
+
+.input-box {
+  color: color.$ink;
+  background: color.$input;
+  font: inherit;
+  min-height: 10rem;
+  padding: space.$small;
+  resize: vertical;
+  width: 100%;
+}
+
+.input-box-label {
+  color: color.$pencil;
+  display: flex;
+  flex-direction: column;
+  gap: space.$small;
+  text-align: left;
+}

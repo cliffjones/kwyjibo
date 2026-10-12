@@ -1,0 +1,25 @@
+@use '../../style/color';
+@use '../../style/space';
+
+.option {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: space.$tiny;
+  margin-right: auto;
+}
+
+.option-list {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: space.$small;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.option-list-label {
+  color: color.$pencil;
+  margin-bottom: space.$small;
+}

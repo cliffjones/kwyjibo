@@ -1,0 +1,23 @@
+@use '../../style/color';
+@use '../../style/size';
+@use '../../style/space';
+
+.card {
+  background: color.$card;
+  border-radius: size.$corner;
+  box-shadow: 0 space.$small size.$shadow color.$shadow;
+  display: flex;
+  flex-direction: column;
+  gap: space.$big;
+  padding: space.$big;
+  text-align: center;
+}
+
+.card-message {
+  color: color.$pencil;
+  font-size: 1.5rem;
+}
+
+.card-content--left {
+  text-align: left;
+}

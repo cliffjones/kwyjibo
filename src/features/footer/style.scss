@@ -1,0 +1,6 @@
+@use '../../style/color';
+
+.footer {
+  color: color.$pencil;
+  text-align: center;
+}
