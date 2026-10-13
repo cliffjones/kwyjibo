@@ -9,6 +9,6 @@ export const persistState = (state: AppState) => {
   try {
     window.localStorage.setItem(getStorageKey(state.sourcePath), JSON.stringify(state));
   } catch (error) {
-    console.error('Unable to save quiz state.', error);
+    console.error('Unable to save app state.', error);
   }
 };

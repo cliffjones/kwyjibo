@@ -59,7 +59,7 @@ describe('UI and display components', () => {
       <button type="button">Answer</button>
     </Card>);
 
-    expect(screen.getByText('What is a cell?').parentNode).toHaveAttribute('title', 'Science');
+    expect(screen.getByText('Science', { selector: '.card-topic' })).toBeInTheDocument();
     expect(screen.getByText('Question')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Answer' })).toBeInTheDocument();
   });

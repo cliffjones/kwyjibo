@@ -18,9 +18,9 @@ export const loadPersistedState = (sourcePath: string): AppState | null => {
       return state;
     }
 
-    console.error('Unable to restore saved quiz state: invalid data.');
+    console.error('Unable to restore app state: invalid data.');
   } catch (error) {
-    console.error('Unable to restore saved quiz state.', error);
+    console.error('Unable to restore app state.', error);
   }
 
   return null;

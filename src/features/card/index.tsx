@@ -18,7 +18,10 @@ export const Card = ({
 }: CardProps) => (
   <section className="card">
     {content ? (
-      <div style={{ fontSize: getTextSize(content) }} title={topic}>
+      <div style={{ fontSize: getTextSize(content) }}>
+        {topic ? (
+          <div className="card-topic">{topic}</div>
+        ) : null}
         {parseCardContent(content)}
       </div>
     ) : null}

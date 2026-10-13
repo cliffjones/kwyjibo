@@ -13,11 +13,21 @@
   text-align: center;
 }
 
+.card-topic {
+  color: color.$pencil;
+  font-size: size.$text;
+  line-height: 1;
+  position: relative;
+  right: calc(space.$mid * -1);
+  text-align: right;
+  top: calc(space.$mid * -1);
+}
+
+.card-content--multi-line {
+  text-align: left;
+}
+
 .card-message {
   color: color.$pencil;
   font-size: 1.5rem;
-}
-
-.card-content--left {
-  text-align: left;
 }

@@ -74,5 +74,5 @@ export const parseCardContent = (text: string): ReactNode => {
     return result;
   }, []);
 
-  return <div className={`card-content${multiLine ? ' card-content--left' : ''}`}>{content}</div>;
+  return <div className={`card-content${multiLine ? ' card-content--multi-line' : ''}`}>{content}</div>;
 };

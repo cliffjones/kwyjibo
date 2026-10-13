@@ -201,7 +201,7 @@ describe('feature and application components', () => {
     );
 
     fireEvent.click(screen.getByTitle('Reset'));
-    expect(screen.getByText('Really reset the quiz?')).toBeInTheDocument();
+    expect(screen.getByText('Really reset the cards?')).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Yes' }));
     expect(await screen.findByText('What do you want to learn today?')).toBeInTheDocument();
