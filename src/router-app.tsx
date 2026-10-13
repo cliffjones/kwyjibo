@@ -16,6 +16,7 @@ export const RouterApp = () => {
 
     void loadItems(pathname)
       .then(items => {
+        // A route change makes this request stale, so don't replace the active route with this result.
         if (!canceled) {
           setRouteLoad({ path: pathname, store: createAppStore(pathname, items) });
         }

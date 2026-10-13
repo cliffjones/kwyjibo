@@ -4,6 +4,7 @@ import { parseQuizData } from './parse-quiz-data';
 import type { QuizItem } from './types';
 
 export const loadItems = async (path = '/'): Promise<QuizItem[]> => {
+  // Each route segment may name a data file. Ignore malformed segments, and try the rest.
   const pathSegments = path.split('/').filter(Boolean);
   const files = [...new Set(pathSegments.flatMap(segment => {
     let stem: string;
@@ -31,6 +32,7 @@ export const loadItems = async (path = '/'): Promise<QuizItem[]> => {
         throw new Error(`Unable to load ${file}: ${response.status}`);
       }
 
+      // Some static hosts return the app shell with status 200 when a data file is missing.
       const data = await response.text();
       if (
         response.headers.get('content-type')?.includes('text/html')

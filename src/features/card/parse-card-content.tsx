@@ -25,6 +25,7 @@ export const parseCardContent = (text: string): ReactNode => {
     const closingPos = text.indexOf(delim, pos + 1);
     const otherDelim = delim === DELIMS.code ? DELIMS.em : DELIMS.code;
     const otherPos = delim === DELIMS.em ? text.indexOf(otherDelim, pos + 1) : -1;
+    // Treat unmatched or crossing delimiters as plain text instead of swallowing another span.
     if (closingPos <= pos + 1 || (otherPos !== -1 && otherPos < closingPos)) {
       pos += 1;
       continue;
@@ -53,6 +54,7 @@ export const parseCardContent = (text: string): ReactNode => {
         return part;
       }
 
+      // Preserve indentation after the line break. HTML would otherwise collapse these spaces.
       multiLine = true;
       return (
         <Fragment key={key++}>

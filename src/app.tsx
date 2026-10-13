@@ -52,6 +52,7 @@ export const App = ({ path }: { path: string }) => {
     setRevealed(false);
 
     try {
+      // Keep the confirmation open on failure so the user can retry or cancel.
       await dispatch(reset(path)).unwrap();
       setConfirmingReset(false);
     } catch (error) {

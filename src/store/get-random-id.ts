@@ -1,6 +1,6 @@
 import type { QuizItem } from './types';
 
-// Returns a random ID from the list, weighted by confidence. Lower ratings are more likely chosen.
+// Returns a random ID from the list, weighted by confidence to make lower ratings more likely.
 export const getRandomId = (
   ids: number[],
   items: QuizItem[],

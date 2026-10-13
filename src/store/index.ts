@@ -25,6 +25,7 @@ const createInitialState = (
 ): AppState => {
   const items = loadedItems.map((item, index) => ({ ...item, id: index }));
   if (!initializing) {
+    // Assign pasted cards IDs after the loaded cards so both sets can share a single state.
     items.push(...parseQuizData(customData).map((item, index) => ({
       ...item,
       id: items.length + index,
@@ -106,6 +107,7 @@ const createAppReducer = (initialState: AppState) => {
           true,
           state.lightMode
         );
+        // Keep the user's topic choices when rebuilding the loaded cards.
         nextState.selectedTopics = state.selectedTopics;
         return nextState;
       });
