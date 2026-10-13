@@ -40,7 +40,7 @@ describe('RouterApp', () => {
 
     resolveItems(items);
     expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
-    expect(screen.getByText('What do you want to learn today?')).toBeInTheDocument();
+    expect(screen.getByText('What do you want to work on today?')).toBeInTheDocument();
     expect(mockedLoadItems).toHaveBeenCalledWith('/science');
   });
 

@@ -204,7 +204,7 @@ describe('feature and application components', () => {
     expect(screen.getByText('Really reset the cards?')).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Yes' }));
-    expect(await screen.findByText('What do you want to learn today?')).toBeInTheDocument();
+    expect(await screen.findByText('What do you want to work on today?')).toBeInTheDocument();
     expect(mockedLoadItems).toHaveBeenCalledWith('/test');
     expect(store.getState().kwyjibo.lightMode).toBe(false);
   });

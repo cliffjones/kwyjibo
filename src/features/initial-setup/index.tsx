@@ -49,7 +49,7 @@ export const InitialSetup = ({ customData, handleTextChange }: InitialSetupProps
   };
 
   return (
-    <Card message="What do you want to learn today?">
+    <Card message="What do you want to work on today?">
       {availableTopics.length ? (
         <OptionList label="Preloaded cards:">
           {availableTopics.map(topic => {

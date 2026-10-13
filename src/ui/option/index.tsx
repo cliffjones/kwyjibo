@@ -5,9 +5,9 @@ type OptionProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
 };
 
-export const Option = ({ label, ...props }: OptionProps) => (
+export const Option = ({ value, label, ...props }: OptionProps) => (
   <label className="option">
-    <input type="checkbox" {...props} />
-    {label}
+    <input type="checkbox" value={value} {...props} />
+    {value ? label : <em>{label}</em>}
   </label>
 );
