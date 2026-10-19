@@ -1,10 +1,6 @@
 import { IconName } from './types';
 
-type IconProps = {
-  name: IconName;
-};
-
-export const Icon = ({ name }: IconProps) => (
+export const Icon = ({ name }: { name: IconName }) => (
   <svg
     className="icon"
     aria-hidden="true"

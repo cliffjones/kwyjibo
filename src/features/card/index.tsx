@@ -3,19 +3,17 @@ import { getTextSize } from './get-text-size';
 import { parseCardContent } from './parse-card-content';
 import './style.scss';
 
-type CardProps = {
-  children?: ReactNode;
-  topic?: string;
-  content?: string;
-  message?: string;
-};
-
 export const Card = ({
   children,
   topic,
   content,
-  message,
-}: CardProps) => (
+  message
+}: {
+  children?: ReactNode;
+  topic?: string;
+  content?: string;
+  message?: string;
+}) => (
   <section className="card">
     {content ? (
       <div style={{ fontSize: getTextSize(content) }}>

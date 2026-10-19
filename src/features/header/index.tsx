@@ -5,12 +5,13 @@ import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
 import './style.scss';
 
-type HeaderProps = {
+export const Header = ({
+  confirmReset,
+  confirmingReset
+}: {
   confirmReset: () => void;
   confirmingReset: boolean;
-};
-
-export const Header = ({ confirmReset, confirmingReset }: HeaderProps) => {
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
   const lightMode = useSelector((state: RootState) => state.kwyjibo.lightMode);

@@ -1,10 +1,6 @@
 import type { ReactNode } from 'react';
 import './style.scss';
 
-type ButtonSetProps = {
-  children: ReactNode;
-};
-
-export const ButtonSet = ({ children }: ButtonSetProps) => (
+export const ButtonSet = ({ children }: { children: ReactNode }) => (
   <div className="button-set">{children}</div>
 );

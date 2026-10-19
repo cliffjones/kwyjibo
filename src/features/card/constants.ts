@@ -5,3 +5,5 @@ export const DELIMS = {
   code: '`',
   em: '*'
 } as const;
+
+export const LINK_PATTERN = /^(!?)\[([^\]\r\n]*)\]\(([^\s)\r\n]+)(?:\s+"([^"\r\n]*)")?\)/;

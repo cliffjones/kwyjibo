@@ -3,11 +3,7 @@ import { ButtonSet } from '../../ui/button/button-set';
 import { Icon } from '../../ui/icon';
 import { CONFIDENCE_RATINGS } from './constants';
 
-type ConfidenceProps = {
-  handleRating: (rating: number) => void;
-};
-
-export const Confidence = ({ handleRating }: ConfidenceProps) => (
+export const Confidence = ({ handleRating }: { handleRating: (rating: number) => void }) => (
   <ButtonSet>
     Got it?
     <Button

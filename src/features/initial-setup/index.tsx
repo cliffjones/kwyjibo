@@ -25,12 +25,13 @@ const selectItemCounts = createSelector(
     }, {})
 );
 
-type InitialSetupProps = {
+export const InitialSetup = ({
+  customData,
+  handleTextChange
+}: {
   customData: string;
   handleTextChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-};
-
-export const InitialSetup = ({ customData, handleTextChange }: InitialSetupProps) => {
+}) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const availableTopics = useSelector(selectAvailableTopics);

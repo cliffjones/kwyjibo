@@ -1,11 +1,13 @@
 import type { TextareaHTMLAttributes } from 'react';
 import './style.scss';
 
-type InputBoxProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+export const InputBox = ({
+  label,
+  className,
+  ...props
+}: TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label?: string;
-};
-
-export const InputBox = ({ label, className, ...props }: InputBoxProps) => (
+}) => (
   <label className="input-box-label">
     {label}
     <textarea

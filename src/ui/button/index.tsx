@@ -1,9 +1,7 @@
 import type { ButtonHTMLAttributes } from 'react';
 import './style.scss';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
-
-export const Button = ({ className, ...props }: ButtonProps) => (
+export const Button = ({ className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
   <button
     className={['button', className].filter(Boolean).join(' ')}
     {...props}
