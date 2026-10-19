@@ -13,7 +13,7 @@ const normalizeData = (data: string) => {
 };
 
 export const parseQuizData = (data: string): QuizData[] => {
-  // If the data looks like JSON, treat it as such.
+  // If the data looks like a JSON array, treat it as such.
   if (data.trimStart().startsWith('[')) {
     const parsedData = JSON.parse(data);
     if (Array.isArray(parsedData) && parsedData.every(isQuizData)) {
