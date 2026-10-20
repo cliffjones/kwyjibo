@@ -1,6 +1,6 @@
-import { parseJson } from '../utils/parse-json';
 import { isQuizData } from './is-quiz-data';
 import { isQuizSettings } from './is-quiz-settings';
+import { parseJson } from './parse-json';
 import { QuizData, QuizSettings } from './types';
 
 const normalizeData = (data: string) => {
