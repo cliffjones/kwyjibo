@@ -1,4 +1,4 @@
-import { getStorageKey } from './constants';
+import { getStorageKey } from './get-storage-key';
 import { AppState } from './types';
 
 export const persistState = (state: AppState) => {

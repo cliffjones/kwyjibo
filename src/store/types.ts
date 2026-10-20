@@ -1,3 +1,8 @@
+export type QuizSettings = {
+  language?: string;
+  initialContent?: string;
+};
+
 export type QuizData = {
   question: string;
   answer: string;

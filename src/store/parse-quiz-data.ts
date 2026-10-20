@@ -1,5 +1,7 @@
+import { parseJson } from '../utils/parse-json';
 import { isQuizData } from './is-quiz-data';
-import { QuizData } from './types';
+import { isQuizSettings } from './is-quiz-settings';
+import { QuizData, QuizSettings } from './types';
 
 const normalizeData = (data: string) => {
   const normalData = data.replaceAll('\r', '');
@@ -12,16 +14,38 @@ const normalizeData = (data: string) => {
   return normalData.replaceAll('\n', '\n\n').replaceAll('\t', '\n');
 };
 
+/** @todo: Each item returned can be QuizSettings or QuizData. Maybe make a parent type and make tasks a third subtype. */
 export const parseQuizData = (data: string): QuizData[] => {
+  let newData = data.trim();
+  let quizSettings: QuizSettings = {};
+
   // If the data looks like a JSON array, treat it as such.
-  if (data.trimStart().startsWith('[')) {
-    const parsedData = JSON.parse(data);
-    if (Array.isArray(parsedData) && parsedData.every(isQuizData)) {
-      return parsedData;
+  if (newData.startsWith('[')) {
+    const parsedData = parseJson(newData);
+    if (Array.isArray(parsedData) && parsedData.length) {
+      if (isQuizSettings(parsedData[0])) {
+        quizSettings = parsedData.shift();
+      }
+      if (parsedData.every(isQuizData)) {
+        return parsedData;
+      }
     }
   }
 
-  const blocks = normalizeData(data)
+  // If the data starts with a JSON object, parse that separately.
+  if (newData.startsWith('{')) {
+    const closingPos = newData.indexOf('}');
+    if (closingPos > 0) {
+      const parsedObject = parseJson(newData.slice(0, closingPos + 1));
+      if (isQuizSettings(parsedObject)) {
+        quizSettings = parsedObject;
+        newData = newData.slice(closingPos + 1).trimStart();
+      }
+    }
+  }
+
+  // Break the remaining data down into blocks separated by blank lines.
+  const blocks = normalizeData(newData)
     .split('\n')
     .reduce<string[][]>((result, line) => {
       if (line.trim() === '') {
@@ -38,6 +62,7 @@ export const parseQuizData = (data: string): QuizData[] => {
     }, [])
     .filter(block => block.length > 0);
 
+  // Process each block, using the number of lines in each to determine its type.
   const items: QuizData[] = [];
   let topic = '';
   blocks.forEach((block) => {

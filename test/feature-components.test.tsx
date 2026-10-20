@@ -8,7 +8,7 @@ import { Header } from '../src/features/header';
 import { InitialSetup } from '../src/features/initial-setup';
 import { CUSTOM_DATA_EXAMPLE } from '../src/features/initial-setup/constants';
 import { createAppStore, rateConfidence, setCustomData, setLightMode, startQuiz } from '../src/store';
-import { getStorageKey } from '../src/store/constants';
+import { getStorageKey } from '../src/store/get-storage-key';
 import { loadItems } from '../src/store/load-items';
 import type { QuizItem } from '../src/store/types';
 
