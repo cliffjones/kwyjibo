@@ -1,4 +1,4 @@
-import { loadItems } from '../src/store/load-items';
+import { loadItems } from './load-items';
 
 const createResponse = (
   body: string,

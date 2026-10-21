@@ -3,5 +3,6 @@
   "compilerOptions": {
     "types": ["vite/client", "jest"]
   },
-  "include": ["src", "test"]
+  "include": ["src", "test/setup.ts"],
+  "exclude": []
 }

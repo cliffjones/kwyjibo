@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { parseCardContent } from '../src/features/card/parse-card-content';
+import { parseCardContent } from './parse-card-content';
 
 describe('parseCardContent', () => {
   it('renders Markdown-style links and images', () => {

@@ -1,14 +1,14 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { useLocation } from 'react-router';
-import { RouterApp } from '../src/router-app';
-import { loadItems } from '../src/store/load-items';
-import type { QuizItem } from '../src/store/types';
+import { RouterApp } from './router-app';
+import { loadItems } from './store/load-items';
+import type { QuizItem } from './store/types';
 
 jest.mock('react-router', () => ({
   useLocation: jest.fn()
 }));
 
-jest.mock('../src/store/load-items', () => ({
+jest.mock('./store/load-items', () => ({
   loadItems: jest.fn()
 }));
 
