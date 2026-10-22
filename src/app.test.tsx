@@ -36,16 +36,16 @@ describe('App', () => {
 
     const currentId = store.getState().kwyjibo.currentId;
     const currentItem = store.getState().kwyjibo.items.find(item => item.id === currentId);
-    const answer = currentItem?.answer;
+    const solution = currentItem?.solution;
     fireEvent.click(screen.getByTitle('Yes!'));
 
     expect(store.getState().kwyjibo.remainingIds).toHaveLength(1);
-    expect(screen.queryByText(answer ?? '')).not.toBeInTheDocument();
+    expect(screen.queryByText(solution ?? '')).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Reveal' })).toBeInTheDocument();
   });
 
   it('renders the reset confirmation and dispatches reset when accepted', async () => {
-    mockedLoadItems.mockResolvedValue([]);
+    mockedLoadItems.mockResolvedValue([{}]);
     const store = createAppStore('/test');
     store.dispatch(setCustomData(CUSTOM_DATA_EXAMPLE));
     store.dispatch(setLightMode(false));

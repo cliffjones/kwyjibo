@@ -1,4 +1,5 @@
-import { isQuizItem } from './is-quiz-item';
+import { isConfigData } from './is-config-data';
+import { isKItem } from './is-k-item';
 import type { AppState } from './types';
 
 export const isAppState = (value: unknown): value is AppState => {
@@ -11,7 +12,11 @@ export const isAppState = (value: unknown): value is AppState => {
     return false;
   }
 
-  if (!Array.isArray(state.items) || !state.items.every(isQuizItem)) {
+  if (!isConfigData(state.configData)) {
+    return false;
+  }
+
+  if (!Array.isArray(state.items) || !state.items.every(isKItem)) {
     return false;
   }
 

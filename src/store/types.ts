@@ -1,25 +1,39 @@
-export type QuizSettings = {
+export type ConfigData = {
+  theme?: string;
   language?: string;
-  initialContent?: string;
+  title?: string;
+  heading?: string;
+  intro?: string;
+  footer?: string;
 };
 
 export type QuizData = {
-  question: string;
-  answer: string;
+  task: string;
+  solution: string;
   topic?: string;
 };
 
-export type QuizItem = {
+export type TaskData = {
+  type: string; // Binary (-), numeric (#), text (>)...?
+  task: string;
+  topic?: string;
+};
+
+export type KData = QuizData | TaskData;
+
+export type KItem = {
   id: number;
+  type: string;
   topic: string;
-  question: string;
-  answer: string;
+  task: string;
+  solution: string;
   confidence: number;
 };
 
 export type AppState = {
   sourcePath: string;
-  items: QuizItem[];
+  configData: ConfigData;
+  items: KItem[];
   customData: string;
   initializing: boolean;
   lightMode: boolean;

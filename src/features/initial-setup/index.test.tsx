@@ -1,18 +1,18 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createAppStore, setCustomData } from '../../store';
-import type { QuizItem } from '../../store/types';
+import type { KItem } from '../../store/types';
 import { InitialSetup } from './index';
 
-const items: QuizItem[] = [
-  { id: 0, topic: 'Zulu', question: 'Question Z?', answer: 'Answer Z.', confidence: 0 },
-  { id: 1, topic: 'Alpha', question: 'Question A?', answer: 'Answer A.', confidence: 0 },
-  { id: 2, topic: 'Alpha', question: 'Another question A?', answer: 'Another answer A.', confidence: 0 }
+const items: KItem[] = [
+  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question Z?', solution: 'Answer Z.', confidence: 0 },
+  { id: 1, type: 'quiz', topic: 'Alpha', task: 'Question A?', solution: 'Answer A.', confidence: 0 },
+  { id: 2, type: 'quiz', topic: 'Alpha', task: 'Another question A?', solution: 'Another answer A.', confidence: 0 }
 ];
 
 describe('InitialSetup', () => {
   it('lists unique topics in order, updates selection, and starts the quiz', () => {
-    const store = createAppStore('/test', items);
+    const store = createAppStore('/test', {}, items);
     store.dispatch(setCustomData(''));
     const handleTextChange = jest.fn();
 

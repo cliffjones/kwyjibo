@@ -1,4 +1,4 @@
-{"initialContent": "TESTING"}
+{ "title": "Test Data", "intro": "TESTING" }
 
 Testing
 

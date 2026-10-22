@@ -6,11 +6,11 @@ export const isQuizData = (value: unknown): value is QuizData => {
   }
   const item = value as Record<string, unknown>;
 
-  if (!item.question || typeof item.question !== 'string') {
+  if (!item.task || typeof item.task !== 'string') {
     return false;
   }
 
-  if (!item.answer || typeof item.answer !== 'string') {
+  if (!item.solution || typeof item.solution !== 'string') {
     return false;
   }
 

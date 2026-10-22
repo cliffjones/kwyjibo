@@ -15,10 +15,11 @@ export const RouterApp = () => {
     let canceled = false;
 
     void loadItems(pathname)
-      .then(items => {
+      .then((data) => {
         // A route change makes this request stale, so don't replace the active route with this result.
         if (!canceled) {
-          setRouteLoad({ path: pathname, store: createAppStore(pathname, items) });
+          const [configData, ...items] = data;
+          setRouteLoad({ path: pathname, store: createAppStore(pathname, configData, items) });
         }
       })
       .catch((error: unknown) => {

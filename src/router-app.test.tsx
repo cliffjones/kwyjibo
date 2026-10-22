@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { useLocation } from 'react-router';
 import { RouterApp } from './router-app';
 import { loadItems } from './store/load-items';
-import type { QuizItem } from './store/types';
+import type { ConfigData, KItem } from './store/types';
 
 jest.mock('react-router', () => ({
   useLocation: jest.fn()
@@ -15,8 +15,8 @@ jest.mock('./store/load-items', () => ({
 const mockedUseLocation = jest.mocked(useLocation);
 const mockedLoadItems = jest.mocked(loadItems);
 
-const items: QuizItem[] = [
-  { id: 0, topic: 'Science', question: 'What is a cell?', answer: 'A basic unit of life.', confidence: 0 }
+const items: KItem[] = [
+  { id: 0, type: 'quiz', topic: 'Science', task: 'What is a cell?', solution: 'A basic unit of life.', confidence: 0 }
 ];
 
 describe('RouterApp', () => {
@@ -30,7 +30,7 @@ describe('RouterApp', () => {
   });
 
   it('shows loading state before rendering the loaded application', async () => {
-    let resolveItems!: (items: QuizItem[]) => void;
+    let resolveItems!: (items: [ConfigData, ...KItem[]]) => void;
     mockedLoadItems.mockReturnValue(new Promise(resolve => {
       resolveItems = resolve;
     }));
@@ -38,7 +38,7 @@ describe('RouterApp', () => {
     render(<RouterApp />);
     expect(screen.getByText('Loading…')).toBeInTheDocument();
 
-    resolveItems(items);
+    resolveItems([{} as ConfigData, ...items]);
     expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
     expect(screen.getByText('What do you want to work on today?')).toBeInTheDocument();
     expect(mockedLoadItems).toHaveBeenCalledWith('/science');

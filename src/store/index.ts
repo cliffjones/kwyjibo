@@ -2,9 +2,9 @@ import { configureStore, createAction, createAsyncThunk, createReducer } from '@
 import { getRandomId } from './get-random-id';
 import { loadItems } from './load-items';
 import { loadPersistedState } from './load-persisted-state';
-import { parseQuizData } from './parse-quiz-data';
+import { parseKData } from './parse-k-data';
 import { persistState } from './persist-state';
-import type { AppState, QuizItem } from './types';
+import type { AppState, ConfigData, KItem } from './types';
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
@@ -18,18 +18,26 @@ export const reset = createAsyncThunk(
 
 const createInitialState = (
   sourcePath = '/',
-  loadedItems: QuizItem[] = [],
+  configData: ConfigData = {},
+  loadedItems: KItem[] = [],
   customData = '',
   initializing = true,
   lightMode = false
 ): AppState => {
   const items = loadedItems.map((item, index) => ({ ...item, id: index }));
+  let customConfigData: ConfigData = {};
+
   if (!initializing) {
-    // Assign pasted cards IDs after the loaded cards so both sets can share a single state.
-    items.push(...parseQuizData(customData).map((item, index) => ({
+    const [data, ...customItems] = parseKData(customData);
+    customConfigData = data;
+
+    // Assign custom card IDs after the loaded cards so both sets can share a single state.
+    items.push(...customItems.map((item, index) => ({
       ...item,
       id: items.length + index,
+      type: 'type' in item ? item.type : 'quiz',
       topic: item.topic ?? '',
+      solution: 'solution' in item ? item.solution : '',
       confidence: 0
     })));
   }
@@ -37,6 +45,7 @@ const createInitialState = (
   const ids = items.map(item => item.id);
 
   return {
+    configData: { ...configData, ...customConfigData },
     items,
     customData,
     initializing,
@@ -96,13 +105,15 @@ const createAppReducer = (initialState: AppState) => {
 
       .addCase(startQuiz, state => {
         const selectedItems = state.items.filter(item => state.selectedTopics.includes(item.topic));
-        return createInitialState(state.sourcePath, selectedItems, state.customData, false, state.lightMode);
+        return createInitialState(state.sourcePath, state.configData, selectedItems, state.customData, false, state.lightMode);
       })
 
       .addCase(reset.fulfilled, (state, action) => {
+        const [configData, ...items] = action.payload.items;
         const nextState = createInitialState(
           action.payload.path,
-          action.payload.items,
+          configData,
+          items,
           state.customData,
           true,
           state.lightMode
@@ -114,12 +125,12 @@ const createAppReducer = (initialState: AppState) => {
   });
 };
 
-export const createAppStore = (sourcePath = '/', items: QuizItem[] = []) => {
+export const createAppStore = (sourcePath = '/', configData: ConfigData = {}, items: KItem[] = []) => {
   const savedState = loadPersistedState(sourcePath);
   const restoredState = savedState?.sourcePath === sourcePath
     ? { ...savedState, sourcePath }
     : null;
-  const initialState = restoredState ?? createInitialState(sourcePath, items);
+  const initialState = restoredState ?? createInitialState(sourcePath, configData, items);
 
   const store = configureStore({
     reducer: { kwyjibo: createAppReducer(initialState) }

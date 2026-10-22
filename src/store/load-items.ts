@@ -1,9 +1,11 @@
 import { DATA_PATH } from './constants';
+import { isConfigData } from './is-config-data';
 import { isQuizData } from './is-quiz-data';
-import { parseQuizData } from './parse-quiz-data';
-import type { QuizItem } from './types';
+import { isTaskData } from './is-task-data';
+import { parseKData } from './parse-k-data';
+import type { ConfigData, KItem } from './types';
 
-export const loadItems = async (path = '/'): Promise<QuizItem[]> => {
+export const loadItems = async (path = '/'): Promise<[ConfigData, ...KItem[]]> => {
   // Each route segment may name a data file. Ignore malformed segments, and try the rest.
   const pathSegments = path.split('/').filter(Boolean);
   const files = [...new Set(pathSegments.flatMap(segment => {
@@ -41,14 +43,27 @@ export const loadItems = async (path = '/'): Promise<QuizItem[]> => {
         return [];
       }
 
-      return parseQuizData(data);
+      return parseKData(data);
     })
   );
 
-  return itemGroups.flat().filter(isQuizData).map((item, index) => ({
+  // Pull the config data off the front of each data set, and flatten it into a single object.
+  let configData: ConfigData = {};
+  itemGroups.forEach((group) => {
+    if (!isConfigData(group[0])) {
+      return;
+    }
+    configData = { ...configData, ...group.shift() };
+  });
+
+  const items: KItem[] = itemGroups.flat().filter((item) => isQuizData(item) || isTaskData(item)).map((item, index) => ({
     ...item,
     id: index,
+    type: 'type' in item ? item.type : 'quiz',
     topic: item.topic ?? '',
+    solution: 'solution' in item ? item.solution : '',
     confidence: 0
   }));
+
+  return [configData, ...items];
 };

@@ -25,15 +25,15 @@ describe('loadItems', () => {
       .mockResolvedValueOnce(createResponse('Dev\n\nWhat is JSX?\nA syntax extension.'));
     globalThis.fetch = fetchMock;
 
-    const items = await loadItems('/science/dev');
+    const [, ...items] = await loadItems('/science/dev');
 
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
       '/data/science.k',
       '/data/dev.k'
     ]);
-    expect(items.map(({ topic, question }) => ({ topic, question }))).toEqual([
-      { topic: 'Science', question: 'What is a cell?' },
-      { topic: 'Dev', question: 'What is JSX?' }
+    expect(items.map(({ topic, task }) => ({ topic, task }))).toEqual([
+      { topic: 'Science', task: 'What is a cell?' },
+      { topic: 'Dev', task: 'What is JSX?' }
     ]);
   });
 
@@ -43,7 +43,7 @@ describe('loadItems', () => {
       .mockResolvedValueOnce(createResponse('', 404));
     globalThis.fetch = fetchMock;
 
-    expect(await loadItems('/missing/not-found')).toEqual([]);
+    expect(await loadItems('/missing/not-found')).toEqual([{}]);
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
       '/data/missing.k',
       '/data/not-found.k'
@@ -55,7 +55,7 @@ describe('loadItems', () => {
       .mockResolvedValueOnce(createResponse('<!doctype html><html><body>App</body></html>'));
     globalThis.fetch = fetchMock;
 
-    expect(await loadItems('/missing')).toEqual([]);
+    expect(await loadItems('/missing')).toEqual([{}]);
     expect(fetchMock).toHaveBeenCalledWith('/data/missing.k');
   });
 
@@ -64,7 +64,7 @@ describe('loadItems', () => {
       .mockResolvedValueOnce(createResponse('<html><body>App</body></html>', 200, 'text/plain'));
     globalThis.fetch = fetchMock;
 
-    expect(await loadItems('/missing')).toEqual([]);
+    expect(await loadItems('/missing')).toEqual([{}]);
   });
 
   it('does not fetch traversal segments or decoded path separators', async () => {

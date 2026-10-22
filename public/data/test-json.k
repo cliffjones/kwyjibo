@@ -1,37 +1,37 @@
 [
   {
     "topic": "Testing JSON",
-    "question": "Four?",
-    "answer": "Four."
+    "task": "Four?",
+    "solution": "Four."
   },
   {
     "topic": "Testing JSON",
-    "question": "Five?",
-    "answer": "Five."
+    "task": "Five?",
+    "solution": "Five."
   },
   {
     "topic": "Testing JSON",
-    "question": "Six?",
-    "answer": "Six."
+    "task": "Six?",
+    "solution": "Six."
   },
   {
     "topic": "Testing More JSON",
-    "question": "Seven?",
-    "answer": "Seven."
+    "task": "Seven?",
+    "solution": "Seven."
   },
   {
     "topic": "Testing More JSON",
-    "question": "Eight?",
-    "answer": "Eight."
+    "task": "Eight?",
+    "solution": "Eight."
   },
   {
     "topic": "Testing More JSON",
-    "question": "Nine?",
-    "answer": "Nine."
+    "task": "Nine?",
+    "solution": "Nine."
   },
   {
     "topic": "Testing More JSON",
-    "question": "Ten?",
-    "answer": "Ten."
+    "task": "Ten?",
+    "solution": "Ten."
   }
 ]

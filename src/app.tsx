@@ -83,7 +83,7 @@ export const App = ({ path }: { path: string }) => {
           </ButtonSet>
         </Card>
       ) : remainingIds.length && currentItem ? (<>
-        <Card topic={currentItem.topic} content={currentItem.question}>
+        <Card topic={currentItem.topic} content={currentItem.task}>
           {!revealed ? (
             <ButtonSet>
               <Button onClick={handleReveal}>
@@ -95,7 +95,7 @@ export const App = ({ path }: { path: string }) => {
         </Card>
 
         {revealed && (
-          <Card content={currentItem.answer}>
+          <Card content={currentItem.solution}>
             <Confidence handleRating={handleRating} />
           </Card>
         )}

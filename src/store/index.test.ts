@@ -8,6 +8,7 @@ describe('app store', () => {
   it('persists independent app state for each route', () => {
     window.localStorage.setItem('kwyjibo', JSON.stringify({
       sourcePath: '/science',
+      configData: {},
       items: [],
       customData: 'legacy shared quiz',
       initializing: true,

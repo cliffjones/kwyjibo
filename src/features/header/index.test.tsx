@@ -2,11 +2,11 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createAppStore, startQuiz } from '../../store';
 import { getStorageKey } from '../../store/get-storage-key';
-import type { QuizItem } from '../../store/types';
+import type { KItem } from '../../store/types';
 import { Header } from './index';
 
-const items: QuizItem[] = [
-  { id: 0, topic: 'Zulu', question: 'Question?', answer: 'Answer.', confidence: 0 }
+const items: KItem[] = [
+  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', confidence: 0 }
 ];
 
 describe('Header', () => {
@@ -16,7 +16,7 @@ describe('Header', () => {
   });
 
   it('shows card counts and calls the reset confirmation handler', () => {
-    const store = createAppStore('/test', items);
+    const store = createAppStore('/test', {}, items);
     store.dispatch(startQuiz());
     const confirmReset = jest.fn();
 

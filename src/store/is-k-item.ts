@@ -1,6 +1,6 @@
-import { QuizItem } from './types';
+import { KItem } from './types';
 
-export const isQuizItem = (value: unknown): value is QuizItem => {
+export const isKItem = (value: unknown): value is KItem => {
   if (value == null || typeof value !== 'object') {
     return false;
   }
@@ -10,15 +10,19 @@ export const isQuizItem = (value: unknown): value is QuizItem => {
     return false;
   }
 
+  if (typeof item.type !== 'string') {
+    return false;
+  }
+
   if (typeof item.topic !== 'string') {
     return false;
   }
 
-  if (!item.question || typeof item.question !== 'string') {
+  if (!item.task || typeof item.task !== 'string') {
     return false;
   }
 
-  if (!item.answer || typeof item.answer !== 'string') {
+  if (item.type === 'quiz' && (!item.solution || typeof item.solution !== 'string')) {
     return false;
   }
 

@@ -1,7 +1,8 @@
+import { isConfigData } from './is-config-data';
 import { isQuizData } from './is-quiz-data';
-import { isQuizSettings } from './is-quiz-settings';
+import { isTaskData } from './is-task-data';
 import { parseJson } from './parse-json';
-import { QuizData, QuizSettings } from './types';
+import { ConfigData, KData } from './types';
 
 const normalizeData = (data: string) => {
   const normalData = data.replaceAll('\r', '');
@@ -14,20 +15,19 @@ const normalizeData = (data: string) => {
   return normalData.replaceAll('\n', '\n\n').replaceAll('\t', '\n');
 };
 
-/** @todo: Each item returned can be QuizSettings or QuizData. Maybe make a parent type and make tasks a third subtype. */
-export const parseQuizData = (data: string): QuizData[] => {
+export const parseKData = (data: string): [ConfigData, ...KData[]] => {
   let newData = data.trim();
-  let quizSettings: QuizSettings = {};
+  let configData: ConfigData = {};
 
   // If the data looks like a JSON array, treat it as such.
   if (newData.startsWith('[')) {
     const parsedData = parseJson(newData);
     if (Array.isArray(parsedData) && parsedData.length) {
-      if (isQuizSettings(parsedData[0])) {
-        quizSettings = parsedData.shift();
+      if (isConfigData(parsedData[0])) {
+        configData = parsedData.shift();
       }
-      if (parsedData.every(isQuizData)) {
-        return parsedData;
+      if (parsedData.every((item) => isQuizData(item) || isTaskData(item))) {
+        return [configData, ...parsedData];
       }
     }
   }
@@ -37,8 +37,8 @@ export const parseQuizData = (data: string): QuizData[] => {
     const closingPos = newData.indexOf('}');
     if (closingPos > 0) {
       const parsedObject = parseJson(newData.slice(0, closingPos + 1));
-      if (isQuizSettings(parsedObject)) {
-        quizSettings = parsedObject;
+      if (isConfigData(parsedObject)) {
+        configData = parsedObject;
         newData = newData.slice(closingPos + 1).trimStart();
       }
     }
@@ -62,16 +62,16 @@ export const parseQuizData = (data: string): QuizData[] => {
     }, [])
     .filter(block => block.length > 0);
 
-  // Process each block, using the number of lines in each to determine its type.
-  const items: QuizData[] = [];
+  const items: KData[] = [];
   let topic = '';
   blocks.forEach((block) => {
     if (block.length === 1) {
+      /** @todo: Look at the first character here to distinguish tasks from topics. */
       topic = block[0];
     } else {
-      items.push({ topic, question: block[0], answer: block[1] });
+      items.push({ topic, task: block[0], solution: block[1] });
     }
   });
 
-  return items;
+  return [configData, ...items];
 };

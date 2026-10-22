@@ -1,7 +1,7 @@
 import { Fragment, type ReactNode } from 'react';
 import { Image } from '../../ui/image';
 import { Link } from '../../ui/link';
-import { DELIMS, LINK_PATTERN } from './constants';
+import { MD_DELIMS, MD_LINK_PATTERN } from './constants';
 import { isSafeUrl } from './is-safe-url';
 import type { InlineToken } from './types';
 
@@ -43,7 +43,7 @@ export const parseCardContent = (text: string): ReactNode => {
   // Step through the text using delimiters to split it into a set of tokens.
   while (pos < newText.length) {
     // Check specifically for links and images, which share virtually the same markup.
-    const linkMatch = LINK_PATTERN.exec(newText.slice(pos));
+    const linkMatch = MD_LINK_PATTERN.exec(newText.slice(pos));
     if (linkMatch) {
       const [, imageMarker, label, url, title] = linkMatch;
       const isImage = imageMarker === '!';
@@ -65,14 +65,14 @@ export const parseCardContent = (text: string): ReactNode => {
     }
 
     const delim = newText[pos];
-    if (!(Object.values(DELIMS) as string[]).includes(delim)) {
+    if (!Object.values(MD_DELIMS).includes(delim)) {
       pos += 1;
       continue;
     }
 
     const closingPos = newText.indexOf(delim, pos + 1);
-    const otherDelim = delim === DELIMS.code ? DELIMS.em : DELIMS.code;
-    const otherPos = delim === DELIMS.em ? newText.indexOf(otherDelim, pos + 1) : -1;
+    const otherDelim = delim === MD_DELIMS.code ? MD_DELIMS.em : MD_DELIMS.code;
+    const otherPos = delim === MD_DELIMS.em ? newText.indexOf(otherDelim, pos + 1) : -1;
 
     // Treat unmatched or crossing delimiters as plain text instead of swallowing another span.
     if (closingPos <= pos + 1 || (otherPos !== -1 && otherPos < closingPos)) {
@@ -84,7 +84,7 @@ export const parseCardContent = (text: string): ReactNode => {
       tokens.push({ type: 'text', text: newText.slice(startingPos, pos) });
     }
     tokens.push({
-      type: delim === DELIMS.code ? 'code' : 'em',
+      type: delim === MD_DELIMS.code ? 'code' : 'em',
       text: newText.slice(pos + 1, closingPos)
     });
     pos = closingPos + 1;
