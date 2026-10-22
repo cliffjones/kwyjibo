@@ -15,6 +15,7 @@ export const Header = ({
   const dispatch = useDispatch<AppDispatch>();
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
   const lightMode = useSelector((state: RootState) => state.kwyjibo.lightMode);
+  const configData = useSelector((state: RootState) => state.kwyjibo.configData);
   const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
 
@@ -31,7 +32,7 @@ export const Header = ({
 
   return (<>
     <header className="header">
-      <h1 className="header-title">Kwyjibo</h1>
+      <h1 className="header-title">{configData.title || 'Kwyjibo'}</h1>
 
       <div className="header-toolbar">
         <Button

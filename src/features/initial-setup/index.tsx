@@ -34,6 +34,7 @@ export const InitialSetup = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
+  const configData = useSelector((state: RootState) => state.kwyjibo.configData);
   const availableTopics = useSelector(selectAvailableTopics);
   const itemCounts = useSelector(selectItemCounts);
   const selectedTopics = useSelector((state: RootState) => state.kwyjibo.selectedTopics);
@@ -50,7 +51,7 @@ export const InitialSetup = ({
   };
 
   return (
-    <Card message="What do you want to work on today?">
+    <Card message={configData.heading || 'What do you want to work on today?'}>
       {availableTopics.length ? (
         <OptionList label="Preloaded cards:">
           {availableTopics.map(topic => {
