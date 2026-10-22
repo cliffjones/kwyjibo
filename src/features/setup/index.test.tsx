@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createAppStore, setCustomData } from '../../store';
 import type { KItem } from '../../store/types';
-import { InitialSetup } from './index';
+import { Setup } from './index';
 
 const items: KItem[] = [
   { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question Z?', solution: 'Answer Z.', confidence: 0 },
@@ -10,7 +10,7 @@ const items: KItem[] = [
   { id: 2, type: 'quiz', topic: 'Alpha', task: 'Another question A?', solution: 'Another answer A.', confidence: 0 }
 ];
 
-describe('InitialSetup', () => {
+describe('Setup', () => {
   it('lists unique topics in order, updates selection, and starts the quiz', () => {
     const store = createAppStore('/test', {}, items);
     store.dispatch(setCustomData(''));
@@ -18,7 +18,7 @@ describe('InitialSetup', () => {
 
     render(
       <Provider store={store}>
-        <InitialSetup customData="custom quiz" handleTextChange={handleTextChange} />
+        <Setup customData="custom quiz" handleTextChange={handleTextChange} />
       </Provider>
     );
 
@@ -44,7 +44,7 @@ describe('InitialSetup', () => {
     const handleTextChange = jest.fn();
     const { rerender } = render(
       <Provider store={store}>
-        <InitialSetup customData="" handleTextChange={handleTextChange} />
+        <Setup customData="" handleTextChange={handleTextChange} />
       </Provider>
     );
 
@@ -52,7 +52,7 @@ describe('InitialSetup', () => {
 
     rerender(
       <Provider store={store}>
-        <InitialSetup customData="A custom quiz" handleTextChange={handleTextChange} />
+        <Setup customData="A custom quiz" handleTextChange={handleTextChange} />
       </Provider>
     );
 

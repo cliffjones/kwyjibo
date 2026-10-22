@@ -1,1 +1,1 @@
-{ title: 'TESTING', "intro": "This is a test.  This is only a [test](https://www.testing.com/)." }
+{ intro: "Kwyjibo is developing into a customizable system for flashcards, to-do lists, and activity tracking. Please [help fund this project](https://gofund.me/e965a3bab) by making a small donation." }

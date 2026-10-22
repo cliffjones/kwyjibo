@@ -6,15 +6,19 @@ import './style.scss';
 export const Card = ({
   children,
   topic,
-  content,
-  message
+  message,
+  content
 }: {
   children?: ReactNode;
   topic?: string;
-  content?: string;
   message?: string;
+  content?: string;
 }) => (
   <section className="card">
+    {message ? (
+      <div className="card-message">{message}</div>
+    ) : null}
+
     {content ? (
       <div style={{ fontSize: getTextSize(content) }}>
         {topic ? (
@@ -22,10 +26,6 @@ export const Card = ({
         ) : null}
         {parseCardContent(content)}
       </div>
-    ) : null}
-
-    {message ? (
-      <div className="card-message">{message}</div>
     ) : null}
 
     {children}

@@ -13,6 +13,11 @@
   text-align: center;
 }
 
+.card-message {
+  color: color.$pencil;
+  font-size: 1.5rem;
+}
+
 .card-topic {
   color: color.$pencil;
   font-size: size.$text;
@@ -25,9 +30,4 @@
 
 .card-content--left {
   text-align: left;
-}
-
-.card-message {
-  color: color.$pencil;
-  font-size: 1.5rem;
 }

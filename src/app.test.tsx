@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { App } from './app';
-import { CUSTOM_DATA_EXAMPLE } from './features/initial-setup/constants';
+import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
 import { createAppStore, rateConfidence, setCustomData, setLightMode, startQuiz } from './store';
 import { loadItems } from './store/load-items';
 

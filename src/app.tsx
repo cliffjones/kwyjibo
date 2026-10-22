@@ -4,7 +4,7 @@ import { Card } from './features/card';
 import { Confidence } from './features/confidence';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
-import { InitialSetup } from './features/initial-setup';
+import { Setup } from './features/setup';
 import {
   rateConfidence,
   reset,
@@ -65,7 +65,7 @@ export const App = ({ path }: { path: string }) => {
       <Header confirmReset={confirmReset} confirmingReset={confirmingReset} />
 
       {initializing ? (
-        <InitialSetup
+        <Setup
           customData={customData}
           handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))}
         />

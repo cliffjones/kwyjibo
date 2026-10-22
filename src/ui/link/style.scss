@@ -1,4 +1,7 @@
+@use '../../style/color';
+
 .link {
+  border-bottom: 1px dotted color.$pencil;
   color: inherit;
   font-weight: bold;
   text-decoration: none;

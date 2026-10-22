@@ -27,7 +27,7 @@ const selectItemCounts = createSelector(
     }, {})
 );
 
-export const InitialSetup = ({
+export const Setup = ({
   customData,
   handleTextChange
 }: {
