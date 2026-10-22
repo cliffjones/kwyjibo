@@ -9,7 +9,9 @@ import { InputBox } from '../../ui/input-box';
 import { Option } from '../../ui/option';
 import { OptionList } from '../../ui/option/option-list';
 import { Card } from '../card';
+import { parseCardContent } from '../card/parse-card-content';
 import { CUSTOM_DATA_EXAMPLE } from './constants';
+import './style.scss';
 
 const selectAvailableTopics = createSelector(
   [(state: RootState) => state.kwyjibo.items],
@@ -52,6 +54,8 @@ export const InitialSetup = ({
 
   return (
     <Card message={configData.heading || 'What do you want to work on today?'}>
+      {configData.intro ? <div className="setup-intro">{parseCardContent(configData.intro)}</div> : null}
+
       {availableTopics.length ? (
         <OptionList label="Preloaded cards:">
           {availableTopics.map(topic => {

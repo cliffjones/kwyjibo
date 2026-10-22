@@ -8,6 +8,9 @@ import type { ConfigData, KItem } from './types';
 export const loadItems = async (path = '/'): Promise<[ConfigData, ...KItem[]]> => {
   // Each route segment may name a data file. Ignore malformed segments, and try the rest.
   const pathSegments = path.split('/').filter(Boolean);
+  if (!pathSegments.length) {
+    pathSegments.push('index');
+  }
   const files = [...new Set(pathSegments.flatMap(segment => {
     let stem: string;
     try {
