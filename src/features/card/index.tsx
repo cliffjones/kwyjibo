@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
+import { Content } from '../../ui/content';
 import { getTextSize } from './get-text-size';
-import { parseCardContent } from './parse-card-content';
 import './style.scss';
 
 export const Card = ({
@@ -24,7 +24,7 @@ export const Card = ({
         {topic ? (
           <div className="card-topic">{topic}</div>
         ) : null}
-        {parseCardContent(content)}
+        <Content text={content} />
       </div>
     ) : null}
 

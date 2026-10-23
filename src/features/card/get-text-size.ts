@@ -1,4 +1,4 @@
-import { LENGTH_SIZING_CEILING, LENGTH_SIZING_FLOOR } from "./constants";
+import { LENGTH_SIZING_CEILING, LENGTH_SIZING_FLOOR } from './constants';
 
 // Calculates a font size based on supplied text. The longer the text, the smaller the font.
 export const getTextSize = (text: string) => {

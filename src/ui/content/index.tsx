@@ -1,13 +1,13 @@
 import { Fragment, type ReactNode } from 'react';
-import { Image } from '../../ui/image';
-import { Link } from '../../ui/link';
+import { Image } from '../image';
+import { Link } from '../link';
 import { MD_DELIMS, MD_IMAGE_PATTERN, MD_LINK_PATTERN } from './constants';
 import { isSafeUrl } from './is-safe-url';
 import type { InlineToken } from './types';
+import './style.scss';
 
-// Converts a given string of Kwyjibo data into a node formatted for display.
-export const parseCardContent = (text: string): ReactNode => {
-  // Look for formatting details tacked onto the end inside curly braces.
+export const Content = ({ text }: { text: string }) => {
+  // Formatting variants are encoded as a suffix inside curly braces.
   let newText = text;
   let variant = '';
   if (newText.endsWith('}')) {
@@ -26,7 +26,7 @@ export const parseCardContent = (text: string): ReactNode => {
         return part;
       }
 
-      // Preserve indentation after the line break. HTML would otherwise collapse these spaces.
+      // Preserve indentation after the line break, since HTML collapses regular spaces.
       return (
         <Fragment key={key++}>
           <br />
@@ -40,9 +40,7 @@ export const parseCardContent = (text: string): ReactNode => {
   let pos = 0;
   let startingPos = pos;
 
-  // Step through the text using delimiters to split it into a set of tokens.
   while (pos < newText.length) {
-    // Check for an image tag to convert.
     const imageMatch = MD_IMAGE_PATTERN.exec(newText.slice(pos));
     if (imageMatch) {
       const [match, label, url] = imageMatch;
@@ -61,7 +59,6 @@ export const parseCardContent = (text: string): ReactNode => {
       }
     }
 
-    // Check for a link tag to convert.
     const linkMatch = MD_LINK_PATTERN.exec(newText.slice(pos));
     if (linkMatch) {
       const [match, label, url, title] = linkMatch;
@@ -81,7 +78,6 @@ export const parseCardContent = (text: string): ReactNode => {
       }
     }
 
-    // If no delimiter is found, move along.
     const delim = newText[pos];
     if (!Object.values(MD_DELIMS).includes(delim)) {
       pos += 1;
@@ -92,7 +88,7 @@ export const parseCardContent = (text: string): ReactNode => {
     const otherDelim = delim === MD_DELIMS.code ? MD_DELIMS.em : MD_DELIMS.code;
     const otherPos = delim === MD_DELIMS.em ? newText.indexOf(otherDelim, pos + 1) : -1;
 
-    // Treat unmatched or crossing delimiters as plain text instead of swallowing another span.
+    // Unmatched or crossing delimiters remain plain text instead of swallowing another span.
     if (closingPos <= pos + 1 || (otherPos !== -1 && otherPos < closingPos)) {
       pos += 1;
       continue;
@@ -112,7 +108,6 @@ export const parseCardContent = (text: string): ReactNode => {
     tokens.push({ type: 'text', text: newText.slice(startingPos) });
   }
 
-  // Stitch all the tokens back together with markup added based on their types.
   const content: ReactNode[] = tokens.reduce<ReactNode[]>((result, token) => {
     if (token.type === 'image') {
       result.push(<Image key={key++} src={token.url} alt={token.text} />);
@@ -132,5 +127,5 @@ export const parseCardContent = (text: string): ReactNode => {
     return result;
   }, []);
 
-  return <div className={`card-content${variant ? ` card-content--${variant}` : ''}`}>{content}</div>;
+  return <div className={`content${variant ? ` content--${variant}` : ''}`}>{content}</div>;
 };

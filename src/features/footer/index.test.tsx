@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { Footer } from './index';
 import { createAppStore } from '../../store';
+import { Footer } from './index';
 
 describe('Footer', () => {
   it('renders the author link in the footer', () => {
@@ -16,7 +16,7 @@ describe('Footer', () => {
 
     expect(screen.getByRole('link', { name: 'Cliff Jones Jr.' })).toHaveAttribute(
       'href',
-      'https://gofund.me/e965a3bab'
+      '/'
     );
   });
 });

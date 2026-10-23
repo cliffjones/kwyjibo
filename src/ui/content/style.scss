@@ -1,0 +1,11 @@
+@use '../../style/color';
+@use '../../style/size';
+@use '../../style/space';
+
+.content {
+  text-align: center;
+
+  &--left {
+    text-align: left;
+  }
+}

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { parseCardContent } from '../card/parse-card-content';
+import { Content } from '../../ui/content';
 import './style.scss';
 
 export const Footer = () => {
@@ -11,7 +11,7 @@ export const Footer = () => {
 
   return (
     <footer className="footer">
-      {parseCardContent(footerContent)}
+      <Content text={footerContent} />
     </footer>
   );
 };

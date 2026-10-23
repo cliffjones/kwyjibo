@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState, selectTopics, startQuiz } from '../../store';
 import { Button } from '../../ui/button';
 import { ButtonSet } from '../../ui/button/button-set';
+import { Content } from '../../ui/content';
 import { Icon } from '../../ui/icon';
 import { InputBox } from '../../ui/input-box';
 import { Option } from '../../ui/option';
 import { OptionList } from '../../ui/option/option-list';
 import { Card } from '../card';
-import { parseCardContent } from '../card/parse-card-content';
 import { CUSTOM_DATA_EXAMPLE } from './constants';
 import './style.scss';
 
@@ -54,7 +54,7 @@ export const Setup = ({
 
   return (
     <Card message={configData.heading || 'What do you want to work on today?'}>
-      {configData.intro ? <div className="setup-intro">{parseCardContent(configData.intro)}</div> : null}
+      {configData.intro ? <div className="setup-intro"><Content text={configData.intro} /></div> : null}
 
       {availableTopics.length ? (
         <OptionList label="Preloaded cards:">
