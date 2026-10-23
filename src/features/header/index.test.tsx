@@ -2,10 +2,10 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createAppStore, startQuiz } from '../../store';
 import { getStorageKey } from '../../store/get-storage-key';
-import type { KItem } from '../../store/types';
+import type { TaskItem } from '../../store/types';
 import { Header } from './index';
 
-const items: KItem[] = [
+const items: TaskItem[] = [
   { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', confidence: 0 }
 ];
 

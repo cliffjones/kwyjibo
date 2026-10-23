@@ -1,11 +1,11 @@
 import { DATA_PATH } from './constants';
+import { createTaskItem } from './create-task-item';
 import { isConfigData } from './is-config-data';
-import { isQuizData } from './is-quiz-data';
 import { isTaskData } from './is-task-data';
 import { parseKData } from './parse-k-data';
-import type { ConfigData, KItem } from './types';
+import type { ConfigData, TaskItem } from './types';
 
-export const loadItems = async (path = '/'): Promise<[ConfigData, ...KItem[]]> => {
+export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]> => {
   // Each route segment may name a data file. Ignore malformed segments, and try the rest.
   const pathSegments = path.split('/').filter(Boolean);
   if (!pathSegments.length) {
@@ -59,14 +59,7 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...KItem[]]> =
     configData = { ...configData, ...group.shift() };
   });
 
-  const items: KItem[] = itemGroups.flat().filter((item) => isQuizData(item) || isTaskData(item)).map((item, index) => ({
-    ...item,
-    id: index,
-    type: 'type' in item ? item.type : 'quiz',
-    topic: item.topic ?? '',
-    solution: 'solution' in item ? item.solution : '',
-    confidence: 0
-  }));
+  const items: TaskItem[] = itemGroups.flat().filter(isTaskData).map(createTaskItem);
 
   return [configData, ...items];
 };

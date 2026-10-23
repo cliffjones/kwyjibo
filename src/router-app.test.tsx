@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { useLocation } from 'react-router';
 import { RouterApp } from './router-app';
 import { loadItems } from './store/load-items';
-import type { ConfigData, KItem } from './store/types';
+import type { ConfigData, TaskItem } from './store/types';
 
 jest.mock('react-router', () => ({
   useLocation: jest.fn()
@@ -15,7 +15,7 @@ jest.mock('./store/load-items', () => ({
 const mockedUseLocation = jest.mocked(useLocation);
 const mockedLoadItems = jest.mocked(loadItems);
 
-const items: KItem[] = [
+const items: TaskItem[] = [
   { id: 0, type: 'quiz', topic: 'Science', task: 'What is a cell?', solution: 'A basic unit of life.', confidence: 0 }
 ];
 
@@ -30,7 +30,7 @@ describe('RouterApp', () => {
   });
 
   it('shows loading state before rendering the loaded application', async () => {
-    let resolveItems!: (items: [ConfigData, ...KItem[]]) => void;
+    let resolveItems!: (items: [ConfigData, ...TaskItem[]]) => void;
     mockedLoadItems.mockReturnValue(new Promise(resolve => {
       resolveItems = resolve;
     }));

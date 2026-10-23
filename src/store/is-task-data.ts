@@ -6,7 +6,11 @@ export const isTaskData = (value: unknown): value is TaskData => {
   }
   const item = value as Record<string, unknown>;
 
-  if (!item.type || typeof item.type !== 'string') {
+  if (item.topic != null && typeof item.topic !== 'string') {
+    return false;
+  }
+
+  if (item.type != null && typeof item.type !== 'string') {
     return false;
   }
 
@@ -14,11 +18,7 @@ export const isTaskData = (value: unknown): value is TaskData => {
     return false;
   }
 
-  if (item.solution) {
-    return false;
-  }
-
-  if (typeof item.topic !== 'undefined' && typeof item.topic !== 'string') {
+  if (item.solution != null && typeof item.solution !== 'string') {
     return false;
   }
 

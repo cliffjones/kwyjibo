@@ -7,21 +7,14 @@ export type ConfigData = {
   footer?: string;
 };
 
-export type QuizData = {
-  task: string;
-  solution: string;
-  topic?: string;
-};
-
 export type TaskData = {
-  type: string; // Binary (-), numeric (#), text (>)...?
-  task: string;
   topic?: string;
+  type?: string; // question, reminder, binary (?), value (=)...?
+  task: string;
+  solution?: string;
 };
 
-export type KData = QuizData | TaskData;
-
-export type KItem = {
+export type TaskItem = {
   id: number;
   type: string;
   topic: string;
@@ -33,7 +26,7 @@ export type KItem = {
 export type AppState = {
   sourcePath: string;
   configData: ConfigData;
-  items: KItem[];
+  items: TaskItem[];
   customData: string;
   initializing: boolean;
   lightMode: boolean;

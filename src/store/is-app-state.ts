@@ -1,5 +1,5 @@
 import { isConfigData } from './is-config-data';
-import { isKItem } from './is-k-item';
+import { isTaskItem } from './is-task-item';
 import type { AppState } from './types';
 
 export const isAppState = (value: unknown): value is AppState => {
@@ -16,7 +16,7 @@ export const isAppState = (value: unknown): value is AppState => {
     return false;
   }
 
-  if (!Array.isArray(state.items) || !state.items.every(isKItem)) {
+  if (!Array.isArray(state.items) || !state.items.every(isTaskItem)) {
     return false;
   }
 

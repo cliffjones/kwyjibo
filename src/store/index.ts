@@ -1,10 +1,11 @@
 import { configureStore, createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
+import { createTaskItem } from './create-task-item';
 import { getRandomId } from './get-random-id';
 import { loadItems } from './load-items';
 import { loadPersistedState } from './load-persisted-state';
 import { parseKData } from './parse-k-data';
 import { persistState } from './persist-state';
-import type { AppState, ConfigData, KItem } from './types';
+import type { AppState, ConfigData, TaskItem } from './types';
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
@@ -19,7 +20,7 @@ export const reset = createAsyncThunk(
 const createInitialState = (
   sourcePath = '/',
   configData: ConfigData = {},
-  loadedItems: KItem[] = [],
+  loadedItems: TaskItem[] = [],
   customData = '',
   initializing = true,
   lightMode = false
@@ -32,14 +33,7 @@ const createInitialState = (
     customConfigData = data;
 
     // Assign custom card IDs after the loaded cards so both sets can share a single state.
-    items.push(...customItems.map((item, index) => ({
-      ...item,
-      id: items.length + index,
-      type: 'type' in item ? item.type : 'quiz',
-      topic: item.topic ?? '',
-      solution: 'solution' in item ? item.solution : '',
-      confidence: 0
-    })));
+    items.push(...customItems.map((item, index) => createTaskItem(item, items.length + index)));
   }
 
   const ids = items.map(item => item.id);
@@ -125,7 +119,7 @@ const createAppReducer = (initialState: AppState) => {
   });
 };
 
-export const createAppStore = (sourcePath = '/', configData: ConfigData = {}, items: KItem[] = []) => {
+export const createAppStore = (sourcePath = '/', configData: ConfigData = {}, items: TaskItem[] = []) => {
   const savedState = loadPersistedState(sourcePath);
   const restoredState = savedState?.sourcePath === sourcePath
     ? { ...savedState, sourcePath }

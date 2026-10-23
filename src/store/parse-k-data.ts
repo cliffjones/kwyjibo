@@ -1,21 +1,10 @@
 import { isConfigData } from './is-config-data';
-import { isQuizData } from './is-quiz-data';
 import { isTaskData } from './is-task-data';
+import { normalizeDataText } from './normalize-data-text';
 import { parseJson } from './parse-json';
-import { ConfigData, KData } from './types';
+import { ConfigData, TaskData } from './types';
 
-const normalizeData = (data: string) => {
-  const normalData = data.replaceAll('\r', '');
-
-  if (!normalData.includes('\t')) {
-    return normalData;
-  }
-
-  // If the data contains tab characters, convert it from compact mode.
-  return normalData.replaceAll('\n', '\n\n').replaceAll('\t', '\n');
-};
-
-export const parseKData = (data: string): [ConfigData, ...KData[]] => {
+export const parseKData = (data: string): [ConfigData, ...TaskData[]] => {
   let newData = data.trim();
   let configData: ConfigData = {};
 
@@ -26,7 +15,7 @@ export const parseKData = (data: string): [ConfigData, ...KData[]] => {
       if (isConfigData(parsedData[0])) {
         configData = parsedData.shift();
       }
-      if (parsedData.every((item) => isQuizData(item) || isTaskData(item))) {
+      if (parsedData.every(isTaskData)) {
         return [configData, ...parsedData];
       }
     }
@@ -45,7 +34,7 @@ export const parseKData = (data: string): [ConfigData, ...KData[]] => {
   }
 
   // Break the remaining data down into blocks separated by blank lines.
-  const blocks = normalizeData(newData)
+  const blocks = normalizeDataText(newData)
     .split('\n')
     .reduce<string[][]>((result, line) => {
       if (line.trim() === '') {
@@ -62,14 +51,22 @@ export const parseKData = (data: string): [ConfigData, ...KData[]] => {
     }, [])
     .filter(block => block.length > 0);
 
-  const items: KData[] = [];
+  const items: TaskData[] = [];
   let topic = '';
+  let prevBlockWasSingle = false;
   blocks.forEach((block) => {
     if (block.length === 1) {
       /** @todo: Look at the first character here to distinguish tasks from topics. */
-      topic = block[0];
+
+      if (prevBlockWasSingle) {
+        items.push({ topic, task: block[0], solution: '' });
+      } else {
+        topic = block[0];
+        prevBlockWasSingle = true;
+      }
     } else {
       items.push({ topic, task: block[0], solution: block[1] });
+      prevBlockWasSingle = false;
     }
   });
 

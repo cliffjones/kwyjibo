@@ -1,9 +1,9 @@
-import type { KItem } from './types';
+import type { TaskItem } from './types';
 
 // Returns a random ID from the list, weighted by confidence to make lower ratings more likely.
 export const getRandomId = (
   ids: number[],
-  items: KItem[],
+  items: TaskItem[],
   previousId?: number | null
 ): number => {
   const choices = ids.filter(id => id !== previousId);

@@ -1,6 +1,6 @@
-import { KItem } from './types';
+import { TaskItem } from './types';
 
-export const isKItem = (value: unknown): value is KItem => {
+export const isTaskItem = (value: unknown): value is TaskItem => {
   if (value == null || typeof value !== 'object') {
     return false;
   }
@@ -22,7 +22,7 @@ export const isKItem = (value: unknown): value is KItem => {
     return false;
   }
 
-  if (item.type === 'quiz' && (!item.solution || typeof item.solution !== 'string')) {
+  if (item.type === 'question' && (!item.solution || typeof item.solution !== 'string')) {
     return false;
   }
 
