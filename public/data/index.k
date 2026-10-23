@@ -1,1 +1,1 @@
-{ intro: "Kwyjibo is developing into a customizable system for flashcards, to-do lists, and activity tracking. Please [help fund this project](https://gofund.me/e965a3bab) by making a small donation." }
+{ intro: 'Kwyjibo is developing into a customizable system for flashcards, to-do lists, and activity tracking. Please [help fund this project](https://gofund.me/e965a3bab "Donate on GoFundMe") by making a small donation.' }

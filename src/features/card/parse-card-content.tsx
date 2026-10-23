@@ -1,7 +1,7 @@
 import { Fragment, type ReactNode } from 'react';
 import { Image } from '../../ui/image';
 import { Link } from '../../ui/link';
-import { MD_DELIMS, MD_LINK_PATTERN } from './constants';
+import { MD_DELIMS, MD_IMAGE_PATTERN, MD_LINK_PATTERN } from './constants';
 import { isSafeUrl } from './is-safe-url';
 import type { InlineToken } from './types';
 
@@ -42,28 +42,46 @@ export const parseCardContent = (text: string): ReactNode => {
 
   // Step through the text using delimiters to split it into a set of tokens.
   while (pos < newText.length) {
-    // Check specifically for links and images, which share virtually the same markup.
-    const linkMatch = MD_LINK_PATTERN.exec(newText.slice(pos));
-    if (linkMatch) {
-      const [, imageMarker, label, url, title] = linkMatch;
-      const isImage = imageMarker === '!';
-
-      if (url && isSafeUrl(url, isImage)) {
+    // Check for an image tag to convert.
+    const imageMatch = MD_IMAGE_PATTERN.exec(newText.slice(pos));
+    if (imageMatch) {
+      const [match, label, url] = imageMatch;
+      if (url && isSafeUrl(url)) {
         if (pos > startingPos) {
           tokens.push({ type: 'text', text: newText.slice(startingPos, pos) });
         }
         tokens.push({
-          type: isImage ? 'image' : 'link',
+          type: 'image',
           text: label,
           url: url.trim(),
-          ...(title === undefined ? {} : { title })
         });
-        pos += linkMatch[0].length;
+        pos += match.length;
         startingPos = pos;
         continue;
       }
     }
 
+    // Check for a link tag to convert.
+    const linkMatch = MD_LINK_PATTERN.exec(newText.slice(pos));
+    if (linkMatch) {
+      const [match, label, url, title] = linkMatch;
+      if (url && isSafeUrl(url, true)) {
+        if (pos > startingPos) {
+          tokens.push({ type: 'text', text: newText.slice(startingPos, pos) });
+        }
+        tokens.push({
+          type: 'link',
+          text: label,
+          url: url.trim(),
+          ...(title ? { title } : {})
+        });
+        pos += match.length;
+        startingPos = pos;
+        continue;
+      }
+    }
+
+    // If no delimiter is found, move along.
     const delim = newText[pos];
     if (!Object.values(MD_DELIMS).includes(delim)) {
       pos += 1;
@@ -97,19 +115,19 @@ export const parseCardContent = (text: string): ReactNode => {
   // Stitch all the tokens back together with markup added based on their types.
   const content: ReactNode[] = tokens.reduce<ReactNode[]>((result, token) => {
     if (token.type === 'image') {
-      result.push(<Image key={key++} src={token.url} alt={token.text} title={token.title} />);
+      result.push(<Image key={key++} src={token.url} alt={token.text} />);
       return result;
     }
 
     const children = renderText(token.text);
-    if (token.type === 'text') {
-      result.push(...children);
-    } else if (token.type === 'link') {
+    if (token.type === 'link') {
       result.push(<Link key={key++} href={token.url} title={token.title}>{children}</Link>);
+    } else if (token.type === 'code') {
+      result.push(<code key={key++}>{children}</code>);
+    } else if (token.type === 'em') {
+      result.push(<em key={key++}>{children}</em>);
     } else {
-      result.push(token.type === 'code'
-        ? <code key={key++}>{children}</code>
-        : <em key={key++}>{children}</em>);
+      result.push(...children);
     }
     return result;
   }, []);

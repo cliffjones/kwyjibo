@@ -3,11 +3,17 @@ type TextToken = {
   text: string;
 };
 
+type ImageToken = {
+  type: 'image';
+  text: string;
+  url: string;
+};
+
 type LinkToken = {
-  type: 'link' | 'image';
+  type: 'link';
   text: string;
   url: string;
   title?: string;
 };
 
-export type InlineToken = TextToken | LinkToken;
+export type InlineToken = TextToken | ImageToken | LinkToken;
