@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createAppStore, startQuiz } from '../../store';
 import { getStorageKey } from '../../store/get-storage-key';
-import type { TaskItem } from '../../store/types';
+import type { TaskItem } from '../../data/types';
 import { Header } from './index';
 
 const items: TaskItem[] = [

@@ -1,4 +1,4 @@
-import { TaskItem } from './types';
+import type { TaskItem } from './types';
 
 export const isTaskItem = (value: unknown): value is TaskItem => {
   if (value == null || typeof value !== 'object') {

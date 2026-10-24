@@ -3,9 +3,9 @@ import { Provider } from 'react-redux';
 import { App } from './app';
 import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
 import { createAppStore, rateConfidence, setCustomData, setLightMode, startQuiz } from './store';
-import { loadItems } from './store/load-items';
+import { loadItems } from './data/load-items';
 
-jest.mock('./store/load-items', () => ({
+jest.mock('./data/load-items', () => ({
   loadItems: jest.fn()
 }));
 

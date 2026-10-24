@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createAppStore, setCustomData } from '../../store';
-import type { TaskItem } from '../../store/types';
+import type { TaskItem } from '../../data/types';
 import { Setup } from './index';
 
 const items: TaskItem[] = [

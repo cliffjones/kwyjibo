@@ -2,7 +2,7 @@ import { isConfigData } from './is-config-data';
 import { isTaskData } from './is-task-data';
 import { normalizeDataText } from './normalize-data-text';
 import { parseJson } from './parse-json';
-import { ConfigData, TaskData } from './types';
+import type { ConfigData, TaskData } from './types';
 
 export const parseKData = (data: string): [ConfigData, ...TaskData[]] => {
   let newData = data.trim();

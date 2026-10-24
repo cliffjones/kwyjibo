@@ -1,5 +1,5 @@
 import { CONFIG_KEYS } from './constants';
-import { ConfigData } from './types';
+import type { ConfigData } from './types';
 
 export const isConfigData = (value: unknown): value is ConfigData => {
   if (value == null || typeof value !== 'object') {

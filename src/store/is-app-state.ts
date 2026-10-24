@@ -1,5 +1,5 @@
-import { isConfigData } from './is-config-data';
-import { isTaskItem } from './is-task-item';
+import { isConfigData } from '../data/is-config-data';
+import { isTaskItem } from '../data/is-task-item';
 import type { AppState } from './types';
 
 export const isAppState = (value: unknown): value is AppState => {

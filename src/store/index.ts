@@ -1,11 +1,12 @@
 import { configureStore, createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
-import { createTaskItem } from './create-task-item';
-import { getRandomId } from './get-random-id';
-import { loadItems } from './load-items';
+import { createTaskItem } from '../data/create-task-item';
+import { getRandomId } from '../data/get-random-id';
+import { loadItems } from '../data/load-items';
 import { loadPersistedState } from './load-persisted-state';
-import { parseKData } from './parse-k-data';
+import { parseKData } from '../data/parse-k-data';
 import { persistState } from './persist-state';
-import type { AppState, ConfigData, TaskItem } from './types';
+import type { ConfigData, TaskItem } from '../data/types';
+import type { AppState } from './types';
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');

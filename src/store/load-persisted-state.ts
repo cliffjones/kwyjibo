@@ -1,6 +1,6 @@
 import { getStorageKey } from './get-storage-key';
 import { isAppState } from './is-app-state';
-import { parseJson } from './parse-json';
+import { parseJson } from '../data/parse-json';
 import { AppState } from './types';
 
 export const loadPersistedState = (sourcePath: string): AppState | null => {
