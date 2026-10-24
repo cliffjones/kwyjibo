@@ -12,12 +12,13 @@ describe('Card', () => {
     expect(screen.getByRole('button', { name: 'Answer' })).toBeInTheDocument();
   });
 
-  it('converts double spaces to line breaks and preserves following spaces', () => {
+  it('uses a content gap for exactly three spaces', () => {
     render(<Card content="Line one.   Indented line." />);
 
     const content = screen.getByText('Line one.', { exact: false });
-    expect(content.querySelector('br')).toBeInTheDocument();
-    expect(content.textContent).toBe('Line one.\u00a0Indented line.');
+    expect(content.querySelector('.content-gap')).toBeInTheDocument();
+    expect(content.querySelector('br')).not.toBeInTheDocument();
+    expect(content.textContent).toBe('Line one.Indented line.');
   });
 
   it('renders backtick code spans and italic spans without changing their contents', () => {
@@ -28,15 +29,25 @@ describe('Card', () => {
     expect(screen.getByText('Use', { exact: false }).querySelector('br')).toBeInTheDocument();
   });
 
-  it('preserves double-space line breaks and indentation inside formatted spans', () => {
+  it('uses content gaps for exactly three spaces inside formatted spans', () => {
     render(<Card content="`first   second` *third   fourth*" />);
 
     const code = screen.getByText('first', { exact: false, selector: 'code' });
     const emphasis = screen.getByText('third', { exact: false, selector: 'em' });
+    expect(code.querySelector('.content-gap')).toBeInTheDocument();
+    expect(code.querySelector('br')).not.toBeInTheDocument();
+    expect(code.textContent).toBe('firstsecond');
+    expect(emphasis.querySelector('.content-gap')).toBeInTheDocument();
+    expect(emphasis.querySelector('br')).not.toBeInTheDocument();
+    expect(emphasis.textContent).toBe('thirdfourth');
+  });
+
+  it('preserves extra indentation as non-breaking spaces in backtick code spans', () => {
+    render(<Card content="`first    second`" />);
+
+    const code = screen.getByText('first', { exact: false, selector: 'code' });
     expect(code.querySelector('br')).toBeInTheDocument();
-    expect(code.textContent).toBe('first\u00a0second');
-    expect(emphasis.querySelector('br')).toBeInTheDocument();
-    expect(emphasis.textContent).toBe('third\u00a0fourth');
+    expect(code.textContent).toBe('first\u00a0\u00a0second');
   });
 
   it('does not retain formatted spans or line breaks when card content changes', () => {

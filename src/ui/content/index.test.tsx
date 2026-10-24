@@ -24,4 +24,38 @@ describe('Content', () => {
     expect(screen.getByText('code').tagName).toBe('CODE');
     expect(screen.getByRole('link', { name: 'link' })).toHaveAttribute('href', '/cards');
   });
+
+  it('renders links in every list item', () => {
+    render(<Content text={'- First [link](/first)\n- Second [link](/second)'} />);
+
+    expect(screen.getAllByRole('listitem')).toHaveLength(2);
+    expect(screen.getByRole('list')).toContainElement(screen.getAllByRole('link')[0]);
+    expect(screen.getAllByRole('link').map(link => link.getAttribute('href'))).toEqual([
+      '/first',
+      '/second'
+    ]);
+  });
+
+  it('renders same-line list items as separate list items without line breaks', () => {
+    render(<Content text="Examples:  - First [link](/first)  - Second [link](/second)" />);
+
+    expect(screen.getAllByRole('listitem')).toHaveLength(2);
+    expect(screen.getAllByRole('link').map(link => link.getAttribute('href'))).toEqual([
+      '/first',
+      '/second'
+    ]);
+    expect(screen.getAllByRole('listitem').map(item => item.querySelector('br'))).toEqual([
+      null,
+      null
+    ]);
+  });
+
+  it('renders an image inside a link', () => {
+    render(<Content text="[![Kwyjibo](logo.png)](https://example.com)" />);
+
+    const link = screen.getByRole('link', { name: 'Kwyjibo' });
+    expect(link).toHaveAttribute('href', 'https://example.com');
+    expect(link).toContainElement(screen.getByRole('img', { name: 'Kwyjibo' }));
+    expect(screen.getByRole('img', { name: 'Kwyjibo' })).toHaveAttribute('src', 'logo.png');
+  });
 });

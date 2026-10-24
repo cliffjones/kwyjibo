@@ -23,7 +23,7 @@ export const parseKData = (data: string): [ConfigData, ...TaskData[]] => {
 
   // If the data starts with a JSON object, parse that separately.
   if (newData.startsWith('{')) {
-    const closingPos = newData.indexOf('}');
+    const closingPos = /\}(?:[ \t]*)(?=\r?$)/m.exec(newData)?.index ?? -1;
     if (closingPos > 0) {
       const parsedObject = parseJson(newData.slice(0, closingPos + 1));
       if (isConfigData(parsedObject)) {

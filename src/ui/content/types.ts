@@ -3,6 +3,11 @@ type TextToken = {
   text: string;
 };
 
+type ListItemToken = {
+  type: 'list-item';
+  text: string;
+};
+
 type ImageToken = {
   type: 'image';
   text: string;
@@ -14,6 +19,7 @@ type LinkToken = {
   text: string;
   url: string;
   title?: string;
+  image?: Omit<ImageToken, 'type'>;
 };
 
-export type InlineToken = TextToken | ImageToken | LinkToken;
+export type InlineToken = TextToken | ListItemToken | ImageToken | LinkToken;
