@@ -1,5 +1,10 @@
 type TextToken = {
-  type: 'text' | 'code' | 'em';
+  type: 'text';
+  text: string;
+};
+
+type FormattedToken = {
+  type: 'code' | 'em';
   text: string;
 };
 
@@ -22,4 +27,10 @@ type LinkToken = {
   image?: Omit<ImageToken, 'type'>;
 };
 
-export type InlineToken = TextToken | ListItemToken | ImageToken | LinkToken;
+export type InlineToken = TextToken | FormattedToken | ImageToken | LinkToken;
+export type ContentToken = TextToken | ListItemToken;
+
+export type InlineMatch = {
+  token: InlineToken;
+  length: number;
+};
