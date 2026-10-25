@@ -1,4 +1,5 @@
 @use '../../style/color';
+@use '../../style/size';
 @use '../../style/space';
 
 .header {
@@ -6,10 +7,15 @@
   flex-direction: column;
   gap: space.$mid;
   align-items: center;
+  
+  h1 {
+    font-size: 3rem;
+    line-height: 1;
+  }
 }
 
 .header-title {
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 1;
 }
 

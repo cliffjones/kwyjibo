@@ -31,6 +31,26 @@ describe('Header', () => {
     expect(confirmReset).toHaveBeenCalledTimes(1);
   });
 
+  it('updates the document title from the configured title and resets it when absent', () => {
+    const store = createAppStore('/title', { title: 'Science' });
+    const { rerender } = render(
+      <Provider store={store}>
+        <Header confirmReset={jest.fn()} confirmingReset={false} />
+      </Provider>
+    );
+
+    expect(document.title).toBe('Kwyjibo: Science');
+
+    const storeWithoutTitle = createAppStore('/title-without-config');
+    rerender(
+      <Provider store={storeWithoutTitle}>
+        <Header confirmReset={jest.fn()} confirmingReset={false} />
+      </Provider>
+    );
+
+    expect(document.title).toBe('Kwyjibo');
+  });
+
   it('toggles and persists the global color theme from the header', () => {
     const store = createAppStore('/test');
 

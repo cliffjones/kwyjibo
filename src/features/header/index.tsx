@@ -23,6 +23,10 @@ export const Header = ({
     document.documentElement.dataset.theme = lightMode ? 'light' : 'dark';
   }, [lightMode]);
 
+  useEffect(() => {
+    document.title = `Kwyjibo${configData.title ? `: ${configData.title}` : ''}`;
+  }, [configData.title]);
+
   let remainingMessage = `${itemCount} card${itemCount === 1 ? '' : 's'}`;
   if (remainingIds.length === itemCount) {
     remainingMessage = `${remainingMessage} loaded`;
@@ -30,30 +34,29 @@ export const Header = ({
     remainingMessage = `${remainingIds.length} of ${remainingMessage} remaining`;
   }
 
-  return (<>
-    <header className="header">
-      <h1 className="header-title">{configData.title || 'Kwyjibo'}</h1>
+  return (<header className="header">
+    <h1>Kwyjibo</h1>
+    {configData.title ? <p className="header-title">{configData.title}</p> : null}
 
-      <div className="header-toolbar">
-        <Button
-          className="button--text"
-          onClick={() => dispatch(setLightMode(!lightMode))}
-          title={`Switch to ${lightMode ? 'Dark' : 'Light'} Mode`}
-        ><Icon name={lightMode ? 'moon' : 'sun'} /></Button>
+    <div className="header-toolbar">
+      <Button
+        className="button--text"
+        onClick={() => dispatch(setLightMode(!lightMode))}
+        title={`Switch to ${lightMode ? 'Dark' : 'Light'} Mode`}
+      ><Icon name={lightMode ? 'moon' : 'sun'} /></Button>
+    </div>
+
+    {initializing ? null : (
+      <div className="header-info">
+        {remainingMessage}
+        {confirmingReset || !remainingIds.length ? null : (
+          <Button
+            className="button--text"
+            onClick={confirmReset}
+            title="Reset"
+          ><Icon name="reset" /></Button>
+        )}
       </div>
-
-      {initializing ? null : (
-        <div className="header-info">
-          {remainingMessage}
-          {confirmingReset || !remainingIds.length ? null : (
-            <Button
-              className="button--text"
-              onClick={confirmReset}
-              title="Reset"
-            ><Icon name="reset" /></Button>
-          )}
-        </div>
-      )}
-    </header>
-  </>);
+    )}
+  </header>);
 };
