@@ -5,19 +5,21 @@ import './style.scss';
 
 export const Card = ({
   children,
+  heading,
+  intro,
   topic,
-  message,
   content
 }: {
   children?: ReactNode;
+  heading?: string;
+  intro?: string;
   topic?: string;
-  message?: string;
   content?: string;
 }) => (
   <section className="card">
-    {message ? (
-      <div className="card-message">{message}</div>
-    ) : null}
+    {heading ? <h2 className="card-heading">{heading}</h2> : null}
+
+    {intro ? <Content text={intro} /> : null}
 
     {content ? (
       <div style={{ fontSize: getTextSize(content) }}>

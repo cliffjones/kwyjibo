@@ -4,14 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState, selectTopics, startQuiz } from '../../store';
 import { Button } from '../../ui/button';
 import { ButtonSet } from '../../ui/button/button-set';
-import { Content } from '../../ui/content';
 import { Icon } from '../../ui/icon';
 import { InputBox } from '../../ui/input-box';
 import { Option } from '../../ui/option';
 import { OptionList } from '../../ui/option/option-list';
 import { Card } from '../card';
 import { CUSTOM_DATA_EXAMPLE } from './constants';
-import './style.scss';
 
 const selectAvailableTopics = createSelector(
   [(state: RootState) => state.kwyjibo.items],
@@ -53,9 +51,10 @@ export const Setup = ({
   };
 
   return (
-    <Card message={configData.heading || 'What do you want to work on today?'}>
-      {configData.intro ? <div className="setup-intro"><Content text={configData.intro} /></div> : null}
-
+    <Card
+      heading={configData.heading || 'What do you want to work on today?'}
+      intro={configData.intro}
+    >
       {availableTopics.length ? (
         <OptionList label="Preloaded cards:">
           {availableTopics.map(topic => {

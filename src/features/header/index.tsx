@@ -19,6 +19,8 @@ export const Header = ({
   const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
 
+  const isActive = !initializing && remainingIds.length > 0;
+
   useEffect(() => {
     document.documentElement.dataset.theme = lightMode ? 'light' : 'dark';
   }, [lightMode]);
@@ -35,7 +37,12 @@ export const Header = ({
   }
 
   return (<header className="header">
-    <h1 className="header-title">Kwyjibo</h1>
+    <h1
+      className={`header-title${isActive ? ' header-title--active' : ''}`}
+      aria-label="Kwyjibo"
+    >
+      <span>Kwy</span><span>ji</span><span>bo</span>
+    </h1>
     {configData.title
       ? <p className="header-title header-title--secondary">{configData.title}</p>
       : null}

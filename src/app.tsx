@@ -70,7 +70,7 @@ export const App = ({ path }: { path: string }) => {
           handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))}
         />
       ) : confirmingReset ? (
-        <Card message="Really reset the cards?">
+        <Card heading="Really reset the cards?">
           <ButtonSet>
             <Button className="button--yes" onClick={handleReset}>
               <Icon name="check" />
@@ -100,7 +100,7 @@ export const App = ({ path }: { path: string }) => {
           </Card>
         )}
       </>) : (
-        <Card message="You’ve got this.">
+        <Card heading="You’ve got this.">
           <ButtonSet>
             <Button onClick={handleReset}>
               <Icon name="reset" />
