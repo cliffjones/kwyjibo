@@ -11,16 +11,18 @@ import { OptionList } from '../../ui/option/option-list';
 import { Card } from '../card';
 import { CUSTOM_DATA_EXAMPLE } from './constants';
 
+// Selects a unique set of item topics (falling back to the task text when needed).
 const selectAvailableTopics = createSelector(
   [(state: RootState) => state.kwyjibo.items],
-  items => [...new Set(items.map(item => item.topic))].sort((a, b) => a.localeCompare(b))
+  items => [...new Set(items.map(({ topic, task }) => topic || task))].sort((a, b) => a.localeCompare(b))
 );
 
+// Selects a set of item counts keyed by each unique topic.
 const selectItemCounts = createSelector(
   [(state: RootState) => state.kwyjibo.items],
   items =>
-    items.reduce<Record<string, number>>((counts, item) => {
-      counts[item.topic] = (counts[item.topic] ?? 0) + 1;
+    items.reduce<Record<string, number>>((counts, { topic, task }) => {
+      counts[topic || task] = (counts[topic || task] ?? 0) + 1;
       return counts;
     }, {})
 );
@@ -66,7 +68,7 @@ export const Setup = ({
               <Option
                 key={topic}
                 value={topic}
-                label={`${topic || 'General'}${itemCountText}`}
+                label={`${topic}${itemCountText}`}
                 checked={selectedTopics.includes(topic)}
                 onChange={() => toggleTopic(topic)}
               />

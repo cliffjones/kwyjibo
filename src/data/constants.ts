@@ -12,3 +12,7 @@ export const CONFIG_KEYS = [
   'intro',
   'footer',
 ] satisfies (keyof ConfigData)[] as string[];
+
+export const K_DELIMS = {
+  topic: '#',
+};

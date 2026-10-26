@@ -1,8 +1,5 @@
 [
   {
-    "title": "Just Testing"
-  },
-  {
     "topic": "Testing JSON",
     "task": "Four?",
     "solution": "Four."

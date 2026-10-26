@@ -45,7 +45,7 @@ export const isAppState = (value: unknown): value is AppState => {
   }
 
   // Ensure that `remainingIds` is a subset of the item IDs and that `currentId` makes sense.
-  const itemIds = new Set(state.items.map(item => item.id));
+  const itemIds = new Set(state.items.map(({ id }) => id));
   const remainingIds = new Set(state.remainingIds);
   return itemIds.size === state.items.length
     && remainingIds.size === state.remainingIds.length

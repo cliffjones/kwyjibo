@@ -25,7 +25,7 @@ export const App = ({ path }: { path: string }) => {
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
   const currentId = useSelector((state: RootState) => state.kwyjibo.currentId);
   const currentItem = useSelector((state: RootState) =>
-    state.kwyjibo.items.find(item => item.id === currentId)
+    state.kwyjibo.items.find(({ id }) => id === currentId)
   );
 
   const [revealed, setRevealed] = useState(false);

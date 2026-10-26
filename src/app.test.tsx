@@ -19,7 +19,9 @@ describe('App', () => {
 
   it('starts a quiz, reveals an answer, and advances after a confident rating', () => {
     const store = createAppStore('/test');
-    store.dispatch(setCustomData(CUSTOM_DATA_EXAMPLE));
+    store.dispatch(setCustomData(
+      '# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.'
+    ));
 
     render(
       <Provider store={store}>

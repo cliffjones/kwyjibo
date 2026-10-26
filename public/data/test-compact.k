@@ -1,8 +1,9 @@
-Testing
+{title:"Testing Compact Syntax"}
+# Testing
 1?	1
 2?	2
 3?	3
-More Testing
+# More Testing
 4?	4
 5?	5
 6?	6

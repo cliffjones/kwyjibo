@@ -2,10 +2,10 @@ import { configureStore, createAction, createAsyncThunk, createReducer } from '@
 import { createTaskItem } from '../data/create-task-item';
 import { getRandomId } from '../data/get-random-id';
 import { loadItems } from '../data/load-items';
-import { loadPersistedState } from './load-persisted-state';
 import { parseKData } from '../data/parse-k-data';
-import { persistState } from './persist-state';
 import type { ConfigData, TaskItem } from '../data/types';
+import { loadPersistedState } from './load-persisted-state';
+import { persistState } from './persist-state';
 import type { AppState } from './types';
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
@@ -37,7 +37,7 @@ const createInitialState = (
     items.push(...customItems.map((item, index) => createTaskItem(item, items.length + index)));
   }
 
-  const ids = items.map(item => item.id);
+  const ids = items.map(({ id }) => id);
 
   return {
     configData: { ...configData, ...customConfigData },
@@ -46,7 +46,7 @@ const createInitialState = (
     initializing,
     lightMode,
     sourcePath,
-    selectedTopics: [...new Set(items.map(item => item.topic))],
+    selectedTopics: [...new Set(items.map(({ topic, task }) => topic || task))],
     remainingIds: ids,
     currentId: ids.length ? getRandomId(ids, items) : null
   };
@@ -66,10 +66,10 @@ const createAppReducer = (initialState: AppState) => {
 
         const rating = action.payload;
         if (currentIndex !== -1) {
-          const currentItem = state.items.find(item => item.id === state.currentId);
+          const currentItem = state.items.find(({ id }) => id === state.currentId);
           if (currentItem) {
             if (rating > 4) {
-              // Remove the current question from rotation if the user reports confidence.
+              // Remove the current task from rotation if the user reports mastery.
               currentItem.confidence = 0;
               state.remainingIds.splice(currentIndex, 1);
             } else {
@@ -99,7 +99,7 @@ const createAppReducer = (initialState: AppState) => {
       })
 
       .addCase(startQuiz, state => {
-        const selectedItems = state.items.filter(item => state.selectedTopics.includes(item.topic));
+        const selectedItems = state.items.filter(({ topic, task }) => state.selectedTopics.includes(topic || task));
         return createInitialState(state.sourcePath, state.configData, selectedItems, state.customData, false, state.lightMode);
       })
 

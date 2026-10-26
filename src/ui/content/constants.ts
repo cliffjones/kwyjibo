@@ -1,6 +1,6 @@
 export const MD_DELIMS = {
   code: '`',
-  em: '*'
+  em: '*',
 };
 
 export const MD_LIST_ITEM_PATTERN = /^(?:\r?\n| {2,})?- ([^\r\n]*?)(?=(?: {2,}- )|\r?\n|$)/;

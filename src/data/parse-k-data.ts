@@ -1,3 +1,4 @@
+import { K_DELIMS } from './constants';
 import { isConfigData } from './is-config-data';
 import { isTaskData } from './is-task-data';
 import { normalizeDataText } from './normalize-data-text';
@@ -53,20 +54,15 @@ export const parseKData = (data: string): [ConfigData, ...TaskData[]] => {
 
   const items: TaskData[] = [];
   let topic = '';
-  let prevBlockWasSingle = false;
   blocks.forEach((block) => {
     if (block.length === 1) {
-      /** @todo: Look at the first character here to distinguish tasks from topics. */
-
-      if (prevBlockWasSingle) {
-        items.push({ topic, task: block[0], solution: '' });
+      if (block[0].startsWith(K_DELIMS.topic)) {
+        topic = block[0].slice(1).trim();
       } else {
-        topic = block[0];
-        prevBlockWasSingle = true;
+        items.push({ topic, task: block[0], solution: '' });
       }
     } else {
       items.push({ topic, task: block[0], solution: block[1] });
-      prevBlockWasSingle = false;
     }
   });
 

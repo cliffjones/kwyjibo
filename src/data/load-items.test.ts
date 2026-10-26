@@ -21,8 +21,8 @@ describe('loadItems', () => {
 
   it('loads a quiz file for each matching route segment without requesting a manifest', async () => {
     const fetchMock = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>()
-      .mockResolvedValueOnce(createResponse('Science\n\nWhat is a cell?\nA basic unit of life.'))
-      .mockResolvedValueOnce(createResponse('Dev\n\nWhat is JSX?\nA syntax extension.'));
+      .mockResolvedValueOnce(createResponse('# Science\n\nWhat is a cell?\nA basic unit of life.'))
+      .mockResolvedValueOnce(createResponse('# Dev\n\nWhat is JSX?\nA syntax extension.'));
     globalThis.fetch = fetchMock;
 
     const [, ...items] = await loadItems('/science/dev');
