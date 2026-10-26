@@ -10,7 +10,7 @@
 }
 
 .header-title {
-  font-size: 2.5rem;
+  font-size: size.$title;
   letter-spacing: 0.05em;
   line-height: 1;
   margin: 0;
@@ -36,7 +36,7 @@
   }
 
   &--secondary {
-    font-size: 1.5rem;
+    font-size: size.$heading;
     letter-spacing: normal;
   }
 }

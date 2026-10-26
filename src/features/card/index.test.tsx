@@ -55,11 +55,11 @@ describe('Card', () => {
 
     expect(screen.getByText('mirror', { selector: 'em' })).toBeInTheDocument();
 
-    rerender(<Card content="How should a front end handle API failures?" />);
+    rerender(<Card content="How should a frontend handle API failures?" />);
 
-    const content = screen.getByText('How should a front end handle API failures?');
+    const content = screen.getByText('How should a frontend handle API failures?');
     expect(content.querySelector('em')).not.toBeInTheDocument();
     expect(content.querySelector('br')).not.toBeInTheDocument();
-    expect(content.textContent).toBe('How should a front end handle API failures?');
+    expect(content.textContent).toBe('How should a frontend handle API failures?');
   });
 });

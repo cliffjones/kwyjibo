@@ -1,2 +1,5 @@
-export const LENGTH_SIZING_FLOOR = 50;
-export const LENGTH_SIZING_CEILING = 250;
+export const CONTENT_LENGTH_FLOOR = 25;
+export const CONTENT_LENGTH_CEILING = 250;
+
+export const CONTENT_SIZE_MIN = 1;
+export const CONTENT_SIZE_MAX = 4;
