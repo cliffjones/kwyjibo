@@ -19,7 +19,8 @@
     animation: header-title-pulse 60s infinite;
 
     & > span {
-      animation: 60s infinite;
+      animation-duration: 60s;
+      animation-iteration-count: infinite;
       position: relative;
 
       &:first-child {
@@ -35,7 +36,7 @@
   }
 
   &--secondary {
-    font-size: 2rem;
+    font-size: 1.5rem;
     letter-spacing: normal;
   }
 }
