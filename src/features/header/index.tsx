@@ -35,8 +35,10 @@ export const Header = ({
   }
 
   return (<header className="header">
-    <h1>Kwyjibo</h1>
-    {configData.title ? <p className="header-title">{configData.title}</p> : null}
+    <h1 className="header-title">Kwyjibo</h1>
+    {configData.title
+      ? <p className="header-title header-title--secondary">{configData.title}</p>
+      : null}
 
     <div className="header-toolbar">
       <Button
