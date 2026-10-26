@@ -84,17 +84,19 @@ export const App = ({ path }: { path: string }) => {
         </Card>
       ) : remainingIds.length && currentItem ? (<>
         <Card topic={currentItem.topic} content={currentItem.task}>
-          {!revealed ? (
-            <ButtonSet>
-              <Button onClick={handleReveal}>
-                <Icon name="point-down" />
-                Reveal
-              </Button>
-            </ButtonSet>
-          ) : null}
+          {currentItem.solution ? (
+            !revealed ? (
+              <ButtonSet>
+                <Button onClick={handleReveal}>
+                  <Icon name="point-down" />
+                  Reveal
+                </Button>
+              </ButtonSet>
+            ) : null
+          ) : <Confidence handleRating={handleRating} />}
         </Card>
 
-        {revealed && (
+        {currentItem.solution && revealed && (
           <Card content={currentItem.solution}>
             <Confidence handleRating={handleRating} />
           </Card>
