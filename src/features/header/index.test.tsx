@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import type { TaskItem } from '../../data/types';
 import { createAppStore, startQuiz } from '../../store';
 import { getStorageKey } from '../../store/get-storage-key';
-import type { TaskItem } from '../../data/types';
 import { Header } from './index';
 
 const items: TaskItem[] = [
-  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', confidence: 0 }
+  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', rating: 0 }
 ];
 
 describe('Header', () => {

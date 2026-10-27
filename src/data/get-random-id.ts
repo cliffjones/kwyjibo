@@ -11,8 +11,8 @@ export const getRandomId = (
   const weights = [5, 4, 3, 2, 1];
 
   const weightedCandidates = candidates.map(id => {
-    const confidence = items.find(item => item.id === id)?.confidence ?? 0;
-    return { id, weight: weights[confidence] ?? weights[0] };
+    const rating = items.find(item => item.id === id)?.rating ?? 0;
+    return { id, weight: weights[rating] ?? weights[0] };
   });
 
   const totalWeight = weightedCandidates.reduce(

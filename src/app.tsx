@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from './features/card';
-import { Confidence } from './features/confidence';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
+import { Rating } from './features/rating';
 import { Setup } from './features/setup';
 import {
   rateConfidence,
@@ -93,12 +93,12 @@ export const App = ({ path }: { path: string }) => {
                 </Button>
               </ButtonSet>
             ) : null
-          ) : <Confidence handleRating={handleRating} />}
+          ) : <Rating handleRating={handleRating} />}
         </Card>
 
         {currentItem.solution && revealed && (
           <Card content={currentItem.solution}>
-            <Confidence handleRating={handleRating} />
+            <Rating handleRating={handleRating} />
           </Card>
         )}
       </>) : (

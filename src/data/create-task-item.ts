@@ -13,6 +13,6 @@ export const createTaskItem = (item: TaskData, id: number): TaskItem => {
     topic,
     type,
     solution,
-    confidence: 0
+    rating: 0
   };
 };

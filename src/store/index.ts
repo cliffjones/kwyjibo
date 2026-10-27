@@ -70,10 +70,10 @@ const createAppReducer = (initialState: AppState) => {
           if (currentItem) {
             if (rating > 4) {
               // Remove the current task from rotation if the user reports mastery.
-              currentItem.confidence = 0;
+              currentItem.rating = 0;
               state.remainingIds.splice(currentIndex, 1);
             } else {
-              currentItem.confidence = rating;
+              currentItem.rating = rating;
             }
           }
         }

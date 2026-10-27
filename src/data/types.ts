@@ -19,5 +19,5 @@ export type TaskItem = {
   topic: string;
   task: string;
   solution: string;
-  confidence: number;
+  rating: number;
 };

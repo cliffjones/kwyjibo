@@ -1,8 +1,8 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { useLocation } from 'react-router';
-import { RouterApp } from './router-app';
 import { loadItems } from './data/load-items';
 import type { ConfigData, TaskItem } from './data/types';
+import { RouterApp } from './router-app';
 
 jest.mock('react-router', () => ({
   useLocation: jest.fn()
@@ -16,7 +16,7 @@ const mockedUseLocation = jest.mocked(useLocation);
 const mockedLoadItems = jest.mocked(loadItems);
 
 const items: TaskItem[] = [
-  { id: 0, type: 'quiz', topic: 'Science', task: 'What is a cell?', solution: 'A basic unit of life.', confidence: 0 }
+  { id: 0, type: 'quiz', topic: 'Science', task: 'What is a cell?', solution: 'A basic unit of life.', rating: 0 }
 ];
 
 describe('RouterApp', () => {

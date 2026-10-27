@@ -26,7 +26,7 @@ export const isTaskItem = (value: unknown): value is TaskItem => {
     return false;
   }
 
-  if (typeof item.confidence !== 'number' || item.confidence < 0 || item.confidence > 5) {
+  if (typeof item.rating !== 'number' || item.rating < 0 || item.rating > 5) {
     return false;
   }
 

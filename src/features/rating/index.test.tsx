@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Confidence } from './index';
+import { Rating } from './index';
 
-describe('Confidence', () => {
+describe('Rating', () => {
   it.each([
     ['Not at all.', 1],
     ['Not really.', 2],
@@ -10,7 +10,7 @@ describe('Confidence', () => {
     ['Yes!', 5]
   ])('reports the selected confidence rating "%s"', (label, rating) => {
     const handleRating = jest.fn();
-    render(<Confidence handleRating={handleRating} />);
+    render(<Rating handleRating={handleRating} />);
 
     fireEvent.click(screen.getByTitle(label));
     expect(handleRating).toHaveBeenCalledWith(rating);

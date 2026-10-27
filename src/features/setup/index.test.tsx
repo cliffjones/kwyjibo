@@ -1,13 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { createAppStore, setCustomData } from '../../store';
 import type { TaskItem } from '../../data/types';
+import { createAppStore, setCustomData } from '../../store';
 import { Setup } from './index';
 
 const items: TaskItem[] = [
-  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question Z?', solution: 'Answer Z.', confidence: 0 },
-  { id: 1, type: 'quiz', topic: 'Alpha', task: 'Question A?', solution: 'Answer A.', confidence: 0 },
-  { id: 2, type: 'quiz', topic: 'Alpha', task: 'Another question A?', solution: 'Another answer A.', confidence: 0 }
+  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question Z?', solution: 'Answer Z.', rating: 0 },
+  { id: 1, type: 'quiz', topic: 'Alpha', task: 'Question A?', solution: 'Answer A.', rating: 0 },
+  { id: 2, type: 'quiz', topic: 'Alpha', task: 'Another question A?', solution: 'Another answer A.', rating: 0 }
 ];
 
 describe('Setup', () => {
