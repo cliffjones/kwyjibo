@@ -83,7 +83,7 @@ export const App = ({ path }: { path: string }) => {
           </ButtonSet>
         </Card>
       ) : remainingIds.length && currentItem ? (<>
-        <Card topic={currentItem.topic} content={currentItem.task}>
+        <Card content={currentItem.task} topic={currentItem.topic} rating={currentItem.rating}>
           {currentItem.solution ? (
             !revealed ? (
               <ButtonSet>
