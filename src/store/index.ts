@@ -61,11 +61,12 @@ const createAppReducer = (initialState: AppState) => {
           return;
         }
 
-        const currentIndex = state.remainingIds.indexOf(state.currentId);
+        const currentId = state.currentId;
+        const currentIndex = state.remainingIds.indexOf(currentId);
         const rating = action.payload;
 
         if (currentIndex !== -1) {
-          const currentItem = state.items.find(({ id }) => id === state.currentId);
+          const currentItem = state.items.find(({ id }) => id === currentId);
           if (currentItem) {
             if (rating > 4) {
               // Remove the current task from rotation if the user reports mastery.
@@ -76,8 +77,6 @@ const createAppReducer = (initialState: AppState) => {
           }
         }
 
-        let nextId = getNextId(state.remainingIds, state.currentId);
-
         if (rating > 4 && currentIndex !== -1) {
           state.remainingIds.splice(currentIndex, 1);
         }
@@ -87,14 +86,17 @@ const createAppReducer = (initialState: AppState) => {
           return;
         }
 
+        let nextId = getNextId(state.remainingIds, currentId);
+
         // If we hit the end of the list, re-sort and start with first or second item.
         if (nextId == null) {
           state.items = sortItems(state.items);
+          state.remainingIds = state.items
+            .filter(({ id }) => state.remainingIds.includes(id))
+            .map(({ id }) => id);
           nextId = state.remainingIds[0];
-          if (nextId === state.currentId && state.remainingIds.length > 1) {
-            nextId = state.remainingIds[1];
-          }
         }
+
         state.currentId = nextId;
       })
 
