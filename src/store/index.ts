@@ -77,7 +77,10 @@ const createAppReducer = (initialState: AppState) => {
           }
         }
 
-        if (rating > 4 && currentIndex !== -1) {
+        const itemIsMastered = rating > 4 && currentIndex !== -1;
+        const itemIsLast = currentIndex === state.remainingIds.length - 1;
+
+        if (itemIsMastered) {
           state.remainingIds.splice(currentIndex, 1);
         }
 
@@ -86,15 +89,25 @@ const createAppReducer = (initialState: AppState) => {
           return;
         }
 
-        let nextId = getNextId(state.remainingIds, currentId);
+        let nextId: number | null = null;
+
+        if (itemIsMastered && !itemIsLast) {
+          // Once the current item is removed, continue with the next item, which now has that same index.
+          nextId = state.remainingIds[currentIndex] ?? state.remainingIds[0];
+        } else {
+          nextId = getNextId(state.remainingIds, currentId);
+        }
 
         // If we hit the end of the list, re-sort and start with first or second item.
-        if (nextId == null) {
+        if (itemIsLast || nextId == null) {
           state.items = sortItems(state.items);
           state.remainingIds = state.items
             .filter(({ id }) => state.remainingIds.includes(id))
             .map(({ id }) => id);
           nextId = state.remainingIds[0];
+          if (nextId === currentId && state.remainingIds.length > 1) {
+            nextId = state.remainingIds[1];
+          }
         }
 
         state.currentId = nextId;
