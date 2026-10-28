@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { App } from './app';
-import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
-import { createAppStore, rateConfidence, setCustomData, setLightMode, startQuiz } from './store';
 import { loadItems } from './data/load-items';
+import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
+import { createAppStore, rateItem, setCustomData, setLightMode, startQuiz } from './store';
 
 jest.mock('./data/load-items', () => ({
   loadItems: jest.fn()
@@ -52,7 +52,7 @@ describe('App', () => {
     store.dispatch(setCustomData(CUSTOM_DATA_EXAMPLE));
     store.dispatch(setLightMode(false));
     store.dispatch(startQuiz());
-    store.dispatch(rateConfidence(5));
+    store.dispatch(rateItem(5));
 
     render(
       <Provider store={store}>

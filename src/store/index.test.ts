@@ -1,4 +1,4 @@
-import { createAppStore, setCustomData, setLightMode } from './index';
+import { createAppStore, rateItem, setCustomData, setLightMode, startQuiz } from './index';
 
 describe('app store', () => {
   beforeEach(() => {
@@ -36,5 +36,18 @@ describe('app store', () => {
     const restoredMathStore = createAppStore('/math');
     expect(restoredMathStore.getState().kwyjibo.customData).toBe('Math-specific quiz');
     expect(restoredMathStore.getState().kwyjibo.lightMode).toBe(false);
+  });
+
+  it('advances to the next card when the current item is mastered', () => {
+    const store = createAppStore('/test');
+    store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.\n\nQuestion three?\nAnswer three.'));
+    store.dispatch(startQuiz());
+
+    store.dispatch(rateItem(5));
+    expect(store.getState().kwyjibo.currentId).toBe(1);
+
+    store.dispatch(rateItem(5));
+    expect(store.getState().kwyjibo.currentId).toBe(2);
+    expect(store.getState().kwyjibo.remainingIds).toEqual([2]);
   });
 });

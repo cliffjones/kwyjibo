@@ -1,8 +1,9 @@
 import { configureStore, createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { createTaskItem } from '../data/create-task-item';
-import { getRandomId } from '../data/get-random-id';
+import { getNextId } from '../data/get-next-id';
 import { loadItems } from '../data/load-items';
 import { parseKData } from '../data/parse-k-data';
+import { sortItems } from '../data/sort-items';
 import type { ConfigData, TaskItem } from '../data/types';
 import { loadPersistedState } from './load-persisted-state';
 import { persistState } from './persist-state';
@@ -12,7 +13,7 @@ export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
 export const setLightMode = createAction<boolean>('kwyjibo/setLightMode');
 export const startQuiz = createAction('kwyjibo/startQuiz');
-export const rateConfidence = createAction<number>('kwyjibo/rateConfidence');
+export const rateItem = createAction<number>('kwyjibo/rateItem');
 export const reset = createAsyncThunk(
   'kwyjibo/reset',
   async (path: string) => ({ items: await loadItems(path), path })
@@ -26,7 +27,7 @@ const createInitialState = (
   initializing = true,
   lightMode = false
 ): AppState => {
-  const items = loadedItems.map((item, index) => ({ ...item, id: index }));
+  const items: TaskItem[] = sortItems(loadedItems).map((item, index) => ({ ...item, id: index }));
   let customConfigData: ConfigData = {};
 
   if (!initializing) {
@@ -48,34 +49,37 @@ const createInitialState = (
     sourcePath,
     selectedTopics: [...new Set(items.map(({ topic, task }) => topic || task))],
     remainingIds: ids,
-    currentId: ids.length ? getRandomId(ids, items) : null
+    currentId: ids.length ? ids[0] : null,
   };
 };
 
 const createAppReducer = (initialState: AppState) => {
   return createReducer(initialState, builder => {
     builder
-      .addCase(rateConfidence, (state, action) => {
+      .addCase(rateItem, (state, action) => {
         if (state.currentId == null) {
           return;
         }
 
-        const currentIndex = state.remainingIds.indexOf(
-          state.currentId
-        );
-
+        const currentIndex = state.remainingIds.indexOf(state.currentId);
         const rating = action.payload;
+
         if (currentIndex !== -1) {
           const currentItem = state.items.find(({ id }) => id === state.currentId);
           if (currentItem) {
             if (rating > 4) {
               // Remove the current task from rotation if the user reports mastery.
               currentItem.rating = 0;
-              state.remainingIds.splice(currentIndex, 1);
             } else {
               currentItem.rating = rating;
             }
           }
+        }
+
+        let nextId = getNextId(state.remainingIds, state.currentId);
+
+        if (rating > 4 && currentIndex !== -1) {
+          state.remainingIds.splice(currentIndex, 1);
         }
 
         if (state.remainingIds.length === 0) {
@@ -83,7 +87,15 @@ const createAppReducer = (initialState: AppState) => {
           return;
         }
 
-        state.currentId = getRandomId(state.remainingIds, state.items, state.currentId);
+        // If we hit the end of the list, re-sort and start with first or second item.
+        if (nextId == null) {
+          state.items = sortItems(state.items);
+          nextId = state.remainingIds[0];
+          if (nextId === state.currentId && state.remainingIds.length > 1) {
+            nextId = state.remainingIds[1];
+          }
+        }
+        state.currentId = nextId;
       })
 
       .addCase(selectTopics, (state, action) => {
@@ -113,6 +125,7 @@ const createAppReducer = (initialState: AppState) => {
           true,
           state.lightMode
         );
+
         // Keep the user's topic choices when rebuilding the loaded cards.
         nextState.selectedTopics = state.selectedTopics;
         return nextState;

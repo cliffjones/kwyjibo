@@ -6,7 +6,7 @@ import { Header } from './features/header';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
 import {
-  rateConfidence,
+  rateItem,
   reset,
   setCustomData,
   type AppDispatch,
@@ -37,7 +37,7 @@ export const App = ({ path }: { path: string }) => {
 
   const handleRating = (rating: number) => {
     setRevealed(false);
-    dispatch(rateConfidence(rating));
+    dispatch(rateItem(rating));
   };
 
   const confirmReset = () => {
