@@ -1,7 +1,31 @@
 @use '../../style/color';
+@use '../../style/size';
+@use '../../style/space';
 
 .link {
-  color: color.$link;
+  color: inherit;
   font-weight: bold;
+  position: relative;
   text-decoration: none;
+  
+  &::before,
+  &::after {
+    border-bottom: 1px solid;
+    bottom: calc(0px - space.$linkMarkerV);
+    content: '';
+    height: size.$linkMarker;
+    opacity: 0.5;
+    position: absolute;
+    width: size.$linkMarker;
+  }
+
+  &::before {
+    border-left: 1px solid;
+    left: calc(0px - space.$linkMarkerH);
+  }
+
+  &::after {
+    border-right: 1px solid;
+    right: calc(0px - space.$linkMarkerH);
+  }
 }

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
+import { Link } from '../../ui/link';
 import './style.scss';
 
 export const Header = ({
@@ -37,12 +38,14 @@ export const Header = ({
   }
 
   return (<header className="header">
-    <h1
-      className={`header-title${isActive ? ' header-title--active' : ''}`}
-      aria-label="Kwyjibo"
-    >
-      <span>Kwy</span><span>ji</span><span>bo</span>
-    </h1>
+    <Link href="/k/" title="Reload the app without any preloaded data sets.">
+      <h1
+        className={`header-title${isActive ? ' header-title--active' : ''}`}
+        aria-label="Kwyjibo"
+      >
+        <span>Kwy</span><span>ji</span><span>bo</span>
+      </h1>
+    </Link>
     {configData.title
       ? <p className="header-title header-title--secondary">{configData.title}</p>
       : null}

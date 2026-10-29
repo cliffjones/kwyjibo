@@ -3,7 +3,7 @@ import { Rating } from './index';
 
 describe('Rating', () => {
   it.each([
-    ['Not at all.', 1],
+    ['No.', 1],
     ['Not really.', 2],
     ['Kind of.', 3],
     ['Pretty much.', 4],
