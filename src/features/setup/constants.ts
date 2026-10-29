@@ -1,4 +1,4 @@
-export const CUSTOM_DATA_EXAMPLE = `# Enter a Topic Like This
+export const CUSTOM_DATA_EXAMPLE = `# Enter a Topic to Group Items
 
 An isolated line is a task to complete.
 
