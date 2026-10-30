@@ -1,3 +1,4 @@
+import * as dataModule from '../data/load-items';
 import { createAppStore, rateItem, setCustomData, setLightMode, startQuiz } from './index';
 
 describe('app store', () => {
@@ -49,5 +50,31 @@ describe('app store', () => {
     store.dispatch(rateItem(5));
     expect(store.getState().kwyjibo.currentId).toBe(2);
     expect(store.getState().kwyjibo.remainingIds).toEqual([2]);
+  });
+
+  it('reloads remote data when persisted state has no active quiz', async () => {
+    const loadItemsSpy = jest.spyOn(dataModule, 'loadItems').mockResolvedValue([
+      {},
+      { topic: 'Science', task: 'Question?', solution: 'Answer' }
+    ]);
+
+    window.localStorage.setItem('kwyjibo:%2Ftest', JSON.stringify({
+      sourcePath: '/test',
+      configData: { title: 'Saved state' },
+      items: [],
+      customData: '',
+      initializing: false,
+      lightMode: false,
+      selectedTopics: [],
+      remainingIds: [],
+      currentId: null,
+    }));
+
+    const store = createAppStore('/test');
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    expect(loadItemsSpy).toHaveBeenCalledWith('/test');
+    expect(store.getState().kwyjibo.currentId).toBe(0);
   });
 });

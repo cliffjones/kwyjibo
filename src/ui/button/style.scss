@@ -69,12 +69,12 @@
   &--yes {
     background: color.$yes;
   }
-}
 
-.button-set {
-  align-items: center;
-  color: color.$pencil;
-  display: flex;
-  gap: space.$mid;
-  justify-content: center;
+  &-set {
+    align-items: center;
+    color: color.$pencil;
+    display: flex;
+    gap: space.$mid;
+    justify-content: center;
+  }
 }

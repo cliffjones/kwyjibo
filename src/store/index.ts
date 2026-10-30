@@ -159,6 +159,11 @@ export const createAppStore = (sourcePath = '/', configData: ConfigData = {}, it
     reducer: { kwyjibo: createAppReducer(initialState) }
   });
 
+  // Unless the user has a session in progress, reset to avoid stale data.
+  if (restoredState && restoredState.currentId == null) {
+    void store.dispatch(reset(sourcePath));
+  }
+
   persistState(store.getState().kwyjibo);
   store.subscribe(() => persistState(store.getState().kwyjibo));
   return store;

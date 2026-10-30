@@ -12,18 +12,18 @@
   &--right {
     text-align: right;
   }
-}
 
-.content-gap {
-  height: space.$mid;
-}
+  &-gap {
+    height: space.$mid;
+  }
 
-.content-list {
-  list-style-type: disc;
-  margin: 0;
-  padding-left: 1em;
-}
+  &-list {
+    list-style-type: disc;
+    margin: 0;
+    padding-left: 1em;
 
-.content-list-item {
-  margin-left: 1em;
+    &-item {
+      margin-left: 1em;
+    }
+  }
 }

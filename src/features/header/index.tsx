@@ -38,14 +38,16 @@ export const Header = ({
   }
 
   return (<header className="header">
-    <Link href="/k/" title="Reload the app without any preloaded data sets.">
-      <h1
-        className={`header-title${isActive ? ' header-title--active' : ''}`}
-        aria-label="Kwyjibo"
-      >
-        <span>Kwy</span><span>ji</span><span>bo</span>
-      </h1>
-    </Link>
+    <h1
+      className={`header-title${isActive ? ' header-title--active' : ''}`}
+      aria-label="Kwyjibo"
+    >
+      <Link href="/k/" title="Refresh with no preloaded data.">
+        <span className="header-title-part">Kwy</span>
+        <span className="header-title-part">ji</span>
+        <span className="header-title-part">bo</span>
+      </Link>
+    </h1>
     {configData.title
       ? <p className="header-title header-title--secondary">{configData.title}</p>
       : null}

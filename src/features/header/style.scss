@@ -7,56 +7,56 @@
   flex-direction: column;
   gap: space.$mid;
   align-items: center;
-}
 
-.header-title {
-  font-size: size.$title;
-  letter-spacing: 0.05em;
-  line-height: 1;
-  margin: 0;
+  &-title {
+    font-size: size.$title;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin: 0;
 
-  &--active {
-    animation: header-title-pulse 60s infinite;
+    &--active {
+      animation: header-title-pulse 60s infinite;
 
-    & > span {
-      animation-duration: 60s;
-      animation-iteration-count: infinite;
-      position: relative;
+      .header-title-part {
+        animation-duration: 60s;
+        animation-iteration-count: infinite;
+        position: relative;
 
-      &:first-child {
-        animation-name: header-title-a-bounce;
+        &:first-child {
+          animation-name: header-title-a-bounce;
+        }
+        &:nth-child(2) {
+          animation-name: header-title-b-bounce;
+        }
+        &:last-child {
+          animation-name: header-title-c-bounce;
+        }
       }
-      &:nth-child(2) {
-        animation-name: header-title-b-bounce;
-      }
-      &:last-child {
-        animation-name: header-title-c-bounce;
-      }
+    }
+
+    &--secondary {
+      font-size: size.$heading;
+      letter-spacing: normal;
     }
   }
 
-  &--secondary {
-    font-size: size.$heading;
-    letter-spacing: normal;
+  &-toolbar {
+    align-items: center;
+    display: flex;
+    gap: space.$mid;
+    position: absolute;
+    right: space.$mid;
+    top: space.$mid;
   }
-}
 
-.header-toolbar {
-  align-items: center;
-  display: flex;
-  gap: space.$mid;
-  position: absolute;
-  right: space.$mid;
-  top: space.$mid;
-}
-
-.header-info {
-  align-items: center;
-  color: color.$pencil;
-  display: flex;
-  gap: space.$small;
-  justify-content: center;
-  line-height: 1;
+  &-info {
+    align-items: center;
+    color: color.$pencil;
+    display: flex;
+    gap: space.$small;
+    justify-content: center;
+    line-height: 1;
+  }
 }
 
 @keyframes header-title-pulse {

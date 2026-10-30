@@ -12,55 +12,55 @@
   padding: space.$big;
   position: relative;
   text-align: center;
-}
 
-.card-heading {
-  color: color.$pencil;
-  font-size: size.$heading;
-  font-weight: normal;
-  margin: 0;
-}
-
-.card-rating {
-  border-radius: size.$text;
-  color: color.$icon-ink;
-  height: size.$text;
-  left: space.$mid;
-  padding: 0;
-  position: absolute;
-  top: space.$mid;
-  width: size.$text;
-
-  &--1 {
-    background: color.$no;
+  &-heading {
+    color: color.$pencil;
+    font-size: size.$heading;
+    font-weight: normal;
+    margin: 0;
   }
 
-  &--2 {
-    background: color.$negative;
-  }
-
-  &--3 {
-    background: color.$neutral;
-  }
-
-  &--4 {
-    background: color.$positive;
-  }
-
-  .icon {
-    height: 100%;
-    left: 0;
+  &-rating {
+    border-radius: size.$text;
+    color: color.$icon-ink;
+    height: size.$text;
+    left: space.$mid;
+    padding: 0;
     position: absolute;
-    top: 0;
-    width: 100%;
-  }
-}
+    top: space.$mid;
+    width: size.$text;
 
-.card-topic {
-  color: color.$pencil;
-  font-size: size.$text;
-  line-height: 1;
-  position: absolute;
-  right: space.$mid;
-  top: space.$mid;
+    &--1 {
+      background: color.$no;
+    }
+
+    &--2 {
+      background: color.$negative;
+    }
+
+    &--3 {
+      background: color.$neutral;
+    }
+
+    &--4 {
+      background: color.$positive;
+    }
+
+    .icon {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  &-topic {
+    color: color.$pencil;
+    font-size: size.$text;
+    line-height: 1;
+    position: absolute;
+    right: space.$mid;
+    top: space.$mid;
+  }
 }
