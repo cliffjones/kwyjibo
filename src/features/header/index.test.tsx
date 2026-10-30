@@ -18,7 +18,7 @@ describe('Header', () => {
   it('shows card counts and calls the reset confirmation handler', () => {
     const store = createAppStore('/test', {}, items);
     store.dispatch(startQuiz());
-    const confirmReset = jest.fn();
+    const confirmReset = vi.fn();
 
     render(
       <Provider store={store}>
@@ -35,7 +35,7 @@ describe('Header', () => {
     const store = createAppStore('/title', { title: 'Science' });
     const { rerender } = render(
       <Provider store={store}>
-        <Header confirmReset={jest.fn()} confirmingReset={false} />
+        <Header confirmReset={vi.fn()} confirmingReset={false} />
       </Provider>
     );
 
@@ -44,7 +44,7 @@ describe('Header', () => {
     const storeWithoutTitle = createAppStore('/title-without-config');
     rerender(
       <Provider store={storeWithoutTitle}>
-        <Header confirmReset={jest.fn()} confirmingReset={false} />
+        <Header confirmReset={vi.fn()} confirmingReset={false} />
       </Provider>
     );
 
@@ -56,7 +56,7 @@ describe('Header', () => {
 
     const { unmount } = render(
       <Provider store={store}>
-        <Header confirmReset={jest.fn()} confirmingReset={false} />
+        <Header confirmReset={vi.fn()} confirmingReset={false} />
       </Provider>
     );
 
@@ -72,7 +72,7 @@ describe('Header', () => {
     unmount();
     render(
       <Provider store={restoredStore}>
-        <Header confirmReset={jest.fn()} confirmingReset={false} />
+        <Header confirmReset={vi.fn()} confirmingReset={false} />
       </Provider>
     );
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');

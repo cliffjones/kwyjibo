@@ -4,16 +4,16 @@ import { loadItems } from './data/load-items';
 import type { ConfigData, TaskItem } from './data/types';
 import { RouterApp } from './router-app';
 
-jest.mock('react-router', () => ({
-  useLocation: jest.fn()
+vi.mock('react-router', () => ({
+  useLocation: vi.fn()
 }));
 
-jest.mock('./data/load-items', () => ({
-  loadItems: jest.fn()
+vi.mock('./data/load-items', () => ({
+  loadItems: vi.fn()
 }));
 
-const mockedUseLocation = jest.mocked(useLocation);
-const mockedLoadItems = jest.mocked(loadItems);
+const mockedUseLocation = vi.mocked(useLocation);
+const mockedLoadItems = vi.mocked(loadItems);
 
 const items: TaskItem[] = [
   { id: 0, type: 'quiz', topic: 'Science', task: 'What is a cell?', solution: 'A basic unit of life.', rating: 0 }
@@ -45,7 +45,7 @@ describe('RouterApp', () => {
   });
 
   it('renders an alert when cards fail to load', async () => {
-    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => { });
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => { });
     mockedLoadItems.mockRejectedValue(new Error('network failure'));
 
     render(<RouterApp />);

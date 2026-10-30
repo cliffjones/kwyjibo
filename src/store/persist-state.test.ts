@@ -32,8 +32,8 @@ describe('persistState', () => {
   });
 
   it('swallows browser storage errors', () => {
-    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
-    const setItem = jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+    const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('disk full');
     });
 

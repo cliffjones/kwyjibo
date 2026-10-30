@@ -15,12 +15,12 @@ const originalFetch = globalThis.fetch;
 
 describe('loadItems', () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
     globalThis.fetch = originalFetch;
   });
 
   it('loads a quiz file for each matching route segment without requesting a manifest', async () => {
-    const fetchMock = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>()
+    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
       .mockResolvedValueOnce(createResponse('# Science\n\nWhat is a cell?\nA basic unit of life.'))
       .mockResolvedValueOnce(createResponse('# Dev\n\nWhat is JSX?\nA syntax extension.'));
     globalThis.fetch = fetchMock;
@@ -38,7 +38,7 @@ describe('loadItems', () => {
   });
 
   it('ignores route segments without a matching quiz file', async () => {
-    const fetchMock = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>()
+    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
       .mockResolvedValueOnce(createResponse('', 403))
       .mockResolvedValueOnce(createResponse('', 404));
     globalThis.fetch = fetchMock;
@@ -51,7 +51,7 @@ describe('loadItems', () => {
   });
 
   it('ignores SPA fallback HTML returned for a missing quiz file', async () => {
-    const fetchMock = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>()
+    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
       .mockResolvedValueOnce(createResponse('<!doctype html><html><body>App</body></html>'));
     globalThis.fetch = fetchMock;
 
@@ -60,7 +60,7 @@ describe('loadItems', () => {
   });
 
   it('ignores HTML quiz responses even when their content type is incorrect', async () => {
-    const fetchMock = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>()
+    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
       .mockResolvedValueOnce(createResponse('<html><body>App</body></html>', 200, 'text/plain'));
     globalThis.fetch = fetchMock;
 
@@ -68,7 +68,7 @@ describe('loadItems', () => {
   });
 
   it('does not fetch traversal segments or decoded path separators', async () => {
-    const fetchMock = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>()
+    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
       .mockResolvedValueOnce(createResponse('Dev\n\nQuestion?\nAnswer.'));
     globalThis.fetch = fetchMock;
 
@@ -79,7 +79,7 @@ describe('loadItems', () => {
   });
 
   it('reports errors other than a missing quiz file', async () => {
-    globalThis.fetch = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>()
+    globalThis.fetch = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
       .mockResolvedValue(createResponse('', 500));
 
     await expect(loadItems('/dev')).rejects.toThrow('Unable to load dev.k: 500');

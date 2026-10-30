@@ -3,7 +3,7 @@ import { Button } from './index';
 
 describe('Button', () => {
   it('renders a button with its standard props and custom class', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(<Button className="button--primary" onClick={onClick}>Save</Button>);
 
     const button = screen.getByRole('button', { name: 'Save' });

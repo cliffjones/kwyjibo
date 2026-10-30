@@ -14,7 +14,7 @@ describe('Setup', () => {
   it('lists unique topics in order, updates selection, and starts the quiz', () => {
     const store = createAppStore('/test', {}, items);
     store.dispatch(setCustomData(''));
-    const handleTextChange = jest.fn();
+    const handleTextChange = vi.fn();
 
     render(
       <Provider store={store}>
@@ -41,7 +41,7 @@ describe('Setup', () => {
 
   it('disables Start only when custom data and available topics are both empty', () => {
     const store = createAppStore('/empty');
-    const handleTextChange = jest.fn();
+    const handleTextChange = vi.fn();
     const { rerender } = render(
       <Provider store={store}>
         <Setup customData="" handleTextChange={handleTextChange} />

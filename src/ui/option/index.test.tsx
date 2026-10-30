@@ -3,7 +3,7 @@ import { Option } from './index';
 
 describe('Option', () => {
   it('renders a labeled checkbox and forwards changes', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(<Option label="Science" checked={false} onChange={onChange} />);
 
     const option = screen.getByRole('checkbox', { name: 'Science' });

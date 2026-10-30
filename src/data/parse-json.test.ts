@@ -16,7 +16,7 @@ describe('parseJson', () => {
   it('returns null for empty input and forbidden keys', () => {
     expect(parseJson('')).toBeNull();
 
-    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
     expect(parseJson('{"__proto__":{"evil":true}}')).toBeNull();
     expect(errorSpy).toHaveBeenCalledTimes(1);
     errorSpy.mockRestore();

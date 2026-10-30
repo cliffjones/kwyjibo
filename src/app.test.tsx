@@ -5,11 +5,11 @@ import { loadItems } from './data/load-items';
 import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
 import { createAppStore, rateItem, setCustomData, setLightMode, startQuiz } from './store';
 
-jest.mock('./data/load-items', () => ({
-  loadItems: jest.fn()
+vi.mock('./data/load-items', () => ({
+  loadItems: vi.fn()
 }));
 
-const mockedLoadItems = jest.mocked(loadItems);
+const mockedLoadItems = vi.mocked(loadItems);
 
 describe('App', () => {
   beforeEach(() => {

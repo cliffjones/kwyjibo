@@ -9,7 +9,7 @@ describe('Rating', () => {
     ['Pretty much.', 4],
     ['Yes!', 5]
   ])('reports the selected confidence rating "%s"', (label, rating) => {
-    const handleRating = jest.fn();
+    const handleRating = vi.fn();
     render(<Rating handleRating={handleRating} />);
 
     fireEvent.click(screen.getByTitle(label));

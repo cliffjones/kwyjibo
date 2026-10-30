@@ -31,4 +31,15 @@ const apacheSpaFallback = {
 export default defineConfig({
   base,
   plugins: [react(), apacheSpaFallback],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './test/setup.ts',
+    include: ['src/**/*.test.ts?(x)'],
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.tsx'],
+      exclude: ['src/**/*.test.tsx', 'src/main.tsx']
+    }
+  }
 })

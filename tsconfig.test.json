@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": ["vite/client", "jest"]
+    "types": ["vite/client", "vitest/globals"]
   },
   "include": ["src", "test/setup.ts"],
   "exclude": []
