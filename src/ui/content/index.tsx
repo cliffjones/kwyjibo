@@ -1,15 +1,11 @@
 import { Fragment, type ReactNode } from 'react';
+import { extractLineConfig } from '../../data/extract-line-config';
 import { Image } from '../image';
 import { Link } from '../link';
-import { CONTENT_VARIANTS } from './constants';
-import { extractConfig } from './extract-config';
 import './style.scss';
 import { tokenizeContent } from './tokenize-content';
 import { tokenizeInline } from './tokenize-inline';
 import type { ContentToken, InlineToken } from './types';
-
-const isObject = (value: unknown): value is Record<string, unknown> =>
-  Object.prototype.toString.call(value) === '[object Object]';
 
 // Converts runs of spaces into line breaks or gaps while preserving indentation.
 const renderText = (value: string): ReactNode[] => {
@@ -87,16 +83,13 @@ const renderContent = (tokens: ContentToken[]): ReactNode[] => {
 };
 
 export const Content = ({ text }: { text: string }) => {
-  const { config, content } = extractConfig(text);
+  const { config, content } = extractLineConfig(text);
 
   // Compile a set of variant classes based on the presence of certain flags.
   let variantClasses = '';
-  if (isObject(config)) {
-    Object.keys(config).forEach((key) => {
-      if (!key || typeof key !== 'string') {
-        return;
-      }
-      if (CONTENT_VARIANTS.includes(key) && config[key] === true) {
+  if (config != null) {
+    Object.entries(config).forEach(([key, value]) => {
+      if (value === true) {
         variantClasses = `${variantClasses} content--${key}`;
       }
     });

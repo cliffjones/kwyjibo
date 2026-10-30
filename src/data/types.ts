@@ -6,6 +6,13 @@ export type ConfigData = {
   footer?: string;
 };
 
+export type LineConfigData = {
+  left?: boolean;
+  right?: boolean;
+  order?: number;
+  value?: number;
+};
+
 export type TaskData = {
   topic?: string;
   type?: string;

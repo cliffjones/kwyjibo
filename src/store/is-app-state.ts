@@ -1,9 +1,10 @@
 import { isConfigData } from '../data/is-config-data';
+import { isPlainObject } from '../data/is-plain-object';
 import { isTaskItem } from '../data/is-task-item';
 import type { AppState } from './types';
 
 export const isAppState = (value: unknown): value is AppState => {
-  if (value == null || typeof value !== 'object') {
+  if (!isPlainObject(value)) {
     return false;
   }
   const state = value as Record<string, unknown>;

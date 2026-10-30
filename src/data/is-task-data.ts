@@ -1,7 +1,8 @@
+import { isPlainObject } from './is-plain-object';
 import type { TaskData } from './types';
 
 export const isTaskData = (value: unknown): value is TaskData => {
-  if (value == null || typeof value !== 'object') {
+  if (!isPlainObject(value)) {
     return false;
   }
   const item = value as Record<string, unknown>;

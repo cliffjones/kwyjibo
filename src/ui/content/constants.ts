@@ -1,8 +1,3 @@
-export const CONTENT_VARIANTS = [
-  'left',
-  'right',
-];
-
 export const CONTENT_DELIMS = {
   code: '`',
   em: '*',

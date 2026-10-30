@@ -1,8 +1,9 @@
 import { CONFIG_KEYS } from './constants';
+import { isPlainObject } from './is-plain-object';
 import type { ConfigData } from './types';
 
 export const isConfigData = (value: unknown): value is ConfigData => {
-  if (value == null || typeof value !== 'object') {
+  if (!isPlainObject(value)) {
     return false;
   }
 
