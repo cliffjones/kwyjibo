@@ -20,10 +20,10 @@ describe('loadItems', () => {
   });
 
   it('loads a quiz file for each matching route segment without requesting a manifest', async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
+    const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('# Science\n\nWhat is a cell?\nA basic unit of life.'))
       .mockResolvedValueOnce(createResponse('# Dev\n\nWhat is JSX?\nA syntax extension.'));
-    globalThis.fetch = fetchMock;
+    vi.stubGlobal('fetch', fetchMock);
 
     const [, ...items] = await loadItems('/science/dev');
 
@@ -38,10 +38,10 @@ describe('loadItems', () => {
   });
 
   it('ignores route segments without a matching quiz file', async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
+    const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('', 403))
       .mockResolvedValueOnce(createResponse('', 404));
-    globalThis.fetch = fetchMock;
+    vi.stubGlobal('fetch', fetchMock);
 
     expect(await loadItems('/missing/not-found')).toEqual([{}]);
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
@@ -51,26 +51,26 @@ describe('loadItems', () => {
   });
 
   it('ignores SPA fallback HTML returned for a missing quiz file', async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
+    const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('<!doctype html><html><body>App</body></html>'));
-    globalThis.fetch = fetchMock;
+    vi.stubGlobal('fetch', fetchMock);
 
     expect(await loadItems('/missing')).toEqual([{}]);
     expect(fetchMock).toHaveBeenCalledWith('/data/missing.k');
   });
 
   it('ignores HTML quiz responses even when their content type is incorrect', async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
+    const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('<html><body>App</body></html>', 200, 'text/plain'));
-    globalThis.fetch = fetchMock;
+    vi.stubGlobal('fetch', fetchMock);
 
     expect(await loadItems('/missing')).toEqual([{}]);
   });
 
   it('does not fetch traversal segments or decoded path separators', async () => {
-    const fetchMock = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
+    const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('Dev\n\nQuestion?\nAnswer.'));
-    globalThis.fetch = fetchMock;
+    vi.stubGlobal('fetch', fetchMock);
 
     await loadItems('/%2e%2e/%2Fsecret/dev');
 
@@ -79,7 +79,7 @@ describe('loadItems', () => {
   });
 
   it('reports errors other than a missing quiz file', async () => {
-    globalThis.fetch = vi.fn<Parameters<typeof fetch>, ReturnType<typeof fetch>>()
+    globalThis.fetch = vi.fn<typeof fetch>()
       .mockResolvedValue(createResponse('', 500));
 
     await expect(loadItems('/dev')).rejects.toThrow('Unable to load dev.k: 500');

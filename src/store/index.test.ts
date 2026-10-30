@@ -55,7 +55,7 @@ describe('app store', () => {
   it('reloads remote data when persisted state has no active quiz', async () => {
     const loadItemsSpy = vi.spyOn(dataModule, 'loadItems').mockResolvedValue([
       {},
-      { topic: 'Science', task: 'Question?', solution: 'Answer' }
+      { topic: 'Science', task: 'Question?', solution: 'Answer', id: 0, type: 'task', rating: 0 }
     ]);
 
     window.localStorage.setItem('kwyjibo:%2Ftest', JSON.stringify({
