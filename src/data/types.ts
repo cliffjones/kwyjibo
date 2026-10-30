@@ -8,7 +8,7 @@ export type ConfigData = {
 
 export type TaskData = {
   topic?: string;
-  type?: string; // question, reminder (+), log (=)...?
+  type?: string;
   task: string;
   solution?: string;
 };

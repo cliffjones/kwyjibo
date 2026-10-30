@@ -7,10 +7,18 @@
 
   &--left {
     text-align: left;
+
+    .content-list {
+      margin: 0;
+    }
   }
 
   &--right {
     text-align: right;
+
+    .content-list {
+      margin: 0 0 0 auto;
+    }
   }
 
   &-gap {
@@ -19,11 +27,13 @@
 
   &-list {
     list-style-type: disc;
-    margin: 0;
+    margin: 0 auto;
     padding-left: 1em;
+    width: fit-content;
 
     &-item {
       margin-left: 1em;
+      text-align: left;
     }
   }
 }

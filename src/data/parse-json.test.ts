@@ -5,6 +5,14 @@ describe('parseJson', () => {
     expect(parseJson('{"language":"en","title":"Demo"}')).toEqual({ language: 'en', title: 'Demo' });
   });
 
+  it('allows object keys with no explicit value', () => {
+    expect(parseJson('{ left, title: "Demo", active }')).toEqual({
+      left: true,
+      title: 'Demo',
+      active: true,
+    });
+  });
+
   it('returns null for empty input and forbidden keys', () => {
     expect(parseJson('')).toBeNull();
 

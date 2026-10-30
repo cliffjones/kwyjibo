@@ -7,8 +7,14 @@ export const parseJson = (text: string): unknown => {
     return null;
   }
 
+  // Interpret any keys with no value specified as unary flags.
+  const normalizedText = text.replace(
+    /(^|[{,]\s*)([a-z_$][\w$-]*)(?=\s*(?:[},]))/gi,
+    (_, prefix: string, key: string) => `${prefix}${key}: true`
+  );
+
   try {
-    return JSON5.parse(text, (key, value) => {
+    return JSON5.parse(normalizedText, (key, value) => {
       if (FORBIDDEN_JSON_KEYS.includes(key)) {
         throw new Error('Forbidden key detected.');
       }

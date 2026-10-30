@@ -1,4 +1,4 @@
-import { MD_LIST_ITEM_PATTERN } from './constants';
+import { CONTENT_LIST_ITEM_PATTERN } from './constants';
 import type { ContentToken } from './types';
 
 export const tokenizeContent = (value: string): ContentToken[] => {
@@ -13,7 +13,7 @@ export const tokenizeContent = (value: string): ContentToken[] => {
       continue;
     }
 
-    const listItemMatch = MD_LIST_ITEM_PATTERN.exec(value.slice(position));
+    const listItemMatch = CONTENT_LIST_ITEM_PATTERN.exec(value.slice(position));
     if (listItemMatch?.[1]) {
       if (position > textStart) {
         tokens.push({ type: 'text', text: value.slice(textStart, position) });

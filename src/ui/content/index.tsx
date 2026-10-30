@@ -1,11 +1,15 @@
 import { Fragment, type ReactNode } from 'react';
 import { Image } from '../image';
 import { Link } from '../link';
-import { splitVariant } from './split-variant';
+import { CONTENT_VARIANTS } from './constants';
+import { extractConfig } from './extract-config';
 import './style.scss';
 import { tokenizeContent } from './tokenize-content';
 import { tokenizeInline } from './tokenize-inline';
 import type { ContentToken, InlineToken } from './types';
+
+const isObject = (value: unknown): value is Record<string, unknown> =>
+  Object.prototype.toString.call(value) === '[object Object]';
 
 // Converts runs of spaces into line breaks or gaps while preserving indentation.
 const renderText = (value: string): ReactNode[] => {
@@ -83,9 +87,23 @@ const renderContent = (tokens: ContentToken[]): ReactNode[] => {
 };
 
 export const Content = ({ text }: { text: string }) => {
-  const { content, variant } = splitVariant(text);
+  const { config, content } = extractConfig(text);
+
+  // Compile a set of variant classes based on the presence of certain flags.
+  let variantClasses = '';
+  if (isObject(config)) {
+    Object.keys(config).forEach((key) => {
+      if (!key || typeof key !== 'string') {
+        return;
+      }
+      if (CONTENT_VARIANTS.includes(key) && config[key] === true) {
+        variantClasses = `${variantClasses} content--${key}`;
+      }
+    });
+  }
+
   return (
-    <div className={`content${variant ? ` content--${variant}` : ''}`}>
+    <div className={`content${variantClasses}`}>
       {renderContent(tokenizeContent(content))}
     </div>
   );

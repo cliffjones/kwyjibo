@@ -1,15 +1,15 @@
 import {
-  MD_DELIMS,
-  MD_IMAGE_LINK_PATTERN,
-  MD_IMAGE_PATTERN,
-  MD_LINK_PATTERN
+  CONTENT_DELIMS,
+  CONTENT_IMAGE_LINK_PATTERN,
+  CONTENT_IMAGE_PATTERN,
+  CONTENT_LINK_PATTERN
 } from './constants';
 import { isSafeUrl } from './is-safe-url';
 import type { InlineMatch } from './types';
 
 export const matchInlineToken = (value: string, position: number): InlineMatch | null => {
   const remainingText = value.slice(position);
-  const imageLinkMatch = MD_IMAGE_LINK_PATTERN.exec(remainingText);
+  const imageLinkMatch = CONTENT_IMAGE_LINK_PATTERN.exec(remainingText);
   if (imageLinkMatch) {
     const [, imageText, imageUrl, url, title] = imageLinkMatch;
     if (isSafeUrl(imageUrl) && isSafeUrl(url, true)) {
@@ -26,7 +26,7 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
     }
   }
 
-  const imageMatch = MD_IMAGE_PATTERN.exec(remainingText);
+  const imageMatch = CONTENT_IMAGE_PATTERN.exec(remainingText);
   if (imageMatch) {
     const [, label, url] = imageMatch;
     if (isSafeUrl(url)) {
@@ -37,7 +37,7 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
     }
   }
 
-  const linkMatch = MD_LINK_PATTERN.exec(remainingText);
+  const linkMatch = CONTENT_LINK_PATTERN.exec(remainingText);
   if (linkMatch) {
     const [, label, url, title] = linkMatch;
     if (isSafeUrl(url, true)) {
@@ -54,13 +54,13 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
   }
 
   const delimiter = value[position];
-  if (!Object.values(MD_DELIMS).includes(delimiter)) {
+  if (!Object.values(CONTENT_DELIMS).includes(delimiter)) {
     return null;
   }
 
   const closingPosition = value.indexOf(delimiter, position + 1);
-  const otherDelimiter = delimiter === MD_DELIMS.code ? MD_DELIMS.em : MD_DELIMS.code;
-  const otherPosition = delimiter === MD_DELIMS.em
+  const otherDelimiter = delimiter === CONTENT_DELIMS.code ? CONTENT_DELIMS.em : CONTENT_DELIMS.code;
+  const otherPosition = delimiter === CONTENT_DELIMS.em
     ? value.indexOf(otherDelimiter, position + 1)
     : -1;
 
@@ -71,7 +71,7 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
 
   return {
     token: {
-      type: delimiter === MD_DELIMS.code ? 'code' : 'em',
+      type: delimiter === CONTENT_DELIMS.code ? 'code' : 'em',
       text: value.slice(position + 1, closingPosition)
     },
     length: closingPosition - position + 1
