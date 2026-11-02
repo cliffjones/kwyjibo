@@ -54,7 +54,7 @@ export const Header = ({
 
     <div className="header-toolbar">
       <Button
-        className="button--text"
+        variant="text"
         onClick={() => dispatch(setLightMode(!lightMode))}
         title={`Switch to ${lightMode ? 'Dark' : 'Light'} Mode`}
       ><Icon name={lightMode ? 'moon' : 'sun'} /></Button>
@@ -65,7 +65,7 @@ export const Header = ({
         {remainingMessage}
         {confirmingReset || !remainingIds.length ? null : (
           <Button
-            className="button--text"
+            variant="text"
             onClick={confirmReset}
             title="Reset"
           ><Icon name="reset" /></Button>

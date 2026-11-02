@@ -1,9 +1,13 @@
 import type { ButtonHTMLAttributes } from 'react';
+import { getClassString } from '../get-class-string';
 import './style.scss';
 
-export const Button = ({ className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
+export const Button = ({
+  variant,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string }) => (
   <button
-    className={['button', className].filter(Boolean).join(' ')}
+    className={getClassString('button', variant)}
     {...props}
   />
 );

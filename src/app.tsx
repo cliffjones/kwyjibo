@@ -72,11 +72,11 @@ export const App = ({ path }: { path: string }) => {
       ) : confirmingReset ? (
         <Card heading="Really reset the cards?">
           <ButtonSet>
-            <Button className="button--yes" onClick={handleReset}>
+            <Button variant="yes" onClick={handleReset}>
               <Icon name="check" />
               Yes
             </Button>
-            <Button className="button--no" onClick={cancelReset}>
+            <Button variant="no" onClick={cancelReset}>
               <Icon name="x" />
               No
             </Button>
@@ -84,15 +84,21 @@ export const App = ({ path }: { path: string }) => {
         </Card>
       ) : remainingIds.length && currentItem ? (<>
         <Card content={currentItem.task} topic={currentItem.topic} rating={currentItem.rating}>
-          {currentItem.solution ? (
-            !revealed ? (
-              <ButtonSet>
-                <Button onClick={handleReveal}>
-                  <Icon name="point-down" />
-                  Reveal
+          {currentItem.type === 'quiz' && currentItem.responses.length ? (
+            <ButtonSet variant="responses">
+              {currentItem.responses.map((response, index) => (
+                <Button key={index} onClick={() => handleRating(response.value)}>
+                  {response.text}
                 </Button>
-              </ButtonSet>
-            ) : null
+              ))}
+            </ButtonSet>
+          ) : currentItem.solution ? (
+            revealed ? null : <ButtonSet>
+              <Button onClick={handleReveal}>
+                <Icon name="point-down" />
+                Reveal
+              </Button>
+            </ButtonSet>
           ) : <Rating handleRating={handleRating} />}
         </Card>
 

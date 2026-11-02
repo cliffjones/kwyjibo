@@ -76,5 +76,9 @@
     display: flex;
     gap: space.$mid;
     justify-content: center;
+
+    &--responses {
+      flex-direction: column;
+    }
   }
 }

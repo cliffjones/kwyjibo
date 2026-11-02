@@ -4,7 +4,7 @@ import { Link } from './index';
 describe('Link', () => {
   it('adds external link behavior and merges class names', () => {
     render(
-      <Link href="https://example.com" className="cta" title="Example">
+      <Link href="https://example.com" variant="cta" title="Example">
         Visit
       </Link>
     );
@@ -13,7 +13,7 @@ describe('Link', () => {
     expect(link).toHaveAttribute('href', 'https://example.com');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('title', 'Example');
-    expect(link).toHaveClass('link', 'cta');
+    expect(link).toHaveClass('link', 'link--cta');
   });
 
   it('keeps internal links as regular anchors', () => {

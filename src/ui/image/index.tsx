@@ -1,9 +1,13 @@
 import type { ImgHTMLAttributes } from 'react';
+import { getClassString } from '../get-class-string';
 import './style.scss';
 
-export const Image = ({ className, ...props }: ImgHTMLAttributes<HTMLImageElement>) => (
+export const Image = ({
+  variant,
+  ...props
+}: ImgHTMLAttributes<HTMLImageElement> & { variant?: string }) => (
   <img
-    className={['image', className].filter(Boolean).join(' ')}
+    className={getClassString('image', variant)}
     {...props}
   />
 );
