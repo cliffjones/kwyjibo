@@ -13,11 +13,18 @@ export type LineConfigData = {
   value?: number;
 };
 
+export type ResponseData = {
+  text: string;
+  value: number;
+  order: number;
+};
+
 export type TaskData = {
+  task: string;
   topic?: string;
   type?: string;
-  task: string;
   solution?: string;
+  responses?: ResponseData[];
 };
 
 export type TaskItem = {
@@ -26,5 +33,6 @@ export type TaskItem = {
   topic: string;
   task: string;
   solution: string;
+  responses: ResponseData[];
   rating: number;
 };

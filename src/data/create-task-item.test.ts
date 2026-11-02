@@ -7,6 +7,7 @@ describe('createTaskItem', () => {
       topic: '',
       type: 'reminder',
       solution: '',
+      responses: [],
       id: 7,
       rating: 0
     });
@@ -18,6 +19,7 @@ describe('createTaskItem', () => {
       topic: '',
       type: 'question',
       solution: 'A hereditary molecule.',
+      responses: [],
       id: 9,
       rating: 0
     });

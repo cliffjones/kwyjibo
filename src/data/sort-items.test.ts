@@ -7,6 +7,7 @@ describe('sortItems', () => {
     topic: 'Science',
     task,
     solution: 'Answer',
+    responses: [],
     rating,
   });
 

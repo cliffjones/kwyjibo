@@ -16,7 +16,7 @@ const mockedUseLocation = vi.mocked(useLocation);
 const mockedLoadItems = vi.mocked(loadItems);
 
 const items: TaskItem[] = [
-  { id: 0, type: 'quiz', topic: 'Science', task: 'What is a cell?', solution: 'A basic unit of life.', rating: 0 }
+  { id: 0, type: 'quiz', topic: 'Science', task: 'What is a cell?', solution: 'A basic unit of life.', responses: [], rating: 0 }
 ];
 
 describe('RouterApp', () => {

@@ -1,25 +1,32 @@
 import { isPlainObject } from './is-plain-object';
+import { isResponseData } from './is-response-data';
 import type { TaskData } from './types';
 
 export const isTaskData = (value: unknown): value is TaskData => {
   if (!isPlainObject(value)) {
     return false;
   }
-  const item = value as Record<string, unknown>;
 
-  if (item.topic != null && typeof item.topic !== 'string') {
+  if (value.topic != null && typeof value.topic !== 'string') {
     return false;
   }
 
-  if (item.type != null && typeof item.type !== 'string') {
+  if (value.type != null && typeof value.type !== 'string') {
     return false;
   }
 
-  if (!item.task || typeof item.task !== 'string') {
+  if (!value.task || typeof value.task !== 'string') {
     return false;
   }
 
-  if (item.solution != null && typeof item.solution !== 'string') {
+  if (value.solution != null && typeof value.solution !== 'string') {
+    return false;
+  }
+
+  if (
+    value.responses != null
+    && (!Array.isArray(value.responses) || !value.responses.every(isResponseData))
+  ) {
     return false;
   }
 

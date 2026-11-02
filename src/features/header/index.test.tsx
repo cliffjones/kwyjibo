@@ -6,7 +6,7 @@ import { getStorageKey } from '../../store/get-storage-key';
 import { Header } from './index';
 
 const items: TaskItem[] = [
-  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', rating: 0 }
+  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', responses: [], rating: 0 }
 ];
 
 describe('Header', () => {

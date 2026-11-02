@@ -5,29 +5,28 @@ export const isTaskItem = (value: unknown): value is TaskItem => {
   if (!isPlainObject(value)) {
     return false;
   }
-  const item = value as Record<string, unknown>;
 
-  if (typeof item.id !== 'number') {
+  if (typeof value.id !== 'number') {
     return false;
   }
 
-  if (typeof item.type !== 'string') {
+  if (typeof value.type !== 'string') {
     return false;
   }
 
-  if (typeof item.topic !== 'string') {
+  if (typeof value.topic !== 'string') {
     return false;
   }
 
-  if (!item.task || typeof item.task !== 'string') {
+  if (!value.task || typeof value.task !== 'string') {
     return false;
   }
 
-  if (item.type === 'question' && (!item.solution || typeof item.solution !== 'string')) {
+  if (value.type === 'question' && (!value.solution || typeof value.solution !== 'string')) {
     return false;
   }
 
-  if (typeof item.rating !== 'number' || item.rating < 0 || item.rating > 5) {
+  if (typeof value.rating !== 'number' || value.rating < 0 || value.rating > 5) {
     return false;
   }
 

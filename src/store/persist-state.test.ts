@@ -11,6 +11,7 @@ describe('persistState', () => {
       topic: 'Science',
       task: 'What is a cell?',
       solution: 'A basic unit of life.',
+      responses: [],
       rating: 0,
     }],
     customData: '',

@@ -7,5 +7,6 @@ describe('isPlainObject', () => {
     expect(isPlainObject([])).toBe(false);
     expect(isPlainObject(null)).toBe(false);
     expect(isPlainObject('abc')).toBe(false);
+    expect(isPlainObject({ [Symbol('demo')]: 'hidden' })).toBe(false);
   });
 });
