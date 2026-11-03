@@ -58,4 +58,21 @@ describe('Content', () => {
     expect(link).toContainElement(screen.getByRole('img', { name: 'Kwyjibo' }));
     expect(screen.getByRole('img', { name: 'Kwyjibo' })).toHaveAttribute('src', 'logo.png');
   });
+
+  it('applies line-config variant classes and preserves spacing', () => {
+    const { container } = render(<Content text="{left} First  Second" />);
+
+    expect(container.firstElementChild).toHaveClass('content', 'content--left');
+    expect(container.querySelector('br')).not.toBeNull();
+    expect(container.textContent).toContain('First');
+    expect(container.textContent).toContain('Second');
+  });
+
+  it('renders inline code and emphasis within list items', () => {
+    render(<Content text="- *emphasis* and `code`" />);
+
+    expect(screen.getAllByRole('listitem')).toHaveLength(1);
+    expect(screen.getByText('emphasis').tagName).toBe('EM');
+    expect(screen.getByText('code').tagName).toBe('CODE');
+  });
 });

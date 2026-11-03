@@ -1,6 +1,7 @@
 import { configureStore, createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { createTaskItem } from '../data/create-task-item';
 import { getNextId } from '../data/get-next-id';
+import { getTime } from '../data/get-time';
 import { loadItems } from '../data/load-items';
 import { parseKData } from '../data/parse-k-data';
 import { sortItems } from '../data/sort-items';
@@ -26,7 +27,7 @@ const createInitialState = (
   customData = '',
   lightMode = false,
   initializing = true,
-  startTime = Date.now(),
+  startTime = getTime(),
   ratingTotal = 0,
   ratingCount = 0
 ): AppState => {

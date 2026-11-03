@@ -68,4 +68,43 @@ describe('App', () => {
     expect(mockedLoadItems).toHaveBeenCalledWith('/test');
     expect(store.getState().kwyjibo.lightMode).toBe(false);
   });
+
+  it('cancels the reset confirmation without reloading the quiz', () => {
+    const store = createAppStore('/test');
+    store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.'));
+    store.dispatch(startQuiz());
+
+    render(
+      <Provider store={store}>
+        <App path="/test" />
+      </Provider>
+    );
+
+    fireEvent.click(screen.getByTitle('Reset'));
+    expect(screen.getByText('Really reset the cards?')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'No' }));
+    expect(screen.queryByText('Really reset the cards?')).not.toBeInTheDocument();
+    expect(screen.getByText('Question one?')).toBeInTheDocument();
+  });
+
+  it('shows the mastery summary when all items have been rated', () => {
+    const store = createAppStore('/test');
+    store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.'));
+    store.dispatch(startQuiz());
+
+    render(
+      <Provider store={store}>
+        <App path="/test" />
+      </Provider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Reveal' }));
+    fireEvent.click(screen.getByTitle('Yes!'));
+    fireEvent.click(screen.getByRole('button', { name: 'Reveal' }));
+    fireEvent.click(screen.getByTitle('Yes!'));
+
+    expect(screen.getByText(/You mastered 2 items with 100% accuracy over .*seconds\./)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Reset' })).toBeInTheDocument();
+  });
 });

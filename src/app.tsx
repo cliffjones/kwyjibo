@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDuration } from './data/format-duration';
+import { getTime } from './data/get-time';
 import { sortResponses } from './data/sort-responses';
 import { Card } from './features/card';
 import { Footer } from './features/footer';
@@ -44,7 +45,7 @@ export const App = ({ path }: { path: string }) => {
 
   const handleRating = (rating: number) => {
     setRevealed(false);
-    setEndTime(Date.now());
+    setEndTime(getTime());
     dispatch(rateItem(rating));
   };
 
