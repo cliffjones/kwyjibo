@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { formatDuration } from './data/format-duration';
 import { sortResponses } from './data/sort-responses';
 import { Card } from './features/card';
 import { Footer } from './features/footer';
@@ -24,13 +25,18 @@ export const App = ({ path }: { path: string }) => {
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
   const customData = useSelector((state: RootState) => state.kwyjibo.customData);
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
+  const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const currentId = useSelector((state: RootState) => state.kwyjibo.currentId);
   const currentItem = useSelector((state: RootState) =>
     state.kwyjibo.items.find(({ id }) => id === currentId)
   );
+  const startTime = useSelector((state: RootState) => state.kwyjibo.startTime);
+  const ratingTotal = useSelector((state: RootState) => state.kwyjibo.ratingTotal);
+  const ratingCount = useSelector((state: RootState) => state.kwyjibo.ratingCount);
 
   const [revealed, setRevealed] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
+  const [endTime, setEndTime] = useState(0);
 
   const handleReveal = () => {
     setRevealed(true);
@@ -38,6 +44,7 @@ export const App = ({ path }: { path: string }) => {
 
   const handleRating = (rating: number) => {
     setRevealed(false);
+    setEndTime(Date.now());
     dispatch(rateItem(rating));
   };
 
@@ -56,6 +63,7 @@ export const App = ({ path }: { path: string }) => {
       // Keep the confirmation open on failure so the user can retry or cancel.
       await dispatch(reset(path)).unwrap();
       setConfirmingReset(false);
+      setEndTime(0);
     } catch (error) {
       console.error('Unable to reload cards.', error);
     }
@@ -111,7 +119,7 @@ export const App = ({ path }: { path: string }) => {
           </Card>
         )}
       </>) : (
-        <Card heading="You’ve got this.">
+        <Card heading={`You mastered ${itemCount} items with ${Math.round((ratingTotal / (ratingCount || 1)) * 25)}% accuracy over ${formatDuration(endTime - startTime)}.`}>
           <ButtonSet>
             <Button onClick={handleReset}>
               <Icon name="reset" />

@@ -5,8 +5,11 @@ export type AppState = {
   configData: ConfigData;
   items: TaskItem[];
   customData: string;
-  initializing: boolean;
   lightMode: boolean;
+  initializing: boolean;
+  startTime: number;
+  ratingTotal: number;
+  ratingCount: number;
   selectedTopics: string[];
   remainingIds: number[];
   currentId: number | null;

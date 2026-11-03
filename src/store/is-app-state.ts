@@ -25,11 +25,23 @@ export const isAppState = (value: unknown): value is AppState => {
     return false;
   }
 
+  if (typeof state.lightMode !== 'boolean') {
+    return false;
+  }
+
   if (typeof state.initializing !== 'boolean') {
     return false;
   }
 
-  if (typeof state.lightMode !== 'boolean') {
+  if (typeof state.startTime !== 'number') {
+    return false;
+  }
+
+  if (typeof state.ratingTotal !== 'number') {
+    return false;
+  }
+
+  if (typeof state.ratingCount !== 'number') {
     return false;
   }
 

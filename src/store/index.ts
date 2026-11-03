@@ -24,8 +24,11 @@ const createInitialState = (
   configData: ConfigData = {},
   loadedItems: TaskItem[] = [],
   customData = '',
+  lightMode = false,
   initializing = true,
-  lightMode = false
+  startTime = Date.now(),
+  ratingTotal = 0,
+  ratingCount = 0
 ): AppState => {
   const items: TaskItem[] = sortItems(loadedItems).map((item, index) => ({ ...item, id: index }));
   let customConfigData: ConfigData = {};
@@ -44,8 +47,11 @@ const createInitialState = (
     configData: { ...configData, ...customConfigData },
     items,
     customData,
-    initializing,
     lightMode,
+    initializing,
+    startTime,
+    ratingTotal,
+    ratingCount,
     sourcePath,
     selectedTopics: [...new Set(items.map(({ topic, task }) => topic || task))],
     remainingIds: ids,
@@ -76,6 +82,9 @@ const createAppReducer = (initialState: AppState) => {
             }
           }
         }
+
+        state.ratingTotal += rating - 1;
+        state.ratingCount += 1;
 
         const itemIsMastered = rating > 4 && currentIndex !== -1;
         const itemIsLast = currentIndex === state.remainingIds.length - 1;
@@ -127,7 +136,14 @@ const createAppReducer = (initialState: AppState) => {
 
       .addCase(startQuiz, state => {
         const selectedItems = state.items.filter(({ topic, task }) => state.selectedTopics.includes(topic || task));
-        return createInitialState(state.sourcePath, state.configData, selectedItems, state.customData, false, state.lightMode);
+        return createInitialState(
+          state.sourcePath,
+          state.configData,
+          selectedItems,
+          state.customData,
+          state.lightMode,
+          false
+        );
       })
 
       .addCase(reset.fulfilled, (state, action) => {
@@ -137,7 +153,6 @@ const createAppReducer = (initialState: AppState) => {
           configData,
           items,
           state.customData,
-          true,
           state.lightMode
         );
 

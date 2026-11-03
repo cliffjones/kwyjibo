@@ -60,10 +60,10 @@ export const Header = ({
       ><Icon name={lightMode ? 'moon' : 'sun'} /></Button>
     </div>
 
-    {initializing ? null : (
+    {initializing || !remainingIds.length ? null : (
       <div className="header-info">
         {remainingMessage}
-        {confirmingReset || !remainingIds.length ? null : (
+        {confirmingReset ? null : (
           <Button
             variant="text"
             onClick={confirmReset}
