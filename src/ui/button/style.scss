@@ -13,9 +13,9 @@
   font: inherit;
   font-weight: bold;
   gap: space.$tiny;
-  height: size.$button;
+  min-height: size.$button;
   line-height: 1;
-  padding: 0 space.$mid;
+  padding: space.$small space.$mid;
 
   &:disabled {
     cursor: not-allowed;
@@ -33,6 +33,7 @@
     color: inherit;
     font-weight: bold;
     height: size.$text;
+    min-height: auto;
     min-width: size.$text;
     padding: 0;
   }
@@ -41,6 +42,7 @@
     border-radius: size.$icon;
     color: color.$icon-ink;
     height: size.$icon;
+    min-height: auto;
     padding: 0;
     width: size.$icon;
 
