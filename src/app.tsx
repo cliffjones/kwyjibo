@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { sortResponses } from './data/sort-responses';
 import { Card } from './features/card';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
@@ -60,6 +61,8 @@ export const App = ({ path }: { path: string }) => {
     }
   };
 
+  const sortedResponses = sortResponses(currentItem?.responses ?? []);
+
   return (
     <main className="app" data-path={path}>
       <Header confirmReset={confirmReset} confirmingReset={confirmingReset} />
@@ -84,9 +87,9 @@ export const App = ({ path }: { path: string }) => {
         </Card>
       ) : remainingIds.length && currentItem ? (<>
         <Card content={currentItem.task} topic={currentItem.topic} rating={currentItem.rating}>
-          {currentItem.type === 'quiz' && currentItem.responses.length ? (
+          {currentItem.type === 'quiz' && sortedResponses.length ? (
             <ButtonSet variant="responses">
-              {currentItem.responses.map((response, index) => (
+              {sortedResponses.map((response, index) => (
                 <Button key={index} onClick={() => handleRating(response.value)}>
                   {response.text}
                 </Button>
