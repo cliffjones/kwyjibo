@@ -50,6 +50,34 @@ describe('loadItems', () => {
     ]);
   });
 
+  it('loads remote K data when a URL appears in its own block and ignores failed loads', async () => {
+    const fetchMock = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(createResponse('https://example.com/remote.k'))
+      .mockResolvedValueOnce(createResponse('{ title: "Remote" }\n# Remote\n\nWhat is the answer?\n42'))
+      .mockResolvedValueOnce(createResponse('https://example.com/bad.k'))
+      .mockRejectedValueOnce(new Error('network down'));
+    vi.stubGlobal('fetch', fetchMock);
+
+    expect(await loadItems('/remote')).toEqual([
+      { title: 'Remote' },
+      expect.objectContaining({
+        topic: 'Remote',
+        task: 'What is the answer?',
+        solution: '42',
+        type: 'question',
+        id: 0,
+        rating: 0,
+        responses: []
+      })
+    ]);
+
+    fetchMock.mockClear();
+    fetchMock.mockResolvedValueOnce(createResponse('https://example.com/bad.k'))
+      .mockRejectedValueOnce(new Error('network down'));
+
+    expect(await loadItems('/broken')).toEqual([{}]);
+  });
+
   it('ignores SPA fallback HTML returned for a missing quiz file', async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('<!doctype html><html><body>App</body></html>'));
