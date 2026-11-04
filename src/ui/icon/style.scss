@@ -1,0 +1,40 @@
+@use '../../style/color';
+@use '../../style/size';
+@use '../../style/space';
+
+.icon-dot {
+  border-radius: size.$text;
+  color: color.$icon-ink;
+  height: 100%;
+  padding: 0;
+  position: relative;
+  width: 100%;
+
+  &--no {
+    background: color.$no;
+  }
+
+  &--negative {
+    background: color.$negative;
+  }
+
+  &--neutral {
+    background: color.$neutral;
+  }
+
+  &--positive {
+    background: color.$positive;
+  }
+
+  &--yes {
+    background: color.$yes;
+  }
+
+  .icon {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}

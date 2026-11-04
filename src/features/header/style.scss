@@ -44,9 +44,20 @@
     align-items: center;
     display: flex;
     gap: space.$mid;
+    left: space.$mid;
     position: absolute;
-    right: space.$mid;
     top: space.$mid;
+
+    &--right {
+      left: auto;
+      right: space.$mid;
+    }
+
+    &-rating {
+      animation: header-toolbar-rating 1s ease-out forwards;
+      height: size.$text;
+      width: size.$text;
+    }
   }
 
   &-info {
@@ -56,6 +67,22 @@
     gap: space.$small;
     justify-content: center;
     line-height: 1;
+  }
+}
+
+@keyframes header-toolbar-rating {
+  0%,
+  50% {
+    height: size.$text;
+    margin: 0;
+    opacity: 1;
+    width: size.$text;
+  }
+  100% {
+    height: 0;
+    margin: calc(size.$text / 2);
+    opacity: 0;
+    width: 0;
   }
 }
 

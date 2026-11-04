@@ -1,3 +1,4 @@
+import './style.scss';
 import { IconName } from './types';
 
 export const Icon = ({ name }: { name: IconName }) => (

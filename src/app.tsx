@@ -37,6 +37,8 @@ export const App = ({ path }: { path: string }) => {
 
   const [revealed, setRevealed] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
+  const [lastRating, setLastRating] = useState(0);
+  const [ratingAnimationKey, setRatingAnimationKey] = useState(0);
   const [endTime, setEndTime] = useState(0);
 
   const handleReveal = () => {
@@ -45,6 +47,8 @@ export const App = ({ path }: { path: string }) => {
 
   const handleRating = (rating: number) => {
     setRevealed(false);
+    setLastRating(rating);
+    setRatingAnimationKey(value => value + 1);
     setEndTime(getTime());
     dispatch(rateItem(rating));
   };
@@ -74,7 +78,12 @@ export const App = ({ path }: { path: string }) => {
 
   return (
     <main className="app" data-path={path}>
-      <Header confirmReset={confirmReset} confirmingReset={confirmingReset} />
+      <Header
+        confirmReset={confirmReset}
+        confirmingReset={confirmingReset}
+        lastRating={lastRating}
+        ratingAnimationKey={ratingAnimationKey}
+      />
 
       {initializing ? (
         <Setup
@@ -120,7 +129,7 @@ export const App = ({ path }: { path: string }) => {
           </Card>
         )}
       </>) : (
-        <Card heading={`You mastered ${itemCount} items with ${Math.round((ratingTotal / (ratingCount || 1)) * 25)}% accuracy over ${formatDuration(endTime - startTime)}.`}>
+        <Card heading={`You mastered ${itemCount} cards with ${Math.round((ratingTotal / (ratingCount || 1)) * 25)}% accuracy over ${formatDuration(endTime - startTime)}.`}>
           <ButtonSet>
             <Button onClick={handleReset}>
               <Icon name="reset" />

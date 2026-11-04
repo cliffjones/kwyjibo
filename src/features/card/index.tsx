@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 import { Content } from '../../ui/content';
 import { Icon } from '../../ui/icon';
+import { faceNumberToName } from '../../ui/icon/face-number-to-name';
 import { CONFIDENCE_RATINGS } from '../rating/constants';
+import { ratingToPercent } from '../rating/rating-to-percent';
 import { getTextSize } from './get-text-size';
 import './style.scss';
 
@@ -28,11 +30,13 @@ export const Card = ({
     {content ? (
       <div style={{ fontSize: getTextSize(content) }}>
         {rating && rating >= 1 && rating < 5 ? (
-          <div
-            className={`card-rating card-rating--${Math.floor(rating)}`}
-            title={`${Math.round(((rating - 1) / 4) * 100)}%`}
-          >
-            <Icon name={CONFIDENCE_RATINGS[Math.floor(rating) - 1]?.icon} />
+          <div className="card-rating">
+            <div
+              className={`icon-dot icon-dot--${faceNumberToName(rating)}`}
+              title={`Last rating for this card: ${ratingToPercent(rating)}`}
+            >
+              <Icon name={CONFIDENCE_RATINGS[Math.floor(rating) - 1]?.icon} />
+            </div>
           </div>
         ) : null}
         {topic ? (

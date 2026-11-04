@@ -21,38 +21,11 @@
   }
 
   &-rating {
-    border-radius: size.$text;
-    color: color.$icon-ink;
     height: size.$text;
     left: space.$mid;
-    padding: 0;
     position: absolute;
     top: space.$mid;
     width: size.$text;
-
-    &--1 {
-      background: color.$no;
-    }
-
-    &--2 {
-      background: color.$negative;
-    }
-
-    &--3 {
-      background: color.$neutral;
-    }
-
-    &--4 {
-      background: color.$positive;
-    }
-
-    .icon {
-      height: 100%;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
   }
 
   &-topic {

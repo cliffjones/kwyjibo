@@ -3,15 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
+import { faceNumberToName } from '../../ui/icon/face-number-to-name';
+import { IconName } from '../../ui/icon/types';
 import { Link } from '../../ui/link';
+import { ratingToPercent } from '../rating/rating-to-percent';
 import './style.scss';
 
 export const Header = ({
   confirmReset,
-  confirmingReset
+  confirmingReset,
+  lastRating,
+  ratingAnimationKey,
 }: {
   confirmReset: () => void;
   confirmingReset: boolean;
+  lastRating?: number;
+  ratingAnimationKey?: number;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
@@ -29,6 +36,8 @@ export const Header = ({
   useEffect(() => {
     document.title = `Kwyjibo${configData.title ? `: ${configData.title}` : ''}`;
   }, [configData.title]);
+
+  const ratingFace = lastRating ? faceNumberToName(lastRating) : '';
 
   let remainingMessage = `${itemCount} card${itemCount === 1 ? '' : 's'}`;
   if (remainingIds.length === itemCount) {
@@ -52,7 +61,17 @@ export const Header = ({
       ? <p className="header-title header-title--secondary">{configData.title}</p>
       : null}
 
-    <div className="header-toolbar">
+    {lastRating && ratingFace ? (
+      <div className="header-toolbar">
+        <div key={ratingAnimationKey} className="header-toolbar-rating" title={`Rating applied: ${ratingToPercent(lastRating)}`}>
+          <div className={`icon-dot icon-dot--${ratingFace}`}>
+            <Icon name={`face-${ratingFace}` as IconName} />
+          </div>
+        </div>
+      </div>
+    ) : null}
+
+    <div className="header-toolbar header-toolbar--right">
       <Button
         variant="text"
         onClick={() => dispatch(setLightMode(!lightMode))}

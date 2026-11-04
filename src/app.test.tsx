@@ -104,7 +104,7 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Reveal' }));
     fireEvent.click(screen.getByTitle('Yes!'));
 
-    expect(screen.getByText(/You mastered 2 items with 100% accuracy over .*seconds\./)).toBeInTheDocument();
+    expect(screen.getByText(/You mastered 2 cards with 100% accuracy over .*seconds\./)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Reset' })).toBeInTheDocument();
   });
 });
