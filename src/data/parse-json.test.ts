@@ -13,6 +13,13 @@ describe('parseJson', () => {
     });
   });
 
+  it('leaves bare keys inside quoted strings alone', () => {
+    expect(parseJson('{ intro: "{left} Hello", left }')).toEqual({
+      intro: '{left} Hello',
+      left: true,
+    });
+  });
+
   it('returns null for empty input and forbidden keys', () => {
     expect(parseJson('')).toBeNull();
 
