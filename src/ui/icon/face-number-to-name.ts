@@ -13,5 +13,5 @@ export const faceNumberToName = (num: number): string => {
       return 'negative';
     default:
       return 'no';
-  };
+  }
 };

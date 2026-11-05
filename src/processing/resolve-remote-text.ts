@@ -5,7 +5,7 @@ import { loadRemoteText } from './load-remote-text';
 export const resolveRemoteText = async (text: string): Promise<string> => {
   const blocks = text
     .split(/\r?\n\r?\n/)
-    .map(block => block.trim())
+    .map((block) => block.trim())
     .filter(Boolean);
 
   if (!blocks.length) {
@@ -15,7 +15,10 @@ export const resolveRemoteText = async (text: string): Promise<string> => {
   const resolvedBlocks: string[] = [];
 
   for (const block of blocks) {
-    const lines = block.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    const lines = block
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
     if (lines.length === 1 && isValidUrl(lines[0])) {
       const remoteText = await loadRemoteText(lines[0]);
       if (remoteText) {

@@ -1,9 +1,4 @@
-import {
-  CONTENT_DELIMS,
-  CONTENT_IMAGE_LINK_PATTERN,
-  CONTENT_IMAGE_PATTERN,
-  CONTENT_LINK_PATTERN
-} from './constants';
+import { CONTENT_DELIMS, CONTENT_IMAGE_LINK_PATTERN, CONTENT_IMAGE_PATTERN, CONTENT_LINK_PATTERN } from './constants';
 import { isSafeUrl } from './is-safe-url';
 import type { InlineMatch } from './types';
 
@@ -19,9 +14,9 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
           text: '',
           url: url.trim(),
           ...(title ? { title } : {}),
-          image: { text: imageText, url: imageUrl.trim() }
+          image: { text: imageText, url: imageUrl.trim() },
         },
-        length: imageLinkMatch[0].length
+        length: imageLinkMatch[0].length,
       };
     }
   }
@@ -32,7 +27,7 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
     if (isSafeUrl(url)) {
       return {
         token: { type: 'image', text: label, url: url.trim() },
-        length: imageMatch[0].length
+        length: imageMatch[0].length,
       };
     }
   }
@@ -46,9 +41,9 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
           type: 'link',
           text: label,
           url: url.trim(),
-          ...(title ? { title } : {})
+          ...(title ? { title } : {}),
         },
-        length: linkMatch[0].length
+        length: linkMatch[0].length,
       };
     }
   }
@@ -60,9 +55,7 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
 
   const closingPosition = value.indexOf(delimiter, position + 1);
   const otherDelimiter = delimiter === CONTENT_DELIMS.code ? CONTENT_DELIMS.em : CONTENT_DELIMS.code;
-  const otherPosition = delimiter === CONTENT_DELIMS.em
-    ? value.indexOf(otherDelimiter, position + 1)
-    : -1;
+  const otherPosition = delimiter === CONTENT_DELIMS.em ? value.indexOf(otherDelimiter, position + 1) : -1;
 
   // Unmatched or crossing delimiters remain plain text instead of swallowing another span.
   if (closingPosition <= position + 1 || (otherPosition !== -1 && otherPosition < closingPosition)) {
@@ -72,8 +65,8 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
   return {
     token: {
       type: delimiter === CONTENT_DELIMS.code ? 'code' : 'em',
-      text: value.slice(position + 1, closingPosition)
+      text: value.slice(position + 1, closingPosition),
     },
-    length: closingPosition - position + 1
+    length: closingPosition - position + 1,
   };
 };

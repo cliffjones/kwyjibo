@@ -1,15 +1,12 @@
 import { loadItems } from './load-items';
 
-const createResponse = (
-  body: string,
-  status = 200,
-  contentType = 'text/plain'
-) => ({
-  ok: status >= 200 && status < 300,
-  status,
-  headers: new Headers({ 'content-type': contentType }),
-  text: async () => body
-}) as Response;
+const createResponse = (body: string, status = 200, contentType = 'text/plain') =>
+  ({
+    ok: status >= 200 && status < 300,
+    status,
+    headers: new Headers({ 'content-type': contentType }),
+    text: async () => body,
+  }) as Response;
 
 const originalFetch = globalThis.fetch;
 
@@ -20,38 +17,35 @@ describe('loadItems', () => {
   });
 
   it('loads a deck file for each matching route segment without requesting a manifest', async () => {
-    const fetchMock = vi.fn<typeof fetch>()
+    const fetchMock = vi
+      .fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('# Science\n\nWhat is a cell?\nA basic unit of life.'))
       .mockResolvedValueOnce(createResponse('# Dev\n\nWhat is JSX?\nA syntax extension.'));
     vi.stubGlobal('fetch', fetchMock);
 
     const [, ...items] = await loadItems('/science/dev');
 
-    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
-      '/data/science.k',
-      '/data/dev.k'
-    ]);
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(['/data/science.k', '/data/dev.k']);
     expect(items.map(({ topic, task }) => ({ topic, task }))).toEqual([
       { topic: 'Science', task: 'What is a cell?' },
-      { topic: 'Dev', task: 'What is JSX?' }
+      { topic: 'Dev', task: 'What is JSX?' },
     ]);
   });
 
   it('ignores route segments without a matching deck file', async () => {
-    const fetchMock = vi.fn<typeof fetch>()
+    const fetchMock = vi
+      .fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('', 403))
       .mockResolvedValueOnce(createResponse('', 404));
     vi.stubGlobal('fetch', fetchMock);
 
     expect(await loadItems('/missing/not-found')).toEqual([{}]);
-    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
-      '/data/missing.k',
-      '/data/not-found.k'
-    ]);
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(['/data/missing.k', '/data/not-found.k']);
   });
 
   it('loads remote K data when a URL appears in its own block and ignores failed loads', async () => {
-    const fetchMock = vi.fn<typeof fetch>()
+    const fetchMock = vi
+      .fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('https://example.com/remote.k'))
       .mockResolvedValueOnce(createResponse('{ title: "Remote" }\n# Remote\n\nWhat is the answer?\n42'))
       .mockResolvedValueOnce(createResponse('https://example.com/bad.k'))
@@ -67,19 +61,21 @@ describe('loadItems', () => {
         type: 'question',
         id: 0,
         rating: 0,
-        responses: []
-      })
+        responses: [],
+      }),
     ]);
 
     fetchMock.mockClear();
-    fetchMock.mockResolvedValueOnce(createResponse('https://example.com/bad.k'))
+    fetchMock
+      .mockResolvedValueOnce(createResponse('https://example.com/bad.k'))
       .mockRejectedValueOnce(new Error('network down'));
 
     expect(await loadItems('/broken')).toEqual([{}]);
   });
 
   it('ignores SPA fallback HTML returned for a missing deck file', async () => {
-    const fetchMock = vi.fn<typeof fetch>()
+    const fetchMock = vi
+      .fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('<!doctype html><html><body>App</body></html>'));
     vi.stubGlobal('fetch', fetchMock);
 
@@ -88,7 +84,8 @@ describe('loadItems', () => {
   });
 
   it('ignores HTML deck file responses even when their content type is incorrect', async () => {
-    const fetchMock = vi.fn<typeof fetch>()
+    const fetchMock = vi
+      .fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('<html><body>App</body></html>', 200, 'text/plain'));
     vi.stubGlobal('fetch', fetchMock);
 
@@ -96,8 +93,7 @@ describe('loadItems', () => {
   });
 
   it('does not fetch traversal segments or decoded path separators', async () => {
-    const fetchMock = vi.fn<typeof fetch>()
-      .mockResolvedValueOnce(createResponse('Dev\n\nQuestion?\nAnswer.'));
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValueOnce(createResponse('Dev\n\nQuestion?\nAnswer.'));
     vi.stubGlobal('fetch', fetchMock);
 
     await loadItems('/%2e%2e/%2Fsecret/dev');
@@ -107,8 +103,7 @@ describe('loadItems', () => {
   });
 
   it('reports errors other than a missing deck file', async () => {
-    globalThis.fetch = vi.fn<typeof fetch>()
-      .mockResolvedValue(createResponse('', 500));
+    globalThis.fetch = vi.fn<typeof fetch>().mockResolvedValue(createResponse('', 500));
 
     await expect(loadItems('/dev')).rejects.toThrow('Unable to load dev.k: 500');
   });

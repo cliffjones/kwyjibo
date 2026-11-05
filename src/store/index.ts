@@ -13,20 +13,23 @@ import type { AppState } from './types';
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
 export const setLightMode = createAction<boolean>('kwyjibo/setLightMode');
-export const startDeck = createAction<{
-  customData: string;
-  resolvedCustomData?: string;
-  parsedCustomData?: [ConfigData, ...TaskData[]];
-} | undefined>('kwyjibo/startDeck');
+export const startDeck = createAction<
+  | {
+      customData: string;
+      resolvedCustomData?: string;
+      parsedCustomData?: [ConfigData, ...TaskData[]];
+    }
+  | undefined
+>('kwyjibo/startDeck');
 export const rateItem = createAction<number>('kwyjibo/rateItem');
-export const reset = createAsyncThunk(
-  'kwyjibo/reset',
-  async (path: string) => ({ items: await loadItems(path), path })
-);
+export const reset = createAsyncThunk('kwyjibo/reset', async (path: string) => ({
+  items: await loadItems(path),
+  path,
+}));
 
 // Creates a reducer for the app state, handling various actions triggered by the user.
 const createAppReducer = (initialState: AppState) => {
-  return createReducer(initialState, builder => {
+  return createReducer(initialState, (builder) => {
     builder
       .addCase(rateItem, (state, action) => {
         if (state.currentId == null) {
@@ -76,9 +79,7 @@ const createAppReducer = (initialState: AppState) => {
         // If we hit the end of the list, re-sort and start with first or second item.
         if (itemIsLast || nextId == null) {
           state.items = sortItems(state.items);
-          state.remainingIds = state.items
-            .filter(({ id }) => state.remainingIds.includes(id))
-            .map(({ id }) => id);
+          state.remainingIds = state.items.filter(({ id }) => state.remainingIds.includes(id)).map(({ id }) => id);
           nextId = state.remainingIds[0];
           if (nextId === currentId && state.remainingIds.length > 1) {
             nextId = state.remainingIds[1];
@@ -103,8 +104,10 @@ const createAppReducer = (initialState: AppState) => {
       .addCase(startDeck, (state, action) => {
         const selectedItems = state.items.filter(({ topic, task }) => state.selectedTopics.includes(topic || task));
         const customDataForStart = action.payload?.customData ?? state.customData;
-        const resolvedCustomDataForStart = action.payload?.resolvedCustomData ?? (state.resolvedCustomData || customDataForStart);
-        const parsedCustomData = action.payload?.parsedCustomData ?? parseFileData(resolvedCustomDataForStart || customDataForStart);
+        const resolvedCustomDataForStart =
+          action.payload?.resolvedCustomData ?? (state.resolvedCustomData || customDataForStart);
+        const parsedCustomData =
+          action.payload?.parsedCustomData ?? parseFileData(resolvedCustomDataForStart || customDataForStart);
         const nextState = createInitialState(
           state.sourcePath,
           state.configData,
@@ -116,7 +119,7 @@ const createAppReducer = (initialState: AppState) => {
           0,
           0,
           resolvedCustomDataForStart,
-          parsedCustomData
+          parsedCustomData,
         );
 
         return nextState;
@@ -134,7 +137,7 @@ const createAppReducer = (initialState: AppState) => {
           0,
           0,
           0,
-          state.resolvedCustomData
+          state.resolvedCustomData,
         );
 
         // Keep the user's topic choices when rebuilding the loaded cards.
@@ -147,13 +150,11 @@ const createAppReducer = (initialState: AppState) => {
 // Creates a Redux store for the app, optionally using a set of loaded items and custom data.
 export const createAppStore = (sourcePath = '/', configData: ConfigData = {}, items: TaskItem[] = []) => {
   const savedState = loadPersistedState(sourcePath);
-  const restoredState = savedState?.sourcePath === sourcePath
-    ? { ...savedState, sourcePath }
-    : null;
+  const restoredState = savedState?.sourcePath === sourcePath ? { ...savedState, sourcePath } : null;
   const initialState = restoredState ?? createInitialState(sourcePath, configData, items);
 
   const store = configureStore({
-    reducer: { kwyjibo: createAppReducer(initialState) }
+    reducer: { kwyjibo: createAppReducer(initialState) },
   });
 
   // Unless the user has a session in progress, reset to avoid stale data.

@@ -12,9 +12,9 @@ export const Link = ({
   if (isExternal) {
     props.target = '_blank';
   }
-  return (<a
-    className={getClassString('link', isExternal ? `${variant} external` : variant)}
-    href={href}
-    {...props}
-  >{children}</a>);
+  return (
+    <a className={getClassString('link', isExternal ? `${variant} external` : variant)} href={href} {...props}>
+      {children}
+    </a>
+  );
 };

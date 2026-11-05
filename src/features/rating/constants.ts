@@ -5,5 +5,5 @@ export const CONFIDENCE_RATINGS: ConfidenceRating[] = [
   { icon: 'face-negative', label: 'Not really.' },
   { icon: 'face-neutral', label: 'Kind of.' },
   { icon: 'face-positive', label: 'Pretty much.' },
-  { icon: 'face-yes', label: 'Yes!' }
+  { icon: 'face-yes', label: 'Yes!' },
 ];

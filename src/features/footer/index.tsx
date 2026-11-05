@@ -6,8 +6,8 @@ import './style.scss';
 export const Footer = () => {
   const configData = useSelector((state: RootState) => state.kwyjibo.configData);
 
-  const footerContent = configData.footer
-    || 'By [Cliff Jones Jr.](/) [❤︎](https://gofund.me/e965a3bab "Donate on GoFundMe")';
+  const footerContent =
+    configData.footer || 'By [Cliff Jones Jr.](/) [❤︎](https://gofund.me/e965a3bab "Donate on GoFundMe")';
 
   return (
     <footer className="footer">

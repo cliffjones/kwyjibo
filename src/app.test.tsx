@@ -10,11 +10,14 @@ vi.mock('./processing/load-items', () => ({
   hasRemoteBlock: vi.fn((text: string) => {
     const blocks = text
       .split(/\r?\n\r?\n/)
-      .map(block => block.trim())
+      .map((block) => block.trim())
       .filter(Boolean);
 
-    return blocks.some(block => {
-      const lines = block.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    return blocks.some((block) => {
+      const lines = block
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
       return lines.length === 1 && /^https?:\/\//i.test(lines[0]);
     });
   }),
@@ -22,7 +25,7 @@ vi.mock('./processing/load-items', () => ({
     const { parseFileData } = await import('./processing/parse-file-data');
     return parseFileData(text);
   }),
-  resolveRemoteText: vi.fn(async (text: string) => text)
+  resolveRemoteText: vi.fn(async (text: string) => text),
 }));
 
 const mockedLoadItems = vi.mocked(loadItems);
@@ -35,14 +38,12 @@ describe('App', () => {
 
   it('starts a deck, reveals an answer, and advances after a confident rating', () => {
     const store = createAppStore('/test');
-    store.dispatch(setCustomData(
-      '# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.'
-    ));
+    store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.'));
 
     render(
       <Provider store={store}>
         <App path="/test" />
-      </Provider>
+      </Provider>,
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Start' }));
@@ -53,7 +54,7 @@ describe('App', () => {
     expect(screen.getByText(/Answer (one|two)\./)).toBeInTheDocument();
 
     const currentId = store.getState().kwyjibo.currentId;
-    const currentItem = store.getState().kwyjibo.items.find(item => item.id === currentId);
+    const currentItem = store.getState().kwyjibo.items.find((item) => item.id === currentId);
     const solution = currentItem?.solution;
     fireEvent.click(screen.getByTitle('Yes!'));
 
@@ -73,7 +74,7 @@ describe('App', () => {
     render(
       <Provider store={store}>
         <App path="/test" />
-      </Provider>
+      </Provider>,
     );
 
     fireEvent.click(screen.getByTitle('Reset'));
@@ -93,7 +94,7 @@ describe('App', () => {
     render(
       <Provider store={store}>
         <App path="/test" />
-      </Provider>
+      </Provider>,
     );
 
     fireEvent.click(screen.getByTitle('Reset'));
@@ -112,7 +113,7 @@ describe('App', () => {
     render(
       <Provider store={store}>
         <App path="/test" />
-      </Provider>
+      </Provider>,
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Reveal' }));

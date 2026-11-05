@@ -6,7 +6,7 @@ describe('Link', () => {
     render(
       <Link href="https://example.com" variant="cta" title="Example">
         Visit
-      </Link>
+      </Link>,
     );
 
     const link = screen.getByRole('link', { name: 'Visit' });

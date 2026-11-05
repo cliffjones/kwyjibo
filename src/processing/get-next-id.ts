@@ -1,8 +1,5 @@
 // Returns the next ID in an already sorted/shuffled list.
-export const getNextId = (
-  ids: number[],
-  previousId?: number | null
-): number | null => {
+export const getNextId = (ids: number[], previousId?: number | null): number | null => {
   if (!ids.length) {
     return null;
   }

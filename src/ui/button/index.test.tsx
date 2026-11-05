@@ -4,7 +4,11 @@ import { Button } from './index';
 describe('Button', () => {
   it('renders a button with its standard props and custom class', () => {
     const onClick = vi.fn();
-    render(<Button variant="primary" onClick={onClick}>Save</Button>);
+    render(
+      <Button variant="primary" onClick={onClick}>
+        Save
+      </Button>,
+    );
 
     const button = screen.getByRole('button', { name: 'Save' });
     expect(button).toHaveClass('button', 'button--primary');

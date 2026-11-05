@@ -11,12 +11,9 @@ describe('Footer', () => {
     render(
       <Provider store={store}>
         <Footer />
-      </Provider>
+      </Provider>,
     );
 
-    expect(screen.getByRole('link', { name: 'Cliff Jones Jr.' })).toHaveAttribute(
-      'href',
-      '/'
-    );
+    expect(screen.getByRole('link', { name: 'Cliff Jones Jr.' })).toHaveAttribute('href', '/');
   });
 });

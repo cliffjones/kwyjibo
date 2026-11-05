@@ -13,24 +13,28 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
   if (!pathSegments.length) {
     pathSegments.push('index');
   }
-  const files = [...new Set(pathSegments.flatMap(segment => {
-    let stem: string;
-    try {
-      stem = decodeURIComponent(segment);
-    } catch {
-      return [];
-    }
+  const files = [
+    ...new Set(
+      pathSegments.flatMap((segment) => {
+        let stem: string;
+        try {
+          stem = decodeURIComponent(segment);
+        } catch {
+          return [];
+        }
 
-    if (!stem || stem === '.' || stem === '..' || /[\\/]/.test(stem)) {
-      return [];
-    }
+        if (!stem || stem === '.' || stem === '..' || /[\\/]/.test(stem)) {
+          return [];
+        }
 
-    return [`${stem}.k`];
-  }))];
+        return [`${stem}.k`];
+      }),
+    ),
+  ];
 
   // Load each file, ignoring any that fail to load, and expand any remote references within them.
   const itemGroups = await Promise.all(
-    files.map(async file => {
+    files.map(async (file) => {
       const response = await fetch(`${DATA_PATH}${encodeURIComponent(file)}`);
       if (response.status === 403 || response.status === 404) {
         return [];
@@ -43,14 +47,14 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
       // Some static hosts return the app shell with status 200 when a data file is missing.
       const data = await response.text();
       if (
-        response.headers.get('content-type')?.includes('text/html')
-        || /^\s*(?:<!doctype\s+html|<html\b)/i.test(data)
+        response.headers.get('content-type')?.includes('text/html') ||
+        /^\s*(?:<!doctype\s+html|<html\b)/i.test(data)
       ) {
         return [];
       }
 
       return expandRemoteItems(parseFileData(data));
-    })
+    }),
   );
 
   // Pull the config data off the front of each data set, and flatten it into a single object.

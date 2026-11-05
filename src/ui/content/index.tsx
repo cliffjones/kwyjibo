@@ -33,18 +33,22 @@ const renderInlineToken = (token: InlineToken, key: number): ReactNode => {
   }
 
   if (token.type === 'link') {
-    const children = token.image
-      ? <Image src={token.image.url} alt={token.image.text} />
-      : renderText(token.text);
-    return <Link key={key} href={token.url} title={token.title}>{children}</Link>;
+    const children = token.image ? <Image src={token.image.url} alt={token.image.text} /> : renderText(token.text);
+    return (
+      <Link key={key} href={token.url} title={token.title}>
+        {children}
+      </Link>
+    );
   }
 
   const children = renderText(token.text);
-  return token.type === 'code'
-    ? <code key={key}>{children}</code>
-    : token.type === 'em'
-      ? <em key={key}>{children}</em>
-      : children;
+  return token.type === 'code' ? (
+    <code key={key}>{children}</code>
+  ) : token.type === 'em' ? (
+    <em key={key}>{children}</em>
+  ) : (
+    children
+  );
 };
 
 // Tokenizes and renders inline markup within a text segment.
@@ -71,12 +75,16 @@ const renderContent = (tokens: ContentToken[]): ReactNode[] => {
         items.push(
           <li key={items.length} className="content-list-item">
             {renderInline(item.text)}
-          </li>
+          </li>,
         );
       }
       index += 1;
     }
-    content.push(<ul key={index} className="content-list">{items}</ul>);
+    content.push(
+      <ul key={index} className="content-list">
+        {items}
+      </ul>,
+    );
   }
 
   return content;
@@ -95,9 +103,5 @@ export const Content = ({ text }: { text: string }) => {
     });
   }
 
-  return (
-    <div className={`content${variantClasses}`}>
-      {renderContent(tokenizeContent(content))}
-    </div>
-  );
+  return <div className={`content${variantClasses}`}>{renderContent(tokenizeContent(content))}</div>;
 };

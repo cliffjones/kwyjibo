@@ -5,15 +5,17 @@ describe('persistState', () => {
   const createState = () => ({
     sourcePath: '/science',
     configData: { title: 'Science' },
-    items: [{
-      id: 1,
-      type: 'question',
-      topic: 'Science',
-      task: 'What is a cell?',
-      solution: 'A basic unit of life.',
-      responses: [],
-      rating: 0,
-    }],
+    items: [
+      {
+        id: 1,
+        type: 'question',
+        topic: 'Science',
+        task: 'What is a cell?',
+        solution: 'A basic unit of life.',
+        responses: [],
+        rating: 0,
+      },
+    ],
     customData: '',
     lightMode: true,
     initializing: false,
@@ -36,7 +38,7 @@ describe('persistState', () => {
   });
 
   it('swallows browser storage errors', () => {
-    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('disk full');
     });

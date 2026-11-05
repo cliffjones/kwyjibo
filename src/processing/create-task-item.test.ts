@@ -9,7 +9,7 @@ describe('createTaskItem', () => {
       solution: '',
       responses: [],
       id: 7,
-      rating: 0
+      rating: 0,
     });
   });
 
@@ -21,7 +21,7 @@ describe('createTaskItem', () => {
       solution: 'A hereditary molecule.',
       responses: [],
       id: 9,
-      rating: 0
+      rating: 0,
     });
   });
 });

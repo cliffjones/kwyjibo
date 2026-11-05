@@ -18,7 +18,7 @@ import { CUSTOM_DATA_EXAMPLE } from './constants';
 
 export const Setup = ({
   customData,
-  handleTextChange
+  handleTextChange,
 }: {
   customData: string;
   handleTextChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -33,7 +33,7 @@ export const Setup = ({
 
   const toggleTopic = (topic: string) => {
     const nextSelection = selectedTopics.includes(topic)
-      ? selectedTopics.filter(value => value !== topic)
+      ? selectedTopics.filter((value) => value !== topic)
       : [...selectedTopics, topic];
     dispatch(selectTopics(nextSelection));
   };
@@ -53,13 +53,10 @@ export const Setup = ({
   };
 
   return (
-    <Card
-      heading={configData.heading || 'What do you want to work on today?'}
-      intro={configData.intro}
-    >
+    <Card heading={configData.heading || 'What do you want to work on today?'} intro={configData.intro}>
       {availableTopics.length ? (
         <OptionList label="Preloaded cards:">
-          {availableTopics.map(topic => {
+          {availableTopics.map((topic) => {
             let itemCountText = '';
             if (itemCounts[topic] > 1) {
               itemCountText = ` (${itemCounts[topic]})`;
@@ -85,10 +82,7 @@ export const Setup = ({
       />
 
       <ButtonSet>
-        <Button
-          disabled={!selectedTopics.length && !customData}
-          onClick={handleStartDeck}
-        >
+        <Button disabled={!selectedTopics.length && !customData} onClick={handleStartDeck}>
           <Icon name="point-right" />
           Start
         </Button>

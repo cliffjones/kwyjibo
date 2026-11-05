@@ -39,9 +39,7 @@ export const Card = ({
             </div>
           </div>
         ) : null}
-        {topic ? (
-          <div className="card-topic">{topic}</div>
-        ) : null}
+        {topic ? <div className="card-topic">{topic}</div> : null}
         <Content text={content} />
       </div>
     ) : null}

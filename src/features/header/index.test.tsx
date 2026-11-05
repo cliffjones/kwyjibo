@@ -6,7 +6,7 @@ import { getStorageKey } from '../../store/get-storage-key';
 import { Header } from './index';
 
 const items: TaskItem[] = [
-  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', responses: [], rating: 0 }
+  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', responses: [], rating: 0 },
 ];
 
 describe('Header', () => {
@@ -23,7 +23,7 @@ describe('Header', () => {
     render(
       <Provider store={store}>
         <Header confirmReset={confirmReset} confirmingReset={false} />
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText('1 card loaded')).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe('Header', () => {
     const { rerender } = render(
       <Provider store={store}>
         <Header confirmReset={vi.fn()} confirmingReset={false} />
-      </Provider>
+      </Provider>,
     );
 
     expect(document.title).toBe('Kwyjibo: Science');
@@ -45,7 +45,7 @@ describe('Header', () => {
     rerender(
       <Provider store={storeWithoutTitle}>
         <Header confirmReset={vi.fn()} confirmingReset={false} />
-      </Provider>
+      </Provider>,
     );
 
     expect(document.title).toBe('Kwyjibo');
@@ -57,7 +57,7 @@ describe('Header', () => {
     const { unmount } = render(
       <Provider store={store}>
         <Header confirmReset={vi.fn()} confirmingReset={false} />
-      </Provider>
+      </Provider>,
     );
 
     fireEvent.click(screen.getByTitle('Switch to Light Mode'));
@@ -73,7 +73,7 @@ describe('Header', () => {
     render(
       <Provider store={restoredStore}>
         <Header confirmReset={vi.fn()} confirmingReset={false} />
-      </Provider>
+      </Provider>,
     );
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
 

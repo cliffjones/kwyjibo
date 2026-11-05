@@ -6,11 +6,7 @@ export const createTaskItem = (item: TaskData, id: number): TaskItem => {
   const solution = item.solution ?? '';
   const responses = item.responses ?? [];
   if (!type) {
-    type = responses.length
-      ? 'quiz'
-      : solution
-        ? 'question'
-        : 'reminder';
+    type = responses.length ? 'quiz' : solution ? 'question' : 'reminder';
   }
   return {
     ...item,
@@ -19,6 +15,6 @@ export const createTaskItem = (item: TaskData, id: number): TaskItem => {
     type,
     solution,
     responses,
-    rating: 0
+    rating: 0,
   };
 };

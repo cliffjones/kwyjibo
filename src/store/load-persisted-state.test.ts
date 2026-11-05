@@ -4,14 +4,16 @@ import { loadPersistedState } from './load-persisted-state';
 const createState = () => ({
   sourcePath: '/science',
   configData: { title: 'Science' },
-  items: [{
-    id: 1,
-    type: 'question',
-    topic: 'Science',
-    task: 'What is a cell?',
-    solution: 'A basic unit of life.',
-    rating: 0,
-  }],
+  items: [
+    {
+      id: 1,
+      type: 'question',
+      topic: 'Science',
+      task: 'What is a cell?',
+      solution: 'A basic unit of life.',
+      rating: 0,
+    },
+  ],
   customData: '',
   lightMode: true,
   initializing: false,

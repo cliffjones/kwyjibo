@@ -7,7 +7,7 @@ describe('Rating', () => {
     ['Not really.', 2],
     ['Kind of.', 3],
     ['Pretty much.', 4],
-    ['Yes!', 5]
+    ['Yes!', 5],
   ])('reports the selected confidence rating "%s"', (label, rating) => {
     const handleRating = vi.fn();
     render(<Rating handleRating={handleRating} />);

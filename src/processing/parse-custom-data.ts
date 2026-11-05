@@ -7,7 +7,7 @@ import type { ConfigData, TaskData } from './types';
 export const parseCustomData = async (text: string): Promise<[ConfigData, ...TaskData[]]> => {
   const blocks = text
     .split(/\r?\n\r?\n/)
-    .map(block => block.trim())
+    .map((block) => block.trim())
     .filter(Boolean);
 
   const configData: ConfigData = {};
@@ -26,7 +26,10 @@ export const parseCustomData = async (text: string): Promise<[ConfigData, ...Tas
   };
 
   for (const block of blocks) {
-    const lines = block.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    const lines = block
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
     if (lines.length === 1 && isValidUrl(lines[0])) {
       flushPendingBlocks();
       const remoteData = await loadRemoteData(lines[0]);

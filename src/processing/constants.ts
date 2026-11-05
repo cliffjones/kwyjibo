@@ -13,12 +13,7 @@ export const CONFIG_KEYS = [
   'footer',
 ] satisfies (keyof ConfigData)[] as string[];
 
-export const LINE_CONFIG_KEYS = [
-  'left',
-  'right',
-  'order',
-  'value',
-] satisfies (keyof LineConfigData)[] as string[];
+export const LINE_CONFIG_KEYS = ['left', 'right', 'order', 'value'] satisfies (keyof LineConfigData)[] as string[];
 
 export const K_DELIMS = {
   topic: '#',

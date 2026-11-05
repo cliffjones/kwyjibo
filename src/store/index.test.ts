@@ -7,20 +7,23 @@ describe('app store', () => {
   });
 
   it('persists independent app state for each route', () => {
-    window.localStorage.setItem('kwyjibo', JSON.stringify({
-      sourcePath: '/science',
-      configData: {},
-      items: [],
-      customData: 'legacy shared deck',
-      lightMode: false,
-      initializing: true,
-      startTime: 0,
-      ratingTotal: 0,
-      ratingCount: 0,
-      selectedTopics: [],
-      remainingIds: [],
-      currentId: null
-    }));
+    window.localStorage.setItem(
+      'kwyjibo',
+      JSON.stringify({
+        sourcePath: '/science',
+        configData: {},
+        items: [],
+        customData: 'legacy shared deck',
+        lightMode: false,
+        initializing: true,
+        startTime: 0,
+        ratingTotal: 0,
+        ratingCount: 0,
+        selectedTopics: [],
+        remainingIds: [],
+        currentId: null,
+      }),
+    );
 
     const scienceStore = createAppStore('/science');
     expect(scienceStore.getState().kwyjibo.customData).toBe('');
@@ -63,7 +66,11 @@ describe('app store', () => {
 
   it('advances to the next card when the current item is mastered', () => {
     const store = createAppStore('/test');
-    store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.\n\nQuestion three?\nAnswer three.'));
+    store.dispatch(
+      setCustomData(
+        '# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.\n\nQuestion three?\nAnswer three.',
+      ),
+    );
     store.dispatch(startDeck());
 
     store.dispatch(rateItem(5));
@@ -75,29 +82,34 @@ describe('app store', () => {
   });
 
   it('reloads remote data when persisted state has no active deck', async () => {
-    const loadItemsSpy = vi.spyOn(dataModule, 'loadItems').mockResolvedValue([
-      {},
-      { topic: 'Science', task: 'Question?', solution: 'Answer', responses: [], id: 0, type: 'task', rating: 0 }
-    ]);
+    const loadItemsSpy = vi
+      .spyOn(dataModule, 'loadItems')
+      .mockResolvedValue([
+        {},
+        { topic: 'Science', task: 'Question?', solution: 'Answer', responses: [], id: 0, type: 'task', rating: 0 },
+      ]);
 
-    window.localStorage.setItem('kwyjibo:%2Ftest', JSON.stringify({
-      sourcePath: '/test',
-      configData: { title: 'Saved state' },
-      items: [],
-      customData: '',
-      lightMode: false,
-      initializing: false,
-      startTime: 0,
-      ratingTotal: 0,
-      ratingCount: 0,
-      selectedTopics: [],
-      remainingIds: [],
-      currentId: null,
-    }));
+    window.localStorage.setItem(
+      'kwyjibo:%2Ftest',
+      JSON.stringify({
+        sourcePath: '/test',
+        configData: { title: 'Saved state' },
+        items: [],
+        customData: '',
+        lightMode: false,
+        initializing: false,
+        startTime: 0,
+        ratingTotal: 0,
+        ratingCount: 0,
+        selectedTopics: [],
+        remainingIds: [],
+        currentId: null,
+      }),
+    );
 
     const store = createAppStore('/test');
 
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(loadItemsSpy).toHaveBeenCalledWith('/test');
     expect(store.getState().kwyjibo.currentId).toBe(0);

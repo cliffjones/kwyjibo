@@ -13,10 +13,7 @@ export const loadRemoteText = async (url: string): Promise<string | null> => {
     }
 
     const data = await response.text();
-    if (
-      response.headers.get('content-type')?.includes('text/html')
-      || /^\s*(?:<!doctype\s+html|<html\b)/i.test(data)
-    ) {
+    if (response.headers.get('content-type')?.includes('text/html') || /^\s*(?:<!doctype\s+html|<html\b)/i.test(data)) {
       return null;
     }
 

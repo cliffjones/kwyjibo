@@ -46,50 +46,51 @@ export const Header = ({
     remainingMessage = `${remainingIds.length} of ${remainingMessage} remaining`;
   }
 
-  return (<header className="header">
-    <h1
-      className={`header-title${isActive ? ' header-title--active' : ''}`}
-      aria-label="Kwyjibo"
-    >
-      <Link href="/k/" title="Refresh with no preloaded data.">
-        <span className="header-title-part">Kwy</span>
-        <span className="header-title-part">ji</span>
-        <span className="header-title-part">bo</span>
-      </Link>
-    </h1>
-    {configData.title
-      ? <p className="header-title header-title--secondary">{configData.title}</p>
-      : null}
+  return (
+    <header className="header">
+      <h1 className={`header-title${isActive ? ' header-title--active' : ''}`} aria-label="Kwyjibo">
+        <Link href="/k/" title="Refresh with no preloaded data.">
+          <span className="header-title-part">Kwy</span>
+          <span className="header-title-part">ji</span>
+          <span className="header-title-part">bo</span>
+        </Link>
+      </h1>
+      {configData.title ? <p className="header-title header-title--secondary">{configData.title}</p> : null}
 
-    {lastRating && ratingFace ? (
-      <div className="header-toolbar">
-        <div key={ratingAnimationKey} className="header-toolbar-rating" title={`Rating applied: ${ratingToPercent(lastRating)}`}>
-          <div className={`icon-dot icon-dot--${ratingFace}`}>
-            <Icon name={`face-${ratingFace}` as IconName} />
+      {lastRating && ratingFace ? (
+        <div className="header-toolbar">
+          <div
+            key={ratingAnimationKey}
+            className="header-toolbar-rating"
+            title={`Rating applied: ${ratingToPercent(lastRating)}`}
+          >
+            <div className={`icon-dot icon-dot--${ratingFace}`}>
+              <Icon name={`face-${ratingFace}` as IconName} />
+            </div>
           </div>
         </div>
-      </div>
-    ) : null}
+      ) : null}
 
-    <div className="header-toolbar header-toolbar--right">
-      <Button
-        variant="text"
-        onClick={() => dispatch(setLightMode(!lightMode))}
-        title={`Switch to ${lightMode ? 'Dark' : 'Light'} Mode`}
-      ><Icon name={lightMode ? 'moon' : 'sun'} /></Button>
-    </div>
-
-    {initializing || !remainingIds.length ? null : (
-      <div className="header-info">
-        {remainingMessage}
-        {confirmingReset ? null : (
-          <Button
-            variant="text"
-            onClick={confirmReset}
-            title="Reset"
-          ><Icon name="reset" /></Button>
-        )}
+      <div className="header-toolbar header-toolbar--right">
+        <Button
+          variant="text"
+          onClick={() => dispatch(setLightMode(!lightMode))}
+          title={`Switch to ${lightMode ? 'Dark' : 'Light'} Mode`}
+        >
+          <Icon name={lightMode ? 'moon' : 'sun'} />
+        </Button>
       </div>
-    )}
-  </header>);
+
+      {initializing || !remainingIds.length ? null : (
+        <div className="header-info">
+          {remainingMessage}
+          {confirmingReset ? null : (
+            <Button variant="text" onClick={confirmReset} title="Reset">
+              <Icon name="reset" />
+            </Button>
+          )}
+        </div>
+      )}
+    </header>
+  );
 };

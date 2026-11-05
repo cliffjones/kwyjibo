@@ -49,11 +49,14 @@ export const isAppState = (value: unknown): value is AppState => {
     return false;
   }
 
-  if (!Array.isArray(state.selectedTopics) || !state.selectedTopics.every(topic => typeof topic === 'string')) {
+  if (!Array.isArray(state.selectedTopics) || !state.selectedTopics.every((topic) => typeof topic === 'string')) {
     return false;
   }
 
-  if (!Array.isArray(state.remainingIds) || !state.remainingIds.every(id => typeof id === 'number' && Number.isInteger(id))) {
+  if (
+    !Array.isArray(state.remainingIds) ||
+    !state.remainingIds.every((id) => typeof id === 'number' && Number.isInteger(id))
+  ) {
     return false;
   }
 
@@ -64,8 +67,10 @@ export const isAppState = (value: unknown): value is AppState => {
   // Ensure that `remainingIds` is a subset of the item IDs and that `currentId` makes sense.
   const itemIds = new Set(state.items.map(({ id }) => id));
   const remainingIds = new Set(state.remainingIds);
-  return itemIds.size === state.items.length
-    && remainingIds.size === state.remainingIds.length
-    && state.remainingIds.every(id => itemIds.has(id))
-    && (state.remainingIds.length ? remainingIds.has(state.currentId) : state.currentId == null);
+  return (
+    itemIds.size === state.items.length &&
+    remainingIds.size === state.remainingIds.length &&
+    state.remainingIds.every((id) => itemIds.has(id)) &&
+    (state.remainingIds.length ? remainingIds.has(state.currentId) : state.currentId == null)
+  );
 };

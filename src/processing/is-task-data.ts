@@ -23,10 +23,7 @@ export const isTaskData = (value: unknown): value is TaskData => {
     return false;
   }
 
-  if (
-    value.responses != null
-    && (!Array.isArray(value.responses) || !value.responses.every(isResponseData))
-  ) {
+  if (value.responses != null && (!Array.isArray(value.responses) || !value.responses.every(isResponseData))) {
     return false;
   }
 

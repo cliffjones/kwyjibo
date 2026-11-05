@@ -10,7 +10,7 @@ describe('matchInlineToken', () => {
         text: 'Kwyjibo',
         url: 'https://example.com',
         title: 'Home',
-      }
+      },
     });
 
     const imageMatch = matchInlineToken('![Card](images/card.png)', 0);
@@ -19,7 +19,7 @@ describe('matchInlineToken', () => {
         type: 'image',
         text: 'Card',
         url: 'images/card.png',
-      }
+      },
     });
 
     const imageLinkMatch = matchInlineToken('[![Logo](logo.png)](https://example.com)', 0);
@@ -31,7 +31,7 @@ describe('matchInlineToken', () => {
           text: 'Logo',
           url: 'logo.png',
         },
-      }
+      },
     });
   });
 

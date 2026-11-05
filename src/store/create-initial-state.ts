@@ -17,7 +17,7 @@ export const createInitialState = (
   ratingTotal = 0,
   ratingCount = 0,
   resolvedCustomData?: string,
-  parsedCustomData?: [ConfigData, ...TaskData[]]
+  parsedCustomData?: [ConfigData, ...TaskData[]],
 ): AppState => {
   const items: TaskItem[] = sortItems(loadedItems).map((item, index) => ({ ...item, id: index }));
   let customConfigData: ConfigData = {};
