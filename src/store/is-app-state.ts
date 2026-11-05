@@ -25,6 +25,10 @@ export const isAppState = (value: unknown): value is AppState => {
     return false;
   }
 
+  if (state.resolvedCustomData != null && typeof state.resolvedCustomData !== 'string') {
+    return false;
+  }
+
   if (typeof state.lightMode !== 'boolean') {
     return false;
   }

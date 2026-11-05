@@ -5,6 +5,7 @@ export type AppState = {
   configData: ConfigData;
   items: TaskItem[];
   customData: string;
+  resolvedCustomData?: string;
   lightMode: boolean;
   initializing: boolean;
   startTime: number;

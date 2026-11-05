@@ -1,6 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { hasRemoteBlock } from '../../data/has-remote-block';
+import { parseCustomData } from '../../data/parse-custom-data';
+import { parseKData } from '../../data/parse-k-data';
+import { resolveRemoteText } from '../../data/resolve-remote-text';
 import { AppDispatch, RootState, selectTopics, startQuiz } from '../../store';
 import { Button } from '../../ui/button';
 import { ButtonSet } from '../../ui/button/button-set';
@@ -37,6 +41,7 @@ export const Setup = ({
   const dispatch = useDispatch<AppDispatch>();
 
   const configData = useSelector((state: RootState) => state.kwyjibo.configData);
+  const persistedCustomData = useSelector((state: RootState) => state.kwyjibo.customData);
   const availableTopics = useSelector(selectAvailableTopics);
   const itemCounts = useSelector(selectItemCounts);
   const selectedTopics = useSelector((state: RootState) => state.kwyjibo.selectedTopics);
@@ -48,8 +53,18 @@ export const Setup = ({
     dispatch(selectTopics(nextSelection));
   };
 
-  const handleStartQuiz = () => {
-    dispatch(startQuiz());
+  const handleStartQuiz = async () => {
+    const startCustomData = customData === persistedCustomData ? customData : persistedCustomData;
+
+    if (!hasRemoteBlock(startCustomData) && !/https?:\/\//i.test(startCustomData)) {
+      const parsedCustomData = parseKData(startCustomData);
+      dispatch(startQuiz({ customData: startCustomData, resolvedCustomData: startCustomData, parsedCustomData }));
+      return;
+    }
+
+    const resolvedCustomData = await resolveRemoteText(startCustomData);
+    const parsedCustomData = await parseCustomData(startCustomData);
+    dispatch(startQuiz({ customData: startCustomData, resolvedCustomData, parsedCustomData }));
   };
 
   return (

@@ -5,7 +5,7 @@ import { getTime } from '../data/get-time';
 import { loadItems } from '../data/load-items';
 import { parseKData } from '../data/parse-k-data';
 import { sortItems } from '../data/sort-items';
-import type { ConfigData, TaskItem } from '../data/types';
+import type { ConfigData, TaskData, TaskItem } from '../data/types';
 import { loadPersistedState } from './load-persisted-state';
 import { persistState } from './persist-state';
 import type { AppState } from './types';
@@ -13,13 +13,18 @@ import type { AppState } from './types';
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
 export const setLightMode = createAction<boolean>('kwyjibo/setLightMode');
-export const startQuiz = createAction('kwyjibo/startQuiz');
+export const startQuiz = createAction<{
+  customData: string;
+  resolvedCustomData?: string;
+  parsedCustomData?: [ConfigData, ...TaskData[]];
+} | undefined>('kwyjibo/startQuiz');
 export const rateItem = createAction<number>('kwyjibo/rateItem');
 export const reset = createAsyncThunk(
   'kwyjibo/reset',
   async (path: string) => ({ items: await loadItems(path), path })
 );
 
+// Creates the initial app state, optionally using a set of loaded items and custom data.
 const createInitialState = (
   sourcePath = '/',
   configData: ConfigData = {},
@@ -29,17 +34,26 @@ const createInitialState = (
   initializing = true,
   startTime = getTime(),
   ratingTotal = 0,
-  ratingCount = 0
+  ratingCount = 0,
+  resolvedCustomData?: string,
+  parsedCustomData?: [ConfigData, ...TaskData[]]
 ): AppState => {
   const items: TaskItem[] = sortItems(loadedItems).map((item, index) => ({ ...item, id: index }));
   let customConfigData: ConfigData = {};
 
   if (!initializing) {
-    const [data, ...customItems] = parseKData(customData);
-    customConfigData = data;
+    const customDataText = resolvedCustomData || customData;
+    const [customConfig, ...customItems] = parsedCustomData ?? parseKData(customDataText);
+    customConfigData = customConfig;
 
     // Assign custom card IDs after the loaded cards so both sets can share a single state.
     items.push(...customItems.map((item, index) => createTaskItem(item, items.length + index)));
+    const sortedItems = sortItems(items);
+    sortedItems.forEach((item, index) => {
+      item.id = index;
+    });
+    items.length = 0;
+    items.push(...sortedItems);
   }
 
   const ids = items.map(({ id }) => id);
@@ -48,6 +62,7 @@ const createInitialState = (
     configData: { ...configData, ...customConfigData },
     items,
     customData,
+    resolvedCustomData,
     lightMode,
     initializing,
     startTime,
@@ -60,6 +75,7 @@ const createInitialState = (
   };
 };
 
+// Creates a reducer for the app state, handling various actions triggered by the user.
 const createAppReducer = (initialState: AppState) => {
   return createReducer(initialState, builder => {
     builder
@@ -135,16 +151,26 @@ const createAppReducer = (initialState: AppState) => {
         state.lightMode = action.payload;
       })
 
-      .addCase(startQuiz, state => {
+      .addCase(startQuiz, (state, action) => {
         const selectedItems = state.items.filter(({ topic, task }) => state.selectedTopics.includes(topic || task));
-        return createInitialState(
+        const customDataForStart = action.payload?.customData ?? state.customData;
+        const resolvedCustomDataForStart = action.payload?.resolvedCustomData ?? (state.resolvedCustomData || customDataForStart);
+        const parsedCustomData = action.payload?.parsedCustomData ?? parseKData(resolvedCustomDataForStart || customDataForStart);
+        const nextState = createInitialState(
           state.sourcePath,
           state.configData,
           selectedItems,
-          state.customData,
+          customDataForStart,
           state.lightMode,
-          false
+          false,
+          state.startTime,
+          state.ratingTotal,
+          state.ratingCount,
+          resolvedCustomDataForStart,
+          parsedCustomData
         );
+
+        return nextState;
       })
 
       .addCase(reset.fulfilled, (state, action) => {
@@ -154,7 +180,12 @@ const createAppReducer = (initialState: AppState) => {
           configData,
           items,
           state.customData,
-          state.lightMode
+          state.lightMode,
+          true,
+          getTime(),
+          0,
+          0,
+          state.resolvedCustomData
         );
 
         // Keep the user's topic choices when rebuilding the loaded cards.
@@ -164,6 +195,7 @@ const createAppReducer = (initialState: AppState) => {
   });
 };
 
+// Creates a Redux store for the app, optionally using a set of loaded items and custom data.
 export const createAppStore = (sourcePath = '/', configData: ConfigData = {}, items: TaskItem[] = []) => {
   const savedState = loadPersistedState(sourcePath);
   const restoredState = savedState?.sourcePath === sourcePath

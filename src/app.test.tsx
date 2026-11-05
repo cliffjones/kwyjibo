@@ -6,7 +6,23 @@ import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
 import { createAppStore, rateItem, setCustomData, setLightMode, startQuiz } from './store';
 
 vi.mock('./data/load-items', () => ({
-  loadItems: vi.fn()
+  loadItems: vi.fn(),
+  hasRemoteBlock: vi.fn((text: string) => {
+    const blocks = text
+      .split(/\r?\n\r?\n/)
+      .map(block => block.trim())
+      .filter(Boolean);
+
+    return blocks.some(block => {
+      const lines = block.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+      return lines.length === 1 && /^https?:\/\//i.test(lines[0]);
+    });
+  }),
+  parseCustomData: vi.fn(async (text: string) => {
+    const { parseKData } = await import('./data/parse-k-data');
+    return parseKData(text);
+  }),
+  resolveRemoteText: vi.fn(async (text: string) => text)
 }));
 
 const mockedLoadItems = vi.mocked(loadItems);
