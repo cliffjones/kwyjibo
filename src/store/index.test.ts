@@ -1,5 +1,5 @@
 import * as dataModule from '../data/load-items';
-import { createAppStore, rateItem, setCustomData, setLightMode, startQuiz } from './index';
+import { createAppStore, rateItem, setCustomData, setLightMode, startDeck } from './index';
 
 describe('app store', () => {
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe('app store', () => {
       sourcePath: '/science',
       configData: {},
       items: [],
-      customData: 'legacy shared quiz',
+      customData: 'legacy shared deck',
       lightMode: false,
       initializing: true,
       startTime: 0,
@@ -25,27 +25,27 @@ describe('app store', () => {
     const scienceStore = createAppStore('/science');
     expect(scienceStore.getState().kwyjibo.customData).toBe('');
     expect(scienceStore.getState().kwyjibo.lightMode).toBe(false);
-    scienceStore.dispatch(setCustomData('Science-specific quiz'));
+    scienceStore.dispatch(setCustomData('Science-specific deck'));
     scienceStore.dispatch(setLightMode(true));
 
     const mathStore = createAppStore('/math');
     expect(mathStore.getState().kwyjibo.customData).toBe('');
     expect(mathStore.getState().kwyjibo.lightMode).toBe(false);
-    mathStore.dispatch(setCustomData('Math-specific quiz'));
+    mathStore.dispatch(setCustomData('Math-specific deck'));
 
     const restoredScienceStore = createAppStore('/science');
-    expect(restoredScienceStore.getState().kwyjibo.customData).toBe('Science-specific quiz');
+    expect(restoredScienceStore.getState().kwyjibo.customData).toBe('Science-specific deck');
     expect(restoredScienceStore.getState().kwyjibo.lightMode).toBe(true);
 
     const restoredMathStore = createAppStore('/math');
-    expect(restoredMathStore.getState().kwyjibo.customData).toBe('Math-specific quiz');
+    expect(restoredMathStore.getState().kwyjibo.customData).toBe('Math-specific deck');
     expect(restoredMathStore.getState().kwyjibo.lightMode).toBe(false);
   });
 
   it('advances to the next card when the current item is mastered', () => {
     const store = createAppStore('/test');
     store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.\n\nQuestion three?\nAnswer three.'));
-    store.dispatch(startQuiz());
+    store.dispatch(startDeck());
 
     store.dispatch(rateItem(5));
     expect(store.getState().kwyjibo.currentId).toBe(1);
@@ -55,7 +55,7 @@ describe('app store', () => {
     expect(store.getState().kwyjibo.remainingIds).toEqual([2]);
   });
 
-  it('reloads remote data when persisted state has no active quiz', async () => {
+  it('reloads remote data when persisted state has no active deck', async () => {
     const loadItemsSpy = vi.spyOn(dataModule, 'loadItems').mockResolvedValue([
       {},
       { topic: 'Science', task: 'Question?', solution: 'Answer', responses: [], id: 0, type: 'task', rating: 0 }

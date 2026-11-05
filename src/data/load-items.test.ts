@@ -19,7 +19,7 @@ describe('loadItems', () => {
     globalThis.fetch = originalFetch;
   });
 
-  it('loads a quiz file for each matching route segment without requesting a manifest', async () => {
+  it('loads a deck file for each matching route segment without requesting a manifest', async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('# Science\n\nWhat is a cell?\nA basic unit of life.'))
       .mockResolvedValueOnce(createResponse('# Dev\n\nWhat is JSX?\nA syntax extension.'));
@@ -37,7 +37,7 @@ describe('loadItems', () => {
     ]);
   });
 
-  it('ignores route segments without a matching quiz file', async () => {
+  it('ignores route segments without a matching deck file', async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('', 403))
       .mockResolvedValueOnce(createResponse('', 404));
@@ -78,7 +78,7 @@ describe('loadItems', () => {
     expect(await loadItems('/broken')).toEqual([{}]);
   });
 
-  it('ignores SPA fallback HTML returned for a missing quiz file', async () => {
+  it('ignores SPA fallback HTML returned for a missing deck file', async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('<!doctype html><html><body>App</body></html>'));
     vi.stubGlobal('fetch', fetchMock);
@@ -87,7 +87,7 @@ describe('loadItems', () => {
     expect(fetchMock).toHaveBeenCalledWith('/data/missing.k');
   });
 
-  it('ignores HTML quiz responses even when their content type is incorrect', async () => {
+  it('ignores HTML deck file responses even when their content type is incorrect', async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(createResponse('<html><body>App</body></html>', 200, 'text/plain'));
     vi.stubGlobal('fetch', fetchMock);
@@ -106,7 +106,7 @@ describe('loadItems', () => {
     expect(fetchMock).toHaveBeenCalledWith('/data/dev.k');
   });
 
-  it('reports errors other than a missing quiz file', async () => {
+  it('reports errors other than a missing deck file', async () => {
     globalThis.fetch = vi.fn<typeof fetch>()
       .mockResolvedValue(createResponse('', 500));
 

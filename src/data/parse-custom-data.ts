@@ -1,6 +1,6 @@
 import { isValidUrl } from './is-valid-url';
 import { loadRemoteData } from './load-remote-data';
-import { parseKData } from './parse-k-data';
+import { parseFileData } from './parse-file-data';
 import type { ConfigData, TaskData } from './types';
 
 // Parses a user-supplied data string into a configuration object and an array of task objects.
@@ -19,7 +19,7 @@ export const parseCustomData = async (text: string): Promise<[ConfigData, ...Tas
       return;
     }
 
-    const [pendingConfig, ...pendingItems] = parseKData(pendingBlocks.join('\n\n'));
+    const [pendingConfig, ...pendingItems] = parseFileData(pendingBlocks.join('\n\n'));
     Object.assign(configData, pendingConfig);
     items.push(...pendingItems);
     pendingBlocks.length = 0;

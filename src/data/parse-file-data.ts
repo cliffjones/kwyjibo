@@ -6,7 +6,7 @@ import { parseJson } from './parse-json';
 import type { ConfigData, ResponseData, TaskData } from './types';
 
 // Parses a K-format data string into a configuration object and an array of task objects.
-export const parseKData = (data: string): [ConfigData, ...TaskData[]] => {
+export const parseFileData = (data: string): [ConfigData, ...TaskData[]] => {
   let newData = data.trim();
   let configData: ConfigData = {};
 

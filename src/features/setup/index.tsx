@@ -3,9 +3,9 @@ import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { hasRemoteBlock } from '../../data/has-remote-block';
 import { parseCustomData } from '../../data/parse-custom-data';
-import { parseKData } from '../../data/parse-k-data';
+import { parseFileData } from '../../data/parse-file-data';
 import { resolveRemoteText } from '../../data/resolve-remote-text';
-import { AppDispatch, RootState, selectTopics, startQuiz } from '../../store';
+import { AppDispatch, RootState, selectTopics, startDeck } from '../../store';
 import { Button } from '../../ui/button';
 import { ButtonSet } from '../../ui/button/button-set';
 import { Icon } from '../../ui/icon';
@@ -53,18 +53,18 @@ export const Setup = ({
     dispatch(selectTopics(nextSelection));
   };
 
-  const handleStartQuiz = async () => {
+  const handleStartDeck = async () => {
     const startCustomData = customData === persistedCustomData ? customData : persistedCustomData;
 
     if (!hasRemoteBlock(startCustomData) && !/https?:\/\//i.test(startCustomData)) {
-      const parsedCustomData = parseKData(startCustomData);
-      dispatch(startQuiz({ customData: startCustomData, resolvedCustomData: startCustomData, parsedCustomData }));
+      const parsedCustomData = parseFileData(startCustomData);
+      dispatch(startDeck({ customData: startCustomData, resolvedCustomData: startCustomData, parsedCustomData }));
       return;
     }
 
     const resolvedCustomData = await resolveRemoteText(startCustomData);
     const parsedCustomData = await parseCustomData(startCustomData);
-    dispatch(startQuiz({ customData: startCustomData, resolvedCustomData, parsedCustomData }));
+    dispatch(startDeck({ customData: startCustomData, resolvedCustomData, parsedCustomData }));
   };
 
   return (
@@ -102,7 +102,7 @@ export const Setup = ({
       <ButtonSet>
         <Button
           disabled={!selectedTopics.length && !customData}
-          onClick={handleStartQuiz}
+          onClick={handleStartDeck}
         >
           <Icon name="point-right" />
           Start

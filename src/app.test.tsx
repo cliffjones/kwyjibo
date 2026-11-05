@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { App } from './app';
 import { loadItems } from './data/load-items';
 import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
-import { createAppStore, rateItem, setCustomData, setLightMode, startQuiz } from './store';
+import { createAppStore, rateItem, setCustomData, setLightMode, startDeck } from './store';
 
 vi.mock('./data/load-items', () => ({
   loadItems: vi.fn(),
@@ -19,8 +19,8 @@ vi.mock('./data/load-items', () => ({
     });
   }),
   parseCustomData: vi.fn(async (text: string) => {
-    const { parseKData } = await import('./data/parse-k-data');
-    return parseKData(text);
+    const { parseFileData } = await import('./data/parse-file-data');
+    return parseFileData(text);
   }),
   resolveRemoteText: vi.fn(async (text: string) => text)
 }));
@@ -33,7 +33,7 @@ describe('App', () => {
     delete document.documentElement.dataset.theme;
   });
 
-  it('starts a quiz, reveals an answer, and advances after a confident rating', () => {
+  it('starts a deck, reveals an answer, and advances after a confident rating', () => {
     const store = createAppStore('/test');
     store.dispatch(setCustomData(
       '# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.'
@@ -67,7 +67,7 @@ describe('App', () => {
     const store = createAppStore('/test');
     store.dispatch(setCustomData(CUSTOM_DATA_EXAMPLE));
     store.dispatch(setLightMode(false));
-    store.dispatch(startQuiz());
+    store.dispatch(startDeck());
     store.dispatch(rateItem(5));
 
     render(
@@ -85,10 +85,10 @@ describe('App', () => {
     expect(store.getState().kwyjibo.lightMode).toBe(false);
   });
 
-  it('cancels the reset confirmation without reloading the quiz', () => {
+  it('cancels the reset confirmation without reloading the deck', () => {
     const store = createAppStore('/test');
     store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.'));
-    store.dispatch(startQuiz());
+    store.dispatch(startDeck());
 
     render(
       <Provider store={store}>
@@ -107,7 +107,7 @@ describe('App', () => {
   it('shows the mastery summary when all items have been rated', () => {
     const store = createAppStore('/test');
     store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.'));
-    store.dispatch(startQuiz());
+    store.dispatch(startDeck());
 
     render(
       <Provider store={store}>

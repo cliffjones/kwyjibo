@@ -11,25 +11,25 @@ const items: TaskItem[] = [
 ];
 
 describe('Setup', () => {
-  it('lists unique topics in order, updates selection, and starts the quiz', async () => {
+  it('lists unique topics in order, updates selection, and starts the deck', async () => {
     const store = createAppStore('/test', {}, items);
     store.dispatch(setCustomData(''));
     const handleTextChange = vi.fn();
 
     render(
       <Provider store={store}>
-        <Setup customData="custom quiz" handleTextChange={handleTextChange} />
+        <Setup customData="custom deck" handleTextChange={handleTextChange} />
       </Provider>
     );
 
     expect(screen.getAllByRole('checkbox').map(option => option.parentElement?.textContent))
       .toEqual(['Alpha (2)', 'Zulu']);
-    expect(screen.getByLabelText('Custom card data:')).toHaveValue('custom quiz');
+    expect(screen.getByLabelText('Custom card data:')).toHaveValue('custom deck');
     expect(screen.getByRole('button', { name: 'Start' })).toBeEnabled();
 
     fireEvent.click(screen.getByRole('checkbox', { name: 'Alpha (2)' }));
     fireEvent.change(screen.getByLabelText('Custom card data:'), {
-      target: { value: 'updated quiz' }
+      target: { value: 'updated deck' }
     });
     expect(store.getState().kwyjibo.selectedTopics).toEqual(['Zulu']);
     expect(handleTextChange).toHaveBeenCalledTimes(1);
@@ -55,7 +55,7 @@ describe('Setup', () => {
 
     rerender(
       <Provider store={store}>
-        <Setup customData="A custom quiz" handleTextChange={handleTextChange} />
+        <Setup customData="A custom deck" handleTextChange={handleTextChange} />
       </Provider>
     );
 
@@ -128,9 +128,11 @@ describe('Setup', () => {
       'How are you?'
     ]));
     expect(store.getState().kwyjibo.items).not.toEqual(expect.arrayContaining([
-      expect.objectContaining({ task: 'Brush and floss your teeth.', responses: expect.arrayContaining([
-        expect.objectContaining({ text: 'Drink some water.' })
-      ]) })
+      expect.objectContaining({
+        task: 'Brush and floss your teeth.', responses: expect.arrayContaining([
+          expect.objectContaining({ text: 'Drink some water.' })
+        ])
+      })
     ]));
   });
 });

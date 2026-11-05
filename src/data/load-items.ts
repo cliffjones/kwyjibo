@@ -3,7 +3,7 @@ import { createTaskItem } from './create-task-item';
 import { expandRemoteItems } from './expand-remote-items';
 import { isConfigData } from './is-config-data';
 import { isTaskData } from './is-task-data';
-import { parseKData } from './parse-k-data';
+import { parseFileData } from './parse-file-data';
 import type { ConfigData, TaskItem } from './types';
 
 // Loads files corresponding to path segments, returning the combined config data and task items.
@@ -49,7 +49,7 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
         return [];
       }
 
-      return expandRemoteItems(parseKData(data));
+      return expandRemoteItems(parseFileData(data));
     })
   );
 

@@ -54,7 +54,7 @@
     }
 
     &-rating {
-      animation: header-toolbar-rating 1s ease-out forwards;
+      animation: header-toolbar-rating 2s ease-out forwards;
       height: size.$text;
       width: size.$text;
     }
@@ -72,7 +72,7 @@
 
 @keyframes header-toolbar-rating {
   0%,
-  50% {
+  75% {
     height: size.$text;
     margin: 0;
     opacity: 1;

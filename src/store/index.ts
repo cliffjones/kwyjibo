@@ -1,11 +1,11 @@
 import { configureStore, createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
-import { createTaskItem } from '../data/create-task-item';
 import { getNextId } from '../data/get-next-id';
 import { getTime } from '../data/get-time';
 import { loadItems } from '../data/load-items';
-import { parseKData } from '../data/parse-k-data';
+import { parseFileData } from '../data/parse-file-data';
 import { sortItems } from '../data/sort-items';
 import type { ConfigData, TaskData, TaskItem } from '../data/types';
+import { createInitialState } from './create-initial-state';
 import { loadPersistedState } from './load-persisted-state';
 import { persistState } from './persist-state';
 import type { AppState } from './types';
@@ -13,67 +13,16 @@ import type { AppState } from './types';
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
 export const setLightMode = createAction<boolean>('kwyjibo/setLightMode');
-export const startQuiz = createAction<{
+export const startDeck = createAction<{
   customData: string;
   resolvedCustomData?: string;
   parsedCustomData?: [ConfigData, ...TaskData[]];
-} | undefined>('kwyjibo/startQuiz');
+} | undefined>('kwyjibo/startDeck');
 export const rateItem = createAction<number>('kwyjibo/rateItem');
 export const reset = createAsyncThunk(
   'kwyjibo/reset',
   async (path: string) => ({ items: await loadItems(path), path })
 );
-
-// Creates the initial app state, optionally using a set of loaded items and custom data.
-const createInitialState = (
-  sourcePath = '/',
-  configData: ConfigData = {},
-  loadedItems: TaskItem[] = [],
-  customData = '',
-  lightMode = false,
-  initializing = true,
-  startTime = getTime(),
-  ratingTotal = 0,
-  ratingCount = 0,
-  resolvedCustomData?: string,
-  parsedCustomData?: [ConfigData, ...TaskData[]]
-): AppState => {
-  const items: TaskItem[] = sortItems(loadedItems).map((item, index) => ({ ...item, id: index }));
-  let customConfigData: ConfigData = {};
-
-  if (!initializing) {
-    const customDataText = resolvedCustomData || customData;
-    const [customConfig, ...customItems] = parsedCustomData ?? parseKData(customDataText);
-    customConfigData = customConfig;
-
-    // Assign custom card IDs after the loaded cards so both sets can share a single state.
-    items.push(...customItems.map((item, index) => createTaskItem(item, items.length + index)));
-    const sortedItems = sortItems(items);
-    sortedItems.forEach((item, index) => {
-      item.id = index;
-    });
-    items.length = 0;
-    items.push(...sortedItems);
-  }
-
-  const ids = items.map(({ id }) => id);
-
-  return {
-    configData: { ...configData, ...customConfigData },
-    items,
-    customData,
-    resolvedCustomData,
-    lightMode,
-    initializing,
-    startTime,
-    ratingTotal,
-    ratingCount,
-    sourcePath,
-    selectedTopics: [...new Set(items.map(({ topic, task }) => topic || task))],
-    remainingIds: ids,
-    currentId: ids.length ? ids[0] : null,
-  };
-};
 
 // Creates a reducer for the app state, handling various actions triggered by the user.
 const createAppReducer = (initialState: AppState) => {
@@ -151,11 +100,11 @@ const createAppReducer = (initialState: AppState) => {
         state.lightMode = action.payload;
       })
 
-      .addCase(startQuiz, (state, action) => {
+      .addCase(startDeck, (state, action) => {
         const selectedItems = state.items.filter(({ topic, task }) => state.selectedTopics.includes(topic || task));
         const customDataForStart = action.payload?.customData ?? state.customData;
         const resolvedCustomDataForStart = action.payload?.resolvedCustomData ?? (state.resolvedCustomData || customDataForStart);
-        const parsedCustomData = action.payload?.parsedCustomData ?? parseKData(resolvedCustomDataForStart || customDataForStart);
+        const parsedCustomData = action.payload?.parsedCustomData ?? parseFileData(resolvedCustomDataForStart || customDataForStart);
         const nextState = createInitialState(
           state.sourcePath,
           state.configData,
