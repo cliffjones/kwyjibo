@@ -112,9 +112,9 @@ const createAppReducer = (initialState: AppState) => {
           customDataForStart,
           state.lightMode,
           false,
-          state.startTime,
-          state.ratingTotal,
-          state.ratingCount,
+          getTime(),
+          0,
+          0,
           resolvedCustomDataForStart,
           parsedCustomData
         );
@@ -131,7 +131,7 @@ const createAppReducer = (initialState: AppState) => {
           state.customData,
           state.lightMode,
           true,
-          getTime(),
+          0,
           0,
           0,
           state.resolvedCustomData

@@ -3,8 +3,8 @@ const SECONDS_IN_HOUR = 60 * 60;
 const SECONDS_IN_MINUTE = 60;
 
 export const formatDuration = (ms: number): string => {
-  if (!Number.isFinite(ms) || ms < 0) {
-    return '';
+  if (!Number.isFinite(ms) || ms <= 0) {
+    return '0 seconds';
   }
 
   let remainingSeconds = Math.round(ms / 1000);

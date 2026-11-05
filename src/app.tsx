@@ -5,16 +5,10 @@ import { Footer } from './features/footer';
 import { Header } from './features/header';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
-import { formatDuration } from './processing/format-duration';
+import { getMasteryMessage } from './get-mastery-message';
 import { getTime } from './processing/get-time';
 import { sortResponses } from './processing/sort-responses';
-import {
-  rateItem,
-  reset,
-  setCustomData,
-  type AppDispatch,
-  type RootState
-} from './store';
+import { rateItem, reset, setCustomData, type AppDispatch, type RootState } from './store';
 import './style/index.scss';
 import { Button } from './ui/button';
 import { ButtonSet } from './ui/button/button-set';
@@ -28,9 +22,7 @@ export const App = ({ path }: { path: string }) => {
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
   const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const currentId = useSelector((state: RootState) => state.kwyjibo.currentId);
-  const currentItem = useSelector((state: RootState) =>
-    state.kwyjibo.items.find(({ id }) => id === currentId)
-  );
+  const currentItem = useSelector((state: RootState) => state.kwyjibo.items.find(({ id }) => id === currentId));
   const startTime = useSelector((state: RootState) => state.kwyjibo.startTime);
   const ratingTotal = useSelector((state: RootState) => state.kwyjibo.ratingTotal);
   const ratingCount = useSelector((state: RootState) => state.kwyjibo.ratingCount);
@@ -48,7 +40,7 @@ export const App = ({ path }: { path: string }) => {
   const handleRating = (rating: number) => {
     setRevealed(false);
     setLastRating(rating);
-    setRatingAnimationKey(value => value + 1);
+    setRatingAnimationKey((value) => value + 1);
     setEndTime(getTime());
     dispatch(rateItem(rating));
   };
@@ -86,10 +78,7 @@ export const App = ({ path }: { path: string }) => {
       />
 
       {initializing ? (
-        <Setup
-          customData={customData}
-          handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))}
-        />
+        <Setup customData={customData} handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))} />
       ) : confirmingReset ? (
         <Card heading="Really reset the cards?">
           <ButtonSet>
@@ -103,33 +92,39 @@ export const App = ({ path }: { path: string }) => {
             </Button>
           </ButtonSet>
         </Card>
-      ) : remainingIds.length && currentItem ? (<>
-        <Card content={currentItem.task} topic={currentItem.topic} rating={currentItem.rating}>
-          {currentItem.type === 'quiz' && sortedResponses.length ? (
-            <ButtonSet variant="responses">
-              {sortedResponses.map((response, index) => (
-                <Button key={index} onClick={() => handleRating(response.value)}>
-                  {response.text}
-                </Button>
-              ))}
-            </ButtonSet>
-          ) : currentItem.solution ? (
-            revealed ? null : <ButtonSet>
-              <Button onClick={handleReveal}>
-                <Icon name="point-down" />
-                Reveal
-              </Button>
-            </ButtonSet>
-          ) : <Rating handleRating={handleRating} />}
-        </Card>
-
-        {currentItem.solution && revealed && (
-          <Card content={currentItem.solution}>
-            <Rating handleRating={handleRating} />
+      ) : remainingIds.length && currentItem ? (
+        <>
+          <Card content={currentItem.task} topic={currentItem.topic} rating={currentItem.rating}>
+            {currentItem.type === 'quiz' && sortedResponses.length ? (
+              <ButtonSet variant="responses">
+                {sortedResponses.map((response, index) => (
+                  <Button key={index} onClick={() => handleRating(response.value)}>
+                    {response.text}
+                  </Button>
+                ))}
+              </ButtonSet>
+            ) : currentItem.solution ? (
+              revealed ? null : (
+                <ButtonSet>
+                  <Button onClick={handleReveal}>
+                    <Icon name="point-down" />
+                    Reveal
+                  </Button>
+                </ButtonSet>
+              )
+            ) : (
+              <Rating handleRating={handleRating} />
+            )}
           </Card>
-        )}
-      </>) : (
-        <Card heading={`You mastered ${itemCount} cards with ${Math.round((ratingTotal / (ratingCount || 1)) * 25)}% accuracy over ${formatDuration(endTime - startTime)}.`}>
+
+          {currentItem.solution && revealed && (
+            <Card content={currentItem.solution}>
+              <Rating handleRating={handleRating} />
+            </Card>
+          )}
+        </>
+      ) : (
+        <Card heading={getMasteryMessage(itemCount, ratingTotal, ratingCount, startTime, endTime)}>
           <ButtonSet>
             <Button onClick={handleReset}>
               <Icon name="reset" />

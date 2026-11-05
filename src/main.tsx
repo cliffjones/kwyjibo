@@ -13,5 +13,5 @@ root.render(
         <Route path="*" element={<RouterApp />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

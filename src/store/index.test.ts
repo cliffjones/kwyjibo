@@ -42,6 +42,25 @@ describe('app store', () => {
     expect(restoredMathStore.getState().kwyjibo.lightMode).toBe(false);
   });
 
+  it('resets the deck timer when starting a new deck', () => {
+    vi.useFakeTimers();
+
+    try {
+      vi.setSystemTime(new Date('2024-01-01T00:00:00Z'));
+      const store = createAppStore('/test');
+      const initialStartTime = store.getState().kwyjibo.startTime;
+
+      vi.setSystemTime(new Date('2024-01-01T00:05:00Z'));
+      store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.'));
+      store.dispatch(startDeck());
+
+      expect(store.getState().kwyjibo.startTime).toBe(Date.now());
+      expect(store.getState().kwyjibo.startTime).not.toBe(initialStartTime);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('advances to the next card when the current item is mastered', () => {
     const store = createAppStore('/test');
     store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.\n\nQuestion three?\nAnswer three.'));

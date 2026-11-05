@@ -3,9 +3,11 @@ import { Card } from './index';
 
 describe('Card', () => {
   it('renders card content, topic, heading, and children', () => {
-    render(<Card topic="Science" content="What is a cell?" heading="Question">
-      <button type="button">Answer</button>
-    </Card>);
+    render(
+      <Card topic="Science" content="What is a cell?" heading="Question">
+        <button type="button">Answer</button>
+      </Card>,
+    );
 
     expect(screen.getByText('Science', { selector: '.card-topic' })).toBeInTheDocument();
     expect(screen.getByText('Question')).toBeInTheDocument();

@@ -5,18 +5,26 @@ import type { ConfigData, TaskItem } from './processing/types';
 import { RouterApp } from './router-app';
 
 vi.mock('react-router', () => ({
-  useLocation: vi.fn()
+  useLocation: vi.fn(),
 }));
 
 vi.mock('./processing/load-items', () => ({
-  loadItems: vi.fn()
+  loadItems: vi.fn(),
 }));
 
 const mockedUseLocation = vi.mocked(useLocation);
 const mockedLoadItems = vi.mocked(loadItems);
 
 const items: TaskItem[] = [
-  { id: 0, type: 'quiz', topic: 'Science', task: 'What is a cell?', solution: 'A basic unit of life.', responses: [], rating: 0 }
+  {
+    id: 0,
+    type: 'quiz',
+    topic: 'Science',
+    task: 'What is a cell?',
+    solution: 'A basic unit of life.',
+    responses: [],
+    rating: 0,
+  },
 ];
 
 describe('RouterApp', () => {
@@ -31,9 +39,11 @@ describe('RouterApp', () => {
 
   it('shows loading state before rendering the loaded application', async () => {
     let resolveItems!: (items: [ConfigData, ...TaskItem[]]) => void;
-    mockedLoadItems.mockReturnValue(new Promise(resolve => {
-      resolveItems = resolve;
-    }));
+    mockedLoadItems.mockReturnValue(
+      new Promise((resolve) => {
+        resolveItems = resolve;
+      }),
+    );
 
     render(<RouterApp />);
     expect(screen.getByText('Loading…')).toBeInTheDocument();
@@ -45,17 +55,12 @@ describe('RouterApp', () => {
   });
 
   it('renders an alert when cards fail to load', async () => {
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => { });
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
     mockedLoadItems.mockRejectedValue(new Error('network failure'));
 
     render(<RouterApp />);
-    expect(await screen.findByRole('alert')).toHaveTextContent(
-      'Unable to load cards for this path.'
-    );
-    expect(consoleError).toHaveBeenCalledWith(
-      'Unable to load "/science".',
-      expect.any(Error)
-    );
+    expect(await screen.findByRole('alert')).toHaveTextContent('Unable to load cards for this path.');
+    expect(consoleError).toHaveBeenCalledWith('Unable to load "/science".', expect.any(Error));
 
     consoleError.mockRestore();
   });

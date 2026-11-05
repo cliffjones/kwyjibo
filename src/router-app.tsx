@@ -27,7 +27,7 @@ export const RouterApp = () => {
         if (!canceled) {
           setRouteLoad({
             path: pathname,
-            error: error instanceof Error ? error : new Error(String(error))
+            error: error instanceof Error ? error : new Error(String(error)),
           });
         }
       });
