@@ -1,4 +1,4 @@
-import type { ConfigData, TaskItem } from '../data/types';
+import type { ConfigData, TaskItem } from '../processing/types';
 
 export type AppState = {
   sourcePath: string;

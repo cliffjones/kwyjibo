@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatDuration } from './data/format-duration';
-import { getTime } from './data/get-time';
-import { sortResponses } from './data/sort-responses';
 import { Card } from './features/card';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
+import { formatDuration } from './processing/format-duration';
+import { getTime } from './processing/get-time';
+import { sortResponses } from './processing/sort-responses';
 import {
   rateItem,
   reset,

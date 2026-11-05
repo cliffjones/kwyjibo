@@ -1,9 +1,9 @@
 import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hasRemoteBlock } from '../../data/has-remote-block';
-import { parseCustomData } from '../../data/parse-custom-data';
-import { parseFileData } from '../../data/parse-file-data';
-import { resolveRemoteText } from '../../data/resolve-remote-text';
+import { hasRemoteBlock } from '../../processing/has-remote-block';
+import { parseCustomData } from '../../processing/parse-custom-data';
+import { parseFileData } from '../../processing/parse-file-data';
+import { resolveRemoteText } from '../../processing/resolve-remote-text';
 import { AppDispatch, RootState, selectTopics, startDeck } from '../../store';
 import { selectAvailableTopics } from '../../store/select-available-topics';
 import { selectItemCounts } from '../../store/select-item-counts';

@@ -1,5 +1,5 @@
 import { Fragment, type ReactNode } from 'react';
-import { extractLineConfig } from '../../data/extract-line-config';
+import { extractLineConfig } from '../../processing/extract-line-config';
 import { Image } from '../image';
 import { Link } from '../link';
 import './style.scss';

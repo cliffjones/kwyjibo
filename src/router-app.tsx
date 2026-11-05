@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { useLocation } from 'react-router';
 import { App } from './app';
+import { loadItems } from './processing/load-items';
 import { createAppStore, type AppStore } from './store';
-import { loadItems } from './data/load-items';
 
 type RouteLoad = { path: string; store: AppStore } | { path: string; error: Error };
 

@@ -1,11 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { App } from './app';
-import { loadItems } from './data/load-items';
 import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
+import { loadItems } from './processing/load-items';
 import { createAppStore, rateItem, setCustomData, setLightMode, startDeck } from './store';
 
-vi.mock('./data/load-items', () => ({
+vi.mock('./processing/load-items', () => ({
   loadItems: vi.fn(),
   hasRemoteBlock: vi.fn((text: string) => {
     const blocks = text
@@ -19,7 +19,7 @@ vi.mock('./data/load-items', () => ({
     });
   }),
   parseCustomData: vi.fn(async (text: string) => {
-    const { parseFileData } = await import('./data/parse-file-data');
+    const { parseFileData } = await import('./processing/parse-file-data');
     return parseFileData(text);
   }),
   resolveRemoteText: vi.fn(async (text: string) => text)

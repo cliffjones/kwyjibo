@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import type { TaskItem } from '../../data/types';
+import type { TaskItem } from '../../processing/types';
 import { createAppStore, setCustomData } from '../../store';
 import { Setup } from './index';
 

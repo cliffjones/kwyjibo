@@ -1,4 +1,4 @@
-import { parseJson } from '../data/parse-json';
+import { parseJson } from '../processing/parse-json';
 import { getStorageKey } from './get-storage-key';
 import { isAppState } from './is-app-state';
 import { AppState } from './types';

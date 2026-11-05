@@ -1,8 +1,8 @@
-import { createTaskItem } from '../data/create-task-item';
-import { getTime } from '../data/get-time';
-import { parseFileData } from '../data/parse-file-data';
-import { sortItems } from '../data/sort-items';
-import type { ConfigData, TaskData, TaskItem } from '../data/types';
+import { createTaskItem } from '../processing/create-task-item';
+import { getTime } from '../processing/get-time';
+import { parseFileData } from '../processing/parse-file-data';
+import { sortItems } from '../processing/sort-items';
+import type { ConfigData, TaskData, TaskItem } from '../processing/types';
 import type { AppState } from './types';
 
 // Creates the initial app state, optionally using a set of loaded items and custom data.

@@ -1,10 +1,10 @@
 import { configureStore, createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
-import { getNextId } from '../data/get-next-id';
-import { getTime } from '../data/get-time';
-import { loadItems } from '../data/load-items';
-import { parseFileData } from '../data/parse-file-data';
-import { sortItems } from '../data/sort-items';
-import type { ConfigData, TaskData, TaskItem } from '../data/types';
+import { getNextId } from '../processing/get-next-id';
+import { getTime } from '../processing/get-time';
+import { loadItems } from '../processing/load-items';
+import { parseFileData } from '../processing/parse-file-data';
+import { sortItems } from '../processing/sort-items';
+import type { ConfigData, TaskData, TaskItem } from '../processing/types';
 import { createInitialState } from './create-initial-state';
 import { loadPersistedState } from './load-persisted-state';
 import { persistState } from './persist-state';

@@ -1,4 +1,4 @@
-import * as dataModule from '../data/load-items';
+import * as dataModule from '../processing/load-items';
 import { createAppStore, rateItem, setCustomData, setLightMode, startDeck } from './index';
 
 describe('app store', () => {

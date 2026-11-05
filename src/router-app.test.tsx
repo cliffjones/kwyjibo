@@ -1,14 +1,14 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { useLocation } from 'react-router';
-import { loadItems } from './data/load-items';
-import type { ConfigData, TaskItem } from './data/types';
+import { loadItems } from './processing/load-items';
+import type { ConfigData, TaskItem } from './processing/types';
 import { RouterApp } from './router-app';
 
 vi.mock('react-router', () => ({
   useLocation: vi.fn()
 }));
 
-vi.mock('./data/load-items', () => ({
+vi.mock('./processing/load-items', () => ({
   loadItems: vi.fn()
 }));
 
