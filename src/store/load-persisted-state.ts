@@ -1,8 +1,9 @@
+import { parseJson } from '../data/parse-json';
 import { getStorageKey } from './get-storage-key';
 import { isAppState } from './is-app-state';
-import { parseJson } from '../data/parse-json';
 import { AppState } from './types';
 
+// Loads the persisted app state from local storage, if available and valid.
 export const loadPersistedState = (sourcePath: string): AppState | null => {
   if (typeof window === 'undefined') {
     return null;

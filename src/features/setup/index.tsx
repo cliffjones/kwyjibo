@@ -1,4 +1,3 @@
-import { createSelector } from '@reduxjs/toolkit';
 import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { hasRemoteBlock } from '../../data/has-remote-block';
@@ -6,6 +5,8 @@ import { parseCustomData } from '../../data/parse-custom-data';
 import { parseFileData } from '../../data/parse-file-data';
 import { resolveRemoteText } from '../../data/resolve-remote-text';
 import { AppDispatch, RootState, selectTopics, startDeck } from '../../store';
+import { selectAvailableTopics } from '../../store/select-available-topics';
+import { selectItemCounts } from '../../store/select-item-counts';
 import { Button } from '../../ui/button';
 import { ButtonSet } from '../../ui/button/button-set';
 import { Icon } from '../../ui/icon';
@@ -14,22 +15,6 @@ import { Option } from '../../ui/option';
 import { OptionList } from '../../ui/option/option-list';
 import { Card } from '../card';
 import { CUSTOM_DATA_EXAMPLE } from './constants';
-
-// Selects a unique set of item topics (falling back to the task text when needed).
-const selectAvailableTopics = createSelector(
-  [(state: RootState) => state.kwyjibo.items],
-  items => [...new Set(items.map(({ topic, task }) => topic || task))].sort((a, b) => a.localeCompare(b))
-);
-
-// Selects a set of item counts keyed by each unique topic.
-const selectItemCounts = createSelector(
-  [(state: RootState) => state.kwyjibo.items],
-  items =>
-    items.reduce<Record<string, number>>((counts, { topic, task }) => {
-      counts[topic || task] = (counts[topic || task] ?? 0) + 1;
-      return counts;
-    }, {})
-);
 
 export const Setup = ({
   customData,
