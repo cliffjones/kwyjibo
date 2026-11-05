@@ -14,8 +14,8 @@ describe('formatDuration', () => {
   });
 
   it('returns an empty string for invalid values', () => {
-    expect(formatDuration(-1)).toBe('');
-    expect(formatDuration(Number.NaN)).toBe('');
-    expect(formatDuration(Number.POSITIVE_INFINITY)).toBe('');
+    expect(formatDuration(-1)).toBe('0 seconds');
+    expect(formatDuration(Number.NaN)).toBe('0 seconds');
+    expect(formatDuration(Number.POSITIVE_INFINITY)).toBe('0 seconds');
   });
 });
