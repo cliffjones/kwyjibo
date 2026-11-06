@@ -1,6 +1,14 @@
+@use '../../style/size';
+
 .link {
   color: inherit;
   font-weight: bold;
   position: relative;
   text-decoration: none;
+
+  .icon {
+    display: inline-block;
+    height: size.$text;
+    width: size.$text;
+  }
 }

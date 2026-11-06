@@ -1,6 +1,10 @@
 @use '../../style/color';
+@use '../../style/space';
 
 .footer {
   color: color.$pencil;
-  text-align: center;
+  display: flex;
+  gap: space.$mid;
+  justify-content: center;
+  line-height: 1;
 }

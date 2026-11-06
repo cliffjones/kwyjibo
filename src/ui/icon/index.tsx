@@ -32,6 +32,13 @@ export const Icon = ({ name }: { name: IconName }) => (
       </>
     )}
 
+    {name === 'heart' && (
+      <path
+        d="M12 23 C6 16 0 11 0 6 C0 2 4 0 7 0 C9 0 11 2 12 4 C13 2 15 0 17 0 C20 0 24 2 24 6 C24 11 18 16 12 23 Z"
+        fill="currentColor"
+      />
+    )}
+
     {name === 'moon' && (
       <path
         d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z"

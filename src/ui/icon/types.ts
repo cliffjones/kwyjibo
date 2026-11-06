@@ -5,6 +5,7 @@ export type IconName =
   | 'face-no'
   | 'face-positive'
   | 'face-yes'
+  | 'heart'
   | 'moon'
   | 'point-down'
   | 'point-right'
