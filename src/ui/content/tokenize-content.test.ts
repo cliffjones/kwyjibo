@@ -15,4 +15,12 @@ describe('tokenizeContent', () => {
       { type: 'list-item', text: 'beta' },
     ]);
   });
+
+  it('stops a final list item before following paragraph text', () => {
+    expect(tokenizeContent('- alpha  - beta  Or if you want to continue')).toEqual([
+      { type: 'list-item', text: 'alpha' },
+      { type: 'list-item', text: 'beta' },
+      { type: 'text', text: '  Or if you want to continue' },
+    ]);
+  });
 });
