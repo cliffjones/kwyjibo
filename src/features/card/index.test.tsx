@@ -23,7 +23,7 @@ describe('Card', () => {
     expect(content.textContent).toBe('Line one.Indented line.');
   });
 
-  it('renders backtick code spans and italic spans without changing their contents', () => {
+  it('renders backtick code spans and emphatic spans without changing their contents', () => {
     render(<Card content="Use `x * y`  *carefully*." />);
 
     expect(screen.getByText('x * y', { selector: 'code' })).toBeInTheDocument();

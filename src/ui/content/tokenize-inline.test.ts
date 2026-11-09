@@ -2,14 +2,20 @@ import { tokenizeInline } from './tokenize-inline';
 
 describe('tokenizeInline', () => {
   it('turns mixed plain text and markdown into inline tokens', () => {
-    expect(tokenizeInline('Hello *world* [link](https://example.com) ![img](img.png)')).toEqual([
+    expect(tokenizeInline('Hello *world* _strong_ [link](https://example.com) ![img](img.png)')).toEqual([
       { type: 'text', text: 'Hello ' },
       { type: 'em', text: 'world' },
+      { type: 'text', text: ' ' },
+      { type: 'strong', text: 'strong' },
       { type: 'text', text: ' ' },
       { type: 'link', text: 'link', url: 'https://example.com' },
       { type: 'text', text: ' ' },
       { type: 'image', text: 'img', url: 'img.png' },
     ]);
+  });
+
+  it('renders strong tokens from underscores in the content component', () => {
+    expect(tokenizeInline('_strong text_')).toEqual([{ type: 'strong', text: 'strong text' }]);
   });
 
   it('parses valid emphasis tokens and preserves unmatched markers as text', () => {

@@ -21,6 +21,11 @@
     }
   }
 
+  strong {
+    font-weight: normal;
+    text-decoration: underline;
+  }
+
   &-gap {
     height: space.$mid;
   }

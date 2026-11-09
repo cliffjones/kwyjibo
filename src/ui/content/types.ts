@@ -4,7 +4,7 @@ type TextToken = {
 };
 
 type FormattedToken = {
-  type: 'code' | 'em';
+  type: 'code' | 'em' | 'strong';
   text: string;
 };
 

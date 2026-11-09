@@ -12,5 +12,5 @@ export const getMasteryMessage = (
   }
   const accuracy = ratingCount > 0 ? Math.round((ratingTotal / ratingCount) * 25) : 0;
   const duration = formatDuration(endTime - startTime);
-  return `You mastered ${itemCount} cards with ${accuracy}% accuracy over ${duration}.`;
+  return `You mastered ${itemCount} card${itemCount === 1 ? '' : 's'} with ${accuracy}% accuracy over ${duration}.`;
 };

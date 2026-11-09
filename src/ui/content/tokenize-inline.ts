@@ -8,7 +8,7 @@ export const tokenizeInline = (value: string): InlineToken[] => {
 
   while (position < value.length) {
     const character = value[position];
-    if (character !== '!' && character !== '[' && character !== '`' && character !== '*') {
+    if (character !== '!' && character !== '[' && character !== '`' && character !== '*' && character !== '_') {
       position += 1;
       continue;
     }

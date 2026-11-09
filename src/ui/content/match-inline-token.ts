@@ -54,17 +54,24 @@ export const matchInlineToken = (value: string, position: number): InlineMatch |
   }
 
   const closingPosition = value.indexOf(delimiter, position + 1);
-  const otherDelimiter = delimiter === CONTENT_DELIMS.code ? CONTENT_DELIMS.em : CONTENT_DELIMS.code;
-  const otherPosition = delimiter === CONTENT_DELIMS.em ? value.indexOf(otherDelimiter, position + 1) : -1;
+  const firstOtherPosition = delimiter === CONTENT_DELIMS.code
+    ? Number.POSITIVE_INFINITY
+    : Math.min(
+      ...Object.values(CONTENT_DELIMS)
+        .filter((otherDelimiter) => otherDelimiter !== delimiter)
+        .map((otherDelimiter) => value.indexOf(otherDelimiter, position + 1))
+        .filter((otherPosition) => otherPosition !== -1),
+      Number.POSITIVE_INFINITY,
+    );
 
   // Unmatched or crossing delimiters remain plain text instead of swallowing another span.
-  if (closingPosition <= position + 1 || (otherPosition !== -1 && otherPosition < closingPosition)) {
+  if (closingPosition <= position + 1 || firstOtherPosition < closingPosition) {
     return null;
   }
 
   return {
     token: {
-      type: delimiter === CONTENT_DELIMS.code ? 'code' : 'em',
+      type: delimiter === CONTENT_DELIMS.code ? 'code' : delimiter === CONTENT_DELIMS.em ? 'em' : 'strong',
       text: value.slice(position + 1, closingPosition),
     },
     length: closingPosition - position + 1,

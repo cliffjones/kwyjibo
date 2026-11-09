@@ -18,10 +18,11 @@ describe('Content', () => {
   });
 
   it('preserves existing inline formatting alongside links', () => {
-    render(<Content text="*emphasis* and `code` [link](/cards)" />);
+    render(<Content text="`code`, *emphatic*, and _strong_ [link](/cards)" />);
 
-    expect(screen.getByText('emphasis').tagName).toBe('EM');
     expect(screen.getByText('code').tagName).toBe('CODE');
+    expect(screen.getByText('emphatic').tagName).toBe('EM');
+    expect(screen.getByText('strong').tagName).toBe('STRONG');
     expect(screen.getByRole('link', { name: 'link' })).toHaveAttribute('href', '/cards');
   });
 

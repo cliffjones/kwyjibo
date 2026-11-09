@@ -46,6 +46,8 @@ const renderInlineToken = (token: InlineToken, key: number): ReactNode => {
     <code key={key}>{children}</code>
   ) : token.type === 'em' ? (
     <em key={key}>{children}</em>
+  ) : token.type === 'strong' ? (
+    <strong key={key}>{children}</strong>
   ) : (
     children
   );

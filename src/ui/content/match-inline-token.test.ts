@@ -45,6 +45,16 @@ describe('matchInlineToken', () => {
       token: { type: 'code', text: 'code' },
       length: 6,
     });
+
+    expect(matchInlineToken('`x * y`', 0)).toEqual({
+      token: { type: 'code', text: 'x * y' },
+      length: 7,
+    });
+
+    expect(matchInlineToken('_strong_', 0)).toEqual({
+      token: { type: 'strong', text: 'strong' },
+      length: 8,
+    });
   });
 
   it('returns null for malformed or unsafe markdown spans', () => {
