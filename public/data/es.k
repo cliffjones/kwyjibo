@@ -1,4 +1,23 @@
 {
-  title: "En español",
-  heading: "¿En qué quieres trabajar hoy?"
+  language: 'es',
+  homeMessage: 'Actualizar sin datos precargados',
+  title: 'En español',
+  lightModeMessage: 'Cambiar al modo {oscuro|claro}',
+  heading: '¿En qué quieres trabajar hoy?',
+  preloadedDataHeading: 'Tarjetas precargadas:',
+  customDataHeading: 'Tarjetas personalizadas:',
+  startButton: 'Comenzar',
+  revealButton: 'Revelar',
+  resetButton: 'Reiniciar',
+  yesButton: 'Sí',
+  noButton: 'No',
+  ratingPrompt: '¿Resuelto?',
+  ratingLabel1: 'No.',
+  ratingLabel2: 'No mucho.',
+  ratingLabel3: 'Un poco.',
+  ratingLabel4: 'Más o menos.',
+  ratingLabel5: '¡Sí!',
+  ratingMessage: 'Calificación aplicada:',
+  noCardsMessage: 'No se han seleccionado tarjetas.',
+  resultsMessage: 'Has dominado {} {carta|cartas} con una precisión del {}% en {}.'
 }

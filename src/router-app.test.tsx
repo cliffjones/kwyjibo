@@ -30,6 +30,7 @@ const items: TaskItem[] = [
 describe('RouterApp', () => {
   beforeEach(() => {
     window.localStorage.clear();
+    document.documentElement.lang = 'en';
     mockedUseLocation.mockReturnValue({ pathname: '/science' } as ReturnType<typeof useLocation>);
   });
 
@@ -52,6 +53,25 @@ describe('RouterApp', () => {
     expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
     expect(screen.getByText('What do you want to work on today?')).toBeInTheDocument();
     expect(mockedLoadItems).toHaveBeenCalledWith('/science');
+  });
+
+  it('sets the document language from the loaded deck config', async () => {
+    mockedLoadItems.mockResolvedValue([{ language: 'fr' }, ...items]);
+
+    render(<RouterApp />);
+
+    expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
+    expect(document.documentElement.lang).toBe('fr');
+  });
+
+  it('defaults the document language to English when the deck has no language', async () => {
+    document.documentElement.lang = 'fr';
+    mockedLoadItems.mockResolvedValue([{}, ...items]);
+
+    render(<RouterApp />);
+
+    expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
+    expect(document.documentElement.lang).toBe('en');
   });
 
   it('renders an alert when cards fail to load', async () => {

@@ -32,6 +32,19 @@ describe('loadItems', () => {
     ]);
   });
 
+  it('preserves interface message properties from the loaded K-format config', async () => {
+    const configData = {
+      homeMessage: 'Home',
+      preloadedDataHeading: 'Decks',
+      startButton: 'Begin',
+      ratingLabel5: 'Excellent',
+      resultsMessage: 'Results',
+    };
+    vi.stubGlobal('fetch', vi.fn<typeof fetch>().mockResolvedValue(createResponse(JSON.stringify(configData))));
+
+    await expect(loadItems('/science')).resolves.toEqual([configData]);
+  });
+
   it('ignores route segments without a matching deck file', async () => {
     const fetchMock = vi
       .fn<typeof fetch>()

@@ -20,4 +20,29 @@ describe('parseFileData', () => {
       { topic: 'Math', task: '2 + 2', solution: '4' },
     ]);
   });
+
+  it('preserves all supported interface message properties in K-format config', () => {
+    const config = {
+      homeMessage: 'Home',
+      lightModeMessage: 'Change theme',
+      preloadedDataHeading: 'Decks',
+      customDataHeading: 'Custom',
+      startButton: 'Begin',
+      revealButton: 'Show',
+      resetButton: 'Restart',
+      yesButton: 'Yes',
+      noButton: 'No',
+      ratingPrompt: 'How did you do?',
+      ratingLabel1: 'One',
+      ratingLabel2: 'Two',
+      ratingLabel3: 'Three',
+      ratingLabel4: 'Four',
+      ratingLabel5: 'Five',
+      ratingMessage: 'Rated:',
+      noCardsMessage: 'No cards.',
+      resultsMessage: 'Results',
+    };
+
+    expect(parseFileData(JSON.stringify(config))).toEqual([config]);
+  });
 });

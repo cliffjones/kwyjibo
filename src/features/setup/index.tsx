@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { LANG } from '../../constants';
 import { hasRemoteBlock } from '../../processing/has-remote-block';
 import { parseCustomData } from '../../processing/parse-custom-data';
 import { parseFileData } from '../../processing/parse-file-data';
@@ -53,9 +54,9 @@ export const Setup = ({
   };
 
   return (
-    <Card heading={configData.heading || 'What do you want to work on today?'} intro={configData.intro}>
+    <Card heading={configData.heading || LANG.heading} intro={configData.intro}>
       {availableTopics.length ? (
-        <OptionList label="Preloaded cards:">
+        <OptionList label={configData.preloadedDataHeading || LANG.preloadedDataHeading}>
           {availableTopics.map((topic) => {
             let itemCountText = '';
             if (itemCounts[topic] > 1) {
@@ -75,7 +76,7 @@ export const Setup = ({
       ) : null}
 
       <InputBox
-        label="Custom card data:"
+        label={configData.customDataHeading || LANG.customDataHeading}
         placeholder={CUSTOM_DATA_EXAMPLE}
         value={customData}
         onChange={handleTextChange}
@@ -84,7 +85,7 @@ export const Setup = ({
       <ButtonSet>
         <Button disabled={!selectedTopics.length && !customData} onClick={handleStartDeck}>
           <Icon name="point-right" />
-          Start
+          {configData.startButton || LANG.startButton}
         </Button>
       </ButtonSet>
     </Card>

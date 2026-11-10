@@ -19,6 +19,30 @@ const items: TaskItem[] = [
 ];
 
 describe('Setup', () => {
+  it('uses configured headings and start-button text', () => {
+    const store = createAppStore(
+      '/custom-setup',
+      {
+        heading: 'Choose a deck',
+        preloadedDataHeading: 'Available decks:',
+        customDataHeading: 'Enter a deck:',
+        startButton: 'Begin',
+      },
+      items,
+    );
+
+    render(
+      <Provider store={store}>
+        <Setup customData="custom deck" handleTextChange={vi.fn()} />
+      </Provider>,
+    );
+
+    expect(screen.getByText('Choose a deck')).toBeInTheDocument();
+    expect(screen.getByText('Available decks:')).toBeInTheDocument();
+    expect(screen.getByLabelText('Enter a deck:')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Begin' })).toBeInTheDocument();
+  });
+
   it('lists unique topics in order, updates selection, and starts the deck', async () => {
     const store = createAppStore('/test', {}, items);
     store.dispatch(setCustomData(''));

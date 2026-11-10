@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { LANG } from './constants';
 import { Card } from './features/card';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
-import { getMasteryMessage } from './get-mastery-message';
+import { getResults } from './get-results';
 import { getTime } from './processing/get-time';
 import { sortResponses } from './processing/sort-responses';
 import { rateItem, reset, setCustomData, type AppDispatch, type RootState } from './store';
@@ -19,6 +20,7 @@ export const App = ({ path }: { path: string }) => {
 
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
   const customData = useSelector((state: RootState) => state.kwyjibo.customData);
+  const configData = useSelector((state: RootState) => state.kwyjibo.configData);
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
   const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const currentId = useSelector((state: RootState) => state.kwyjibo.currentId);
@@ -84,11 +86,11 @@ export const App = ({ path }: { path: string }) => {
           <ButtonSet>
             <Button variant="yes" onClick={handleReset}>
               <Icon name="check" />
-              Yes
+              {configData.yesButton || LANG.yesButton}
             </Button>
             <Button variant="no" onClick={cancelReset}>
               <Icon name="x" />
-              No
+              {configData.noButton || LANG.noButton}
             </Button>
           </ButtonSet>
         </Card>
@@ -108,7 +110,7 @@ export const App = ({ path }: { path: string }) => {
                 <ButtonSet>
                   <Button onClick={handleReveal}>
                     <Icon name="point-down" />
-                    Reveal
+                    {configData.revealButton || LANG.revealButton}
                   </Button>
                 </ButtonSet>
               )
@@ -124,11 +126,11 @@ export const App = ({ path }: { path: string }) => {
           )}
         </>
       ) : (
-        <Card heading={getMasteryMessage(itemCount, ratingTotal, ratingCount, startTime, endTime)}>
+        <Card heading={getResults(itemCount, ratingTotal, ratingCount, startTime, endTime, configData)}>
           <ButtonSet>
             <Button onClick={handleReset}>
               <Icon name="reset" />
-              Reset
+              {configData.resetButton || LANG.resetButton}
             </Button>
           </ButtonSet>
         </Card>

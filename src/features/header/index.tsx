@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ALTERNATION_PATTERN, LANG } from '../../constants';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
@@ -49,7 +50,7 @@ export const Header = ({
   return (
     <header className="header">
       <h1 className={`header-title${isActive ? ' header-title--active' : ''}`} aria-label="Kwyjibo">
-        <Link href="/k/" title="Refresh with no preloaded data.">
+        <Link href="/k/" title={configData.homeMessage || LANG.homeMessage}>
           <span className="header-title-part">Kwy</span>
           <span className="header-title-part">ji</span>
           <span className="header-title-part">bo</span>
@@ -62,7 +63,7 @@ export const Header = ({
           <div
             key={ratingAnimationKey}
             className="header-toolbar-rating"
-            title={`Rating applied: ${ratingToPercent(lastRating)}`}
+            title={`${configData.ratingMessage || LANG.ratingMessage} ${ratingToPercent(lastRating)}`}
           >
             <div className={`icon-dot icon-dot--${ratingFace}`}>
               <Icon name={`face-${ratingFace}` as IconName} />
@@ -75,7 +76,10 @@ export const Header = ({
         <Button
           variant="text"
           onClick={() => dispatch(setLightMode(!lightMode))}
-          title={`Switch to ${lightMode ? 'Dark' : 'Light'} Mode`}
+          title={(configData.lightModeMessage || LANG.lightModeMessage).replace(
+            ALTERNATION_PATTERN,
+            lightMode ? '$1' : '$2',
+          )}
         >
           <Icon name={lightMode ? 'moon' : 'sun'} />
         </Button>
@@ -85,7 +89,7 @@ export const Header = ({
         <div className="header-info">
           {remainingMessage}
           {confirmingReset ? null : (
-            <Button variant="text" onClick={confirmReset} title="Reset">
+            <Button variant="text" onClick={confirmReset} title={configData.resetButton || LANG.resetButton}>
               <Icon name="reset" />
             </Button>
           )}

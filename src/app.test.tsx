@@ -124,4 +124,35 @@ describe('App', () => {
     expect(screen.getByText(/You mastered 2 cards with 100% accuracy over .*seconds\./)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Reset' })).toBeInTheDocument();
   });
+
+  it('uses configured quiz, confirmation, and results text', () => {
+    const store = createAppStore('/custom-messages', {
+      revealButton: 'Show answer',
+      resetButton: 'Restart quiz',
+      yesButton: 'Confirm',
+      noButton: 'Keep studying',
+      ratingPrompt: 'How did you do?',
+      ratingLabel5: 'Excellent',
+      resultsMessage: 'Completed {} cards with {}% accuracy in {}.',
+    });
+    store.dispatch(setCustomData('# Test\n\nQuestion?\nAnswer.'));
+
+    render(
+      <Provider store={store}>
+        <App path="/custom-messages" />
+      </Provider>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Start' }));
+    fireEvent.click(screen.getByTitle('Restart quiz'));
+    expect(screen.getByRole('button', { name: 'Confirm' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Keep studying' }));
+
+    fireEvent.click(screen.getByRole('button', { name: 'Show answer' }));
+    expect(screen.getByText('How did you do?')).toBeInTheDocument();
+    fireEvent.click(screen.getByTitle('Excellent'));
+
+    expect(screen.getByText(/Completed 1 cards with 100% accuracy in .*seconds\./)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Restart quiz' })).toBeInTheDocument();
+  });
 });

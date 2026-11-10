@@ -1,8 +1,26 @@
 export type ConfigData = {
   language?: string;
+  homeMessage?: string;
+  lightModeMessage?: string;
   title?: string;
   heading?: string;
   intro?: string;
+  preloadedDataHeading?: string;
+  customDataHeading?: string;
+  startButton?: string;
+  revealButton?: string;
+  resetButton?: string;
+  yesButton?: string;
+  noButton?: string;
+  ratingPrompt?: string;
+  ratingLabel1?: string;
+  ratingLabel2?: string;
+  ratingLabel3?: string;
+  ratingLabel4?: string;
+  ratingLabel5?: string;
+  ratingMessage?: string;
+  noCardsMessage?: string;
+  resultsMessage?: string;
   footer?: string;
 };
 

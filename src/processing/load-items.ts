@@ -1,3 +1,4 @@
+import { LANG, PLACEHOLDER_PATTERN } from '../constants';
 import { DATA_PATH } from './constants';
 import { createTaskItem } from './create-task-item';
 import { expandRemoteItems } from './expand-remote-items';
@@ -6,6 +7,7 @@ import { isTaskData } from './is-task-data';
 import { parseFileData } from './parse-file-data';
 import type { ConfigData, TaskItem } from './types';
 
+// Returns either a valid path segment or an empty string.
 const validatePathSegment = (segment: string): string => {
   let stem: string;
   try {
@@ -67,7 +69,8 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
       }
 
       if (!response.ok) {
-        throw new Error(`Unable to load ${file}: ${response.status}`);
+        const message = LANG.unableToLoadMessage.replace(PLACEHOLDER_PATTERN, `${file}: ${response.status}.`);
+        throw new Error(message);
       }
 
       // Some static hosts return the app shell with status 200 when a data file is missing.

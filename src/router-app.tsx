@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { useLocation } from 'react-router';
 import { App } from './app';
+import { DEFAULT_LANGUAGE, LANG, PLACEHOLDER_PATTERN } from './constants';
 import { loadItems } from './processing/load-items';
 import { createAppStore, type AppStore } from './store';
 
@@ -19,11 +20,13 @@ export const RouterApp = () => {
         // A route change makes this request stale, so don't replace the active route with this result.
         if (!canceled) {
           const [configData, ...items] = data;
+          document.documentElement.lang = configData.language || DEFAULT_LANGUAGE;
           setRouteLoad({ path: pathname, store: createAppStore(pathname, configData, items) });
         }
       })
       .catch((error: unknown) => {
-        console.error(`Unable to load "${pathname}".`, error);
+        const message = LANG.unableToLoadMessage.replace(PLACEHOLDER_PATTERN, `"${pathname}"`);
+        console.error(message, error);
         if (!canceled) {
           setRouteLoad({
             path: pathname,
@@ -38,11 +41,11 @@ export const RouterApp = () => {
   }, [pathname]);
 
   if (!routeLoad || routeLoad.path !== pathname) {
-    return <div>Loading…</div>;
+    return <div>{LANG.loadingMessage}</div>;
   }
 
   if ('error' in routeLoad) {
-    return <div role="alert">Unable to load cards for this path.</div>;
+    return <div role="alert">{LANG.unableToLoadPathMessage}</div>;
   }
 
   return (

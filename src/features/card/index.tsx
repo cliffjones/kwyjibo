@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Content } from '../../ui/content';
 import { Icon } from '../../ui/icon';
 import { faceNumberToName } from '../../ui/icon/face-number-to-name';
-import { CONFIDENCE_RATINGS } from '../rating/constants';
+import { RATING_ICONS } from '../rating/constants';
 import { ratingToPercent } from '../rating/rating-to-percent';
 import { getTextSize } from './get-text-size';
 import './style.scss';
@@ -35,7 +35,7 @@ export const Card = ({
               className={`icon-dot icon-dot--${faceNumberToName(rating)}`}
               title={`Last rating for this card: ${ratingToPercent(rating)}`}
             >
-              <Icon name={CONFIDENCE_RATINGS[Math.floor(rating) - 1]?.icon} />
+              <Icon name={RATING_ICONS[Math.floor(rating) - 1]} />
             </div>
           </div>
         ) : null}

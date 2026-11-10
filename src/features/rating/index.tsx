@@ -1,25 +1,44 @@
+import { LANG } from '../../constants';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { ButtonSet } from '../../ui/button/button-set';
 import { Icon } from '../../ui/icon';
-import { CONFIDENCE_RATINGS } from './constants';
+import { RATING_ICONS } from './constants';
 
-export const Rating = ({ handleRating }: { handleRating: (rating: number) => void }) => (
-  <ButtonSet>
-    Got it?
-    <Button variant="rating no" onClick={() => handleRating(1)} title={CONFIDENCE_RATINGS[0].label}>
-      <Icon name={CONFIDENCE_RATINGS[0].icon} />
-    </Button>
-    <Button variant="rating negative" onClick={() => handleRating(2)} title={CONFIDENCE_RATINGS[1].label}>
-      <Icon name={CONFIDENCE_RATINGS[1].icon} />
-    </Button>
-    <Button variant="rating neutral" onClick={() => handleRating(3)} title={CONFIDENCE_RATINGS[2].label}>
-      <Icon name={CONFIDENCE_RATINGS[2].icon} />
-    </Button>
-    <Button variant="rating positive" onClick={() => handleRating(4)} title={CONFIDENCE_RATINGS[3].label}>
-      <Icon name={CONFIDENCE_RATINGS[3].icon} />
-    </Button>
-    <Button variant="rating yes" onClick={() => handleRating(5)} title={CONFIDENCE_RATINGS[4].label}>
-      <Icon name={CONFIDENCE_RATINGS[4].icon} />
-    </Button>
-  </ButtonSet>
-);
+export const Rating = ({ handleRating }: { handleRating: (rating: number) => void }) => {
+  const configData = useSelector((state: RootState) => state.kwyjibo.configData);
+
+  return (
+    <ButtonSet>
+      {configData.ratingPrompt || LANG.ratingPrompt}
+      <Button variant="rating no" onClick={() => handleRating(1)} title={configData.ratingLabel1 || LANG.ratingLabel1}>
+        <Icon name={RATING_ICONS[0]} />
+      </Button>
+      <Button
+        variant="rating negative"
+        onClick={() => handleRating(2)}
+        title={configData.ratingLabel2 || LANG.ratingLabel2}
+      >
+        <Icon name={RATING_ICONS[1]} />
+      </Button>
+      <Button
+        variant="rating neutral"
+        onClick={() => handleRating(3)}
+        title={configData.ratingLabel3 || LANG.ratingLabel3}
+      >
+        <Icon name={RATING_ICONS[2]} />
+      </Button>
+      <Button
+        variant="rating positive"
+        onClick={() => handleRating(4)}
+        title={configData.ratingLabel4 || LANG.ratingLabel4}
+      >
+        <Icon name={RATING_ICONS[3]} />
+      </Button>
+      <Button variant="rating yes" onClick={() => handleRating(5)} title={configData.ratingLabel5 || LANG.ratingLabel5}>
+        <Icon name={RATING_ICONS[4]} />
+      </Button>
+    </ButtonSet>
+  );
+};

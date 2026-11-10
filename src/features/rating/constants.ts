@@ -1,9 +1,3 @@
-import { ConfidenceRating } from './types';
+import { IconName } from '../../ui/icon/types';
 
-export const CONFIDENCE_RATINGS: ConfidenceRating[] = [
-  { icon: 'face-no', label: 'No.' },
-  { icon: 'face-negative', label: 'Not really.' },
-  { icon: 'face-neutral', label: 'Kind of.' },
-  { icon: 'face-positive', label: 'Pretty much.' },
-  { icon: 'face-yes', label: 'Yes!' },
-];
+export const RATING_ICONS: IconName[] = ['face-no', 'face-negative', 'face-neutral', 'face-positive', 'face-yes'];

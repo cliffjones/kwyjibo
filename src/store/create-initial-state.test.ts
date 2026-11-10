@@ -1,6 +1,17 @@
 import { createInitialState } from './create-initial-state';
 
 describe('createInitialState', () => {
+  it('preserves loaded config data in app state', () => {
+    const configData = {
+      homeMessage: 'Home',
+      startButton: 'Begin',
+      ratingLabel5: 'Excellent',
+      resultsMessage: 'Results',
+    };
+
+    expect(createInitialState('/test', configData).configData).toEqual(configData);
+  });
+
   it('sorts loaded items and assigns stable ids', () => {
     const state = createInitialState('/test', {}, [
       {

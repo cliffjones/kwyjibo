@@ -81,4 +81,25 @@ describe('Header', () => {
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
     expect(restoredStore.getState().kwyjibo.lightMode).toBe(false);
   });
+
+  it('uses configured header labels with defaults as fallback', () => {
+    const store = createAppStore('/custom-header', {
+      homeMessage: 'Return home',
+      lightModeMessage: 'Use {Dark|Light} theme',
+      ratingMessage: 'Custom rating:',
+      resetButton: 'Restart deck',
+    }, items);
+    store.dispatch(startDeck());
+
+    render(
+      <Provider store={store}>
+        <Header confirmReset={vi.fn()} confirmingReset={false} lastRating={5} />
+      </Provider>,
+    );
+
+    expect(screen.getByRole('link', { name: 'Kwyjibo' })).toHaveAttribute('title', 'Return home');
+    expect(screen.getByTitle('Use Light theme')).toBeInTheDocument();
+    expect(screen.getByTitle('Custom rating: 100%')).toBeInTheDocument();
+    expect(screen.getByTitle('Restart deck')).toBeInTheDocument();
+  });
 });

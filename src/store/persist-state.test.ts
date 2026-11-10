@@ -4,7 +4,27 @@ import { persistState } from './persist-state';
 describe('persistState', () => {
   const createState = () => ({
     sourcePath: '/science',
-    configData: { title: 'Science' },
+    configData: {
+      title: 'Science',
+      homeMessage: 'Home',
+      lightModeMessage: 'Change theme',
+      preloadedDataHeading: 'Decks',
+      customDataHeading: 'Custom',
+      startButton: 'Begin',
+      revealButton: 'Show',
+      resetButton: 'Restart',
+      yesButton: 'Yes',
+      noButton: 'No',
+      ratingPrompt: 'How did you do?',
+      ratingLabel1: 'One',
+      ratingLabel2: 'Two',
+      ratingLabel3: 'Three',
+      ratingLabel4: 'Four',
+      ratingLabel5: 'Five',
+      ratingMessage: 'Rated:',
+      noCardsMessage: 'No cards.',
+      resultsMessage: 'Results',
+    },
     items: [
       {
         id: 1,
