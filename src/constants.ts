@@ -27,6 +27,7 @@ export const LANG = {
   ratingLabel4: 'Pretty much.',
   ratingLabel5: 'Yes!',
   ratingMessage: 'Rating applied:',
+  lastRatingMessage: 'Last rating for this card:',
   noCardsMessage: 'No cards selected.',
   resultsMessage: 'You mastered {} {card|cards} with {}% accuracy over {}.',
   days: '{day|days}',

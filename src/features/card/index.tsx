@@ -1,4 +1,7 @@
 import type { ReactNode } from 'react';
+import { useSelector } from 'react-redux';
+import { LANG } from '../../constants';
+import { RootState } from '../../store';
 import { Content } from '../../ui/content';
 import { Icon } from '../../ui/icon';
 import { faceNumberToName } from '../../ui/icon/face-number-to-name';
@@ -21,29 +24,33 @@ export const Card = ({
   content?: string;
   rating?: number;
   topic?: string;
-}) => (
-  <section className="card">
-    {heading ? <h2 className="card-heading">{heading}</h2> : null}
+}) => {
+  const configData = useSelector((state: RootState) => state.kwyjibo.configData);
 
-    {intro ? <Content text={intro} /> : null}
+  return (
+    <section className="card">
+      {heading ? <h2 className="card-heading">{heading}</h2> : null}
 
-    {content ? (
-      <div style={{ fontSize: getTextSize(content) }}>
-        {rating && rating >= 1 && rating < 5 ? (
-          <div className="card-rating">
-            <div
-              className={`icon-dot icon-dot--${faceNumberToName(rating)}`}
-              title={`Last rating for this card: ${ratingToPercent(rating)}`}
-            >
-              <Icon name={RATING_ICONS[Math.floor(rating) - 1]} />
+      {intro ? <Content text={intro} /> : null}
+
+      {content ? (
+        <div style={{ fontSize: getTextSize(content) }}>
+          {rating && rating >= 1 && rating < 5 ? (
+            <div className="card-rating">
+              <div
+                className={`icon-dot icon-dot--${faceNumberToName(rating)}`}
+                title={`${configData.lastRatingMessage || LANG.lastRatingMessage} ${ratingToPercent(rating)}`}
+              >
+                <Icon name={RATING_ICONS[Math.floor(rating) - 1]} />
+              </div>
             </div>
-          </div>
-        ) : null}
-        {topic ? <div className="card-topic">{topic}</div> : null}
-        <Content text={content} />
-      </div>
-    ) : null}
+          ) : null}
+          {topic ? <div className="card-topic">{topic}</div> : null}
+          <Content text={content} />
+        </div>
+      ) : null}
 
-    {children}
-  </section>
-);
+      {children}
+    </section>
+  );
+};

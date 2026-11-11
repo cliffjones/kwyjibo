@@ -23,6 +23,7 @@ export type ConfigData = {
   ratingLabel4?: string;
   ratingLabel5?: string;
   ratingMessage?: string;
+  lastRatingMessage?: string;
   seconds?: string;
   minutes?: string;
   hours?: string;
