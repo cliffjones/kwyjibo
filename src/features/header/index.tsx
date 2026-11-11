@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ALTERNATION_PATTERN, LANG } from '../../constants';
+import { ALTERNATION_PATTERN, LANG, PLACEHOLDER_PATTERN } from '../../constants';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
@@ -40,11 +40,16 @@ export const Header = ({
 
   const ratingFace = lastRating ? faceNumberToName(lastRating) : '';
 
-  let remainingMessage = `${itemCount} card${itemCount === 1 ? '' : 's'}`;
+  let remainingMessage;
   if (remainingIds.length === itemCount) {
-    remainingMessage = `${remainingMessage} loaded`;
+    remainingMessage = (configData.cardsLoadedMessage || LANG.cardsLoadedMessage)
+      .replace(PLACEHOLDER_PATTERN, itemCount.toString())
+      .replace(ALTERNATION_PATTERN, itemCount === 1 ? '$1' : '$2');
   } else {
-    remainingMessage = `${remainingIds.length} of ${remainingMessage} remaining`;
+    remainingMessage = (configData.cardsRemainingMessage || LANG.cardsRemainingMessage)
+      .replace(PLACEHOLDER_PATTERN, remainingIds.length.toString())
+      .replace(PLACEHOLDER_PATTERN, itemCount.toString())
+      .replace(ALTERNATION_PATTERN, itemCount === 1 ? '$1' : '$2');
   }
 
   return (

@@ -1,13 +1,15 @@
+import { ALTERNATION_PATTERN, LANG } from '../constants';
+import { ConfigData } from './types';
+
 const SECONDS_IN_DAY = 24 * 60 * 60;
 const SECONDS_IN_HOUR = 60 * 60;
 const SECONDS_IN_MINUTE = 60;
 
-export const formatDuration = (ms: number): string => {
-  if (!Number.isFinite(ms) || ms <= 0) {
-    return '0 seconds';
+export const formatDuration = (ms: number, configData: ConfigData = {}): string => {
+  let remainingSeconds = 0;
+  if (Number.isFinite(ms) && ms > 0) {
+    remainingSeconds = Math.round(ms / 1000);
   }
-
-  let remainingSeconds = Math.round(ms / 1000);
 
   const days = Math.floor(remainingSeconds / SECONDS_IN_DAY);
   remainingSeconds %= SECONDS_IN_DAY;
@@ -20,16 +22,20 @@ export const formatDuration = (ms: number): string => {
 
   const parts: string[] = [];
   if (days) {
-    parts.push(`${days} day${days === 1 ? '' : 's'}`);
+    parts.push(`${days} ${(configData.days || LANG.days).replace(ALTERNATION_PATTERN, days === 1 ? '$1' : '$2')}`);
   }
   if (hours) {
-    parts.push(`${hours} hour${hours === 1 ? '' : 's'}`);
+    parts.push(`${hours} ${(configData.hours || LANG.hours).replace(ALTERNATION_PATTERN, hours === 1 ? '$1' : '$2')}`);
   }
   if (minutes) {
-    parts.push(`${minutes} minute${minutes === 1 ? '' : 's'}`);
+    parts.push(
+      `${minutes} ${(configData.minutes || LANG.minutes).replace(ALTERNATION_PATTERN, minutes === 1 ? '$1' : '$2')}`,
+    );
   }
-  if (seconds || parts.length === 0) {
-    parts.push(`${seconds} second${seconds === 1 ? '' : 's'}`);
+  if (seconds || !parts.length) {
+    parts.push(
+      `${seconds} ${(configData.seconds || LANG.seconds).replace(ALTERNATION_PATTERN, seconds === 1 ? '$1' : '$2')}`,
+    );
   }
 
   return parts.join(', ');

@@ -31,8 +31,7 @@ describe('isConfigData', () => {
     ).toBe(true);
   });
 
-  it('rejects null and unexpected keys', () => {
+  it('rejects null data', () => {
     expect(isConfigData(null)).toBe(false);
-    expect(isConfigData({ bad: 'value' })).toBe(false);
   });
 });

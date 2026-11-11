@@ -15,7 +15,6 @@ import { InputBox } from '../../ui/input-box';
 import { Option } from '../../ui/option';
 import { OptionList } from '../../ui/option/option-list';
 import { Card } from '../card';
-import { CUSTOM_DATA_EXAMPLE } from './constants';
 
 export const Setup = ({
   customData,
@@ -77,7 +76,7 @@ export const Setup = ({
 
       <InputBox
         label={configData.customDataHeading || LANG.customDataHeading}
-        placeholder={CUSTOM_DATA_EXAMPLE}
+        placeholder={configData.customDataPlaceholder || LANG.customDataPlaceholder}
         value={customData}
         onChange={handleTextChange}
       />

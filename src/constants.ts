@@ -1,20 +1,23 @@
-export const DEFAULT_LANGUAGE = 'en';
-
 export const PLACEHOLDER_PATTERN = '{}';
 export const ALTERNATION_PATTERN = /\{([^|}]+)\|([^}]+)\}/;
 
 export const LANG = {
   loadingMessage: 'Loading…',
-  unableToLoadMessage: 'Unable to load "{}".',
+  unableToLoadMessage: 'Unable to load {}.',
   unableToLoadPathMessage: 'Unable to load cards for this path.',
   homeMessage: 'Refresh with no preloaded data',
   lightModeMessage: 'Switch to {Dark|Light} Mode',
   heading: 'What do you want to work on today?',
+  cardsLoadedMessage: '{} {card|cards} loaded.',
+  cardsRemainingMessage: '{} of {} {card|cards} remaining.',
   preloadedDataHeading: 'Preloaded cards:',
-  customDataHeading: 'Custom cards:',
+  customDataHeading: 'Custom card data:',
+  customDataPlaceholder:
+    '# A Topic Begins with a Hash\n\nAn isolated line is a task to complete.\n\nHow about a pair of lines?\nThe first line is a question, and the next is the answer.\nAny subsequent lines are multiple-choice distractors.',
   startButton: 'Start',
   revealButton: 'Reveal',
   resetButton: 'Reset',
+  resetConfirmation: 'Really reset the cards?',
   yesButton: 'Yes',
   noButton: 'No',
   ratingPrompt: 'Got it?',
@@ -26,4 +29,10 @@ export const LANG = {
   ratingMessage: 'Rating applied:',
   noCardsMessage: 'No cards selected.',
   resultsMessage: 'You mastered {} {card|cards} with {}% accuracy over {}.',
+  days: '{day|days}',
+  hours: '{hour|hours}',
+  minutes: '{minute|minutes}',
+  seconds: '{second|seconds}',
+  byline: 'By {}',
+  donationMessage: 'Donate on Ko-fi',
 };

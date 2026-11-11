@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { useLocation } from 'react-router';
 import { App } from './app';
-import { DEFAULT_LANGUAGE, LANG, PLACEHOLDER_PATTERN } from './constants';
+import { LANG, PLACEHOLDER_PATTERN } from './constants';
 import { loadItems } from './processing/load-items';
 import { createAppStore, type AppStore } from './store';
 
@@ -20,7 +20,7 @@ export const RouterApp = () => {
         // A route change makes this request stale, so don't replace the active route with this result.
         if (!canceled) {
           const [configData, ...items] = data;
-          document.documentElement.lang = configData.language || DEFAULT_LANGUAGE;
+          document.documentElement.lang = configData.language || 'en';
           setRouteLoad({ path: pathname, store: createAppStore(pathname, configData, items) });
         }
       })

@@ -4,12 +4,16 @@ export type ConfigData = {
   lightModeMessage?: string;
   title?: string;
   heading?: string;
+  cardsLoadedMessage?: string;
+  cardsRemainingMessage?: string;
   intro?: string;
   preloadedDataHeading?: string;
   customDataHeading?: string;
+  customDataPlaceholder?: string;
   startButton?: string;
   revealButton?: string;
   resetButton?: string;
+  resetConfirmation?: string;
   yesButton?: string;
   noButton?: string;
   ratingPrompt?: string;
@@ -19,9 +23,14 @@ export type ConfigData = {
   ratingLabel4?: string;
   ratingLabel5?: string;
   ratingMessage?: string;
+  seconds?: string;
+  minutes?: string;
+  hours?: string;
+  days?: string;
   noCardsMessage?: string;
   resultsMessage?: string;
-  footer?: string;
+  byline?: string;
+  donationMessage?: string;
 };
 
 export type LineConfigData = {

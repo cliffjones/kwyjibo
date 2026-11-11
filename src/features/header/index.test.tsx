@@ -26,7 +26,7 @@ describe('Header', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('1 card loaded')).toBeInTheDocument();
+    expect(screen.getByText('1 card loaded.')).toBeInTheDocument();
     fireEvent.click(screen.getByTitle('Reset'));
     expect(confirmReset).toHaveBeenCalledTimes(1);
   });
@@ -83,12 +83,16 @@ describe('Header', () => {
   });
 
   it('uses configured header labels with defaults as fallback', () => {
-    const store = createAppStore('/custom-header', {
-      homeMessage: 'Return home',
-      lightModeMessage: 'Use {Dark|Light} theme',
-      ratingMessage: 'Custom rating:',
-      resetButton: 'Restart deck',
-    }, items);
+    const store = createAppStore(
+      '/custom-header',
+      {
+        homeMessage: 'Return home',
+        lightModeMessage: 'Use {Dark|Light} theme',
+        ratingMessage: 'Custom rating:',
+        resetButton: 'Restart deck',
+      },
+      items,
+    );
     store.dispatch(startDeck());
 
     render(

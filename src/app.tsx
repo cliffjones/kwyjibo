@@ -82,7 +82,7 @@ export const App = ({ path }: { path: string }) => {
       {initializing ? (
         <Setup customData={customData} handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))} />
       ) : confirmingReset ? (
-        <Card heading="Really reset the cards?">
+        <Card heading={configData.resetConfirmation || LANG.resetConfirmation}>
           <ButtonSet>
             <Button variant="yes" onClick={handleReset}>
               <Icon name="check" />

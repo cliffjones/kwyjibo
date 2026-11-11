@@ -118,6 +118,6 @@ describe('loadItems', () => {
   it('reports errors other than a missing deck file', async () => {
     globalThis.fetch = vi.fn<typeof fetch>().mockResolvedValue(createResponse('', 500));
 
-    await expect(loadItems('/dev')).rejects.toThrow('Unable to load dev.k: 500');
+    await expect(loadItems('/dev')).rejects.toThrow('Unable to load "dev.k": 500.');
   });
 });

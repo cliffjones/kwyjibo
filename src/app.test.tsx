@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { App } from './app';
-import { CUSTOM_DATA_EXAMPLE } from './features/setup/constants';
+import { LANG } from './constants';
 import { loadItems } from './processing/load-items';
 import { createAppStore, rateItem, setCustomData, setLightMode, startDeck } from './store';
 
@@ -66,7 +66,7 @@ describe('App', () => {
   it('renders the reset confirmation and dispatches reset when accepted', async () => {
     mockedLoadItems.mockResolvedValue([{}]);
     const store = createAppStore('/test');
-    store.dispatch(setCustomData(CUSTOM_DATA_EXAMPLE));
+    store.dispatch(setCustomData(LANG.customDataPlaceholder));
     store.dispatch(setLightMode(false));
     store.dispatch(startDeck());
     store.dispatch(rateItem(5));

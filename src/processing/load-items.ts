@@ -69,7 +69,7 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
       }
 
       if (!response.ok) {
-        const message = LANG.unableToLoadMessage.replace(PLACEHOLDER_PATTERN, `${file}: ${response.status}.`);
+        const message = LANG.unableToLoadMessage.replace(PLACEHOLDER_PATTERN, `"${file}": ${response.status}`);
         throw new Error(message);
       }
 

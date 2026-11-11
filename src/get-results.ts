@@ -24,7 +24,7 @@ export const getResults = (
   }
 
   const accuracy = getAccuracy(ratingTotal, ratingCount);
-  const duration = formatDuration(endTime - startTime);
+  const duration = formatDuration(endTime - startTime, configData);
   let message = (configData.resultsMessage || LANG.resultsMessage)
     .replace(PLACEHOLDER_PATTERN, `${itemCount}`)
     .replace(ALTERNATION_PATTERN, itemCount === 1 ? '$1' : '$2')
