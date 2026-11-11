@@ -1,3 +1,3 @@
 {
-  intro: "Help text in English."
+  intro: "Coming soon: help text."
 }
