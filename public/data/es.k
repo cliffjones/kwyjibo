@@ -1,6 +1,6 @@
 {
   language: 'es',
-  homeMessage: 'Actualizar sin datos precargados',
+  homeMessage: 'Cambiar al modo en inglés',
   title: 'En español',
   lightModeMessage: 'Cambiar al modo {oscuro|claro}',
   heading: '¿En qué quieres trabajar hoy?',
@@ -31,6 +31,6 @@
   hours: '{hora|horas}',
   minutes: '{minuto|minutos}',
   seconds: '{segundo|segundos}',
-  byline: 'De {}',
+  byline: 'Por {}',
   donationMessage: 'Dona en Ko-fi',
 }
