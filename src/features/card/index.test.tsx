@@ -1,5 +1,16 @@
 import { render, screen } from '@testing-library/react';
+import type { ReactNode } from 'react';
+import { Provider } from 'react-redux';
+import type { ConfigData } from '../../processing/types';
+import { createAppStore } from '../../store';
 import { Card } from './index';
+
+let storeNumber = 0;
+
+const createWrapper = (configData: ConfigData = {}) => {
+  const store = createAppStore(`/card-test-${storeNumber++}`, configData);
+  return ({ children }: { children: ReactNode }) => <Provider store={store}>{children}</Provider>;
+};
 
 describe('Card', () => {
   it('renders card content, topic, heading, and children', () => {
@@ -7,6 +18,7 @@ describe('Card', () => {
       <Card topic="Science" content="What is a cell?" heading="Question">
         <button type="button">Answer</button>
       </Card>,
+      { wrapper: createWrapper() },
     );
 
     expect(screen.getByText('Science', { selector: '.card-topic' })).toBeInTheDocument();
@@ -15,16 +27,16 @@ describe('Card', () => {
   });
 
   it('uses a content gap for exactly three spaces', () => {
-    render(<Card content="Line one.   Indented line." />);
+    render(<Card content="Line one.   New paragraph." />, { wrapper: createWrapper() });
 
     const content = screen.getByText('Line one.', { exact: false });
     expect(content.querySelector('.content-gap')).toBeInTheDocument();
     expect(content.querySelector('br')).not.toBeInTheDocument();
-    expect(content.textContent).toBe('Line one.Indented line.');
+    expect(content.textContent).toBe('Line one.New paragraph.');
   });
 
   it('renders backtick code spans and emphatic spans without changing their contents', () => {
-    render(<Card content="Use `x * y`  *carefully*." />);
+    render(<Card content="Use `x * y`  *carefully*." />, { wrapper: createWrapper() });
 
     expect(screen.getByText('x * y', { selector: 'code' })).toBeInTheDocument();
     expect(screen.getByText('carefully', { selector: 'em' })).toBeInTheDocument();
@@ -32,7 +44,7 @@ describe('Card', () => {
   });
 
   it('uses content gaps for exactly three spaces inside formatted spans', () => {
-    render(<Card content="`first   second` *third   fourth*" />);
+    render(<Card content="`first   second` *third   fourth*" />, { wrapper: createWrapper() });
 
     const code = screen.getByText('first', { exact: false, selector: 'code' });
     const emphasis = screen.getByText('third', { exact: false, selector: 'em' });
@@ -45,7 +57,7 @@ describe('Card', () => {
   });
 
   it('preserves extra indentation as non-breaking spaces in backtick code spans', () => {
-    render(<Card content="`first    second`" />);
+    render(<Card content="`first    second`" />, { wrapper: createWrapper() });
 
     const code = screen.getByText('first', { exact: false, selector: 'code' });
     expect(code.querySelector('br')).toBeInTheDocument();
@@ -53,7 +65,7 @@ describe('Card', () => {
   });
 
   it('does not retain formatted spans or line breaks when card content changes', () => {
-    const { rerender } = render(<Card content="Before  *mirror*  after" />);
+    const { rerender } = render(<Card content="Before  *mirror*  after" />, { wrapper: createWrapper() });
 
     expect(screen.getByText('mirror', { selector: 'em' })).toBeInTheDocument();
 
@@ -63,5 +75,13 @@ describe('Card', () => {
     expect(content.querySelector('em')).not.toBeInTheDocument();
     expect(content.querySelector('br')).not.toBeInTheDocument();
     expect(content.textContent).toBe('How should a frontend handle API failures?');
+  });
+
+  it('uses the configured last-rating message', () => {
+    render(<Card content="Question?" rating={3} />, {
+      wrapper: createWrapper({ lastRatingMessage: 'Your last result:' }),
+    });
+
+    expect(screen.getByTitle('Your last result: 50%')).toBeInTheDocument();
   });
 });
