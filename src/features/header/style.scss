@@ -10,7 +10,7 @@
 
   &-title {
     font-size: size.$title;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
     line-height: 1;
     margin: 0;
 
@@ -88,17 +88,17 @@
 
 @keyframes header-title-pulse {
   0% {
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
   }
   0.4% {
-    letter-spacing: 0.25em;
+    letter-spacing: 0.5em;
   }
   0.8% {
     letter-spacing: 0;
   }
   1%,
   100% {
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
   }
 }
 

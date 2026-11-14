@@ -22,8 +22,8 @@
   }
 
   strong {
+    background: linear-gradient(to top, #0000 0%, color.$highlight 20%, color.$highlight 50%, #0000 90%);
     font-weight: normal;
-    text-decoration: underline;
   }
 
   &-gap {
