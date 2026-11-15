@@ -1,6 +1,6 @@
 {
   language: 'es',
-  homeMessage: 'Cambiar al modo en inglés',
+  homeMessage: 'Recargar sin datos precargados',
   title: 'En español',
   lightModeMessage: 'Cambiar al modo {oscuro|claro}',
   heading: '¿En qué quieres trabajar hoy?',

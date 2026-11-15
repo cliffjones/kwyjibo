@@ -1,6 +1,6 @@
 {
   language: 'bn',
-  homeMessage: 'ইংরেজি মোডে যান',
+  homeMessage: 'আগে থেকে লোড করা ডেটা ছাড়া আবার লোড করুন',
   title: 'বাংলায়',
   lightModeMessage: '{গাঢ়|হালকা} মোডে যান',
   heading: 'আজ আপনি কী নিয়ে কাজ করতে চান?',

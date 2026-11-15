@@ -1,6 +1,6 @@
 {
   language: 'tr',
-  homeMessage: 'İngilizce moduna geç',
+  homeMessage: 'Önceden yüklenmiş veriler olmadan yenile',
   title: 'Türkçe',
   lightModeMessage: '{Koyu|Açık} moda geç',
   heading: 'Bugün ne üzerinde çalışmak istiyorsunuz?',

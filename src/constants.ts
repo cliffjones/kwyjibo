@@ -6,7 +6,7 @@ export const LANG = {
   unableToLoadMessage: 'Unable to load {}.',
   unableToLoadPathMessage: 'Unable to load cards for this path.',
   homeMessage: 'Refresh with no preloaded data',
-  lightModeMessage: 'Switch to {Dark|Light} Mode',
+  lightModeMessage: 'Switch to {dark|light} mode',
   heading: 'What do you want to work on today?',
   cardsLoadedMessage: '{} {card|cards} loaded.',
   cardsRemainingMessage: '{} of {} {card|cards} remaining.',

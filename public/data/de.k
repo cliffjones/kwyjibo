@@ -1,6 +1,6 @@
 {
   language: 'de',
-  homeMessage: 'Zum englischen Modus wechseln',
+  homeMessage: 'Ohne vorgeladene Daten neu laden',
   title: 'Auf Deutsch',
   lightModeMessage: 'Zum {dunklen|hellen} Modus wechseln',
   heading: 'Woran möchtest du heute arbeiten?',

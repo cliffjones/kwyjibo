@@ -1,6 +1,6 @@
 {
   language: 'eo',
-  homeMessage: 'Ŝanĝi al la angla lingvo',
+  homeMessage: 'Reŝargi sen antaŭŝargitaj datumoj',
   title: 'Esperante',
   lightModeMessage: 'Ŝanĝi al {Malhela|Hela} reĝimo',
   heading: 'Pri kio vi volas labori hodiaŭ?',

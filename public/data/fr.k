@@ -1,6 +1,6 @@
 {
   language: 'fr',
-  homeMessage: 'Passer en mode anglais',
+  homeMessage: 'Actualiser sans données préchargées',
   title: 'En français',
   lightModeMessage: 'Passer en mode {sombre|clair}',
   heading: 'Sur quoi voulez-vous travailler aujourd’hui ?',

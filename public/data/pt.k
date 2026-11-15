@@ -1,6 +1,6 @@
 {
   language: 'pt',
-  homeMessage: 'Mudar para o modo em inglês',
+  homeMessage: 'Atualizar sem dados pré-carregados',
   title: 'Em português',
   lightModeMessage: 'Mudar para o modo {escuro|claro}',
   heading: 'O que você quer estudar hoje?',

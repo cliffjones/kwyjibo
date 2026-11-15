@@ -55,7 +55,7 @@ export const Header = ({
   return (
     <header className="header">
       <h1 className={`header-title${isActive ? ' header-title--active' : ''}`} aria-label="Kwyjibo">
-        <Link href="/k/" title={configData.homeMessage || LANG.homeMessage}>
+        <Link href={`/k/${configData.language ?? ''}`} title={configData.homeMessage || LANG.homeMessage}>
           <span className="header-title-part">Kwy</span>
           <span className="header-title-part">ji</span>
           <span className="header-title-part">bo</span>

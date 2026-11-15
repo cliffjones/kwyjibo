@@ -1,6 +1,6 @@
 {
   language: 'it',
-  homeMessage: 'Passa alla modalità inglese',
+  homeMessage: 'Ricarica senza dati precaricati',
   title: 'In italiano',
   lightModeMessage: 'Passa alla modalità {scura|chiara}',
   heading: 'Su cosa vuoi lavorare oggi?',

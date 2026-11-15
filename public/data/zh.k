@@ -1,6 +1,6 @@
 {
   language: 'zh',
-  homeMessage: '切换到英语模式',
+  homeMessage: '不使用预加载数据刷新',
   title: '中文版',
   lightModeMessage: '切换到{深色|浅色}模式',
   heading: '今天想学习什么？',

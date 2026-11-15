@@ -1,6 +1,6 @@
 {
   language: 'ko',
-  homeMessage: '영어 모드로 전환',
+  homeMessage: '미리 불러온 데이터 없이 새로고침',
   title: '한국어',
   lightModeMessage: '{어두운|밝은} 모드로 전환',
   heading: '오늘은 무엇을 공부하고 싶으세요?',

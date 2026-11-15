@@ -1,6 +1,6 @@
 {
   language: 'sk',
-  homeMessage: 'Prepnúť na angličtinu',
+  homeMessage: 'Obnoviť bez prednačítaných údajov',
   title: 'Po slovensky',
   lightModeMessage: 'Prepnúť na {tmavý|svetlý} režim',
   heading: 'Na čom chcete dnes pracovať?',

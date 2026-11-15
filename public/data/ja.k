@@ -1,6 +1,6 @@
 {
   language: 'ja',
-  homeMessage: '英語モードに切り替え',
+  homeMessage: '事前読み込みデータなしで再読み込み',
   title: '日本語',
   lightModeMessage: '{ダーク|ライト}モードに切り替え',
   heading: '今日は何に取り組みますか？',

@@ -1,6 +1,6 @@
 {
   language: 'pl',
-  homeMessage: 'Przełącz na język angielski',
+  homeMessage: 'Odśwież bez wstępnie załadowanych danych',
   title: 'Po polsku',
   lightModeMessage: 'Przełącz na tryb {ciemny|jasny}',
   heading: 'Czym chcesz się dziś zająć?',

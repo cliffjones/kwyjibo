@@ -1,6 +1,6 @@
 {
   language: 'nl',
-  homeMessage: 'Overschakelen naar Engels',
+  homeMessage: 'Vernieuwen zonder vooraf geladen gegevens',
   title: 'In het Nederlands',
   lightModeMessage: 'Overschakelen naar de {donkere|lichte} modus',
   heading: 'Waar wil je vandaag aan werken?',

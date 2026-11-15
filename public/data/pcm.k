@@ -1,6 +1,6 @@
 {
   language: 'pcm',
-  homeMessage: 'Change to English mode',
+  homeMessage: 'Reload am without data wey dem don load before',
   title: 'For Naija Pidgin',
   lightModeMessage: 'Change to {Dark|Light} mode',
   heading: 'Wetin you wan work on today?',

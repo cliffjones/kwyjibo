@@ -1,8 +1,8 @@
 {
   language: 'en',
-  homeMessage: 'Switch to English Mode',
+  homeMessage: 'Refresh with no preloaded data',
   title: 'In English',
-  lightModeMessage: 'Switch to {Dark|Light} Mode',
+  lightModeMessage: 'Switch to {dark|light} mode',
   heading: 'What do you want to work on today?',
   cardsLoadedMessage: '{} {card|cards} loaded.',
   cardsRemainingMessage: '{} of {} {card|cards} remaining.',
