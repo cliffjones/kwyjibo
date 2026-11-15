@@ -4,7 +4,6 @@
   title: 'En français',
   lightModeMessage: 'Passer en mode {sombre|clair}',
   heading: 'Sur quoi voulez-vous travailler aujourd’hui ?',
-  intro: '{left} Kwyjibo est un système personnalisable pour les quiz, les cartes mémoire, les listes de tâches et le suivi des activités.   Saisissez vos propres éléments d’étude dans la zone ci-dessous, en les séparant par des lignes vides. Vous pouvez aussi [soutenir ce projet](https://ko-fi.com/cliff "Faire un don sur Ko-fi") avec un petit don ; j’ajouterai vos données personnalisées pour vous simplifier encore l’utilisation.',
   cardsLoadedMessage: '{} {carte chargée|cartes chargées}.',
   cardsRemainingMessage: 'Il reste {} carte(s) sur {}.',
   preloadedDataHeading: 'Cartes préchargées :',

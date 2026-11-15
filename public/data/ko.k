@@ -4,7 +4,6 @@
   title: '한국어',
   lightModeMessage: '{어두운|밝은} 모드로 전환',
   heading: '오늘은 무엇을 공부하고 싶으세요?',
-  intro: '{left} Kwyjibo는 퀴즈, 플래시카드, 할 일 목록 및 활동 추적을 위한 맞춤 설정 가능한 시스템입니다.   사용자 지정 학습 항목을 아래 상자에 입력하고 빈 줄로 구분하세요. 또는 소액을 기부하여 [프로젝트를 후원](https://ko-fi.com/cliff "Ko-fi에서 후원하기")해 주세요. 사용자 지정 데이터를 시스템에 추가해 더욱 편리하게 사용할 수 있도록 하겠습니다.',
   cardsLoadedMessage: '{} {카드|카드}를 불러왔습니다.',
   cardsRemainingMessage: '남은 카드: {}장 / 전체: {}장.',
   preloadedDataHeading: '미리 불러온 카드:',

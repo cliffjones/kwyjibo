@@ -1,5 +1,5 @@
 export const isSafeUrl = (url: string, allowMail = false): boolean => {
-  for (let index = 0; index < url.length; index += 1) {
+  for (let index = 0; index < url.length; index++) {
     const characterCode = url.charCodeAt(index);
     if (characterCode < 0x20 || characterCode === 0x7f) {
       return false;

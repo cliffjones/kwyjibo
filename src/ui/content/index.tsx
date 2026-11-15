@@ -66,7 +66,7 @@ const renderContent = (tokens: ContentToken[]): ReactNode[] => {
     const token = tokens[index];
     if (token.type === 'text') {
       content.push(...renderInline(token.text));
-      index += 1;
+      index++;
       continue;
     }
 
@@ -80,7 +80,7 @@ const renderContent = (tokens: ContentToken[]): ReactNode[] => {
           </li>,
         );
       }
-      index += 1;
+      index++;
     }
     content.push(
       <ul key={index} className="content-list">

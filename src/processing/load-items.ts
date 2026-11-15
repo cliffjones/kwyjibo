@@ -1,5 +1,5 @@
 import { LANG, PLACEHOLDER_PATTERN } from '../constants';
-import { DATA_PATH } from './constants';
+import { DATA_PATH, K_DELIMS } from './constants';
 import { createTaskItem } from './create-task-item';
 import { expandRemoteItems } from './expand-remote-items';
 import { isConfigData } from './is-config-data';
@@ -31,13 +31,25 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
     pathSegments.push('index');
   }
 
+  // For any non-namespaced segments, look for corresponding namespaced indexes.
+  let index = 0;
+  while (index < pathSegments.length) {
+    const segment = pathSegments[index];
+    if (segment.includes(K_DELIMS.namespace)) {
+      index++;
+      continue;
+    }
+    pathSegments.splice(index + 1, 0, `${segment}_index`);
+    index += 2;
+  }
+
   // Return a list of unique file names to load, based on the path segments.
   const files = [
     ...new Set(
       pathSegments.flatMap((segment) => {
         // For any segments containing a colon, treat the first part as a namespace.
         let namespace = '';
-        const splitSegment = segment.split(':', 2);
+        const splitSegment = segment.split(K_DELIMS.namespace, 2);
         if (splitSegment.length === 2) {
           namespace = validatePathSegment(splitSegment.shift() ?? '');
         }

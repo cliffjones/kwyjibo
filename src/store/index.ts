@@ -53,7 +53,7 @@ const createAppReducer = (initialState: AppState) => {
         }
 
         state.ratingTotal += rating - 1;
-        state.ratingCount += 1;
+        state.ratingCount++;
 
         const itemIsMastered = rating > 4 && currentIndex !== -1;
         const itemIsLast = currentIndex === state.remainingIds.length - 1;

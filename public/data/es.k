@@ -4,7 +4,6 @@
   title: 'En español',
   lightModeMessage: 'Cambiar al modo {oscuro|claro}',
   heading: '¿En qué quieres trabajar hoy?',
-  intro: '{left} Kwyjibo es un sistema personalizable para cuestionarios, tarjetas de estudio, listas de tareas y seguimiento de actividades.   Introduce tus elementos de estudio personalizados en la siguiente casilla, separados por líneas en blanco. O [ayuda a financiar el proyecto](https://ko-fi.com/cliff "Dona en Ko-fi") con una pequeña donación, y yo añadiré tus datos al sistema para ponértelo aún más fácil.',
   cardsLoadedMessage: '{} {tarjeta cargada|tarjetas cargadas}.',
   cardsRemainingMessage: 'Quedan {} de {} {tarjeta|tarjetas}.',
   preloadedDataHeading: 'Tarjetas precargadas:',

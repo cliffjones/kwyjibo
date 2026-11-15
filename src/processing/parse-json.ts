@@ -33,12 +33,12 @@ const normalizeBareKeys = (text: string): string => {
       let keyEnd = index + 1;
 
       while (keyEnd < text.length && /[\w$-]/.test(text[keyEnd])) {
-        keyEnd += 1;
+        keyEnd++;
       }
 
       let nextIndex = keyEnd;
       while (nextIndex < text.length && /\s/.test(text[nextIndex])) {
-        nextIndex += 1;
+        nextIndex++;
       }
 
       const nextChar = text[nextIndex] ?? '';

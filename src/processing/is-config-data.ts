@@ -7,7 +7,7 @@ export const isConfigData = (value: unknown): value is ConfigData => {
   }
 
   for (const key of Object.keys(value)) {
-    if (typeof key !== 'string') {
+    if (typeof key !== 'string' && typeof key !== 'number' && typeof key !== 'boolean') {
       return false;
     }
   }

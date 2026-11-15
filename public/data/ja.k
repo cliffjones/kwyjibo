@@ -4,7 +4,6 @@
   title: '日本語',
   lightModeMessage: '{ダーク|ライト}モードに切り替え',
   heading: '今日は何に取り組みますか？',
-  intro: '{left} Kwyjiboは、クイズ、フラッシュカード、ToDoリスト、活動記録に使えるカスタマイズ可能なシステムです。   下の欄に、空行で区切って学習内容を入力してください。または少額の寄付で[このプロジェクトを応援してください](https://ko-fi.com/cliff "Ko-fiで寄付")。ご希望のデータを追加して、もっと簡単に使えるようにします。',
   cardsLoadedMessage: '{}件のカードを読み込みました。',
   cardsRemainingMessage: '残り{}件（全{}件中）。',
   preloadedDataHeading: '読み込み済みのカード：',

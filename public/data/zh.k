@@ -4,7 +4,6 @@
   title: '中文版',
   lightModeMessage: '切换到{深色|浅色}模式',
   heading: '今天想学习什么？',
-  intro: '{left} Kwyjibo 是一个可自定义的系统，可用于测验、记忆卡片、待办事项清单和活动跟踪。   请在下方输入自定义学习内容，并用空行分隔。或者通过小额捐款[帮助支持本项目](https://ko-fi.com/cliff "在 Ko-fi 上捐款")，我可以将你的自定义内容添加到系统中，让使用更加方便。',
   cardsLoadedMessage: '已加载{}张卡片。',
   cardsRemainingMessage: '还剩{}张，共{}张卡片。',
   preloadedDataHeading: '预加载卡片：',

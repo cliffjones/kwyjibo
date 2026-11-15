@@ -9,7 +9,7 @@ export const tokenizeContent = (value: string): ContentToken[] => {
   while (position < value.length) {
     const character = value[position];
     if (character !== '-' && character !== '\r' && character !== '\n' && character !== ' ') {
-      position += 1;
+      position++;
       continue;
     }
 
@@ -22,7 +22,7 @@ export const tokenizeContent = (value: string): ContentToken[] => {
       position += listItemMatch[0].length;
       textStart = position;
     } else {
-      position += 1;
+      position++;
     }
   }
 

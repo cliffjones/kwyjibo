@@ -4,7 +4,6 @@
   title: 'Po polsku',
   lightModeMessage: 'Przełącz na tryb {ciemny|jasny}',
   heading: 'Czym chcesz się dziś zająć?',
-  intro: '{left} Kwyjibo to konfigurowalny system do quizów, fiszek, list zadań i śledzenia aktywności.   Wpisz własne materiały do nauki w polu poniżej, oddzielając je pustymi wierszami. Możesz też [wesprzeć projekt](https://ko-fi.com/cliff "Wpłać darowiznę przez Ko-fi"), przekazując niewielką kwotę. Dodam wtedy Twoje dane do systemu, aby korzystanie z niego było jeszcze łatwiejsze.',
   cardsLoadedMessage: 'Wczytano {} {kartę|kart}.',
   cardsRemainingMessage: 'Pozostało {} z {} {kart|kart}.',
   preloadedDataHeading: 'Wczytane fiszki:',

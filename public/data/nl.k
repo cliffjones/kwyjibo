@@ -4,7 +4,6 @@
   title: 'In het Nederlands',
   lightModeMessage: 'Overschakelen naar de {donkere|lichte} modus',
   heading: 'Waar wil je vandaag aan werken?',
-  intro: '{left} Kwyjibo is een aanpasbaar systeem voor quizzen, flashcards, takenlijsten en activiteiten bijhouden.   Vul je eigen studiemateriaal in het vak hieronder in en scheid de onderdelen met lege regels. Of [steun het project](https://ko-fi.com/cliff "Doneer via Ko-fi") met een kleine donatie; ik voeg je eigen gegevens dan toe aan het systeem zodat het nog makkelijker voor je wordt.',
   cardsLoadedMessage: '{} {kaart|kaarten} geladen.',
   cardsRemainingMessage: 'Er zijn nog {} van de {} {kaart|kaarten}.',
   preloadedDataHeading: 'Vooraf geladen kaarten:',

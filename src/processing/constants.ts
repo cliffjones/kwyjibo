@@ -8,5 +8,6 @@ export const DATA_PATH = `${BASE_URL}data/`;
 export const LINE_CONFIG_KEYS = ['left', 'right', 'order', 'value'] satisfies (keyof LineConfigData)[] as string[];
 
 export const K_DELIMS = {
+  namespace: ':',
   topic: '#',
 };
