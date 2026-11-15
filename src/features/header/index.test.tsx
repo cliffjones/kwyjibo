@@ -60,7 +60,7 @@ describe('Header', () => {
       </Provider>,
     );
 
-    fireEvent.click(screen.getByTitle('Switch to Light Mode'));
+    fireEvent.click(screen.getByTitle('Switch to light mode'));
 
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
     expect(store.getState().kwyjibo.lightMode).toBe(true);
@@ -77,7 +77,7 @@ describe('Header', () => {
     );
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
 
-    fireEvent.click(screen.getByTitle('Switch to Dark Mode'));
+    fireEvent.click(screen.getByTitle('Switch to dark mode'));
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
     expect(restoredStore.getState().kwyjibo.lightMode).toBe(false);
   });
