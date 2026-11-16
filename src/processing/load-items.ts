@@ -1,4 +1,4 @@
-import { LANG, PLACEHOLDER_PATTERN } from '../constants';
+import { DEFAULT_PATH, FILE_EXTENSION, LANG, PLACEHOLDER_PATTERN } from '../constants';
 import { DATA_PATH, K_DELIMS } from './constants';
 import { createTaskItem } from './create-task-item';
 import { expandRemoteItems } from './expand-remote-items';
@@ -16,11 +16,44 @@ const validatePathSegment = (segment: string): string => {
     return '';
   }
 
-  if (!stem || stem === '.' || stem === '..' || /[\\/]/.test(stem)) {
+  // Disallow any characters with a special meaning in the system.
+  if (!stem || /[.\\/]/.test(stem)) {
     return '';
   }
 
   return stem;
+};
+
+const parsePathSegment = (segment: string, tokens: string[]) => {
+  const segments: string[] = [];
+
+  // For any segments containing a colon, treat the first part as a namespace.
+  let namespace = '';
+  const splitSegment = segment.split(K_DELIMS.namespace, 2);
+  if (splitSegment.length === 2) {
+    namespace = validatePathSegment(splitSegment.shift() ?? '');
+  }
+
+  // Ensure we have a valid stem for the file name.
+  if (!splitSegment.length) {
+    return segments;
+  }
+  const stem = validatePathSegment(splitSegment[0]);
+  if (!stem) {
+    return segments;
+  }
+
+  // A valid namespace means we should try to import a base file too.
+  if (namespace) {
+    segments.push(`${namespace}.${FILE_EXTENSION}`, `${namespace}.${stem}.${FILE_EXTENSION}`);
+  } else {
+    segments.push(`${stem}.${FILE_EXTENSION}`);
+  }
+
+  // If the user has any stored tokens, check for matching private files.
+  /** @todo: Step through each value of `tokens` to see if it matches a SHA-256 hash of any value of `segments` plus the secret `salt` value (pulled from a file not stored in the repo). If a match is found, prepend a `.` onto that element of `segments`. */
+
+  return segments;
 };
 
 // Loads files corresponding to path segments, returning the combined config data and task items.
@@ -28,49 +61,26 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
   // Each route segment should name a data file. Or if there aren't any, default to `index`.
   const pathSegments = path.split('/').filter(Boolean);
   if (!pathSegments.length) {
-    pathSegments.push('index');
+    pathSegments.push(DEFAULT_PATH);
   }
 
   // For any non-namespaced segments, look for corresponding namespaced indexes.
   let index = 0;
   while (index < pathSegments.length) {
     const segment = pathSegments[index];
-    if (segment.includes(K_DELIMS.namespace)) {
+    if (segment === DEFAULT_PATH || segment.includes(K_DELIMS.namespace)) {
       index++;
       continue;
     }
-    pathSegments.splice(index + 1, 0, `${segment}_index`);
+    pathSegments.splice(index + 1, 0, `${segment}${K_DELIMS.namespace}${DEFAULT_PATH}`);
     index += 2;
   }
 
+  /** @todo: Get `tokens` from local storage. */
+  const tokens = ['test'];
+
   // Return a list of unique file names to load, based on the path segments.
-  const files = [
-    ...new Set(
-      pathSegments.flatMap((segment) => {
-        // For any segments containing a colon, treat the first part as a namespace.
-        let namespace = '';
-        const splitSegment = segment.split(K_DELIMS.namespace, 2);
-        if (splitSegment.length === 2) {
-          namespace = validatePathSegment(splitSegment.shift() ?? '');
-        }
-
-        // Ensure we have a valid stem for the file name.
-        if (!splitSegment.length) {
-          return [];
-        }
-        const stem = validatePathSegment(splitSegment[0]);
-        if (!stem) {
-          return [];
-        }
-
-        // A valid namespace means we should try to import a base file too.
-        if (namespace) {
-          return [`${namespace}.k`, `${namespace}_${stem}.k`];
-        }
-        return [`${stem}.k`];
-      }),
-    ),
-  ];
+  const files = [...new Set(pathSegments.flatMap((segment) => parsePathSegment(segment, tokens)))];
 
   // Load each file, ignoring any that fail to load, and expand any remote references within them.
   const itemGroups = await Promise.all(

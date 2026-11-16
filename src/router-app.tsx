@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { useLocation } from 'react-router';
 import { App } from './app';
-import { DEFAULT_LANG, LANG, PLACEHOLDER_PATTERN, RTL_LANGUAGES } from './constants';
+import { DEFAULT_LANG, LANG, PLACEHOLDER_PATTERN, RTL_LANGS } from './constants';
 import { loadItems } from './processing/load-items';
 import { createAppStore, type AppStore } from './store';
 
@@ -22,7 +22,7 @@ export const RouterApp = () => {
           const [configData, ...items] = data;
           const language = configData.language || DEFAULT_LANG;
           document.documentElement.lang = language;
-          document.documentElement.dir = RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr';
+          document.documentElement.dir = RTL_LANGS.includes(language) ? 'rtl' : 'ltr';
           setRouteLoad({ path: pathname, store: createAppStore(pathname, configData, items) });
         }
       })

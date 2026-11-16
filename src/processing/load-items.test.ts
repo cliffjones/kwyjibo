@@ -29,9 +29,9 @@ describe('loadItems', () => {
 
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
       '/data/science.k',
-      '/data/science_index.k',
+      '/data/science.index.k',
       '/data/dev.k',
-      '/data/dev_index.k',
+      '/data/dev.index.k',
     ]);
     expect(items.map(({ topic, task }) => ({ topic, task }))).toEqual([
       { topic: 'Science', task: 'What is a cell?' },
@@ -47,11 +47,11 @@ describe('loadItems', () => {
 
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
       '/data/science.k',
-      '/data/science_index.k',
+      '/data/science.index.k',
       '/data/dev.k',
-      '/data/dev_math.k',
+      '/data/dev.math.k',
       '/data/missing.k',
-      '/data/missing_index.k',
+      '/data/missing.index.k',
     ]);
   });
 
@@ -80,9 +80,9 @@ describe('loadItems', () => {
     expect(await loadItems('/missing/not-found')).toEqual([{}]);
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
       '/data/missing.k',
-      '/data/missing_index.k',
+      '/data/missing.index.k',
       '/data/not-found.k',
-      '/data/not-found_index.k',
+      '/data/not-found.index.k',
     ]);
   });
 
@@ -91,8 +91,8 @@ describe('loadItems', () => {
       switch (String(input)) {
         case '/data/remote.k':
           return createResponse('https://example.com/remote.k');
-        case '/data/remote_index.k':
-        case '/data/broken_index.k':
+        case '/data/remote.index.k':
+        case '/data/broken.index.k':
           return createResponse('', 404);
         case 'https://example.com/remote.k':
           return createResponse('{ title: "Remote" }\n# Remote\n\nWhat is the answer?\n42');
@@ -155,11 +155,7 @@ describe('loadItems', () => {
 
     await loadItems('/%2e%2e/%2Fsecret/dev');
 
-    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
-      '/data/.._index.k',
-      '/data/dev.k',
-      '/data/dev_index.k',
-    ]);
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(['/data/index.k', '/data/dev.k', '/data/dev.index.k']);
   });
 
   it('reports errors other than a missing deck file', async () => {

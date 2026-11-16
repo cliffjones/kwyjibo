@@ -1,10 +1,12 @@
-export const RTL_LANGUAGES = ['arb', 'arz', 'fa', 'he', 'lah', 'ur'];
+export const DEFAULT_PATH = 'index';
+export const FILE_EXTENSION = 'k';
 
-export const DEFAULT_LANG = 'en';
+export const RTL_LANGS = ['arb', 'arz', 'fa', 'he', 'lah', 'ur'];
 
 export const PLACEHOLDER_PATTERN = '{}';
 export const ALTERNATION_PATTERN = /\{([^|}]+)\|([^}]+)\}/;
 
+export const DEFAULT_LANG = 'en';
 export const LANG = {
   loadingMessage: 'Loading…',
   unableToLoadMessage: 'Unable to load {}.',
