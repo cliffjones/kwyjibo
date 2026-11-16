@@ -1,3 +1,5 @@
+export const RTL_LANGUAGES = ['arb', 'arz', 'fa', 'he', 'lah', 'ur'];
+
 export const DEFAULT_LANG = 'en';
 
 export const PLACEHOLDER_PATTERN = '{}';

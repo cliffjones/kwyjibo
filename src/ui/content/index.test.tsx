@@ -52,9 +52,10 @@ describe('Content', () => {
   });
 
   it('applies line-config variant classes and preserves spacing', () => {
-    const { container } = render(<Content text="{left} First  Second" />);
+    const { container } = render(<Content text="{start} First  Second" />);
 
-    expect(container.firstElementChild).toHaveClass('content', 'content--left');
+    expect(container.firstElementChild).toHaveClass('content', 'content--start');
+    expect(container.firstElementChild).toHaveAttribute('dir', 'auto');
     expect(container.querySelector('br')).not.toBeNull();
     expect(container.textContent).toContain('First');
     expect(container.textContent).toContain('Second');

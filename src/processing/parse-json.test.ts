@@ -6,17 +6,17 @@ describe('parseJson', () => {
   });
 
   it('allows object keys with no explicit value', () => {
-    expect(parseJson('{ left, title: "Demo", active }')).toEqual({
-      left: true,
+    expect(parseJson('{ start, title: "Demo", active }')).toEqual({
+      start: true,
       title: 'Demo',
       active: true,
     });
   });
 
   it('leaves bare keys inside quoted strings alone', () => {
-    expect(parseJson('{ intro: "{left} Hello", left }')).toEqual({
-      intro: '{left} Hello',
-      left: true,
+    expect(parseJson('{ intro: "{start} Hello", start }')).toEqual({
+      intro: '{start} Hello',
+      start: true,
     });
   });
 

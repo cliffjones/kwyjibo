@@ -6,7 +6,7 @@
   cursor: pointer;
   display: flex;
   gap: space.$tiny;
-  margin-right: auto;
+  margin-inline-end: auto;
 
   &-list {
     border: 0;
@@ -15,7 +15,7 @@
     gap: space.$small;
     margin: 0;
     padding: 0;
-    text-align: left;
+    text-align: start;
 
     &-label {
       color: color.$pencil;

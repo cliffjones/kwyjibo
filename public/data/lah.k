@@ -26,7 +26,7 @@
   ratingMessage: 'درجہ بندی لا دتی:',
   lastRatingMessage: 'ایس کارڈ دی پچھلی درجہ بندی:',
   noCardsMessage: 'کوئی کارڈ نئیں چنیا گیا۔',
-  resultsMessage: 'تسی {} کارڈ {}% درستگی نال {} وچ سکھے۔',
+  resultsMessage: 'تسی {} کارڈ {}٪ درستگی نال {} وچ سکھے۔',
   days: '{دن|دن}',
   hours: '{گھنٹہ|گھنٹے}',
   minutes: '{منٹ|منٹ}',

@@ -32,6 +32,7 @@ describe('RouterApp', () => {
   beforeEach(() => {
     window.localStorage.clear();
     document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
     mockedUseLocation.mockReturnValue({ pathname: '/science' } as ReturnType<typeof useLocation>);
   });
 
@@ -63,6 +64,17 @@ describe('RouterApp', () => {
 
     expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
     expect(document.documentElement.lang).toBe('fr');
+    expect(document.documentElement.dir).toBe('ltr');
+  });
+
+  it.each(['arb', 'arz', 'fa', 'he', 'lah', 'ur'])('sets right-to-left document direction for %s', async (language) => {
+    mockedLoadItems.mockResolvedValue([{ language }, ...items]);
+
+    render(<RouterApp />);
+
+    expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
+    expect(document.documentElement.lang).toBe(language);
+    expect(document.documentElement.dir).toBe('rtl');
   });
 
   it('defaults the document language to English when the deck has no language', async () => {
@@ -73,6 +85,7 @@ describe('RouterApp', () => {
 
     expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
     expect(document.documentElement.lang).toBe('en');
+    expect(document.documentElement.dir).toBe('ltr');
   });
 
   it('renders an alert when cards fail to load', async () => {

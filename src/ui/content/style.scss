@@ -5,19 +5,20 @@
 .content {
   text-align: center;
 
-  &--left {
-    text-align: left;
+  &--start {
+    text-align: start;
 
     .content-list {
       margin: 0;
     }
   }
 
-  &--right {
-    text-align: right;
+  &--end {
+    text-align: end;
 
     .content-list {
-      margin: 0 0 0 auto;
+      margin-inline-end: 0;
+      margin-inline-start: auto;
     }
   }
 
@@ -33,12 +34,12 @@
   &-list {
     list-style-type: disc;
     margin: 0 auto;
-    padding-left: 1em;
+    padding-inline-start: 1em;
     width: fit-content;
 
     &-item {
-      margin-left: 1em;
-      text-align: left;
+      margin-inline-start: 1em;
+      text-align: start;
     }
   }
 }

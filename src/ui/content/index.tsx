@@ -105,5 +105,9 @@ export const Content = ({ text }: { text: string }) => {
     });
   }
 
-  return <div className={`content${variantClasses}`}>{renderContent(tokenizeContent(content))}</div>;
+  return (
+    <div className={`content${variantClasses}`} dir="auto">
+      {renderContent(tokenizeContent(content))}
+    </div>
+  );
 };

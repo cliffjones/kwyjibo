@@ -108,7 +108,7 @@ export const Header = ({
 
   return (
     <header className="header">
-      <h1 className={`header-title${isActive ? ' header-title--active' : ''}`} aria-label="Kwyjibo">
+      <h1 className={`header-title${isActive ? ' header-title--active' : ''}`} aria-label="Kwyjibo" dir="ltr">
         <Link href={`/k/${configData.language ?? ''}`} title={configData.homeMessage || LANG.homeMessage}>
           <span className="header-title-part">Kwy</span>
           <span className="header-title-part">ji</span>
@@ -118,7 +118,7 @@ export const Header = ({
       {configData.title ? <p className="header-title header-title--secondary">{configData.title}</p> : null}
 
       {lastRating && ratingFace ? (
-        <div className="header-toolbar">
+        <div className="header-toolbar" dir="ltr">
           <div
             key={ratingAnimationKey}
             className="header-toolbar-rating"
@@ -131,7 +131,7 @@ export const Header = ({
         </div>
       ) : null}
 
-      <div className="header-toolbar header-toolbar--right">
+      <div className="header-toolbar header-toolbar--right" dir="ltr">
         <Selector
           icon="globe"
           title={configData.languageMessage || LANG.languageMessage}

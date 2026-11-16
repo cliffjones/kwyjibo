@@ -6,7 +6,7 @@ describe('extractLineConfig', () => {
   });
 
   it('pulls a leading config from the content text', () => {
-    expect(extractLineConfig('{left} warning')).toEqual({ config: { left: true }, content: 'warning' });
-    expect(extractLineConfig('{right}summary')).toEqual({ config: { right: true }, content: 'summary' });
+    expect(extractLineConfig('{start} warning')).toEqual({ config: { start: true }, content: 'warning' });
+    expect(extractLineConfig('{end}summary')).toEqual({ config: { end: true }, content: 'summary' });
   });
 });

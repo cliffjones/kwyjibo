@@ -8,6 +8,7 @@ describe('InputBox', () => {
 
     const input = screen.getByRole('textbox', { name: 'Custom data' });
     expect(input).toHaveValue('initial');
+    expect(input).toHaveAttribute('dir', 'auto');
     fireEvent.change(input, { target: { value: 'updated' } });
     expect(onChange).toHaveBeenCalledTimes(1);
   });
