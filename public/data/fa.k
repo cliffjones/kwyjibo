@@ -1,8 +1,9 @@
 {
   language: 'fa',
+  languageMessage: 'زبان خود را انتخاب کنید',
+  lightModeMessage: 'تغییر به حالت {تیره|روشن}',
   homeMessage: 'بارگذاری دوباره بدون داده‌های ازپیش‌بارگذاری‌شده',
   title: 'به فارسی',
-  lightModeMessage: 'تغییر به حالت {تیره|روشن}',
   heading: 'امروز می‌خواهید روی چه چیزی کار کنید؟',
   cardsLoadedMessage: '{} {کارت|کارت} بارگذاری شد.',
   cardsRemainingMessage: '{} کارت از {} کارت باقی مانده است.',

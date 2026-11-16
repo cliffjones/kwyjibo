@@ -1,8 +1,9 @@
 {
   language: 'es',
+  languageMessage: 'Elige tu idioma',
+  lightModeMessage: 'Cambiar al modo {oscuro|claro}',
   homeMessage: 'Recargar sin datos precargados',
   title: 'En español',
-  lightModeMessage: 'Cambiar al modo {oscuro|claro}',
   heading: '¿En qué quieres trabajar hoy?',
   cardsLoadedMessage: '{} {tarjeta cargada|tarjetas cargadas}.',
   cardsRemainingMessage: 'Quedan {} de {} {tarjeta|tarjetas}.',

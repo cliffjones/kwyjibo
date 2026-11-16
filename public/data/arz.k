@@ -1,8 +1,9 @@
 {
   language: 'arz',
+  languageMessage: 'اختار لغتك',
+  lightModeMessage: 'حوّل للوضع {الداكن|الفاتح}',
   homeMessage: 'إعادة التحميل من غير بيانات محمّلة مسبقًا',
   title: 'بالمصري',
-  lightModeMessage: 'حوّل للوضع {الداكن|الفاتح}',
   heading: 'حابب تشتغل على إيه النهارده؟',
   cardsLoadedMessage: 'الكروت اللي اتحملت: {}.',
   cardsRemainingMessage: 'فاضل {} من أصل {}.',

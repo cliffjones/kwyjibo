@@ -1,8 +1,9 @@
 {
   language: 'ru',
+  languageMessage: 'Выберите язык',
+  lightModeMessage: 'Переключить на {тёмную|светлую} тему',
   homeMessage: 'Обновить без предварительно загруженных данных',
   title: 'На русском',
-  lightModeMessage: 'Переключить на {тёмную|светлую} тему',
   heading: 'Чем займёмся сегодня?',
   cardsLoadedMessage: 'Загружено карточек: {}.',
   cardsRemainingMessage: 'Осталось карточек: {} из {}.',

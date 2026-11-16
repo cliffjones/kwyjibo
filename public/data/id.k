@@ -1,8 +1,9 @@
 {
   language: 'id',
+  languageMessage: 'Pilih bahasa Anda',
+  lightModeMessage: 'Beralih ke mode {gelap|terang}',
   homeMessage: 'Muat ulang tanpa data yang dimuat sebelumnya',
   title: 'Dalam bahasa Indonesia',
-  lightModeMessage: 'Beralih ke mode {Gelap|Terang}',
   heading: 'Apa yang ingin kamu pelajari hari ini?',
   cardsLoadedMessage: '{} kartu telah dimuat.',
   cardsRemainingMessage: 'Tersisa {} dari total {} kartu.',

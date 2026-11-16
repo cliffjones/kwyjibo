@@ -1,8 +1,9 @@
 {
   language: 'ko',
+  languageMessage: '언어 선택',
+  lightModeMessage: '{어두운|밝은} 모드로 전환',
   homeMessage: '미리 불러온 데이터 없이 새로고침',
   title: '한국어',
-  lightModeMessage: '{어두운|밝은} 모드로 전환',
   heading: '오늘은 무엇을 공부하고 싶으세요?',
   cardsLoadedMessage: '{} {카드|카드}를 불러왔습니다.',
   cardsRemainingMessage: '남은 카드: {}장 / 전체: {}장.',

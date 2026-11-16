@@ -1,8 +1,9 @@
 {
   language: 'it',
+  languageMessage: 'Scegli la tua lingua',
+  lightModeMessage: 'Passa alla modalità {scura|chiara}',
   homeMessage: 'Ricarica senza dati precaricati',
   title: 'In italiano',
-  lightModeMessage: 'Passa alla modalità {scura|chiara}',
   heading: 'Su cosa vuoi lavorare oggi?',
   cardsLoadedMessage: '{} {scheda caricata|schede caricate}.',
   cardsRemainingMessage: 'Restano {} {schede|schede} su {}.',

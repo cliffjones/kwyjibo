@@ -1,8 +1,9 @@
 {
   language: 'fr',
+  languageMessage: 'Choisissez votre langue',
+  lightModeMessage: 'Passer en mode {sombre|clair}',
   homeMessage: 'Actualiser sans données préchargées',
   title: 'En français',
-  lightModeMessage: 'Passer en mode {sombre|clair}',
   heading: 'Sur quoi voulez-vous travailler aujourd’hui ?',
   cardsLoadedMessage: '{} {carte chargée|cartes chargées}.',
   cardsRemainingMessage: 'Il reste {} carte(s) sur {}.',

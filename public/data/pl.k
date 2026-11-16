@@ -1,8 +1,9 @@
 {
   language: 'pl',
+  languageMessage: 'Wybierz język',
+  lightModeMessage: 'Przełącz na tryb {ciemny|jasny}',
   homeMessage: 'Odśwież bez wstępnie załadowanych danych',
   title: 'Po polsku',
-  lightModeMessage: 'Przełącz na tryb {ciemny|jasny}',
   heading: 'Czym chcesz się dziś zająć?',
   cardsLoadedMessage: 'Wczytano {} {kartę|kart}.',
   cardsRemainingMessage: 'Pozostało {} z {} {kart|kart}.',

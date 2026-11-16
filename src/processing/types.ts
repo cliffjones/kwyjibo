@@ -1,7 +1,8 @@
 export type ConfigData = {
   language?: string;
-  homeMessage?: string;
+  languageMessage?: string;
   lightModeMessage?: string;
+  homeMessage?: string;
   title?: string;
   heading?: string;
   cardsLoadedMessage?: string;

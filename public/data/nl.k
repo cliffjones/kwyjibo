@@ -1,8 +1,9 @@
 {
   language: 'nl',
+  languageMessage: 'Kies je taal',
+  lightModeMessage: 'Overschakelen naar de {donkere|lichte} modus',
   homeMessage: 'Vernieuwen zonder vooraf geladen gegevens',
   title: 'In het Nederlands',
-  lightModeMessage: 'Overschakelen naar de {donkere|lichte} modus',
   heading: 'Waar wil je vandaag aan werken?',
   cardsLoadedMessage: '{} {kaart|kaarten} geladen.',
   cardsRemainingMessage: 'Er zijn nog {} van de {} {kaart|kaarten}.',

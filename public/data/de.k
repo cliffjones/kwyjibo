@@ -1,8 +1,9 @@
 {
   language: 'de',
+  languageMessage: 'Sprache auswählen',
+  lightModeMessage: 'Zum {dunklen|hellen} Modus wechseln',
   homeMessage: 'Ohne vorgeladene Daten neu laden',
   title: 'Auf Deutsch',
-  lightModeMessage: 'Zum {dunklen|hellen} Modus wechseln',
   heading: 'Woran möchtest du heute arbeiten?',
   cardsLoadedMessage: '{} {Karte|Karten} geladen.',
   cardsRemainingMessage: 'Noch {} von {} {Karte|Karten} übrig.',

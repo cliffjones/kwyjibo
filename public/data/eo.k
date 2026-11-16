@@ -1,8 +1,9 @@
 {
   language: 'eo',
+  languageMessage: 'Elektu vian lingvon',
+  lightModeMessage: 'Ŝanĝi al {Malhela|Hela} reĝimo',
   homeMessage: 'Reŝargi sen antaŭŝargitaj datumoj',
   title: 'Esperante',
-  lightModeMessage: 'Ŝanĝi al {Malhela|Hela} reĝimo',
   heading: 'Pri kio vi volas labori hodiaŭ?',
   cardsLoadedMessage: 'Ŝarĝitaj {} {karto|kartoj}.',
   cardsRemainingMessage: 'Restas {} el {} {karto|kartoj}.',

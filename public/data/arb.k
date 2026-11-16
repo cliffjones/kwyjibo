@@ -1,8 +1,9 @@
 {
   language: 'arb',
+  languageMessage: 'اختر لغتك',
+  lightModeMessage: 'التبديل إلى الوضع {الداكن|الفاتح}',
   homeMessage: 'إعادة التحميل دون بيانات محمّلة مسبقًا',
   title: 'بالعربية الفصحى',
-  lightModeMessage: 'التبديل إلى الوضع {الداكن|الفاتح}',
   heading: 'ما الذي تريد العمل عليه اليوم؟',
   cardsLoadedMessage: 'البطاقات التي تم تحميلها: {}.',
   cardsRemainingMessage: 'المتبقي: {} من أصل {}.',

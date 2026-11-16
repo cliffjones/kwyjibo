@@ -1,8 +1,9 @@
 {
   language: 'tr',
+  languageMessage: 'Dilinizi seçin',
+  lightModeMessage: '{Koyu|Açık} moda geç',
   homeMessage: 'Önceden yüklenmiş veriler olmadan yenile',
   title: 'Türkçe',
-  lightModeMessage: '{Koyu|Açık} moda geç',
   heading: 'Bugün ne üzerinde çalışmak istiyorsunuz?',
   cardsLoadedMessage: '{} {kart|kart} yüklendi.',
   cardsRemainingMessage: '{} karttan {} tanesi kaldı.',

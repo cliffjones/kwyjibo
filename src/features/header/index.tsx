@@ -113,7 +113,7 @@ export const Header = ({
       <div className="header-toolbar header-toolbar--right">
         <Selector
           icon="globe"
-          title="Choose your language"
+          title={configData.languageMessage || LANG.languageMessage}
           onChange={({ currentTarget }) =>
             navigate(currentTarget.value === DEFAULT_LANG ? '/' : `/${currentTarget.value}`)
           }

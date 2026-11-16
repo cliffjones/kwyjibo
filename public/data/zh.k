@@ -1,8 +1,9 @@
 {
   language: 'zh',
+  languageMessage: '选择语言',
+  lightModeMessage: '切换到{深色|浅色}模式',
   homeMessage: '不使用预加载数据刷新',
   title: '中文版',
-  lightModeMessage: '切换到{深色|浅色}模式',
   heading: '今天想学习什么？',
   cardsLoadedMessage: '已加载{}张卡片。',
   cardsRemainingMessage: '还剩{}张，共{}张卡片。',

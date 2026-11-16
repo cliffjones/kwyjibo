@@ -1,8 +1,9 @@
 {
   language: 'pcm',
+  languageMessage: 'Choose ya language',
+  lightModeMessage: 'Change to {dark|light} mode',
   homeMessage: 'Reload am without data wey dem don load before',
-  title: 'For Naija Pidgin',
-  lightModeMessage: 'Change to {Dark|Light} mode',
+  title: 'For Naijá',
   heading: 'Wetin you wan work on today?',
   cardsLoadedMessage: '{} {card|cards} don load.',
   cardsRemainingMessage: '{} remain from {} cards.',

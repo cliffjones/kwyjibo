@@ -1,8 +1,9 @@
 {
   language: 'pt',
+  languageMessage: 'Escolha o seu idioma',
+  lightModeMessage: 'Mudar para o modo {escuro|claro}',
   homeMessage: 'Atualizar sem dados pré-carregados',
   title: 'Em português',
-  lightModeMessage: 'Mudar para o modo {escuro|claro}',
   heading: 'O que você quer estudar hoje?',
   cardsLoadedMessage: '{} {cartão carregado|cartões carregados}.',
   cardsRemainingMessage: 'Restam {} de {} {cartão|cartões}.',

@@ -1,8 +1,9 @@
 {
   language: 'hi',
+  languageMessage: 'अपनी भाषा चुनें',
+  lightModeMessage: '{डार्क|लाइट} मोड पर जाएँ',
   homeMessage: 'पहले से लोड किए गए डेटा के बिना फिर से लोड करें',
   title: 'हिंदी में',
-  lightModeMessage: '{डार्क|लाइट} मोड पर जाएँ',
   heading: 'आज आप किस विषय पर काम करना चाहते हैं?',
   cardsLoadedMessage: '{} {कार्ड लोड हुआ|कार्ड लोड हुए}।',
   cardsRemainingMessage: '{} कार्ड बाकी हैं (कुल {} में से)।',

@@ -1,8 +1,9 @@
 {
   language: 'bn',
+  languageMessage: 'আপনার ভাষা বেছে নিন',
+  lightModeMessage: '{গাঢ়|হালকা} মোডে যান',
   homeMessage: 'আগে থেকে লোড করা ডেটা ছাড়া আবার লোড করুন',
   title: 'বাংলায়',
-  lightModeMessage: '{গাঢ়|হালকা} মোডে যান',
   heading: 'আজ আপনি কী নিয়ে কাজ করতে চান?',
   cardsLoadedMessage: '{}টি কার্ড লোড হয়েছে।',
   cardsRemainingMessage: '{}টি কার্ড বাকি (মোট {}টির মধ্যে)।',

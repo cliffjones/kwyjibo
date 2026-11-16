@@ -1,8 +1,9 @@
 {
   language: 'ja',
+  languageMessage: '言語を選択',
+  lightModeMessage: '{ダーク|ライト}モードに切り替え',
   homeMessage: '事前読み込みデータなしで再読み込み',
   title: '日本語',
-  lightModeMessage: '{ダーク|ライト}モードに切り替え',
   heading: '今日は何に取り組みますか？',
   cardsLoadedMessage: '{}件のカードを読み込みました。',
   cardsRemainingMessage: '残り{}件（全{}件中）。',

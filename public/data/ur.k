@@ -1,8 +1,9 @@
 {
   language: 'ur',
+  languageMessage: 'اپنی زبان منتخب کریں',
+  lightModeMessage: '{گہرے|ہلکے} موڈ پر جائیں',
   homeMessage: 'پہلے سے لوڈ کیے گئے ڈیٹا کے بغیر دوبارہ لوڈ کریں',
   title: 'اردو میں',
-  lightModeMessage: '{گہرے|ہلکے} موڈ پر جائیں',
   heading: 'آپ آج کس چیز پر کام کرنا چاہتے ہیں؟',
   cardsLoadedMessage: '{} کارڈ لوڈ ہوئے۔',
   cardsRemainingMessage: 'کل {} میں سے {} باقی ہیں۔',

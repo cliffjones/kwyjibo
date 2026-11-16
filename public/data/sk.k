@@ -1,8 +1,9 @@
 {
   language: 'sk',
+  languageMessage: 'Vyberte jazyk',
+  lightModeMessage: 'Prepnúť na {tmavý|svetlý} režim',
   homeMessage: 'Obnoviť bez prednačítaných údajov',
   title: 'Po slovensky',
-  lightModeMessage: 'Prepnúť na {tmavý|svetlý} režim',
   heading: 'Na čom chcete dnes pracovať?',
   cardsLoadedMessage: 'Načítaných {} {kartička|kartičiek}.',
   cardsRemainingMessage: 'Zostáva {} z {} {kartičiek|kartičiek}.',
