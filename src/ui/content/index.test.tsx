@@ -55,10 +55,23 @@ describe('Content', () => {
     const { container } = render(<Content text="{start} First  Second" />);
 
     expect(container.firstElementChild).toHaveClass('content', 'content--start');
-    expect(container.firstElementChild).toHaveAttribute('dir', 'auto');
+    expect(container.firstElementChild).not.toHaveAttribute('dir', 'auto');
     expect(container.querySelector('br')).not.toBeNull();
     expect(container.textContent).toContain('First');
     expect(container.textContent).toContain('Second');
+  });
+
+  it('lets start-aligned content inherit right-to-left page direction', () => {
+    const originalDirection = document.documentElement.dir;
+    document.documentElement.dir = 'rtl';
+
+    try {
+      const { container } = render(<Content text="{start} טקסט לדוגמה" />);
+      expect(container.firstElementChild).toHaveClass('content--start');
+      expect(container.firstElementChild).not.toHaveAttribute('dir');
+    } finally {
+      document.documentElement.dir = originalDirection;
+    }
   });
 
   it('renders inline code and emphasis within list items', () => {
