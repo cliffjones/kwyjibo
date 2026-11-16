@@ -9,13 +9,15 @@ import { createAppStore, type AppStore } from './store';
 type RouteLoad = { path: string; store: AppStore } | { path: string; error: Error };
 
 export const RouterApp = () => {
-  const { pathname } = useLocation();
+  const { pathname: path } = useLocation();
   const [routeLoad, setRouteLoad] = useState<RouteLoad | null>(null);
 
   useEffect(() => {
     let canceled = false;
 
-    void loadItems(pathname)
+    /** @todo: Split `path` into segments split by `/`, and if any segment begins with `=`, then remove it from `path` and add the value (minus the initial `=`) to the store and local storage under an optional root-level (not dependent on the URL) array of strings named `tokens`. */
+
+    void loadItems(path)
       .then((data) => {
         // A route change makes this request stale, so don't replace the active route with this result.
         if (!canceled) {
@@ -23,15 +25,15 @@ export const RouterApp = () => {
           const language = configData.language || DEFAULT_LANG;
           document.documentElement.lang = language;
           document.documentElement.dir = RTL_LANGS.includes(language) ? 'rtl' : 'ltr';
-          setRouteLoad({ path: pathname, store: createAppStore(pathname, configData, items) });
+          setRouteLoad({ path: path, store: createAppStore(path, configData, items) });
         }
       })
       .catch((error: unknown) => {
-        const message = LANG.unableToLoadMessage.replace(PLACEHOLDER_PATTERN, `"${pathname}"`);
+        const message = LANG.unableToLoadMessage.replace(PLACEHOLDER_PATTERN, `"${path}"`);
         console.error(message, error);
         if (!canceled) {
           setRouteLoad({
-            path: pathname,
+            path,
             error: error instanceof Error ? error : new Error(String(error)),
           });
         }
@@ -40,9 +42,9 @@ export const RouterApp = () => {
     return () => {
       canceled = true;
     };
-  }, [pathname]);
+  }, [path]);
 
-  if (!routeLoad || routeLoad.path !== pathname) {
+  if (!routeLoad || routeLoad.path !== path) {
     return <div>{LANG.loadingMessage}</div>;
   }
 
@@ -52,7 +54,7 @@ export const RouterApp = () => {
 
   return (
     <Provider store={routeLoad.store}>
-      <App path={pathname} />
+      <App path={path} />
     </Provider>
   );
 };

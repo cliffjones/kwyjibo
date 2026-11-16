@@ -5,64 +5,13 @@ import { expandRemoteItems } from './expand-remote-items';
 import { isConfigData } from './is-config-data';
 import { isTaskData } from './is-task-data';
 import { parseFileData } from './parse-file-data';
+import { parsePathSegment } from './parse-path-segment';
 import type { ConfigData, TaskItem } from './types';
-
-// Returns either a valid path segment or an empty string.
-const validatePathSegment = (segment: string): string => {
-  let stem: string;
-  try {
-    stem = decodeURIComponent(segment);
-  } catch {
-    return '';
-  }
-
-  // Disallow any characters with a special meaning in the system.
-  if (!stem || /[.\\/]/.test(stem)) {
-    return '';
-  }
-
-  return stem;
-};
-
-const parsePathSegment = (segment: string, tokens: string[]) => {
-  const segments: string[] = [];
-
-  // For any segments containing a colon, treat the first part as a namespace.
-  let namespace = '';
-  const splitSegment = segment.split(K_DELIMS.namespace, 2);
-  if (splitSegment.length === 2) {
-    namespace = validatePathSegment(splitSegment.shift() ?? '');
-  }
-
-  // Ensure we have a valid stem for the file name.
-  if (!splitSegment.length) {
-    return segments;
-  }
-  const stem = validatePathSegment(splitSegment[0]);
-  if (!stem) {
-    return segments;
-  }
-
-  // A valid namespace means we should try to import a base file too.
-  if (namespace) {
-    segments.push(`${namespace}.${FILE_EXTENSION}`, `${namespace}.${stem}.${FILE_EXTENSION}`);
-  } else {
-    segments.push(`${stem}.${FILE_EXTENSION}`);
-  }
-
-  // If the user has any stored tokens, check for matching private files.
-  /** @todo: Step through each value of `tokens` to see if it matches a SHA-256 hash of any value of `segments` plus the secret `salt` value (pulled from a file not stored in the repo). If a match is found, prepend a `.` onto that element of `segments`. */
-
-  return segments;
-};
 
 // Loads files corresponding to path segments, returning the combined config data and task items.
 export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]> => {
-  // Each route segment should name a data file. Or if there aren't any, default to `index`.
+  // Each route segment should name a data file.
   const pathSegments = path.split('/').filter(Boolean);
-  if (!pathSegments.length) {
-    pathSegments.push(DEFAULT_PATH);
-  }
 
   // For any non-namespaced segments, look for corresponding namespaced indexes.
   let index = 0;
@@ -81,6 +30,11 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
 
   // Return a list of unique file names to load, based on the path segments.
   const files = [...new Set(pathSegments.flatMap((segment) => parsePathSegment(segment, tokens)))];
+
+  // If there aren't any valid path segments, default to `index.k`.
+  if (!files.length) {
+    files.push(`${DEFAULT_PATH}.${FILE_EXTENSION}`);
+  }
 
   // Load each file, ignoring any that fail to load, and expand any remote references within them.
   const itemGroups = await Promise.all(
