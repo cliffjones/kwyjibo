@@ -137,6 +137,8 @@ describe('Header', () => {
       </MemoryRouter>,
     );
 
+    fireEvent.click(screen.getByRole('button', { name: 'Choose your language' }));
+
     const languageSelector = screen.getByRole('combobox', { name: 'Choose your language' });
     expect(languageSelector).toHaveValue('es');
     expect(screen.getByRole('option', { name: 'Español' })).toHaveValue('es');
@@ -146,7 +148,8 @@ describe('Header', () => {
 
     expect(screen.getByTestId('current-path')).toHaveTextContent('/fr');
 
-    fireEvent.change(languageSelector, { target: { value: 'en' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Choose your language' }));
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose your language' }), { target: { value: 'en' } });
 
     expect(screen.getByTestId('current-path')).toHaveTextContent('/');
   });
