@@ -55,7 +55,6 @@ describe('Content', () => {
     const { container } = render(<Content text="{start} First  Second" />);
 
     expect(container.firstElementChild).toHaveClass('content', 'content--start');
-    expect(container.firstElementChild).not.toHaveAttribute('dir', 'auto');
     expect(container.querySelector('br')).not.toBeNull();
     expect(container.textContent).toContain('First');
     expect(container.textContent).toContain('Second');

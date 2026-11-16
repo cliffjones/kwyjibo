@@ -12,6 +12,6 @@ export const InputBox = ({
 }) => (
   <label className="input-box-label">
     {label}
-    <textarea className={getClassString('input-box', variant)} dir="auto" {...props} />
+    <textarea className={getClassString('input-box', variant)} {...props} />
   </label>
 );
