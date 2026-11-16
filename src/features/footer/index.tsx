@@ -9,7 +9,7 @@ import './style.scss';
 export const Footer = () => {
   const configData = useSelector((state: RootState) => state.kwyjibo.configData);
 
-  const footerContent = (configData.byline || LANG.byline).replace(PLACEHOLDER_PATTERN, '[Cliff Jones Jr.](/)');
+  const footerContent = (configData.byline || LANG.byline).replace(PLACEHOLDER_PATTERN, '[Cliff Jones Jr.‎](/)');
 
   return (
     <footer className="footer">

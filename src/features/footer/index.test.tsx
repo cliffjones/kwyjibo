@@ -14,6 +14,6 @@ describe('Footer', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('link', { name: 'Cliff Jones Jr.' })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'Cliff Jones Jr.‎' })).toHaveAttribute('href', '/');
   });
 });
