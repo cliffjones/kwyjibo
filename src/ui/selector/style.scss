@@ -4,11 +4,16 @@
 
 .selector {
   background: color.$input;
-  border: size.$border solid color.$pencil;
+  border: 0;
   border-radius: size.$input-corner;
   color: color.$ink;
   cursor: pointer;
   font: inherit;
   min-height: size.$text;
+  outline: size.$border solid color.$pencil;
   padding: 0 space.$tiny;
+
+  &:focus {
+    outline-width: size.$focus;
+  }
 }

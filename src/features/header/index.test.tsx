@@ -143,6 +143,8 @@ describe('Header', () => {
     expect(languageSelector).toHaveValue('es');
     expect(screen.getByRole('option', { name: 'Español' })).toHaveValue('es');
     expect(screen.getByRole('option', { name: 'Français' })).toHaveValue('fr');
+    expect(screen.getByRole('option', { name: 'Norsk bokmål' })).toHaveValue('nb');
+    expect(screen.getByRole('option', { name: 'لہندا' })).toHaveValue('lah');
 
     fireEvent.change(languageSelector, { target: { value: 'fr' } });
 

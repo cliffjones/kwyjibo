@@ -17,6 +17,10 @@
   line-height: 1;
   padding: space.$small space.$mid;
 
+  &:focus {
+    outline: size.$focus solid color.$pencil;
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;

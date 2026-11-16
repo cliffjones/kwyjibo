@@ -1,3 +1,4 @@
+@use '../../style/color';
 @use '../../style/size';
 
 .link {
@@ -5,6 +6,11 @@
   font-weight: bold;
   position: relative;
   text-decoration: none;
+
+  &:focus {
+    border-radius: size.$input-corner;
+    outline: size.$focus solid color.$pencil;
+  }
 
   .icon {
     display: inline-block;

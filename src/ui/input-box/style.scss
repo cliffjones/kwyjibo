@@ -4,14 +4,19 @@
 
 .input-box {
   background: color.$input;
-  border: size.$border solid color.$pencil;
   border-radius: size.$input-corner;
+  border: 0;
   color: color.$ink;
   font: inherit;
   min-height: 10rem;
+  outline: size.$border solid color.$pencil;
   padding: space.$small;
   resize: vertical;
   width: 100%;
+
+  &:focus {
+    outline-width: size.$focus;
+  }
 }
 
 .input-box-label {
