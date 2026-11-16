@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { ALTERNATION_PATTERN, LANG, PLACEHOLDER_PATTERN } from '../../constants';
+import { ALTERNATION_PATTERN, DEFAULT_LANG, LANG, PLACEHOLDER_PATTERN } from '../../constants';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
@@ -56,7 +56,7 @@ export const Header = ({
   const configData = useSelector((state: RootState) => state.kwyjibo.configData);
   const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
-  const currentLanguage = configData.language || 'en';
+  const currentLanguage = configData.language || DEFAULT_LANG;
   const languages = LANGUAGES.some(({ code }) => code === currentLanguage)
     ? LANGUAGES
     : [{ code: currentLanguage, name: currentLanguage }, ...LANGUAGES];
@@ -113,7 +113,9 @@ export const Header = ({
       <div className="header-toolbar header-toolbar--right">
         <Selector
           title="Choose your language"
-          onChange={({ currentTarget }) => navigate(currentTarget.value === 'en' ? '/' : `/${currentTarget.value}`)}
+          onChange={({ currentTarget }) =>
+            navigate(currentTarget.value === DEFAULT_LANG ? '/' : `/${currentTarget.value}`)
+          }
           value={currentLanguage}
         >
           {languages.map(({ code, name }) => (

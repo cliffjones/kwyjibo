@@ -1,3 +1,5 @@
+export const DEFAULT_LANG = 'en';
+
 export const PLACEHOLDER_PATTERN = '{}';
 export const ALTERNATION_PATTERN = /\{([^|}]+)\|([^}]+)\}/;
 

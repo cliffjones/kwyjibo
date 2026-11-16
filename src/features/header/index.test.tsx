@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { MemoryRouter, useLocation } from 'react-router';
 import { Provider } from 'react-redux';
+import { MemoryRouter, useLocation } from 'react-router';
 import type { TaskItem } from '../../processing/types';
 import { createAppStore, startDeck } from '../../store';
 import { getStorageKey } from '../../store/get-storage-key';
