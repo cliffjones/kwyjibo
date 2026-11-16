@@ -1,9 +1,12 @@
 @use '../../style/color';
+@use '../../style/size';
 @use '../../style/space';
 
 .input-box {
-  color: color.$ink;
   background: color.$input;
+  border: size.$border solid color.$pencil;
+  border-radius: size.$input-corner;
+  color: color.$ink;
   font: inherit;
   min-height: 10rem;
   padding: space.$small;

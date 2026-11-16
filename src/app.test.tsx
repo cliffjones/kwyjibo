@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
 import { App } from './app';
 import { LANG } from './constants';
 import { loadItems } from './processing/load-items';
@@ -30,6 +31,15 @@ vi.mock('./processing/load-items', () => ({
 
 const mockedLoadItems = vi.mocked(loadItems);
 
+const renderApp = (path: string, store: ReturnType<typeof createAppStore>) =>
+  render(
+    <MemoryRouter basename="/k" initialEntries={[`/k${path}`]}>
+      <Provider store={store}>
+        <App path={path} />
+      </Provider>
+    </MemoryRouter>,
+  );
+
 describe('App', () => {
   beforeEach(() => {
     window.localStorage.clear();
@@ -40,11 +50,7 @@ describe('App', () => {
     const store = createAppStore('/test');
     store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.'));
 
-    render(
-      <Provider store={store}>
-        <App path="/test" />
-      </Provider>,
-    );
+    renderApp('/test', store);
 
     fireEvent.click(screen.getByRole('button', { name: 'Start' }));
     expect(screen.getByText(/Question (one|two)\?/)).toBeInTheDocument();
@@ -71,11 +77,7 @@ describe('App', () => {
     store.dispatch(startDeck());
     store.dispatch(rateItem(5));
 
-    render(
-      <Provider store={store}>
-        <App path="/test" />
-      </Provider>,
-    );
+    renderApp('/test', store);
 
     fireEvent.click(screen.getByTitle('Reset'));
     expect(screen.getByText('Really reset the cards?')).toBeInTheDocument();
@@ -91,11 +93,7 @@ describe('App', () => {
     store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.'));
     store.dispatch(startDeck());
 
-    render(
-      <Provider store={store}>
-        <App path="/test" />
-      </Provider>,
-    );
+    renderApp('/test', store);
 
     fireEvent.click(screen.getByTitle('Reset'));
     expect(screen.getByText('Really reset the cards?')).toBeInTheDocument();
@@ -110,11 +108,7 @@ describe('App', () => {
     store.dispatch(setCustomData('# Test\n\nQuestion one?\nAnswer one.\n\nQuestion two?\nAnswer two.'));
     store.dispatch(startDeck());
 
-    render(
-      <Provider store={store}>
-        <App path="/test" />
-      </Provider>,
-    );
+    renderApp('/test', store);
 
     fireEvent.click(screen.getByRole('button', { name: 'Reveal' }));
     fireEvent.click(screen.getByTitle('Yes!'));
@@ -137,11 +131,7 @@ describe('App', () => {
     });
     store.dispatch(setCustomData('# Test\n\nQuestion?\nAnswer.'));
 
-    render(
-      <Provider store={store}>
-        <App path="/custom-messages" />
-      </Provider>,
-    );
+    renderApp('/custom-messages', store);
 
     fireEvent.click(screen.getByRole('button', { name: 'Start' }));
     fireEvent.click(screen.getByTitle('Restart quiz'));

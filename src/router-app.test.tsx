@@ -6,6 +6,7 @@ import { RouterApp } from './router-app';
 
 vi.mock('react-router', () => ({
   useLocation: vi.fn(),
+  useNavigate: vi.fn(() => vi.fn()),
 }));
 
 vi.mock('./processing/load-items', () => ({

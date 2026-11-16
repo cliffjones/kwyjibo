@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { ALTERNATION_PATTERN, LANG, PLACEHOLDER_PATTERN } from '../../constants';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
@@ -7,8 +8,35 @@ import { Icon } from '../../ui/icon';
 import { faceNumberToName } from '../../ui/icon/face-number-to-name';
 import { IconName } from '../../ui/icon/types';
 import { Link } from '../../ui/link';
+import { Selector } from '../../ui/selector';
 import { ratingToPercent } from '../rating/rating-to-percent';
 import './style.scss';
+
+const LANGUAGES = [
+  { code: 'arb', name: 'العربية الفصحى' },
+  { code: 'arz', name: 'العربية المصرية' },
+  { code: 'bn', name: 'বাংলা' },
+  { code: 'de', name: 'Deutsch' },
+  { code: 'en', name: 'English' },
+  { code: 'eo', name: 'Esperanto' },
+  { code: 'es', name: 'Español' },
+  { code: 'fa', name: 'فارسی' },
+  { code: 'fr', name: 'Français' },
+  { code: 'hi', name: 'हिन्दी' },
+  { code: 'id', name: 'Bahasa Indonesia' },
+  { code: 'it', name: 'Italiano' },
+  { code: 'ja', name: '日本語' },
+  { code: 'ko', name: '한국어' },
+  { code: 'nl', name: 'Nederlands' },
+  { code: 'pcm', name: 'Naijá' },
+  { code: 'pl', name: 'Polski' },
+  { code: 'pt', name: 'Português' },
+  { code: 'ru', name: 'Русский' },
+  { code: 'sk', name: 'Slovenčina' },
+  { code: 'tr', name: 'Türkçe' },
+  { code: 'ur', name: 'اردو' },
+  { code: 'zh', name: '中文' },
+];
 
 export const Header = ({
   confirmReset,
@@ -22,11 +50,16 @@ export const Header = ({
   ratingAnimationKey?: number;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
   const lightMode = useSelector((state: RootState) => state.kwyjibo.lightMode);
   const configData = useSelector((state: RootState) => state.kwyjibo.configData);
   const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
+  const currentLanguage = configData.language || 'en';
+  const languages = LANGUAGES.some(({ code }) => code === currentLanguage)
+    ? LANGUAGES
+    : [{ code: currentLanguage, name: currentLanguage }, ...LANGUAGES];
 
   const isActive = !initializing && remainingIds.length > 0;
 
@@ -78,6 +111,18 @@ export const Header = ({
       ) : null}
 
       <div className="header-toolbar header-toolbar--right">
+        <Selector
+          title="Choose your language"
+          onChange={({ currentTarget }) => navigate(currentTarget.value === 'en' ? '/' : `/${currentTarget.value}`)}
+          value={currentLanguage}
+        >
+          {languages.map(({ code, name }) => (
+            <option key={code} value={code}>
+              {name}
+            </option>
+          ))}
+        </Selector>
+
         <Button
           variant="text"
           onClick={() => dispatch(setLightMode(!lightMode))}

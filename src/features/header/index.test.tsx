@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { MemoryRouter, useLocation } from 'react-router';
 import { Provider } from 'react-redux';
 import type { TaskItem } from '../../processing/types';
 import { createAppStore, startDeck } from '../../store';
@@ -8,6 +9,11 @@ import { Header } from './index';
 const items: TaskItem[] = [
   { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question?', solution: 'Answer.', responses: [], rating: 0 },
 ];
+
+const CurrentPath = () => {
+  const { pathname } = useLocation();
+  return <output data-testid="current-path">{pathname}</output>;
+};
 
 describe('Header', () => {
   beforeEach(() => {
@@ -21,9 +27,11 @@ describe('Header', () => {
     const confirmReset = vi.fn();
 
     render(
-      <Provider store={store}>
-        <Header confirmReset={confirmReset} confirmingReset={false} />
-      </Provider>,
+      <MemoryRouter basename="/k" initialEntries={['/k/test']}>
+        <Provider store={store}>
+          <Header confirmReset={confirmReset} confirmingReset={false} />
+        </Provider>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText('1 card loaded.')).toBeInTheDocument();
@@ -34,18 +42,22 @@ describe('Header', () => {
   it('updates the document title from the configured title and resets it when absent', () => {
     const store = createAppStore('/title', { title: 'Science' });
     const { rerender } = render(
-      <Provider store={store}>
-        <Header confirmReset={vi.fn()} confirmingReset={false} />
-      </Provider>,
+      <MemoryRouter basename="/k" initialEntries={['/k/title']}>
+        <Provider store={store}>
+          <Header confirmReset={vi.fn()} confirmingReset={false} />
+        </Provider>
+      </MemoryRouter>,
     );
 
     expect(document.title).toBe('Kwyjibo: Science');
 
     const storeWithoutTitle = createAppStore('/title-without-config');
     rerender(
-      <Provider store={storeWithoutTitle}>
-        <Header confirmReset={vi.fn()} confirmingReset={false} />
-      </Provider>,
+      <MemoryRouter basename="/k" initialEntries={['/k/title-without-config']}>
+        <Provider store={storeWithoutTitle}>
+          <Header confirmReset={vi.fn()} confirmingReset={false} />
+        </Provider>
+      </MemoryRouter>,
     );
 
     expect(document.title).toBe('Kwyjibo');
@@ -55,9 +67,11 @@ describe('Header', () => {
     const store = createAppStore('/test');
 
     const { unmount } = render(
-      <Provider store={store}>
-        <Header confirmReset={vi.fn()} confirmingReset={false} />
-      </Provider>,
+      <MemoryRouter basename="/k" initialEntries={['/k/test']}>
+        <Provider store={store}>
+          <Header confirmReset={vi.fn()} confirmingReset={false} />
+        </Provider>
+      </MemoryRouter>,
     );
 
     fireEvent.click(screen.getByTitle('Switch to light mode'));
@@ -71,9 +85,11 @@ describe('Header', () => {
 
     unmount();
     render(
-      <Provider store={restoredStore}>
-        <Header confirmReset={vi.fn()} confirmingReset={false} />
-      </Provider>,
+      <MemoryRouter basename="/k" initialEntries={['/k/test']}>
+        <Provider store={restoredStore}>
+          <Header confirmReset={vi.fn()} confirmingReset={false} />
+        </Provider>
+      </MemoryRouter>,
     );
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
 
@@ -96,14 +112,42 @@ describe('Header', () => {
     store.dispatch(startDeck());
 
     render(
-      <Provider store={store}>
-        <Header confirmReset={vi.fn()} confirmingReset={false} lastRating={5} />
-      </Provider>,
+      <MemoryRouter basename="/k" initialEntries={['/k/custom-header']}>
+        <Provider store={store}>
+          <Header confirmReset={vi.fn()} confirmingReset={false} lastRating={5} />
+        </Provider>
+      </MemoryRouter>,
     );
 
     expect(screen.getByRole('link', { name: 'Kwyjibo' })).toHaveAttribute('title', 'Return home');
     expect(screen.getByTitle('Use Light theme')).toBeInTheDocument();
     expect(screen.getByTitle('Custom rating: 100%')).toBeInTheDocument();
     expect(screen.getByTitle('Restart deck')).toBeInTheDocument();
+  });
+
+  it('shows native language names, keeps language codes as values, and navigates to the selected language', () => {
+    const store = createAppStore('/es', { language: 'es' }, items);
+
+    render(
+      <MemoryRouter basename="/k" initialEntries={['/k/es']}>
+        <Provider store={store}>
+          <Header confirmReset={vi.fn()} confirmingReset={false} />
+          <CurrentPath />
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    const languageSelector = screen.getByRole('combobox', { name: 'Choose your language' });
+    expect(languageSelector).toHaveValue('es');
+    expect(screen.getByRole('option', { name: 'Español' })).toHaveValue('es');
+    expect(screen.getByRole('option', { name: 'Français' })).toHaveValue('fr');
+
+    fireEvent.change(languageSelector, { target: { value: 'fr' } });
+
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/fr');
+
+    fireEvent.change(languageSelector, { target: { value: 'en' } });
+
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/');
   });
 });
