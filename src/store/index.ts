@@ -7,8 +7,8 @@ import { sortItems } from '../processing/sort-items';
 import type { ConfigData, TaskData, TaskItem } from '../processing/types';
 import { createInitialState } from './create-initial-state';
 import { loadPersistedState } from './load-persisted-state';
-import { persistState } from './persist-state';
 import { loadTokens } from './load-tokens';
+import { persistState } from './persist-state';
 import type { AppState } from './types';
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
@@ -22,7 +22,7 @@ export const startDeck = createAction<
     }
   | undefined
 >('kwyjibo/startDeck');
-export const rateItem = createAction<number>('kwyjibo/rateItem');
+export const respond = createAction<{ rating: number; response?: string }>('kwyjibo/respond');
 export const reset = createAsyncThunk('kwyjibo/reset', async (path: string) => ({
   items: await loadItems(path, loadTokens()),
   path,
@@ -32,17 +32,28 @@ export const reset = createAsyncThunk('kwyjibo/reset', async (path: string) => (
 const createAppReducer = (initialState: AppState) => {
   return createReducer(initialState, (builder) => {
     builder
-      .addCase(rateItem, (state, action) => {
+      .addCase(respond, (state, action) => {
         if (state.currentId == null) {
           return;
         }
 
         const currentId = state.currentId;
         const currentIndex = state.remainingIds.indexOf(currentId);
-        const rating = action.payload;
+        const { rating, response } = action.payload;
+        const currentItem = state.items.find(({ id }) => id === currentId);
+
+        if (currentItem) {
+          state.history.push({
+            time: getTime(),
+            type: currentItem.type,
+            topic: currentItem.topic,
+            task: currentItem.task,
+            ...(response === undefined ? {} : { response }),
+            rating,
+          });
+        }
 
         if (currentIndex !== -1) {
-          const currentItem = state.items.find(({ id }) => id === currentId);
           if (currentItem) {
             if (rating > 4) {
               // Remove the current task from rotation if the user reports mastery.
@@ -121,6 +132,7 @@ const createAppReducer = (initialState: AppState) => {
           0,
           resolvedCustomDataForStart,
           parsedCustomData,
+          state.history,
         );
 
         return nextState;
@@ -139,6 +151,8 @@ const createAppReducer = (initialState: AppState) => {
           0,
           0,
           state.resolvedCustomData,
+          undefined,
+          state.history,
         );
 
         // Keep the user's topic choices when rebuilding the loaded cards.

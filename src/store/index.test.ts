@@ -1,5 +1,6 @@
 import * as dataModule from '../processing/load-items';
-import { createAppStore, rateItem, setCustomData, setLightMode, startDeck } from './index';
+import { getStorageKey } from './get-storage-key';
+import { createAppStore, respond, setCustomData, setLightMode, startDeck } from './index';
 
 describe('app store', () => {
   beforeEach(() => {
@@ -80,12 +81,53 @@ describe('app store', () => {
     );
     store.dispatch(startDeck());
 
-    store.dispatch(rateItem(5));
+    store.dispatch(respond({ rating: 5 }));
     expect(store.getState().kwyjibo.currentId).toBe(1);
 
-    store.dispatch(rateItem(5));
+    store.dispatch(respond({ rating: 5 }));
     expect(store.getState().kwyjibo.currentId).toBe(2);
     expect(store.getState().kwyjibo.remainingIds).toEqual([2]);
+  });
+
+  it('records each rating and persists quiz responses in history', () => {
+    vi.useFakeTimers();
+
+    try {
+      vi.setSystemTime(new Date('2024-01-01T00:00:00Z'));
+      const store = createAppStore('/history');
+      store.dispatch(setCustomData('# Science\n\nWhich answer?\nCorrect\nIncorrect'));
+      store.dispatch(startDeck());
+
+      store.dispatch(respond({ rating: 1, response: 'Incorrect' }));
+
+      const history = store.getState().kwyjibo.history;
+      expect(history).toEqual([
+        {
+          time: Date.now(),
+          type: 'quiz',
+          topic: 'Science',
+          task: 'Which answer?',
+          response: 'Incorrect',
+          rating: 1,
+        },
+      ]);
+      expect(JSON.parse(window.localStorage.getItem(getStorageKey('/history')) ?? 'null').history).toEqual(history);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('preserves history when starting another deck', () => {
+    const store = createAppStore('/history');
+    store.dispatch(setCustomData('# Science\n\nQuestion?\nAnswer.'));
+    store.dispatch(startDeck());
+    store.dispatch(respond({ rating: 3 }));
+
+    const history = store.getState().kwyjibo.history;
+    store.dispatch(startDeck());
+
+    expect(store.getState().kwyjibo.history).toEqual(history);
+    expect(store.getState().kwyjibo.history[0]).not.toHaveProperty('response');
   });
 
   it('reloads remote data when persisted state has no active deck', async () => {

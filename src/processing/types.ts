@@ -1,3 +1,8 @@
+export type PathSegmentFiles = { segment: string; files: string[] };
+export type PrivateFile = { segment: string; name: string; content: string };
+export type PrivateFilesResponse = { segments: string[]; files: PrivateFile[] };
+export type PrivateFiles = { segments: Set<string>; files: Map<string, string> };
+
 export type ConfigData = {
   language?: string;
   languageMessage?: string;
@@ -66,7 +71,11 @@ export type TaskItem = {
   rating: number;
 };
 
-export type PathSegmentFiles = { segment: string; files: string[] };
-export type PrivateFile = { segment: string; name: string; content: string };
-export type PrivateFilesResponse = { segments: string[]; files: PrivateFile[] };
-export type PrivateFiles = { segments: Set<string>; files: Map<string, string> };
+export type HistoryItem = {
+  time: number;
+  type: string;
+  topic: string;
+  task: string;
+  response?: string;
+  rating: number;
+};

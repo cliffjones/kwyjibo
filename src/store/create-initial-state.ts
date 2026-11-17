@@ -2,7 +2,7 @@ import { createTaskItem } from '../processing/create-task-item';
 import { getTime } from '../processing/get-time';
 import { parseFileData } from '../processing/parse-file-data';
 import { sortItems } from '../processing/sort-items';
-import type { ConfigData, TaskData, TaskItem } from '../processing/types';
+import type { ConfigData, HistoryItem, TaskData, TaskItem } from '../processing/types';
 import type { AppState } from './types';
 
 // Creates the initial app state, optionally using a set of loaded items and custom data.
@@ -18,6 +18,7 @@ export const createInitialState = (
   ratingCount = 0,
   resolvedCustomData?: string,
   parsedCustomData?: [ConfigData, ...TaskData[]],
+  history: HistoryItem[] = [],
 ): AppState => {
   const items: TaskItem[] = sortItems(loadedItems).map((item, index) => ({ ...item, id: index }));
   let customConfigData: ConfigData = {};
@@ -53,5 +54,6 @@ export const createInitialState = (
     selectedTopics: [...new Set(items.map(({ topic, task }) => topic || task))],
     remainingIds: ids,
     currentId: ids.length ? ids[0] : null,
+    history,
   };
 };

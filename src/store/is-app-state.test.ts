@@ -25,6 +25,7 @@ describe('isAppState', () => {
     selectedTopics: ['Science'],
     remainingIds: [1],
     currentId: 1,
+    history: [],
   });
 
   it('accepts a valid persisted app state', () => {
@@ -38,5 +39,6 @@ describe('isAppState', () => {
     expect(isAppState({ ...state, remainingIds: [2] })).toBe(false);
     expect(isAppState({ ...state, currentId: null, remainingIds: [] })).toBe(true);
     expect(isAppState({ ...state, currentId: 2 })).toBe(false);
+    expect(isAppState({ ...state, history: [{ ...state.history[0], response: 7 }] })).toBe(false);
   });
 });

@@ -1,4 +1,5 @@
 import { isConfigData } from '../processing/is-config-data';
+import { isHistoryItem } from '../processing/is-history-item';
 import { isPlainObject } from '../processing/is-plain-object';
 import { isTaskItem } from '../processing/is-task-item';
 import type { AppState } from './types';
@@ -18,6 +19,10 @@ export const isAppState = (value: unknown): value is AppState => {
   }
 
   if (!Array.isArray(state.items) || !state.items.every(isTaskItem)) {
+    return false;
+  }
+
+  if (!Array.isArray(state.history) || !state.history.every(isHistoryItem)) {
     return false;
   }
 

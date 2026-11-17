@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router';
 import { App } from './app';
 import { LANG } from './constants';
 import { loadItems } from './processing/load-items';
-import { createAppStore, rateItem, setCustomData, setLightMode, startDeck } from './store';
+import { createAppStore, respond, setCustomData, setLightMode, startDeck } from './store';
 
 vi.mock('./processing/load-items', () => ({
   loadItems: vi.fn(),
@@ -75,7 +75,7 @@ describe('App', () => {
     store.dispatch(setCustomData(LANG.customDataPlaceholder));
     store.dispatch(setLightMode(false));
     store.dispatch(startDeck());
-    store.dispatch(rateItem(5));
+    store.dispatch(respond({ rating: 5 }));
 
     renderApp('/test', store);
 
@@ -86,6 +86,25 @@ describe('App', () => {
     expect(await screen.findByText('What do you want to work on today?')).toBeInTheDocument();
     expect(mockedLoadItems).toHaveBeenCalledWith('/test', []);
     expect(store.getState().kwyjibo.lightMode).toBe(false);
+    expect(store.getState().kwyjibo.history).toHaveLength(1);
+  });
+
+  it('records the selected quiz response in rating history', () => {
+    const store = createAppStore('/quiz');
+    store.dispatch(setCustomData('# Science\n\nWhich answer?\nCorrect\nIncorrect'));
+
+    renderApp('/quiz', store);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Start' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Incorrect' }));
+
+    expect(store.getState().kwyjibo.history[0]).toMatchObject({
+      type: 'quiz',
+      topic: 'Science',
+      task: 'Which answer?',
+      response: 'Incorrect',
+      rating: 1,
+    });
   });
 
   it('cancels the reset confirmation without reloading the deck', () => {

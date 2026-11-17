@@ -1,4 +1,4 @@
-import type { ConfigData, TaskItem } from '../processing/types';
+import type { ConfigData, HistoryItem, TaskItem } from '../processing/types';
 
 export type AppState = {
   sourcePath: string;
@@ -14,4 +14,5 @@ export type AppState = {
   selectedTopics: string[];
   remainingIds: number[];
   currentId: number | null;
+  history: HistoryItem[];
 };

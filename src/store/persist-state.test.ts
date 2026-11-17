@@ -45,6 +45,7 @@ describe('persistState', () => {
     selectedTopics: ['Science'],
     remainingIds: [1],
     currentId: 1,
+    history: [],
   });
 
   beforeEach(() => {

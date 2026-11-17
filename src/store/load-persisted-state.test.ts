@@ -43,6 +43,7 @@ const createState = () => ({
   selectedTopics: ['Science'],
   remainingIds: [1],
   currentId: 1,
+  history: [],
 });
 
 describe('loadPersistedState', () => {
@@ -59,6 +60,13 @@ describe('loadPersistedState', () => {
     window.localStorage.setItem(getStorageKey('/science'), JSON.stringify(state));
 
     expect(loadPersistedState('/science')).toEqual(state);
+  });
+
+  it('initializes history when loading a state saved before history was added', () => {
+    const { history: _history, ...legacyState } = createState();
+    window.localStorage.setItem(getStorageKey('/science'), JSON.stringify(legacyState));
+
+    expect(loadPersistedState('/science')).toEqual({ ...legacyState, history: [] });
   });
 
   it('ignores invalid payloads', () => {

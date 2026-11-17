@@ -9,7 +9,7 @@ import { Setup } from './features/setup';
 import { getResults } from './get-results';
 import { getTime } from './processing/get-time';
 import { sortResponses } from './processing/sort-responses';
-import { rateItem, reset, setCustomData, type AppDispatch, type RootState } from './store';
+import { reset, respond, setCustomData, type AppDispatch, type RootState } from './store';
 import './style/index.scss';
 import { Button } from './ui/button';
 import { ButtonSet } from './ui/button/button-set';
@@ -39,12 +39,12 @@ export const App = ({ path }: { path: string }) => {
     setRevealed(true);
   };
 
-  const handleRating = (rating: number) => {
+  const handleRating = (rating: number, response?: string) => {
     setRevealed(false);
     setLastRating(rating);
     setRatingAnimationKey((value) => value + 1);
     setEndTime(getTime());
-    dispatch(rateItem(rating));
+    dispatch(respond({ rating, response }));
   };
 
   const confirmReset = () => {
@@ -100,7 +100,7 @@ export const App = ({ path }: { path: string }) => {
             {currentItem.type === 'quiz' && sortedResponses.length ? (
               <ButtonSet variant="responses">
                 {sortedResponses.map((response, index) => (
-                  <Button key={index} onClick={() => handleRating(response.value)}>
+                  <Button key={index} onClick={() => handleRating(response.value, response.text)}>
                     {response.text}
                   </Button>
                 ))}
