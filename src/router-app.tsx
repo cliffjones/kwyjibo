@@ -1,23 +1,52 @@
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { App } from './app';
 import { DEFAULT_LANG, LANG, PLACEHOLDER_PATTERN, RTL_LANGS } from './constants';
 import { loadItems } from './processing/load-items';
 import { createAppStore, type AppStore } from './store';
+import { loadTokens } from './store/load-tokens';
+import { saveTokens } from './store/save-tokens';
 
-type RouteLoad = { path: string; store: AppStore } | { path: string; error: Error };
+type RouteLoad = { path: string; sourcePath: string; store: AppStore } | { path: string; error: Error };
 
 export const RouterApp = () => {
-  const { pathname: path } = useLocation();
+  const { pathname: path, search, hash } = useLocation();
+  const navigate = useNavigate();
   const [routeLoad, setRouteLoad] = useState<RouteLoad | null>(null);
 
   useEffect(() => {
     let canceled = false;
 
-    /** @todo: Split `path` into segments split by `/`, and if any segment begins with `=`, then remove it from `path` and add the value (minus the initial `=`) to the store and local storage under an optional root-level (not dependent on the URL) array of strings named `tokens`. */
+    const routeTokens: string[] = [];
+    const sourcePath =
+      path
+        .split('/')
+        .filter((segment) => {
+          if (!segment.startsWith('=')) {
+            return true;
+          }
 
-    void loadItems(path)
+          const token = segment.slice(1);
+          if (token) {
+            routeTokens.push(token);
+          }
+          return false;
+        })
+        .join('/') || '/';
+    const tokens = [...new Set([...loadTokens(), ...routeTokens])];
+    if (routeTokens.length) {
+      saveTokens(tokens);
+    }
+
+    if (path !== sourcePath) {
+      navigate({ pathname: sourcePath, search, hash }, { replace: true });
+      return () => {
+        canceled = true;
+      };
+    }
+
+    void loadItems(sourcePath, tokens)
       .then((data) => {
         // A route change makes this request stale, so don't replace the active route with this result.
         if (!canceled) {
@@ -25,11 +54,11 @@ export const RouterApp = () => {
           const language = configData.language || DEFAULT_LANG;
           document.documentElement.lang = language;
           document.documentElement.dir = RTL_LANGS.includes(language) ? 'rtl' : 'ltr';
-          setRouteLoad({ path: path, store: createAppStore(path, configData, items) });
+          setRouteLoad({ path, sourcePath, store: createAppStore(sourcePath, configData, items, tokens) });
         }
       })
       .catch((error: unknown) => {
-        const message = LANG.unableToLoadMessage.replace(PLACEHOLDER_PATTERN, `"${path}"`);
+        const message = LANG.unableToLoadMessage.replace(PLACEHOLDER_PATTERN, `"${sourcePath}"`);
         console.error(message, error);
         if (!canceled) {
           setRouteLoad({
@@ -42,7 +71,7 @@ export const RouterApp = () => {
     return () => {
       canceled = true;
     };
-  }, [path]);
+  }, [hash, navigate, path, search]);
 
   if (!routeLoad || routeLoad.path !== path) {
     return <div>{LANG.loadingMessage}</div>;
@@ -54,7 +83,7 @@ export const RouterApp = () => {
 
   return (
     <Provider store={routeLoad.store}>
-      <App path={path} />
+      <App path={routeLoad.sourcePath} />
     </Provider>
   );
 };

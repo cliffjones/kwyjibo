@@ -45,6 +45,13 @@ describe('app store', () => {
     expect(restoredMathStore.getState().kwyjibo.lightMode).toBe(false);
   });
 
+  it('initializes root-level tokens independently from the route state', () => {
+    const store = createAppStore('/science', {}, [], ['alpha', 'beta']);
+
+    expect(store.getState().tokens).toEqual(['alpha', 'beta']);
+    expect(store.getState().kwyjibo.sourcePath).toBe('/science');
+  });
+
   it('resets the deck timer when starting a new deck', () => {
     vi.useFakeTimers();
 
@@ -111,7 +118,7 @@ describe('app store', () => {
 
     await new Promise((resolve) => setTimeout(resolve, 0));
 
-    expect(loadItemsSpy).toHaveBeenCalledWith('/test');
+    expect(loadItemsSpy).toHaveBeenCalledWith('/test', []);
     expect(store.getState().kwyjibo.currentId).toBe(0);
   });
 });

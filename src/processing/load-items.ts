@@ -9,7 +9,7 @@ import { parsePathSegment } from './parse-path-segment';
 import type { ConfigData, TaskItem } from './types';
 
 // Loads files corresponding to path segments, returning the combined config data and task items.
-export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]> => {
+export const loadItems = async (path = '/', tokens: string[] = []): Promise<[ConfigData, ...TaskItem[]]> => {
   // Each route segment should name a data file.
   const pathSegments = path.split('/').filter(Boolean);
 
@@ -24,9 +24,6 @@ export const loadItems = async (path = '/'): Promise<[ConfigData, ...TaskItem[]]
     pathSegments.splice(index + 1, 0, `${segment}${K_DELIMS.namespace}${DEFAULT_PATH}`);
     index += 2;
   }
-
-  /** @todo: Get `tokens` from local storage. */
-  const tokens = ['test'];
 
   // Return a list of unique file names to load, based on the path segments.
   const files = [...new Set(pathSegments.flatMap((segment) => parsePathSegment(segment, tokens)))];

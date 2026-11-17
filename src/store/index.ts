@@ -8,6 +8,7 @@ import type { ConfigData, TaskData, TaskItem } from '../processing/types';
 import { createInitialState } from './create-initial-state';
 import { loadPersistedState } from './load-persisted-state';
 import { persistState } from './persist-state';
+import { loadTokens } from './load-tokens';
 import type { AppState } from './types';
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
@@ -23,7 +24,7 @@ export const startDeck = createAction<
 >('kwyjibo/startDeck');
 export const rateItem = createAction<number>('kwyjibo/rateItem');
 export const reset = createAsyncThunk('kwyjibo/reset', async (path: string) => ({
-  items: await loadItems(path),
+  items: await loadItems(path, loadTokens()),
   path,
 }));
 
@@ -148,13 +149,21 @@ const createAppReducer = (initialState: AppState) => {
 };
 
 // Creates a Redux store for the app, optionally using a set of loaded items and custom data.
-export const createAppStore = (sourcePath = '/', configData: ConfigData = {}, items: TaskItem[] = []) => {
+export const createAppStore = (
+  sourcePath = '/',
+  configData: ConfigData = {},
+  items: TaskItem[] = [],
+  tokens = loadTokens(),
+) => {
   const savedState = loadPersistedState(sourcePath);
   const restoredState = savedState?.sourcePath === sourcePath ? { ...savedState, sourcePath } : null;
   const initialState = restoredState ?? createInitialState(sourcePath, configData, items);
 
   const store = configureStore({
-    reducer: { kwyjibo: createAppReducer(initialState) },
+    reducer: {
+      kwyjibo: createAppReducer(initialState),
+      tokens: (state: string[] = tokens) => state,
+    },
   });
 
   // Unless the user has a session in progress, reset to avoid stale data.

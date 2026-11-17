@@ -1,5 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate, type NavigateOptions, type To } from 'react-router';
 import { loadItems } from './processing/load-items';
 import type { ConfigData, TaskItem } from './processing/types';
 import { RouterApp } from './router-app';
@@ -14,7 +14,9 @@ vi.mock('./processing/load-items', () => ({
 }));
 
 const mockedUseLocation = vi.mocked(useLocation);
+const mockedUseNavigate = vi.mocked(useNavigate);
 const mockedLoadItems = vi.mocked(loadItems);
+let mockedNavigate: ReturnType<typeof vi.fn<(to: To | number, options?: NavigateOptions) => void>>;
 
 const items: TaskItem[] = [
   {
@@ -34,6 +36,8 @@ describe('RouterApp', () => {
     document.documentElement.lang = 'en';
     document.documentElement.dir = 'ltr';
     mockedUseLocation.mockReturnValue({ pathname: '/science' } as ReturnType<typeof useLocation>);
+    mockedNavigate = vi.fn();
+    mockedUseNavigate.mockReturnValue((to: To | number, options?: NavigateOptions) => mockedNavigate(to, options));
   });
 
   afterEach(() => {
@@ -54,7 +58,36 @@ describe('RouterApp', () => {
     resolveItems([{} as ConfigData, ...items]);
     expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
     expect(screen.getByText('What do you want to work on today?')).toBeInTheDocument();
-    expect(mockedLoadItems).toHaveBeenCalledWith('/science');
+    expect(mockedLoadItems).toHaveBeenCalledWith('/science', []);
+  });
+
+  it('removes token segments from the route and persists non-empty tokens globally', async () => {
+    window.localStorage.setItem('kwyjibo', JSON.stringify({ tokens: ['saved'], preference: 'compact' }));
+    mockedUseLocation.mockReturnValue({
+      pathname: '/=alpha/dev/=/=beta/=alpha',
+      search: '?mode=quick',
+      hash: '#cards',
+    } as ReturnType<typeof useLocation>);
+    mockedLoadItems.mockResolvedValue([{}, ...items]);
+
+    const { rerender } = render(<RouterApp />);
+
+    expect(mockedNavigate).toHaveBeenCalledWith(
+      { pathname: '/dev', search: '?mode=quick', hash: '#cards' },
+      { replace: true },
+    );
+    expect(mockedLoadItems).not.toHaveBeenCalled();
+    expect(JSON.parse(window.localStorage.getItem('kwyjibo') ?? 'null')).toEqual({
+      tokens: ['saved', 'alpha', 'beta'],
+      preference: 'compact',
+    });
+
+    mockedUseLocation.mockReturnValue({ pathname: '/dev' } as ReturnType<typeof useLocation>);
+    rerender(<RouterApp />);
+
+    expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
+    expect(mockedLoadItems).toHaveBeenCalledWith('/dev', ['saved', 'alpha', 'beta']);
+    expect(JSON.parse(window.localStorage.getItem('kwyjibo:%2Fdev') ?? 'null').sourcePath).toBe('/dev');
   });
 
   it('sets the document language from the loaded deck config', async () => {
