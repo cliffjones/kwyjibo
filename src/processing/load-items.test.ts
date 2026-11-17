@@ -6,6 +6,7 @@ const createResponse = (body: string, status = 200, contentType = 'text/plain') 
     status,
     headers: new Headers({ 'content-type': contentType }),
     text: async () => body,
+    json: async () => JSON.parse(body),
   }) as Response;
 
 const originalFetch = globalThis.fetch;
@@ -66,6 +67,107 @@ describe('loadItems', () => {
     vi.stubGlobal('fetch', vi.fn<typeof fetch>().mockResolvedValue(createResponse(JSON.stringify(configData))));
 
     await expect(loadItems('/science')).resolves.toEqual([configData]);
+  });
+
+  it('loads hidden files when a token matches the route segment', async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockImplementation(async (input, init) => {
+      if (String(input) === '/private.php') {
+        expect(init?.method).toBe('POST');
+        expect(JSON.parse(String(init?.body))).toEqual({
+          segments: [{ segment: 'private', files: ['private.k', 'private.index.k'] }],
+          tokens: ['A'.repeat(43)],
+        });
+        return createResponse(
+          JSON.stringify({
+            segments: ['private'],
+            files: [{ segment: 'private', name: 'private.k', content: '{ title: "Private" }' }],
+          }),
+          200,
+          'application/json',
+        );
+      }
+
+      return createResponse('', 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(loadItems('/private', ['A'.repeat(43)])).resolves.toEqual([{ title: 'Private' }]);
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(['/private.php']);
+  });
+
+  it('loads normal files when no token matches the route segment', async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockImplementation(async (input) => {
+      if (String(input) === '/private.php') {
+        return createResponse(JSON.stringify({ segments: [], files: [] }), 200, 'application/json');
+      }
+      if (String(input) === '/data/private.k') {
+        return createResponse('{ title: "Public" }');
+      }
+      return createResponse('', 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(loadItems('/private', ['invalid-token'])).resolves.toEqual([{ title: 'Public' }]);
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
+      '/private.php',
+      '/data/private.k',
+      '/data/private.index.k',
+    ]);
+  });
+
+  it('uses private files only for segments matched by a token', async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockImplementation(async (input, init) => {
+      if (String(input) === '/private.php') {
+        expect(JSON.parse(String(init?.body))).toEqual({
+          segments: [
+            { segment: 'public', files: ['public.k', 'public.index.k'] },
+            { segment: 'private', files: ['private.k', 'private.index.k'] },
+          ],
+          tokens: ['A'.repeat(43)],
+        });
+        return createResponse(
+          JSON.stringify({
+            segments: ['private'],
+            files: [{ segment: 'private', name: 'private.k', content: '{ title: "Private" }' }],
+          }),
+          200,
+          'application/json',
+        );
+      }
+      if (String(input) === '/data/public.k') {
+        return createResponse('{ title: "Public" }');
+      }
+      return createResponse('', 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(loadItems('/public/private', ['A'.repeat(43)])).resolves.toEqual([{ title: 'Private' }]);
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
+      '/private.php',
+      '/data/public.k',
+      '/data/public.index.k',
+    ]);
+  });
+
+  it('loads normal files when private-file lookup is unavailable', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockImplementation(async (input) =>
+        String(input) === '/private.php' ? createResponse('', 503) : createResponse('', 404),
+      );
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(loadItems('/private', ['invalid-token'])).resolves.toEqual([{}]);
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
+      '/private.php',
+      '/data/private.k',
+      '/data/private.index.k',
+    ]);
+    expect(consoleError).toHaveBeenCalledWith(
+      'Unable to check private files; loading public files only.',
+      expect.any(Error),
+    );
   });
 
   it('ignores route segments without a matching deck file', async () => {

@@ -2,7 +2,7 @@ import { FILE_EXTENSION } from '../constants';
 import { K_DELIMS } from './constants';
 import { validatePathSegment } from './validate-path-segment';
 
-export const parsePathSegment = (segment: string, tokens: string[]) => {
+export const parsePathSegment = (segment: string) => {
   const segments: string[] = [];
 
   // For any segments containing a colon, treat the first part as a namespace.
@@ -27,9 +27,6 @@ export const parsePathSegment = (segment: string, tokens: string[]) => {
   } else {
     segments.push(`${stem}.${FILE_EXTENSION}`);
   }
-
-  // If the user has any stored tokens, check for matching private files.
-  /** @todo: Step through each value of `tokens` to see if it matches a SHA-256 hash of any value of `segments` plus the secret `salt` value (pulled from a file not stored in the repo). If a match is found, prepend a `.` onto that element of `segments`. */
 
   return segments;
 };

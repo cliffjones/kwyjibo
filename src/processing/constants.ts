@@ -1,4 +1,4 @@
-import type { LineConfigData } from './types';
+import type { LineConfigData, PrivateFiles } from './types';
 
 export const FORBIDDEN_JSON_KEYS = ['__proto__', 'constructor', 'prototype'];
 
@@ -11,3 +11,5 @@ export const K_DELIMS = {
   namespace: ':',
   topic: '#',
 };
+
+export const EMPTY_PRIVATE_FILES: PrivateFiles = { segments: new Set(), files: new Map() };

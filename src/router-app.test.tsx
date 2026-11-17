@@ -90,6 +90,21 @@ describe('RouterApp', () => {
     expect(JSON.parse(window.localStorage.getItem('kwyjibo:%2Fdev') ?? 'null').sourcePath).toBe('/dev');
   });
 
+  it('passes padded Base64URL tokens through from the browser path', async () => {
+    const token = 'u_qGpgzlqkxA1sZns1tPNRi8o6XI9ZFqu2PxwCZR60Y=';
+    mockedUseLocation.mockReturnValue({ pathname: `/=${token}/test-private` } as ReturnType<typeof useLocation>);
+    mockedLoadItems.mockResolvedValue([{}, ...items]);
+
+    const { rerender } = render(<RouterApp />);
+
+    expect(JSON.parse(window.localStorage.getItem('kwyjibo') ?? 'null').tokens).toEqual([token]);
+    mockedUseLocation.mockReturnValue({ pathname: '/test-private' } as ReturnType<typeof useLocation>);
+    rerender(<RouterApp />);
+
+    expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
+    expect(mockedLoadItems).toHaveBeenCalledWith('/test-private', [token]);
+  });
+
   it('sets the document language from the loaded deck config', async () => {
     mockedLoadItems.mockResolvedValue([{ language: 'fr' }, ...items]);
 

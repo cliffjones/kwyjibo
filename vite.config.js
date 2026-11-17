@@ -16,6 +16,7 @@ const apacheSpaFallback = {
         'RewriteEngine On',
         `RewriteBase ${base}`,
         'RewriteRule ^data/?$ index.html [L]',
+        'RewriteRule ^data/\\..* - [F,L]',
         'RewriteCond %{REQUEST_FILENAME} -f',
         'RewriteRule ^data/[^/]+\\.k$ - [L]',
         'RewriteRule ^data/ - [F,L]',

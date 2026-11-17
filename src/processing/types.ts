@@ -65,3 +65,8 @@ export type TaskItem = {
   responses: ResponseData[];
   rating: number;
 };
+
+export type PathSegmentFiles = { segment: string; files: string[] };
+export type PrivateFile = { segment: string; name: string; content: string };
+export type PrivateFilesResponse = { segments: string[]; files: PrivateFile[] };
+export type PrivateFiles = { segments: Set<string>; files: Map<string, string> };
