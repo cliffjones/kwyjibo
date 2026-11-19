@@ -1,13 +1,4 @@
-import {
-  Chart,
-  Legend,
-  LineController,
-  LineElement,
-  LinearScale,
-  PointElement,
-  Tooltip,
-  type ChartOptions,
-} from 'chart.js';
+import { Chart, Legend, LineController, LineElement, LinearScale, PointElement, Tooltip } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { LANG } from '../../constants';
@@ -16,8 +7,9 @@ import { DARK_MODE, LIGHT_MODE } from '../../style/constants';
 import { Card } from '../card';
 import { GRID_ALPHA, MAX_TIME_LABELS } from './constants';
 import { formatTime } from './format-time';
-import { getChartData } from './get-chart-data';
+import { getGraphData } from './get-graph-data';
 import './style.scss';
+import type { GraphOptions } from './types';
 
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -33,10 +25,9 @@ export const History = () => {
   const textColor = lightMode ? LIGHT_MODE.pencil : DARK_MODE.pencil;
   const lineColor = lightMode ? LIGHT_MODE.ink : DARK_MODE.ink;
 
-  const data = getChartData(history, lineColor);
+  const data = getGraphData(history, lineColor);
 
-  const options: ChartOptions<'line'> = {
-    locale: configData.language,
+  const options: GraphOptions = {
     animation: false,
     maintainAspectRatio: false,
     plugins: {
