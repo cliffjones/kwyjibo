@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from './constants';
 import { createTaskItem } from './create-task-item';
 
 describe('createTaskItem', () => {
@@ -5,7 +6,7 @@ describe('createTaskItem', () => {
     expect(createTaskItem({ task: 'Remember to hydrate.' }, 7)).toEqual({
       task: 'Remember to hydrate.',
       topic: '',
-      type: 'reminder',
+      type: ITEM_TYPES.reminder,
       solution: '',
       responses: [],
       id: 7,
@@ -17,7 +18,7 @@ describe('createTaskItem', () => {
     expect(createTaskItem({ task: 'What is DNA?', solution: 'A hereditary molecule.' }, 9)).toEqual({
       task: 'What is DNA?',
       topic: '',
-      type: 'question',
+      type: ITEM_TYPES.question,
       solution: 'A hereditary molecule.',
       responses: [],
       id: 9,

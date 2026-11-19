@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from '../processing/constants';
 import { getStorageKey } from './get-storage-key';
 import { loadPersistedState } from './load-persisted-state';
 
@@ -27,7 +28,7 @@ const createState = () => ({
   items: [
     {
       id: 1,
-      type: 'question',
+      type: ITEM_TYPES.question,
       topic: 'Science',
       task: 'What is a cell?',
       solution: 'A basic unit of life.',

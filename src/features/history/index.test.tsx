@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { ITEM_TYPES } from '../../processing/constants';
 import type { TaskItem } from '../../processing/types';
 import { createAppStore, respond, setLightMode } from '../../store';
 import { formatTime } from './format-time';
@@ -35,10 +36,13 @@ vi.mock('react-chartjs-2', () => ({
     const callbacks = options.plugins?.tooltip?.callbacks;
     const legendLabels = options.plugins?.legend?.labels;
     const title = callbacks?.title?.call({} as never, [{ parsed: { x: point?.x, y: point?.y } } as never]);
-    const label = callbacks?.label?.call({} as never, {
-      dataset: { label: dataset?.label },
-      parsed: { x: point?.x, y: point?.y },
-    } as never);
+    const label = callbacks?.label?.call(
+      {} as never,
+      {
+        dataset: { label: dataset?.label },
+        parsed: { x: point?.x, y: point?.y },
+      } as never,
+    );
     const legendItems = legendLabels?.generateLabels?.({} as never);
     const localTime = xTicks?.callback?.call({} as never, point?.x ?? 0, 0, [] as never);
 
@@ -56,7 +60,15 @@ vi.mock('react-chartjs-2', () => ({
 
 describe('History', () => {
   const items: TaskItem[] = [
-    { id: 0, type: 'question', topic: 'Science', task: 'Question?', solution: 'Answer.', responses: [], rating: 0 },
+    {
+      id: 0,
+      type: ITEM_TYPES.question,
+      topic: 'Science',
+      task: 'Question?',
+      solution: 'Answer.',
+      responses: [],
+      rating: 0,
+    },
   ];
 
   it('plots ratings and formats the chart labels and tooltips', () => {

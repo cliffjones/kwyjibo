@@ -7,6 +7,7 @@ import { Header } from './features/header';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
 import { getResults } from './get-results';
+import { ITEM_TYPES } from './processing/constants';
 import { getTime } from './processing/get-time';
 import { sortResponses } from './processing/sort-responses';
 import { reset, respond, setCustomData, type AppDispatch, type RootState } from './store';
@@ -109,7 +110,7 @@ export const App = ({ path }: { path: string }) => {
       ) : remainingIds.length && currentItem ? (
         <>
           <Card content={currentItem.task} topic={currentItem.topic} rating={currentItem.rating}>
-            {currentItem.type === 'quiz' && sortedResponses.length ? (
+            {currentItem.type === ITEM_TYPES.quiz && sortedResponses.length ? (
               <ButtonSet variant="responses">
                 {sortedResponses.map((response, index) => (
                   <Button key={index} onClick={() => handleRating(response.value, response.text)}>

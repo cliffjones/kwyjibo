@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from '../processing/constants';
 import { getStorageKey } from './get-storage-key';
 import { persistState } from './persist-state';
 
@@ -28,7 +29,7 @@ describe('persistState', () => {
     items: [
       {
         id: 1,
-        type: 'question',
+        type: ITEM_TYPES.question,
         topic: 'Science',
         task: 'What is a cell?',
         solution: 'A basic unit of life.',

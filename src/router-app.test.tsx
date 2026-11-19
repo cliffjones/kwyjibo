@@ -1,5 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { useLocation, useNavigate, type NavigateOptions, type To } from 'react-router';
+import { ITEM_TYPES } from './processing/constants';
 import { loadItems } from './processing/load-items';
 import type { ConfigData, TaskItem } from './processing/types';
 import { RouterApp } from './router-app';
@@ -21,7 +22,7 @@ let mockedNavigate: ReturnType<typeof vi.fn<(to: To | number, options?: Navigate
 const items: TaskItem[] = [
   {
     id: 0,
-    type: 'quiz',
+    type: ITEM_TYPES.quiz,
     topic: 'Science',
     task: 'What is a cell?',
     solution: 'A basic unit of life.',

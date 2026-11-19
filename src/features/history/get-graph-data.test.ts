@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from '../../processing/constants';
 import type { HistoryItem } from '../../processing/types';
 import { MAX_TIME_BUCKETS } from './constants';
 import { getGraphData } from './get-graph-data';
@@ -6,7 +7,7 @@ const createHistoryItem = (topic: string, time: number, rating: number): History
   topic,
   time,
   rating,
-  type: 'question',
+  type: ITEM_TYPES.question,
   task: `Question at ${time}`,
 });
 
@@ -51,9 +52,7 @@ describe('getGraphData', () => {
   });
 
   it('keeps each label within the configured maximum bucket count', () => {
-    const history = Array.from({ length: MAX_TIME_BUCKETS + 1 }, (_, time) =>
-      createHistoryItem('Biology', time, 5),
-    );
+    const history = Array.from({ length: MAX_TIME_BUCKETS + 1 }, (_, time) => createHistoryItem('Biology', time, 5));
 
     const data = getGraphData(history, '#4080c0');
     const points = data.datasets[0].data;

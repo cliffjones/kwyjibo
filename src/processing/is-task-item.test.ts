@@ -1,9 +1,10 @@
+import { ITEM_TYPES } from './constants';
 import { isTaskItem } from './is-task-item';
 
 describe('isTaskItem', () => {
   const createItem = (overrides: Partial<Record<string, unknown>> = {}) => ({
     id: 1,
-    type: 'question',
+    type: ITEM_TYPES.question,
     topic: 'Science',
     task: 'What is a cell?',
     solution: 'A basic unit of life.',
@@ -13,7 +14,7 @@ describe('isTaskItem', () => {
 
   it('accepts valid task items', () => {
     expect(isTaskItem(createItem())).toBe(true);
-    expect(isTaskItem(createItem({ type: 'reminder', solution: '' }))).toBe(true);
+    expect(isTaskItem(createItem({ type: ITEM_TYPES.reminder, solution: '' }))).toBe(true);
   });
 
   it('rejects invalid ids, solutions, and rating bounds', () => {

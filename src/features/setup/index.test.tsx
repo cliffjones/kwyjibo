@@ -1,15 +1,24 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { ITEM_TYPES } from '../../processing/constants';
 import type { TaskItem } from '../../processing/types';
 import { createAppStore, setCustomData } from '../../store';
 import { Setup } from './index';
 
 const items: TaskItem[] = [
-  { id: 0, type: 'quiz', topic: 'Zulu', task: 'Question Z?', solution: 'Answer Z.', responses: [], rating: 0 },
-  { id: 1, type: 'quiz', topic: 'Alpha', task: 'Question A?', solution: 'Answer A.', responses: [], rating: 0 },
+  { id: 0, type: ITEM_TYPES.quiz, topic: 'Zulu', task: 'Question Z?', solution: 'Answer Z.', responses: [], rating: 0 },
+  {
+    id: 1,
+    type: ITEM_TYPES.quiz,
+    topic: 'Alpha',
+    task: 'Question A?',
+    solution: 'Answer A.',
+    responses: [],
+    rating: 0,
+  },
   {
     id: 2,
-    type: 'quiz',
+    type: ITEM_TYPES.quiz,
     topic: 'Alpha',
     task: 'Another question A?',
     solution: 'Another answer A.',

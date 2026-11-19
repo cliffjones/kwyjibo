@@ -12,4 +12,11 @@ export const K_DELIMS = {
   topic: '#',
 };
 
+export const ITEM_TYPES = {
+  reminder: 'reminder',
+  question: 'question',
+  quiz: 'quiz',
+  input: 'input',
+};
+
 export const EMPTY_PRIVATE_FILES: PrivateFiles = { segments: new Set(), files: new Map() };

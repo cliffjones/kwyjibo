@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from './constants';
 import { isPlainObject } from './is-plain-object';
 import type { TaskItem } from './types';
 
@@ -22,7 +23,7 @@ export const isTaskItem = (value: unknown): value is TaskItem => {
     return false;
   }
 
-  if (value.type === 'question' && (!value.solution || typeof value.solution !== 'string')) {
+  if (value.type === ITEM_TYPES.question && (!value.solution || typeof value.solution !== 'string')) {
     return false;
   }
 

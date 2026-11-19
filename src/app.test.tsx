@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 import { App } from './app';
 import { LANG } from './constants';
+import { ITEM_TYPES } from './processing/constants';
 import { loadItems } from './processing/load-items';
 import { createAppStore, respond, setCustomData, setLightMode, startDeck } from './store';
 
@@ -103,7 +104,7 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Incorrect' }));
 
     expect(store.getState().kwyjibo.history[0]).toMatchObject({
-      type: 'quiz',
+      type: ITEM_TYPES.quiz,
       topic: 'Science',
       task: 'Which answer?',
       response: 'Incorrect',
@@ -113,7 +114,15 @@ describe('App', () => {
 
   it('renders History as a separate card under main when history entries exist', async () => {
     const items = [
-      { id: 0, type: 'question', topic: 'Science', task: 'Question?', solution: 'Answer.', responses: [], rating: 0 },
+      {
+        id: 0,
+        type: ITEM_TYPES.question,
+        topic: 'Science',
+        task: 'Question?',
+        solution: 'Answer.',
+        responses: [],
+        rating: 0,
+      },
     ];
     const store = createAppStore('/history', {}, items);
     renderApp('/history', store);

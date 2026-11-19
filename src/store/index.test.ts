@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from '../processing/constants';
 import * as dataModule from '../processing/load-items';
 import { getStorageKey } from './get-storage-key';
 import { createAppStore, respond, setCustomData, setLightMode, startDeck } from './index';
@@ -50,7 +51,7 @@ describe('app store', () => {
     const store = createAppStore('/science', {}, [
       {
         id: 0,
-        type: 'question',
+        type: ITEM_TYPES.question,
         topic: 'Science',
         task: 'Question?',
         solution: 'Answer.',
@@ -126,7 +127,7 @@ describe('app store', () => {
       expect(history).toEqual([
         {
           time: Date.now(),
-          type: 'quiz',
+          type: ITEM_TYPES.quiz,
           topic: 'Science',
           task: 'Which answer?',
           response: 'Incorrect',

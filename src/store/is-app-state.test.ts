@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from '../processing/constants';
 import { isAppState } from './is-app-state';
 import type { AppState } from './types';
 
@@ -8,7 +9,7 @@ describe('isAppState', () => {
     items: [
       {
         id: 1,
-        type: 'question',
+        type: ITEM_TYPES.question,
         topic: 'Science',
         task: 'What is a cell?',
         solution: 'A basic unit of life.',

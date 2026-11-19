@@ -1,9 +1,10 @@
+import { ITEM_TYPES } from './constants';
 import { sortItems } from './sort-items';
 
 describe('sortItems', () => {
   const createItem = (id: number, rating: number, task: string) => ({
     id,
-    type: 'question',
+    type: ITEM_TYPES.question,
     topic: 'Science',
     task,
     solution: 'Answer',

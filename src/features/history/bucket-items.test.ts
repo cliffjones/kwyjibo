@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from '../../processing/constants';
 import type { HistoryItem } from '../../processing/types';
 import { bucketItems } from './bucket-items';
 
@@ -6,7 +7,7 @@ const createItem = (time: number, rating: number): HistoryItem => ({
   rating,
   topic: 'Science',
   task: `Question at ${time}`,
-  type: 'question',
+  type: ITEM_TYPES.question,
 });
 
 describe('bucketItems', () => {

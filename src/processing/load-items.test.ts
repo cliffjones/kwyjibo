@@ -1,3 +1,4 @@
+import { ITEM_TYPES } from './constants';
 import { loadItems } from './load-items';
 
 const createResponse = (body: string, status = 200, contentType = 'text/plain') =>
@@ -214,7 +215,7 @@ describe('loadItems', () => {
         topic: 'Remote',
         task: 'What is the answer?',
         solution: '42',
-        type: 'question',
+        type: ITEM_TYPES.question,
         id: 0,
         rating: 0,
         responses: [],
