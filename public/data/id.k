@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Topik diawali dengan tanda pagar\n\nSatu baris tersendiri dianggap sebagai tugas.\n\nKamu juga bisa menggunakan dua baris:\nbaris pertama adalah pertanyaan dan baris berikutnya adalah jawabannya.\nBaris-baris selanjutnya menjadi pilihan jawaban yang salah untuk soal pilihan ganda.',
   startButton: 'Mulai',
+  historyHeading: 'Aktivitas Anda',
   revealButton: 'Tampilkan jawaban',
   resetButton: 'Atur ulang',
   resetConfirmation: 'Yakin ingin mengatur ulang kartu?',

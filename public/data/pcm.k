@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Topic dey start with hash sign\n\nOne line by itself na task to do.\n\nYou fit use two lines too?\nThe first line na question, and the next line na the answer.\nAny line after that go be wrong option for multiple-choice question.',
   startButton: 'Start',
+  historyHeading: 'Wetin You Don Do',
   revealButton: 'Show answer',
   resetButton: 'Reset',
   resetConfirmation: 'You sure say you wan reset the cards?',

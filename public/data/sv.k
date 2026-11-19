@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Ett ämne börjar med en hashtag\n\nEn ensam rad är en uppgift att utföra.\n\nVad sägs om två rader?\nDen första raden är en fråga och nästa är svaret.\nAlla efterföljande rader är felaktiga svarsalternativ.',
   startButton: 'Starta',
+  historyHeading: 'Din aktivitet',
   revealButton: 'Visa svar',
   resetButton: 'Återställ',
   resetConfirmation: 'Vill du verkligen återställa korten?',

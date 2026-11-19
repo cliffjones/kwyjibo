@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Téma začíná znakem mřížky\n\nSamostatný řádek představuje úkol k provedení.\n\nCo třeba dvojice řádků?\nPrvní řádek je otázka a následující odpověď.\nDalší řádky jsou nesprávné možnosti pro otázku s výběrem odpovědí.',
   startButton: 'Začít',
+  historyHeading: 'Vaše aktivita',
   revealButton: 'Zobrazit odpověď',
   resetButton: 'Resetovat',
   resetConfirmation: 'Opravdu chcete kartičky resetovat?',

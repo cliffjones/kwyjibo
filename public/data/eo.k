@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Temo komenciĝas per krad-signo\n\nUnuopa linio estas tasko plenumenda.\n\nKiel pri paro da linioj?\nLa unua linio estas demando, kaj la sekva estas la respondo.\nĈiuj postaj linioj estas malĝustaj elektoj por plurelekta demando.',
   startButton: 'Komenci',
+  historyHeading: 'Via agado',
   revealButton: 'Montri',
   resetButton: 'Rekomenci',
   resetConfirmation: 'Ĉu vere restarigi la kartojn?',

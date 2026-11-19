@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Een onderwerp begint met een hekje\n\nEen losse regel is een taak om uit te voeren.\n\nWat dacht je van twee regels?\nDe eerste regel is een vraag en de volgende het antwoord.\nAlle volgende regels zijn foute meerkeuzeopties.',
   startButton: 'Starten',
+  historyHeading: 'Je activiteit',
   revealButton: 'Tonen',
   resetButton: 'Opnieuw instellen',
   resetConfirmation: 'Wil je de kaarten echt opnieuw instellen?',

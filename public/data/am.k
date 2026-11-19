@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# ርዕስ በሀሽ ምልክት ይጀምራል\n\nአንድ መስመር የሚፈጸም ተግባር ነው።\n\nሁለት መስመሮችስ፧\nየመጀመሪያው መስመር ጥያቄ ነው፣ ቀጣዩም መልስ ነው።\nከዚያ በኋላ ያሉት መስመሮች ለብዙ ምርጫ ጥያቄ የተሳሳቱ አማራጮች ናቸው።',
   startButton: 'ጀምር',
+  historyHeading: 'የእርስዎ እንቅስቃሴ',
   revealButton: 'መልሱን አሳይ',
   resetButton: 'ዳግም አስጀምር',
   resetConfirmation: 'ካርዶቹን በእርግጥ ዳግም ማስጀመር ይፈልጋሉ፧',

@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# A Topic Begins with a Hash\n\nAn isolated line is a task to complete.\n\nHow about a pair of lines?\nThe first line is a question, and the next is the answer.\nAny subsequent lines are multiple-choice distractors.',
   startButton: 'Start',
+  historyHeading: 'Your Activity',
   revealButton: 'Reveal',
   resetButton: 'Reset',
   resetConfirmation: 'Really reset the cards?',

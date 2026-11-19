@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Um tópico começa com cerquilha\n\nUma linha isolada representa uma tarefa.\n\nQue tal um par de linhas?\nA primeira linha é uma pergunta e a seguinte é a resposta.\nAs linhas seguintes serão alternativas incorretas de uma questão de múltipla escolha.',
   startButton: 'Começar',
+  historyHeading: 'Sua atividade',
   revealButton: 'Revelar',
   resetButton: 'Reiniciar',
   resetConfirmation: 'Tem certeza de que deseja reiniciar os cartões?',

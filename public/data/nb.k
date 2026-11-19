@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Et emne begynner med en firkant\n\nEn enkelt linje er en oppgave som skal utføres.\n\nHva med to linjer?\nDen første linjen er et spørsmål, og den neste er svaret.\nEventuelle påfølgende linjer er feil svaralternativer.',
   startButton: 'Start',
+  historyHeading: 'Din aktivitet',
   revealButton: 'Vis svar',
   resetButton: 'Tilbakestill',
   resetConfirmation: 'Vil du virkelig tilbakestille kortene?',

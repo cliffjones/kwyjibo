@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Ein Thema beginnt mit einer Raute\n\nEine einzelne Zeile gilt als zu erledigende Aufgabe.\n\nWie wäre es mit zwei Zeilen?\nDie erste Zeile ist eine Frage, die nächste die Antwort.\nAlle weiteren Zeilen sind falsche Antwortmöglichkeiten bei Multiple-Choice-Fragen.',
   startButton: 'Starten',
+  historyHeading: 'Deine Aktivitäten',
   revealButton: 'Antwort anzeigen',
   resetButton: 'Zurücksetzen',
   resetConfirmation: 'Möchtest du die Karten wirklich zurücksetzen?',

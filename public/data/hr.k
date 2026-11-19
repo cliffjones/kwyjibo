@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Tema počinje znakom ljestvi\n\nJedan redak predstavlja zadatak koji treba izvršiti.\n\nŠto kažete na dva retka?\nPrvi redak je pitanje, a sljedeći je odgovor.\nSvi sljedeći retci su netočni odgovori za pitanja s višestrukim izborom.',
   startButton: 'Počni',
+  historyHeading: 'Vaša aktivnost',
   revealButton: 'Otkrij odgovor',
   resetButton: 'Ponovno postavi',
   resetConfirmation: 'Želite li zaista ponovno postaviti kartice?',

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 import { App } from './app';
@@ -27,6 +27,10 @@ vi.mock('./processing/load-items', () => ({
     return parseFileData(text);
   }),
   resolveRemoteText: vi.fn(async (text: string) => text),
+}));
+
+vi.mock('react-chartjs-2', () => ({
+  Line: () => <div data-testid="history-chart" />,
 }));
 
 const mockedLoadItems = vi.mocked(loadItems);
@@ -105,6 +109,26 @@ describe('App', () => {
       response: 'Incorrect',
       rating: 1,
     });
+  });
+
+  it('renders History as a separate card under main when history entries exist', async () => {
+    const items = [
+      { id: 0, type: 'question', topic: 'Science', task: 'Question?', solution: 'Answer.', responses: [], rating: 0 },
+    ];
+    const store = createAppStore('/history', {}, items);
+    renderApp('/history', store);
+
+    const main = screen.getByRole('main');
+    const setupHeading = within(main).getByRole('heading', { name: LANG.heading });
+    expect(within(main).queryByRole('heading', { name: 'Your Activity' })).not.toBeInTheDocument();
+
+    act(() => {
+      store.dispatch(respond({ rating: 4 }));
+    });
+
+    const historyHeading = await within(main).findByRole('heading', { name: 'Your Activity' });
+    expect(within(main).getByTestId('history-chart')).toBeInTheDocument();
+    expect(historyHeading.closest('.card')).not.toBe(setupHeading.closest('.card'));
   });
 
   it('cancels the reset confirmation without reloading the deck', () => {

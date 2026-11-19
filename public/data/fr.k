@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Un thème commence par un dièse\n\nUne ligne isolée représente une tâche à accomplir.\n\nEt si l’on utilisait deux lignes ?\nLa première est une question et la suivante est la réponse.\nLes lignes suivantes deviennent des réponses incorrectes pour un choix multiple.',
   startButton: 'Commencer',
+  historyHeading: 'Votre activité',
   revealButton: 'Afficher la réponse',
   resetButton: 'Réinitialiser',
   resetConfirmation: 'Voulez-vous vraiment réinitialiser les cartes ?',

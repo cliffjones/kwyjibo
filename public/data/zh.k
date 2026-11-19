@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# 主题以井号开头\n\n单独一行表示一项任务。\n\n也可以使用两行：\n第一行是问题，第二行是答案。\n后续各行会成为选择题的干扰选项。',
   startButton: '开始',
+  historyHeading: '你的活动',
   revealButton: '显示答案',
   resetButton: '重置',
   resetConfirmation: '确定要重置卡片吗？',

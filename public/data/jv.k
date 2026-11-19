@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Topik Diwiwiti Kanthi Tanda Pagar\n\nBaris tunggal minangka tugas sing kudu dirampungake.\n\nKepiye yen nganggo rong baris?\nBaris kapisan pitakonan, lan baris sabanjure wangsulan.\nBaris-barise sakbanjure dadi pilihan jawaban sing salah.',
   startButton: 'Miwiti',
+  historyHeading: 'Kegiatan sampeyan',
   revealButton: 'Tampilake wangsulan',
   resetButton: 'Baleni maneh',
   resetConfirmation: 'Apa pancen arep ngreset kertu?',

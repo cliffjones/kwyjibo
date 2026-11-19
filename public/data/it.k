@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Un argomento inizia con un cancelletto\n\nUna riga isolata è un’attività da completare.\n\nChe ne dici di due righe?\nLa prima è una domanda e la successiva è la risposta.\nLe righe seguenti sono opzioni errate a scelta multipla.',
   startButton: 'Inizia',
+  historyHeading: 'La tua attività',
   revealButton: 'Mostra',
   resetButton: 'Reimposta',
   resetConfirmation: 'Vuoi davvero reimpostare le schede?',

@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Taken batu yana farawa da alamar hash\n\nLayi guda ɗaya aiki ne da za a yi.\n\nYaya game da layi biyu?\nLayin farko tambaya ce, na biyun kuma amsa ce.\nLayukan da suka biyo baya zaɓuɓɓukan amsa marasa daidai ne.',
   startButton: 'Fara',
+  historyHeading: 'Ayyukanku',
   revealButton: 'Nuna amsa',
   resetButton: 'Sake saitawa',
   resetConfirmation: 'Kana son sake saita katunan da gaske?',

@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Mada huanza kwa alama ya reli\n\nMstari mmoja ni kazi ya kukamilisha.\n\nVipi kuhusu mistari miwili?\nMstari wa kwanza ni swali na unaofuata ni jibu.\nMistari mingine ni majibu yasiyo sahihi ya swali la kuchagua.',
   startButton: 'Anza',
+  historyHeading: 'Shughuli zako',
   revealButton: 'Onyesha jibu',
   resetButton: 'Weka upya',
   resetConfirmation: 'Una uhakika unataka kuweka upya kadi?',

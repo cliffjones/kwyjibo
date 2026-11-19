@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LANG } from './constants';
 import { Card } from './features/card';
@@ -15,6 +15,8 @@ import { Button } from './ui/button';
 import { ButtonSet } from './ui/button/button-set';
 import { Icon } from './ui/icon';
 
+const History = lazy(() => import('./features/history').then(({ History }) => ({ default: History })));
+
 export const App = ({ path }: { path: string }) => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -28,6 +30,7 @@ export const App = ({ path }: { path: string }) => {
   const startTime = useSelector((state: RootState) => state.kwyjibo.startTime);
   const ratingTotal = useSelector((state: RootState) => state.kwyjibo.ratingTotal);
   const ratingCount = useSelector((state: RootState) => state.kwyjibo.ratingCount);
+  const history = useSelector((state: RootState) => state.kwyjibo.history);
 
   const [revealed, setRevealed] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
@@ -80,7 +83,15 @@ export const App = ({ path }: { path: string }) => {
       />
 
       {initializing ? (
-        <Setup customData={customData} handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))} />
+        <>
+          <Setup customData={customData} handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))} />
+
+          {history.length ? (
+            <Suspense fallback={null}>
+              <History />
+            </Suspense>
+          ) : null}
+        </>
       ) : confirmingReset ? (
         <Card heading={configData.resetConfirmation || LANG.resetConfirmation}>
           <ButtonSet>

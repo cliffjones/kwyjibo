@@ -17,6 +17,7 @@ export type ConfigData = {
   customDataHeading?: string;
   customDataPlaceholder?: string;
   startButton?: string;
+  historyHeading?: string;
   revealButton?: string;
   resetButton?: string;
   resetConfirmation?: string;

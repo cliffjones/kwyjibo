@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Temat rozpoczyna się od znaku kratki\n\nPojedynczy wiersz oznacza zadanie do wykonania.\n\nA może para wierszy?\nPierwszy wiersz to pytanie, a następny to odpowiedź.\nKażdy kolejny wiersz to błędna odpowiedź do pytania wielokrotnego wyboru.',
   startButton: 'Start',
+  historyHeading: 'Twoja aktywność',
   revealButton: 'Pokaż',
   resetButton: 'Resetuj',
   resetConfirmation: 'Czy na pewno chcesz zresetować fiszki?',

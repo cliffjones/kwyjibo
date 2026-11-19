@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Un subiect începe cu un diez\n\nUn singur rând reprezintă o sarcină de îndeplinit.\n\nCe-ar fi să folosim două rânduri?\nPrimul rând este o întrebare, iar următorul este răspunsul.\nRândurile următoare sunt variante greșite pentru o întrebare cu răspunsuri multiple.',
   startButton: 'Începe',
+  historyHeading: 'Activitatea ta',
   revealButton: 'Arată răspunsul',
   resetButton: 'Resetează',
   resetConfirmation: 'Sigur doriți să resetați cartonașele?',

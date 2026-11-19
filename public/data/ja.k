@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# トピックはハッシュ記号で始めます\n\n1行だけの項目はタスクとして扱われます。\n\n2行の組み合わせも使えます。\n1行目が質問、次の行が答えです。\nその後の行は選択問題の誤答候補になります。',
   startButton: '開始',
+  historyHeading: 'あなたのアクティビティ',
   revealButton: '答えを見る',
   resetButton: 'リセット',
   resetConfirmation: '本当にカードをリセットしますか？',

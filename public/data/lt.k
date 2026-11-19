@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Tema prasideda grotažyme\n\nViena eilutė reiškia užduotį.\n\nO gal dvi eilutės?\nPirmoje eilutėje yra klausimas, o kitoje – atsakymas.\nVisos tolesnės eilutės yra neteisingi atsakymų variantai.',
   startButton: 'Pradėti',
+  historyHeading: 'Jūsų veikla',
   revealButton: 'Rodyti atsakymą',
   resetButton: 'Atkurti',
   resetConfirmation: 'Ar tikrai norite iš naujo nustatyti korteles?',

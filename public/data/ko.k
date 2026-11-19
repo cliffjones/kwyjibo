@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# 주제는 해시 기호로 시작합니다\n\n한 줄로 된 항목은 완료해야 할 작업입니다.\n\n두 줄로 구성하면 어떨까요?\n첫 번째 줄은 질문이고 다음 줄은 답입니다.\n그 다음 줄부터는 객관식 오답 선택지입니다.',
   startButton: '시작',
+  historyHeading: '내 활동',
   revealButton: '정답 보기',
   resetButton: '초기화',
   resetConfirmation: '정말 카드를 초기화하시겠어요?',

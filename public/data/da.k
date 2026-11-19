@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Et emne begynder med en hashtag\n\nEn enkelt linje er en opgave, der skal udføres.\n\nHvad med to linjer?\nDen første linje er et spørgsmål, og den næste er svaret.\nEventuelle efterfølgende linjer er forkerte svarmuligheder.',
   startButton: 'Start',
+  historyHeading: 'Din aktivitet',
   revealButton: 'Vis svar',
   resetButton: 'Nulstil',
   resetConfirmation: 'Vil du virkelig nulstille kortene?',

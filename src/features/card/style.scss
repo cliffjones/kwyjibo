@@ -22,7 +22,7 @@
 
   &-rating {
     height: size.$text;
-    inset-inline-end: space.$mid;
+    left: space.$mid;
     position: absolute;
     top: space.$mid;
     width: size.$text;
@@ -33,7 +33,7 @@
     font-size: size.$text;
     line-height: 1;
     position: absolute;
-    inset-inline-start: space.$mid;
+    right: space.$mid;
     text-align: start;
     top: space.$mid;
   }

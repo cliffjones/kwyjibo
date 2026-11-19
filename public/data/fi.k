@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Aihe alkaa risuaidalla\n\nYksittäinen rivi on suoritettava tehtävä.\n\nEntäpä kaksi riviä?\nEnsimmäinen rivi on kysymys ja seuraava vastaus.\nSeuraavat rivit ovat monivalintakysymyksen vääriä vaihtoehtoja.',
   startButton: 'Aloita',
+  historyHeading: 'Toimintasi',
   revealButton: 'Näytä vastaus',
   resetButton: 'Nollaa',
   resetConfirmation: 'Haluatko varmasti nollata kortit?',

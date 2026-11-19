@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Un tema empieza con una almohadilla\n\nUna línea suelta es una tarea por hacer.\n\n¿Qué tal un par de líneas?\nLa primera línea es una pregunta y la siguiente es la respuesta.\nCualquier línea posterior son opciones incorrectas de opción múltiple.',
   startButton: 'Comenzar',
+  historyHeading: 'Tu actividad',
   revealButton: 'Revelar',
   resetButton: 'Reiniciar',
   resetConfirmation: '¿De verdad quieres restablecer las tarjetas?',

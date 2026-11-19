@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { type ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LANG } from '../../constants';
 import { hasRemoteBlock } from '../../processing/has-remote-block';

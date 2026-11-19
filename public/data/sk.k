@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Téma sa začína znakom mriežky\n\nSamostatný riadok predstavuje úlohu na splnenie.\n\nČo tak dvojica riadkov?\nPrvý riadok je otázka a nasledujúci je odpoveď.\nKaždý ďalší riadok je nesprávna možnosť v otázke s výberom odpovede.',
   startButton: 'Začať',
+  historyHeading: 'Vaša aktivita',
   revealButton: 'Zobraziť',
   resetButton: 'Obnoviť',
   resetConfirmation: 'Naozaj chcete obnoviť kartičky?',

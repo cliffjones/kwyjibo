@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Chủ đề bắt đầu bằng dấu thăng\n\nMột dòng riêng lẻ là một nhiệm vụ cần hoàn thành.\n\nThử dùng một cặp dòng nhé?\nDòng đầu tiên là câu hỏi, dòng tiếp theo là câu trả lời.\nCác dòng sau đó là những phương án sai trong câu hỏi trắc nghiệm.',
   startButton: 'Bắt đầu',
+  historyHeading: 'Hoạt động của bạn',
   revealButton: 'Hiện đáp án',
   resetButton: 'Đặt lại',
   resetConfirmation: 'Bạn có chắc muốn đặt lại các thẻ không?',

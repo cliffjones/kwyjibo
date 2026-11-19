@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# Bir konu diyez işaretiyle başlar\n\nTek başına duran bir satır, tamamlanması gereken bir görevdir.\n\nİki satırlı bir örneğe ne dersiniz?\nİlk satır soru, sonraki satır yanıttır.\nBundan sonraki satırlar çoktan seçmeli sorular için yanlış seçeneklerdir.',
   startButton: 'Başla',
+  historyHeading: 'Etkinliğiniz',
   revealButton: 'Göster',
   resetButton: 'Sıfırla',
   resetConfirmation: 'Kartları gerçekten sıfırlamak istiyor musunuz?',

@@ -12,6 +12,7 @@
   customDataPlaceholder:
     '# A téma kettőskereszttel kezdődik\n\nEgy önálló sor egy elvégzendő feladat.\n\nMi lenne két sorral?\nAz első sor a kérdés, a következő pedig a válasz.\nA további sorok a feleletválasztós kérdés hibás válaszai.',
   startButton: 'Indítás',
+  historyHeading: 'Tevékenységed',
   revealButton: 'Válasz megjelenítése',
   resetButton: 'Visszaállítás',
   resetConfirmation: 'Biztosan visszaállítja a kártyákat?',
