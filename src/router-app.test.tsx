@@ -87,7 +87,7 @@ describe('RouterApp', () => {
 
     expect(await screen.findByRole('heading', { name: 'Kwyjibo' })).toBeInTheDocument();
     expect(mockedLoadItems).toHaveBeenCalledWith('/dev', ['saved', 'alpha', 'beta']);
-    expect(JSON.parse(window.localStorage.getItem('kwyjibo:%2Fdev') ?? 'null').sourcePath).toBe('/dev');
+    expect(JSON.parse(window.localStorage.getItem('kwyjibo:dev') ?? 'null').sourcePath).toBe('/dev');
   });
 
   it('passes padded Base64URL tokens through from the browser path', async () => {

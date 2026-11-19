@@ -13,6 +13,7 @@ import { reset, respond, setCustomData, type AppDispatch, type RootState } from 
 import './style/index.scss';
 import { Button } from './ui/button';
 import { ButtonSet } from './ui/button/button-set';
+import { Content } from './ui/content';
 import { Icon } from './ui/icon';
 
 const History = lazy(() => import('./features/history').then(({ History }) => ({ default: History })));
@@ -112,7 +113,7 @@ export const App = ({ path }: { path: string }) => {
               <ButtonSet variant="responses">
                 {sortedResponses.map((response, index) => (
                   <Button key={index} onClick={() => handleRating(response.value, response.text)}>
-                    {response.text}
+                    <Content text={response.text} />
                   </Button>
                 ))}
               </ButtonSet>

@@ -6,6 +6,7 @@ import { parseFileData } from '../processing/parse-file-data';
 import { sortItems } from '../processing/sort-items';
 import type { ConfigData, TaskData, TaskItem } from '../processing/types';
 import { createInitialState } from './create-initial-state';
+import { getStorageKey } from './get-storage-key';
 import { loadPersistedState } from './load-persisted-state';
 import { loadTokens } from './load-tokens';
 import { persistState } from './persist-state';
@@ -170,7 +171,8 @@ export const createAppStore = (
   tokens = loadTokens(),
 ) => {
   const savedState = loadPersistedState(sourcePath);
-  const restoredState = savedState?.sourcePath === sourcePath ? { ...savedState, sourcePath } : null;
+  const restoredState =
+    savedState && getStorageKey(savedState.sourcePath) === getStorageKey(sourcePath) ? { ...savedState, sourcePath } : null;
   const initialState = restoredState ?? createInitialState(sourcePath, configData, items);
 
   const store = configureStore({

@@ -25,7 +25,6 @@ export const formatTime = (value: number | string | null, compact = false) => {
           ? {
               hour: 'numeric',
               minute: '2-digit',
-              hour12: false,
             }
           : {
               month: 'numeric',

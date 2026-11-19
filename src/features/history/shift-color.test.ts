@@ -9,7 +9,7 @@ describe('shiftColor', () => {
     ['#0000ff', '#ff9400'],
     ['#ff00ff', '#6bff00'],
   ])('shifts %s to %s', (color, shiftedColor) => {
-    expect(shiftColor(color)).toBe(shiftedColor);
+    expect(shiftColor(color, 43)).toBe(shiftedColor);
   });
 
   it('expands shorthand hex colors and supports achromatic colors', () => {

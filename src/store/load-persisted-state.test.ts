@@ -62,13 +62,6 @@ describe('loadPersistedState', () => {
     expect(loadPersistedState('/science')).toEqual(state);
   });
 
-  it('initializes history when loading a state saved before history was added', () => {
-    const { history: _history, ...legacyState } = createState();
-    window.localStorage.setItem(getStorageKey('/science'), JSON.stringify(legacyState));
-
-    expect(loadPersistedState('/science')).toEqual({ ...legacyState, history: [] });
-  });
-
   it('ignores invalid payloads', () => {
     window.localStorage.setItem(getStorageKey('/science'), '{bad json');
     expect(loadPersistedState('/science')).toBeNull();

@@ -7,7 +7,7 @@ const fractionToHex = (value: number) =>
     .padStart(2, '0');
 
 // Shifts the hue of a given hexadecimal color string by a given percent.
-export const shiftColor = (color: string, offset = 43) => {
+export const shiftColor = (color: string, offset = 42) => {
   const match = /^#([\da-f]{3}|[\da-f]{6})$/i.exec(color);
   if (!match) {
     return color;

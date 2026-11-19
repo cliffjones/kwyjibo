@@ -46,6 +46,28 @@ describe('app store', () => {
     expect(restoredMathStore.getState().kwyjibo.lightMode).toBe(false);
   });
 
+  it('preserves history when the route differs only by trailing slashes', () => {
+    const store = createAppStore('/science', {}, [
+      {
+        id: 0,
+        type: 'question',
+        topic: 'Science',
+        task: 'Question?',
+        solution: 'Answer.',
+        responses: [],
+        rating: 0,
+      },
+    ]);
+    store.dispatch(respond({ rating: 4 }));
+    const history = store.getState().kwyjibo.history;
+
+    const trailingSlashStore = createAppStore('/science/');
+    expect(trailingSlashStore.getState().kwyjibo.history).toEqual(history);
+
+    const originalPathStore = createAppStore('/science');
+    expect(originalPathStore.getState().kwyjibo.history).toEqual(history);
+  });
+
   it('initializes root-level tokens independently from the route state', () => {
     const store = createAppStore('/science', {}, [], ['alpha', 'beta']);
 
@@ -139,7 +161,7 @@ describe('app store', () => {
       ]);
 
     window.localStorage.setItem(
-      'kwyjibo:%2Ftest',
+      'kwyjibo:test',
       JSON.stringify({
         sourcePath: '/test',
         configData: { title: 'Saved state' },
@@ -153,6 +175,7 @@ describe('app store', () => {
         selectedTopics: [],
         remainingIds: [],
         currentId: null,
+        history: [],
       }),
     );
 

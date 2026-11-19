@@ -1,4 +1,3 @@
-import { isPlainObject } from '../processing/is-plain-object';
 import { parseJson } from '../processing/parse-json';
 import { getStorageKey } from './get-storage-key';
 import { isAppState } from './is-app-state';
@@ -15,13 +14,7 @@ export const loadPersistedState = (sourcePath: string): AppState | null => {
     return null;
   }
 
-  const parsedState = parseJson(serializedState);
-  if (!isPlainObject(parsedState)) {
-    return null;
-  }
-
-  // Fill in a missing `history` for backward-compatibility.
-  const state = 'history' in parsedState ? parsedState : { ...parsedState, history: [] };
+  const state = parseJson(serializedState);
   if (isAppState(state)) {
     return state;
   }
