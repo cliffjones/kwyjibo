@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { InputBox } from './index';
+import { Input } from './index';
 
-describe('InputBox', () => {
+describe('Input', () => {
   it('renders and forwards changes from a labeled text area', () => {
     const onChange = vi.fn();
-    render(<InputBox label="Custom data" value="initial" onChange={onChange} />);
+    render(<Input variant="long" label="Custom data" value="initial" onChange={onChange} />);
 
     const input = screen.getByRole('textbox', { name: 'Custom data' });
     expect(input).toHaveValue('initial');

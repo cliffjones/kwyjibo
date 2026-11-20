@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useState, type ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LANG } from './constants';
 import { Card } from './features/card';
@@ -16,6 +16,7 @@ import { Button } from './ui/button';
 import { ButtonSet } from './ui/button/button-set';
 import { Content } from './ui/content';
 import { Icon } from './ui/icon';
+import { Input } from './ui/input';
 
 const History = lazy(() => import('./features/history').then(({ History }) => ({ default: History })));
 
@@ -36,6 +37,7 @@ export const App = ({ path }: { path: string }) => {
 
   const [revealed, setRevealed] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const [lastRating, setLastRating] = useState(0);
   const [ratingAnimationKey, setRatingAnimationKey] = useState(0);
   const [endTime, setEndTime] = useState(0);
@@ -118,6 +120,20 @@ export const App = ({ path }: { path: string }) => {
                   </Button>
                 ))}
               </ButtonSet>
+            ) : currentItem.type === ITEM_TYPES.input ? (
+              <>
+                <Input
+                  label={currentItem.solution}
+                  value={inputValue}
+                  onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => setInputValue(value)}
+                />
+                <Rating
+                  handleRating={(rating) => {
+                    handleRating(rating, inputValue);
+                    setInputValue('');
+                  }}
+                />
+              </>
             ) : currentItem.solution ? (
               revealed ? null : (
                 <ButtonSet>

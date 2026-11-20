@@ -61,7 +61,7 @@ export const History = () => {
         grid: { color: `${textColor}${GRID_ALPHA}` },
       },
       y: {
-        ticks: { color: textColor, stepSize: 1 },
+        ticks: { color: textColor },
         grid: { color: `${textColor}${GRID_ALPHA}` },
       },
     },

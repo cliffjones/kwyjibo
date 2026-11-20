@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { ALTERNATION_PATTERN, DEFAULT_LANG, LANG, PLACEHOLDER_PATTERN } from '../../constants';
+import { ratingToPercent } from '../../processing/rating-to-percent';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
@@ -9,7 +10,6 @@ import { faceNumberToName } from '../../ui/icon/face-number-to-name';
 import { IconName } from '../../ui/icon/types';
 import { Link } from '../../ui/link';
 import { Selector } from '../../ui/selector';
-import { ratingToPercent } from '../rating/rating-to-percent';
 import './style.scss';
 
 const LANGUAGES = [
@@ -122,7 +122,7 @@ export const Header = ({
           <div
             key={ratingAnimationKey}
             className="header-toolbar-rating"
-            title={`${configData.ratingMessage || LANG.ratingMessage} ${ratingToPercent(lastRating)}`}
+            title={`${configData.ratingMessage || LANG.ratingMessage} ${ratingToPercent(lastRating)}%`}
           >
             <div className={`icon-dot icon-dot--${ratingFace}`}>
               <Icon name={`face-${ratingFace}` as IconName} />

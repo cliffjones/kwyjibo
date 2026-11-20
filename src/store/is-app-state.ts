@@ -65,7 +65,7 @@ export const isAppState = (value: unknown): value is AppState => {
     return false;
   }
 
-  if (state.currentId !== null && typeof state.currentId !== 'number') {
+  if (state.currentId != null && typeof state.currentId !== 'number') {
     return false;
   }
 

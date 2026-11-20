@@ -84,10 +84,10 @@ describe('History', () => {
     expect(screen.getByRole('heading', { name: 'Your Activity' })).toBeInTheDocument();
     const plottedPoints = JSON.parse(screen.getByTestId('history-chart').textContent ?? '[]');
     const time = store.getState().kwyjibo.history[0].time;
-    expect(plottedPoints).toEqual([{ x: time, y: 60 }]);
+    expect(plottedPoints).toEqual([{ x: time, y: 75 }]);
     expect(screen.getByTestId('history-local-time')).toHaveTextContent(formatTime(time, true));
     expect(screen.getByTestId('history-tooltip-title')).toHaveTextContent(formatTime(time));
-    expect(screen.getByTestId('history-tooltip-label')).toHaveTextContent('Science: 60');
+    expect(screen.getByTestId('history-tooltip-label')).toHaveTextContent('Science: 75');
     expect(JSON.parse(screen.getByTestId('history-legend').textContent ?? '[]')).toEqual([{ lineWidth: 0 }]);
   });
 

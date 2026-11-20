@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { LANG } from '../../constants';
+import { ratingToPercent } from '../../processing/rating-to-percent';
 import { RootState } from '../../store';
 import { Content } from '../../ui/content';
 import { Icon } from '../../ui/icon';
 import { faceNumberToName } from '../../ui/icon/face-number-to-name';
 import { RATING_ICONS } from '../rating/constants';
-import { ratingToPercent } from '../rating/rating-to-percent';
 import { getTextSize } from './get-text-size';
 import './style.scss';
 
@@ -39,7 +39,7 @@ export const Card = ({
             <div className="card-rating">
               <div
                 className={`icon-dot icon-dot--${faceNumberToName(rating)}`}
-                title={`${configData.lastRatingMessage || LANG.lastRatingMessage} ${ratingToPercent(rating)}`}
+                title={`${configData.lastRatingMessage || LANG.lastRatingMessage} ${ratingToPercent(rating)}%`}
               >
                 <Icon name={RATING_ICONS[Math.floor(rating) - 1]} />
               </div>

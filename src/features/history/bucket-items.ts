@@ -6,7 +6,14 @@ import './style.scss';
 import type { Point } from './types';
 
 export const bucketItems = (items: HistoryItem[]): Point[] => {
-  const points = items.map(itemToPoint).sort((first, second) => first.x - second.x);
+  const points = items
+    .map(itemToPoint)
+    .filter((point): point is Point => point != null)
+    .sort((first, second) => first.x - second.x);
+  if (!points.length) {
+    return [];
+  }
+
   const firstTime = points[0].x;
   const timeRange = points[points.length - 1].x - firstTime;
 
