@@ -2,24 +2,27 @@
 @use '../../style/size';
 @use '../../style/space';
 
-.input-box {
+.input {
   background: color.$input;
   border-radius: size.$input-corner;
   border: 0;
   color: color.$ink;
   font: inherit;
-  min-height: 10rem;
   outline: size.$border solid color.$pencil;
   padding: space.$small;
-  resize: vertical;
   width: 100%;
 
   &:focus {
     outline-width: size.$focus;
   }
+
+  &--long {
+    min-height: 10rem;
+    resize: vertical;
+  }
 }
 
-.input-box-label {
+.input-label {
   color: color.$pencil;
   display: flex;
   flex-direction: column;

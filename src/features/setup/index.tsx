@@ -11,7 +11,7 @@ import { selectItemCounts } from '../../store/select-item-counts';
 import { Button } from '../../ui/button';
 import { ButtonSet } from '../../ui/button/button-set';
 import { Icon } from '../../ui/icon';
-import { InputBox } from '../../ui/input-box';
+import { Input } from '../../ui/input';
 import { Option } from '../../ui/option';
 import { OptionList } from '../../ui/option/option-list';
 import { Card } from '../card';
@@ -74,7 +74,8 @@ export const Setup = ({
         </OptionList>
       ) : null}
 
-      <InputBox
+      <Input
+        variant="long"
         label={configData.customDataHeading || LANG.customDataHeading}
         placeholder={configData.customDataPlaceholder || LANG.customDataPlaceholder}
         value={customData}
