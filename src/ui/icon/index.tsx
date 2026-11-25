@@ -96,6 +96,13 @@ export const Icon = ({ name }: { name: IconName }) => (
       </>
     )}
 
+    {name === 'tile' && (
+      <path
+        d="M13.77 2.77 21.23 10.23 Q23 12 21.23 13.77 L13.77 21.23 Q12 23 10.23 21.23 L2.77 13.77 Q1 12 2.77 10.23 L10.23 2.77 Q12 1 13.77 2.77Z"
+        fill="currentColor"
+      />
+    )}
+
     {name === 'x' && <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />}
   </svg>
 );

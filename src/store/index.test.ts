@@ -1,7 +1,7 @@
 import { ITEM_TYPES } from '../processing/constants';
 import * as dataModule from '../processing/load-items';
 import { getStorageKey } from './get-storage-key';
-import { createAppStore, respond, setCustomData, setLightMode, startDeck } from './index';
+import { createAppStore, respond, setCustomData, setLightMode, setMosaicTile, startDeck } from './index';
 
 describe('app store', () => {
   beforeEach(() => {
@@ -74,6 +74,29 @@ describe('app store', () => {
 
     expect(store.getState().tokens).toEqual(['alpha', 'beta']);
     expect(store.getState().kwyjibo.sourcePath).toBe('/science');
+  });
+
+  it('shares mosaic state across route-scoped stores', () => {
+    const items = [
+      {
+        id: 0,
+        type: ITEM_TYPES.question,
+        topic: 'Science',
+        task: 'Question?',
+        solution: 'Answer.',
+        responses: [],
+        rating: 0,
+      },
+    ];
+    const firstStore = createAppStore('/science', {}, items);
+    firstStore.dispatch(setMosaicTile({ tileKey: '0,0', nextColor: '#112233' }));
+    const mosaic = firstStore.getState().mosaic;
+
+    const secondStore = createAppStore('/math', {}, items);
+    expect(secondStore.getState().mosaic).toEqual(mosaic);
+
+    secondStore.dispatch(setMosaicTile({ tileKey: '1,0', nextColor: '#445566' }));
+    expect(createAppStore('/science').getState().mosaic).toEqual(secondStore.getState().mosaic);
   });
 
   it('resets the deck timer when starting a new deck', () => {
@@ -151,6 +174,16 @@ describe('app store', () => {
 
     expect(store.getState().kwyjibo.history).toEqual(history);
     expect(store.getState().kwyjibo.history[0]).not.toHaveProperty('response');
+  });
+
+  it('preserves mosaic colors when starting another deck', () => {
+    const store = createAppStore('/mosaic');
+    store.dispatch(setMosaicTile({ tileKey: '0,0', nextColor: '#112233' }));
+    const mosaic = store.getState().mosaic;
+
+    store.dispatch(startDeck({ customData: '# Science\n\nQuestion?\nAnswer.' }));
+
+    expect(store.getState().mosaic).toEqual(mosaic);
   });
 
   it('reloads remote data when persisted state has no active deck', async () => {

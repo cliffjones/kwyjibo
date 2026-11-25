@@ -7,14 +7,17 @@ import { sortItems } from '../processing/sort-items';
 import type { ConfigData, TaskData, TaskItem } from '../processing/types';
 import { createInitialState } from './create-initial-state';
 import { getStorageKey } from './get-storage-key';
+import { loadMosaic } from './load-mosaic';
 import { loadPersistedState } from './load-persisted-state';
 import { loadTokens } from './load-tokens';
 import { persistState } from './persist-state';
-import type { AppState } from './types';
+import { saveMosaic } from './save-mosaic';
+import type { AppState, MosaicState } from './types';
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
 export const setLightMode = createAction<boolean>('kwyjibo/setLightMode');
+export const setMosaicTile = createAction<{ tileKey: string; nextColor: string }>('kwyjibo/setMosaicTile');
 export const startDeck = createAction<
   | {
       customData: string;
@@ -28,6 +31,14 @@ export const reset = createAsyncThunk('kwyjibo/reset', async (path: string) => (
   items: await loadItems(path, loadTokens()),
   path,
 }));
+
+const createMosaicReducer = (initialState: MosaicState) =>
+  createReducer(initialState, (builder) => {
+    builder.addCase(setMosaicTile, (state, action) => {
+      state.tiles[action.payload.tileKey] = state.currentColor;
+      state.currentColor = action.payload.nextColor;
+    });
+  });
 
 // Creates a reducer for the app state, handling various actions triggered by the user.
 const createAppReducer = (initialState: AppState) => {
@@ -171,14 +182,18 @@ export const createAppStore = (
   tokens = loadTokens(),
 ) => {
   const savedState = loadPersistedState(sourcePath);
-  const restoredState =
-    savedState && getStorageKey(savedState.sourcePath) === getStorageKey(sourcePath) ? { ...savedState, sourcePath } : null;
+  const restoredState: AppState | null =
+    savedState && getStorageKey(savedState.sourcePath) === getStorageKey(sourcePath)
+      ? { ...savedState, sourcePath }
+      : null;
   const initialState = restoredState ?? createInitialState(sourcePath, configData, items);
+  const initialMosaic = loadMosaic();
 
   const store = configureStore({
     reducer: {
       kwyjibo: createAppReducer(initialState),
       tokens: (state: string[] = tokens) => state,
+      mosaic: createMosaicReducer(initialMosaic),
     },
   });
 
@@ -188,7 +203,16 @@ export const createAppStore = (
   }
 
   persistState(store.getState().kwyjibo);
-  store.subscribe(() => persistState(store.getState().kwyjibo));
+  saveMosaic(store.getState().mosaic);
+  let previousMosaic = store.getState().mosaic;
+  store.subscribe(() => {
+    persistState(store.getState().kwyjibo);
+    const mosaic = store.getState().mosaic;
+    if (mosaic !== previousMosaic) {
+      previousMosaic = mosaic;
+      saveMosaic(mosaic);
+    }
+  });
   return store;
 };
 

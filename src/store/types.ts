@@ -1,5 +1,10 @@
 import type { ConfigData, HistoryItem, TaskItem } from '../processing/types';
 
+export type MosaicState = {
+  tiles: Record<string, string>;
+  currentColor: string;
+};
+
 export type AppState = {
   sourcePath: string;
   configData: ConfigData;

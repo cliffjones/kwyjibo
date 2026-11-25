@@ -1,0 +1,41 @@
+.mosaic {
+  width: 100%;
+
+  &-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-row {
+    display: flex;
+    pointer-events: none;
+    width: 100%;
+
+    & + & {
+      margin-top: -2%;
+    }
+
+    &--offset {
+      transform: translateX(2%);
+    }
+  }
+
+  .button {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    clip-path: polygon(50% 0%, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0% 50%, 25% 25%);
+    color: transparent;
+    flex: 0 0 4%;
+    height: auto;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+    pointer-events: auto;
+    width: 4%;
+
+    .icon {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

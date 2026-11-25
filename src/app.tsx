@@ -4,6 +4,7 @@ import { LANG } from './constants';
 import { Card } from './features/card';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
+import { Mosaic } from './features/mosaic';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
 import { getResults } from './get-results';
@@ -85,6 +86,12 @@ export const App = ({ path }: { path: string }) => {
         lastRating={lastRating}
         ratingAnimationKey={ratingAnimationKey}
       />
+
+      {path.includes('mosaic') ? (
+        <Card heading="Compose your mosaic">
+          <Mosaic />
+        </Card>
+      ) : null}
 
       {initializing ? (
         <>
