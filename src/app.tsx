@@ -115,7 +115,10 @@ export const App = ({ path }: { path: string }) => {
             {currentItem.type === ITEM_TYPES.quiz && sortedResponses.length ? (
               <ButtonSet variant="responses">
                 {sortedResponses.map((response, index) => (
-                  <Button key={index} onClick={() => handleRating(response.value, response.text)}>
+                  <Button
+                    key={`${index}: ${response.text}`}
+                    onClick={() => handleRating(response.value, response.text)}
+                  >
                     <Content text={response.text} />
                   </Button>
                 ))}
