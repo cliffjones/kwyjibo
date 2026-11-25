@@ -42,6 +42,8 @@ export type ConfigData = {
 };
 
 export type LineConfigData = {
+  left?: boolean;
+  right?: boolean;
   start?: boolean;
   end?: boolean;
   order?: number;

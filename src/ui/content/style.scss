@@ -5,6 +5,23 @@
 .content {
   text-align: center;
 
+  &--left {
+    text-align: left;
+
+    .content-list {
+      margin: 0;
+    }
+  }
+
+  &--right {
+    text-align: right;
+
+    .content-list {
+      margin-left: auto;
+      margin-right: 0;
+    }
+  }
+
   &--start {
     text-align: start;
 
