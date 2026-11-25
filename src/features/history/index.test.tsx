@@ -39,8 +39,10 @@ vi.mock('react-chartjs-2', () => ({
     const label = callbacks?.label?.call(
       {} as never,
       {
-        dataset: { label: dataset?.label },
+        dataset: { data: dataset?.data, label: dataset?.label },
+        dataIndex: 0,
         parsed: { x: point?.x, y: point?.y },
+        raw: point,
       } as never,
     );
     const legendItems = legendLabels?.generateLabels?.({} as never);
@@ -51,7 +53,7 @@ vi.mock('react-chartjs-2', () => ({
         <output data-testid="history-chart">{JSON.stringify(dataset?.data)}</output>
         <output data-testid="history-local-time">{String(localTime ?? '')}</output>
         <output data-testid="history-tooltip-title">{String(title ?? '')}</output>
-        <output data-testid="history-tooltip-label">{String(label ?? '')}</output>
+        <output data-testid="history-tooltip-label">{JSON.stringify(label ?? '')}</output>
         <output data-testid="history-legend">{JSON.stringify(legendItems)}</output>
       </>
     );
@@ -84,10 +86,10 @@ describe('History', () => {
     expect(screen.getByRole('heading', { name: 'Your Activity' })).toBeInTheDocument();
     const plottedPoints = JSON.parse(screen.getByTestId('history-chart').textContent ?? '[]');
     const time = store.getState().kwyjibo.history[0].time;
-    expect(plottedPoints).toEqual([{ x: time, y: 75 }]);
+    expect(plottedPoints).toEqual([{ x: time, y: 75, tooltipLabels: ['75%'] }]);
     expect(screen.getByTestId('history-local-time')).toHaveTextContent(formatTime(time, true));
     expect(screen.getByTestId('history-tooltip-title')).toHaveTextContent(formatTime(time));
-    expect(screen.getByTestId('history-tooltip-label')).toHaveTextContent('Science: 75');
+    expect(JSON.parse(screen.getByTestId('history-tooltip-label').textContent ?? '[]')).toEqual(['Science: 75%']);
     expect(JSON.parse(screen.getByTestId('history-legend').textContent ?? '[]')).toEqual([{ lineWidth: 0 }]);
   });
 

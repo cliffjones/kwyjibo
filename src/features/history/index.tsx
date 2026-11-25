@@ -7,6 +7,7 @@ import { DARK_MODE, LIGHT_MODE } from '../../style/constants';
 import { Card } from '../card';
 import { GRID_ALPHA, MAX_TIME_LABELS } from './constants';
 import { formatTime } from './format-time';
+import { formatTooltipLabel } from './format-tooltip-label';
 import { getGraphData } from './get-graph-data';
 import './style.scss';
 import type { GraphOptions } from './types';
@@ -46,7 +47,17 @@ export const History = () => {
       tooltip: {
         callbacks: {
           title: (items) => formatTime(items[0]?.parsed.x),
-          label: (context) => `${context.dataset.label}: ${context.parsed.y}`,
+          label: (context) => {
+            const rawPoint = context.raw;
+            const tooltipLabels =
+              typeof rawPoint === 'object' &&
+              rawPoint !== null &&
+              'tooltipLabels' in rawPoint &&
+              Array.isArray(rawPoint.tooltipLabels)
+                ? rawPoint.tooltipLabels.filter((label): label is string => typeof label === 'string')
+                : undefined;
+            return formatTooltipLabel(context.dataset.label ?? '', tooltipLabels ?? [`${context.parsed.y}%`]);
+          },
         },
       },
     },

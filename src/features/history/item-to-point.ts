@@ -18,5 +18,6 @@ export const itemToPoint = (item: HistoryItem): Point | null => {
   return {
     x: item.time,
     y: value,
+    tooltipLabels: [item.type === ITEM_TYPES.input ? (item.response ?? '') : `${ratingToPercent(item.rating)}%`],
   };
 };
