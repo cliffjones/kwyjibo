@@ -86,6 +86,14 @@ export const Header = ({
       ) : null}
 
       <div className="header-toolbar header-toolbar--right" dir="ltr">
+        {/* <Button
+          variant="text"
+          onClick={() => dispatch(setLightMode(!lightMode))}
+          title={configData.lightModeMessage || LANG.lightModeMessage}
+        >
+          <Icon name="tile" />
+        </Button> */}
+
         <Selector
           icon="globe"
           title={configData.languageMessage || LANG.languageMessage}

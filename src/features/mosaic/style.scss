@@ -26,6 +26,7 @@
     clip-path: polygon(50% 0%, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0% 50%, 25% 25%);
     color: transparent;
     flex: 0 0 4%;
+    justify-content: center;
     height: auto;
     min-height: 0;
     min-width: 0;
@@ -34,8 +35,9 @@
     width: 4%;
 
     .icon {
+      flex: 0 0 200%;
       height: 100%;
-      width: 100%;
+      width: 200%;
     }
   }
 }
