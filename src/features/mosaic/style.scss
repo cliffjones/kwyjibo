@@ -13,7 +13,7 @@
     width: 100%;
 
     & + & {
-      margin-top: -2%;
+      margin-top: -4%;
     }
 
     &--offset {
@@ -22,8 +22,7 @@
   }
 
   .button {
-    aspect-ratio: 1;
-    border-radius: 50%;
+    aspect-ratio: 1 / 2;
     clip-path: polygon(50% 0%, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0% 50%, 25% 25%);
     color: transparent;
     flex: 0 0 4%;

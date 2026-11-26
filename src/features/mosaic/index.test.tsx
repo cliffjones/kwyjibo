@@ -23,7 +23,7 @@ describe('Mosaic', () => {
     );
 
     const rows = container.querySelectorAll('.mosaic-row');
-    expect(rows).toHaveLength(MOSAIC_GRID_SIZE * 2 - 1);
+    expect(rows).toHaveLength(MOSAIC_GRID_SIZE);
 
     rows.forEach((row, index) => {
       expect(row.querySelectorAll('button')).toHaveLength(index % 2 ? MOSAIC_GRID_SIZE - 1 : MOSAIC_GRID_SIZE);

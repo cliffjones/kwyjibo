@@ -127,7 +127,7 @@ export const Mosaic = ({ code }: { code?: string }) => {
         onPointerCancel={() => handleGridPointerCancel(activePointer, setHoveredTile)}
       >
         {code}
-        {Array.from({ length: MOSAIC_GRID_SIZE * 2 - 1 }, (_, y) => (
+        {Array.from({ length: MOSAIC_GRID_SIZE }, (_, y) => (
           <div className={`mosaic-row${y % 2 ? ' mosaic-row--offset' : ''}`} key={y}>
             {Array.from({ length: y % 2 ? MOSAIC_GRID_SIZE - 1 : MOSAIC_GRID_SIZE }, (_, x) => {
               const tileKey = `${x},${y}`;

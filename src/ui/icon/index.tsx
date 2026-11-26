@@ -2,7 +2,14 @@ import './style.scss';
 import { IconName } from './types';
 
 export const Icon = ({ name }: { name: IconName }) => (
-  <svg className="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none">
+  <svg
+    className="icon"
+    aria-hidden="true"
+    focusable="false"
+    viewBox="0 0 24 24"
+    fill="none"
+    preserveAspectRatio={name === 'tile' ? 'none' : undefined}
+  >
     {name === 'check' && (
       <path d="m4 12 5 5L20 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
     )}
@@ -98,7 +105,7 @@ export const Icon = ({ name }: { name: IconName }) => (
 
     {name === 'tile' && (
       <path
-        d="M13.77 2.77 21.23 10.23 Q23 12 21.23 13.77 L13.77 21.23 Q12 23 10.23 21.23 L2.77 13.77 Q1 12 2.77 10.23 L10.23 2.77 Q12 1 13.77 2.77Z"
+        d="M13.5 2.77 22 10.23 Q23 12 22 13.77 L13.5 21.23 Q12 23 10.5 21.23 L2 13.77 Q1 12 2 10.23 L10.5 2.77 Q12 1 13.5 2.77Z"
         fill="currentColor"
       />
     )}
