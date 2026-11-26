@@ -43,6 +43,9 @@ export const App = ({ path }: { path: string }) => {
   const [ratingAnimationKey, setRatingAnimationKey] = useState(0);
   const [endTime, setEndTime] = useState(0);
 
+  const mosaicMode = path.split(/[/:]/).includes('m');
+  const mosaicCode = mosaicMode ? path.match(/m:([^/]+)/i)?.[1] : undefined;
+
   const handleReveal = () => {
     setRevealed(true);
   };
@@ -87,9 +90,9 @@ export const App = ({ path }: { path: string }) => {
         ratingAnimationKey={ratingAnimationKey}
       />
 
-      {path.includes('mosaic') ? (
-        <Card heading="Compose your mosaic">
-          <Mosaic />
+      {mosaicMode ? (
+        <Card heading={mosaicCode ? 'Shared mosaic' : 'Your mosaic'}>
+          <Mosaic code={mosaicCode} />
         </Card>
       ) : null}
 

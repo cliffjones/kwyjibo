@@ -4,6 +4,7 @@
   &-grid {
     display: flex;
     flex-direction: column;
+    touch-action: none;
   }
 
   &-row {
