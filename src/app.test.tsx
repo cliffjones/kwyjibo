@@ -88,7 +88,7 @@ describe('App', () => {
     expect(screen.getByText('Really reset the cards?')).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Yes' }));
-    expect(await screen.findByText('What do you want to work on today?')).toBeInTheDocument();
+    expect(await screen.findByText('What Do You Want to Work On Today?')).toBeInTheDocument();
     expect(mockedLoadItems).toHaveBeenCalledWith('/test', []);
     expect(store.getState().kwyjibo.lightMode).toBe(false);
     expect(store.getState().kwyjibo.history).toHaveLength(1);

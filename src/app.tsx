@@ -91,7 +91,10 @@ export const App = ({ path }: { path: string }) => {
       />
 
       {mosaicMode ? (
-        <Card heading={mosaicCode ? 'Shared mosaic' : 'Your mosaic'}>
+        <Card
+          heading={mosaicCode ? 'Shared Mosaic' : 'Your Mosaic'}
+          intro={mosaicCode ? undefined : 'Complete activities to earn more tiles.'}
+        >
           <Mosaic code={mosaicCode} />
         </Card>
       ) : null}

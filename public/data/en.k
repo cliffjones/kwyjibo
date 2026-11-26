@@ -4,7 +4,7 @@
   lightModeMessage: 'Switch to {dark|light} mode',
   homeMessage: 'Refresh with no preloaded data',
   title: 'In English',
-  heading: 'What do you want to work on today?',
+  heading: 'What Do You Want to Work On Today?',
   cardsLoadedMessage: '{} {card|cards} loaded.',
   cardsRemainingMessage: '{} of {} {card|cards} remaining.',
   preloadedDataHeading: 'Preloaded cards:',
