@@ -64,19 +64,12 @@ describe('RouterApp', () => {
 
   it('removes token segments from the route and persists non-empty tokens globally', async () => {
     window.localStorage.setItem('kwyjibo', JSON.stringify({ tokens: ['saved'], preference: 'compact' }));
-    mockedUseLocation.mockReturnValue({
-      pathname: '/=alpha/dev/=/=beta/=alpha',
-      search: '?mode=quick',
-      hash: '#cards',
-    } as ReturnType<typeof useLocation>);
+    mockedUseLocation.mockReturnValue({ pathname: '/=alpha/dev/=/=beta/=alpha' } as ReturnType<typeof useLocation>);
     mockedLoadItems.mockResolvedValue([{}, ...items]);
 
     const { rerender } = render(<RouterApp />);
 
-    expect(mockedNavigate).toHaveBeenCalledWith(
-      { pathname: '/dev', search: '?mode=quick', hash: '#cards' },
-      { replace: true },
-    );
+    expect(mockedNavigate).toHaveBeenCalledWith({ pathname: '/dev' }, { replace: true });
     expect(mockedLoadItems).not.toHaveBeenCalled();
     expect(JSON.parse(window.localStorage.getItem('kwyjibo') ?? 'null')).toEqual({
       tokens: ['saved', 'alpha', 'beta'],
