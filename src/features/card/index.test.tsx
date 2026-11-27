@@ -28,9 +28,11 @@ describe('Card', () => {
 
   it('renders and invokes the close button in the right toolbar', () => {
     const onClose = vi.fn();
-    render(<Card topic="Science" content="Question?" onClose={onClose} />, { wrapper: createWrapper() });
+    render(<Card topic="Science" content="Question?" closeHint="Dismiss card" onClose={onClose} />, {
+      wrapper: createWrapper(),
+    });
 
-    const closeButton = screen.getByTitle('Close');
+    const closeButton = screen.getByRole('button', { name: 'Dismiss card' });
     expect(screen.getByText('Science', { selector: '.card-topic' }).parentElement).toHaveClass('card-toolbar');
     expect(closeButton.parentElement).toHaveClass('card-toolbar', 'card-toolbar--right');
     fireEvent.click(closeButton);

@@ -108,4 +108,18 @@ describe('Mosaic', () => {
     expect(store.getState().mosaic.tiles).toEqual({});
     expect(store.getState().pointBalance).toBe(0);
   });
+
+  it('renders decoded shared tiles without storing them', () => {
+    const store = createAppStore('/mosaic-shared');
+    const { container } = render(
+      <Provider store={store}>
+        <Mosaic code="00123456" editable />
+      </Provider>,
+    );
+
+    expect(container.querySelector<HTMLButtonElement>('[data-mosaic-tile="0,0"]')).toHaveStyle({
+      color: '#123456',
+    });
+    expect(store.getState().mosaic.tiles).toEqual({});
+  });
 });

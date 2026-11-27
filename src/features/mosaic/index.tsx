@@ -10,6 +10,7 @@ import { setMosaicTile, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
 import { MOSAIC_GRID_SIZE } from './constants';
+import { decodeMosaic } from './decode-mosaic';
 import { getRandomColor } from './get-random-color';
 import './style.scss';
 import type { ActivePointer, SetHoveredTile } from './types';
@@ -113,8 +114,10 @@ const handleTilePointerLeave = (
 
 export const Mosaic = ({ code = '', editable = false }: { code?: string; editable?: boolean }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const tiles = useSelector((state: RootState) => state.mosaic.tiles);
+  const storedTiles = useSelector((state: RootState) => state.mosaic.tiles);
   const currentColor = useSelector((state: RootState) => state.mosaic.currentColor);
+  const decodedTiles = code ? decodeMosaic(code) : null;
+  const tiles = decodedTiles ?? storedTiles;
   const [hoveredTile, setHoveredTile] = useState<string | null>(null);
   const activePointer = useRef<ActivePointer | null>(null);
 
@@ -128,7 +131,6 @@ export const Mosaic = ({ code = '', editable = false }: { code?: string; editabl
         }
         onPointerCancel={editable ? () => handleGridPointerCancel(activePointer, setHoveredTile) : undefined}
       >
-        {code}
         {Array.from({ length: MOSAIC_GRID_SIZE }, (_, y) => (
           <div className={`mosaic-row${y % 2 ? ' mosaic-row--offset' : ''}`} key={y}>
             {Array.from({ length: y % 2 ? MOSAIC_GRID_SIZE - 1 : MOSAIC_GRID_SIZE }, (_, x) => {

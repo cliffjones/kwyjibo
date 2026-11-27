@@ -56,13 +56,13 @@ export const Card = ({
 
       <div className="card-toolbar card-toolbar--right">
         {onShare ? (
-          <Button variant="text" onClick={onShare} title="Copy mosaic link">
+          <Button variant="text" onClick={onShare} title={shareHint}>
             <Icon name="share" />
           </Button>
         ) : null}
 
         {onClose ? (
-          <Button variant="text" onClick={onClose} title="Exit mosaic mode">
+          <Button variant="text" onClick={onClose} title={closeHint}>
             <Icon name="x" />
           </Button>
         ) : null}

@@ -6,6 +6,8 @@ import { Card } from './features/card';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
 import { Mosaic } from './features/mosaic';
+import { copyMosaicUrl } from './features/mosaic/copy-mosaic-url';
+import { decodeMosaic } from './features/mosaic/decode-mosaic';
 import { hideMosaic } from './features/mosaic/hide-mosaic';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
@@ -39,6 +41,7 @@ export const App = ({ path }: { path: string }) => {
   const ratingCount = useSelector((state: RootState) => state.kwyjibo.ratingCount);
   const history = useSelector((state: RootState) => state.kwyjibo.history);
   const pointBalance = useSelector((state: RootState) => state.pointBalance);
+  const mosaicTiles = useSelector((state: RootState) => state.mosaic.tiles);
 
   const [revealed, setRevealed] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
@@ -56,6 +59,7 @@ export const App = ({ path }: { path: string }) => {
   const mosaicCode = mosaicSegments
     .find((segment) => segment.startsWith(`m${K_DELIMS.namespace}`))
     ?.slice(`m${K_DELIMS.namespace}`.length);
+  const sharedMosaicCode = mosaicCode && decodeMosaic(mosaicCode) ? mosaicCode : undefined;
 
   const handleReveal = () => {
     setRevealed(true);
@@ -90,6 +94,14 @@ export const App = ({ path }: { path: string }) => {
     }
   };
 
+  const shareMosaic = async () => {
+    try {
+      await copyMosaicUrl(mosaicTiles);
+    } catch (error) {
+      console.error('Unable to copy mosaic link.', error);
+    }
+  };
+
   const sortedResponses = sortResponses(currentItem?.responses ?? []);
 
   return (
@@ -103,9 +115,9 @@ export const App = ({ path }: { path: string }) => {
 
       {mosaicMode ? (
         <>
-          {mosaicCode && (
-            <Card heading={'Shared Mosaic'} onClose={() => hideMosaic(path, navigate)}>
-              <Mosaic code={mosaicCode} />
+          {sharedMosaicCode && (
+            <Card heading={'Shared Mosaic'} closeHint="Exit mosaic mode" onClose={() => hideMosaic(path, navigate)}>
+              <Mosaic code={sharedMosaicCode} />
             </Card>
           )}
 
@@ -113,7 +125,7 @@ export const App = ({ path }: { path: string }) => {
             heading={'Your Mosaic'}
             intro={mosaicEditable ? undefined : 'Complete activities to earn tiles.'}
             shareHint="Copy mosaic link"
-            onShare={() => console.log('Copy a URL with the mosaic')}
+            onShare={shareMosaic}
             closeHint="Exit mosaic mode"
             onClose={() => hideMosaic(path, navigate)}
           >
