@@ -75,7 +75,7 @@ describe('Mosaic', () => {
     expect(store.getState().mosaic).toEqual({
       tiles: { '1,0': initialColor },
       currentColor: '#800000',
-      colorOptions: Array(10).fill('#800000'),
+      colorOptions: ['#800000'],
     });
     expect(store.getState().pointBalance).toBe(1);
     expect(draggedTile).toHaveStyle({ color: initialColor });

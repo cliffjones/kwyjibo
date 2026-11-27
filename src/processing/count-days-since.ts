@@ -1,3 +1,10 @@
-const MS_PER_DAY = 1000 * 60 * 60 * 24;
+import { MS_PER_DAY } from './constants';
 
-export const countDaysSince = (date: number) => Math.round((Date.now() - date) / MS_PER_DAY);
+// Determines the number of days from a given timestamp to now.
+export const countDaysSince = (date: number) => {
+  if (!date) {
+    return 0;
+  }
+
+  return Math.round((Date.now() - date) / MS_PER_DAY);
+};

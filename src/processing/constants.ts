@@ -1,5 +1,7 @@
 import type { LineConfigData, PrivateFiles } from './types';
 
+export const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
 export const FORBIDDEN_JSON_KEYS = ['__proto__', 'constructor', 'prototype'];
 
 export const BASE_URL = document.querySelector('base')?.getAttribute('href') ?? '/';
