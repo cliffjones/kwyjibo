@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import type { ConfigData } from '../../processing/types';
@@ -24,6 +24,17 @@ describe('Card', () => {
     expect(screen.getByText('Science', { selector: '.card-topic' })).toBeInTheDocument();
     expect(screen.getByText('Question')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Answer' })).toBeInTheDocument();
+  });
+
+  it('renders and invokes the close button alongside the topic', () => {
+    const onClose = vi.fn();
+    render(<Card topic="Science" content="Question?" onClose={onClose} />, { wrapper: createWrapper() });
+
+    const tools = screen.getByText('Science', { selector: '.card-topic' }).parentElement;
+    const closeButton = screen.getByTitle('Close');
+    expect(tools).toContainElement(closeButton);
+    fireEvent.click(closeButton);
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it('uses a content gap for exactly three spaces', () => {

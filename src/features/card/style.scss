@@ -13,18 +13,24 @@
   position: relative;
   text-align: center;
 
-  &-heading {
-    color: color.$pencil;
-    font-size: size.$heading;
-    font-weight: normal;
-    margin: 0;
+  &-toolbar {
+    align-items: top;
+    display: flex;
+    gap: space.$mid;
+    justify-content: flex-start;
+    left: space.$small;
+    position: absolute;
+    top: space.$small;
+
+    &--right {
+      justify-content: flex-end;
+      left: auto;
+      right: space.$small;
+    }
   }
 
   &-rating {
     height: size.$text;
-    left: space.$mid;
-    position: absolute;
-    top: space.$mid;
     width: size.$text;
   }
 
@@ -32,9 +38,13 @@
     color: color.$pencil;
     font-size: size.$text;
     line-height: 1;
-    position: absolute;
-    right: space.$mid;
     text-align: start;
-    top: space.$mid;
+  }
+
+  &-heading {
+    color: color.$pencil;
+    font-size: size.$heading;
+    font-weight: normal;
+    margin: 0;
   }
 }

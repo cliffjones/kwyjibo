@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
-import { ALTERNATION_PATTERN, DEFAULT_LANG, LANG, PLACEHOLDER_PATTERN } from '../../constants';
+import { ALTERNATION_PATTERN, DEFAULT_LANG, LANG, MOSAIC_PATH, PLACEHOLDER_PATTERN } from '../../constants';
 import { K_DELIMS } from '../../processing/constants';
 import { countDaysSince } from '../../processing/count-days-since';
 import { ratingToPercent } from '../../processing/rating-to-percent';
@@ -58,8 +58,8 @@ export const Header = ({
     const segments = pathname
       .split('/')
       .filter(Boolean)
-      .filter((segment) => segment !== 'm' && !segment.startsWith(`m${K_DELIMS.namespace}`));
-    navigate({ pathname: `/${[...segments, 'm'].join('/')}`, search, hash });
+      .filter((segment) => segment !== MOSAIC_PATH && !segment.startsWith(`${MOSAIC_PATH}${K_DELIMS.namespace}`));
+    navigate({ pathname: `/${[...segments, MOSAIC_PATH].join('/')}`, search, hash });
   };
 
   let remainingMessage;

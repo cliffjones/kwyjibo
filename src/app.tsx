@@ -1,6 +1,6 @@
 import { Suspense, lazy, useState, type ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { LANG } from './constants';
+import { LANG, MOSAIC_PATH } from './constants';
 import { Card } from './features/card';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
@@ -47,7 +47,7 @@ export const App = ({ path }: { path: string }) => {
   const mosaicSegments = path
     .split('/')
     .filter(Boolean)
-    .filter((segment) => segment === 'm' || segment.startsWith(`m${K_DELIMS.namespace}`));
+    .filter((segment) => segment === MOSAIC_PATH || segment.startsWith(`${MOSAIC_PATH}${K_DELIMS.namespace}`));
   const mosaicMode = mosaicSegments.length > 0;
   const mosaicEditable = pointBalance >= 1;
   const mosaicCode = mosaicSegments
@@ -101,12 +101,16 @@ export const App = ({ path }: { path: string }) => {
       {mosaicMode ? (
         <>
           {mosaicCode && (
-            <Card heading={'Shared Mosaic'}>
+            <Card heading={'Shared Mosaic'} onClose={() => console.log('CLOSE')}>
               <Mosaic code={mosaicCode} />
             </Card>
           )}
 
-          <Card heading={'Your Mosaic'} intro={mosaicEditable ? undefined : 'Complete activities to earn tiles.'}>
+          <Card
+            heading={'Your Mosaic'}
+            intro={mosaicEditable ? undefined : 'Complete activities to earn tiles.'}
+            onClose={() => console.log('CLOSE')}
+          >
             <Mosaic editable={mosaicEditable} />
           </Card>
         </>

@@ -1,5 +1,6 @@
 export const DEFAULT_PATH = 'index';
 export const FILE_EXTENSION = 'k';
+export const MOSAIC_PATH = 'm';
 
 export const RTL_LANGS = ['arb', 'arz', 'fa', 'he', 'lah', 'ur'];
 

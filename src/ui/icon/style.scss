@@ -3,9 +3,9 @@
 @use '../../style/space';
 
 .icon-box {
-  height: size.$icon;
+  height: size.$text;
   position: relative;
-  width: size.$icon;
+  width: size.$text;
 
   .icon {
     height: 100%;
