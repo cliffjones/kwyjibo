@@ -23,4 +23,11 @@ describe('Link', () => {
     expect(link).toHaveAttribute('href', '/docs');
     expect(link).not.toHaveAttribute('target');
   });
+
+  it('does not add an undefined variant to external links without a variant', () => {
+    render(<Link href="https://example.com">Example</Link>);
+
+    expect(screen.getByRole('link', { name: 'Example' })).toHaveClass('link', 'link--external');
+    expect(screen.getByRole('link', { name: 'Example' })).not.toHaveClass('link--undefined');
+  });
 });

@@ -99,6 +99,76 @@ describe('app store', () => {
     expect(createAppStore('/science').getState().mosaic).toEqual(secondStore.getState().mosaic);
   });
 
+  it('tracks and persists root progress when an item is rated', () => {
+    vi.useFakeTimers();
+
+    try {
+      vi.setSystemTime(new Date('2024-01-01T00:00:00Z'));
+      const store = createAppStore('/science', {}, [
+        {
+          id: 0,
+          type: ITEM_TYPES.question,
+          topic: 'Science',
+          task: 'Question?',
+          solution: 'Answer.',
+          responses: [],
+          rating: 0,
+        },
+      ]);
+
+      store.dispatch(respond({ rating: 4 }));
+
+      expect(store.getState().pointBalance).toBe(0.4);
+      expect(store.getState().activeSince).toBe(Date.now());
+      expect(JSON.parse(window.localStorage.getItem('kwyjibo') ?? '{}')).toMatchObject({
+        pointBalance: 0.4,
+        activeSince: Date.now(),
+      });
+
+      const activeSince = store.getState().activeSince;
+      vi.setSystemTime(new Date('2024-01-03T00:00:00.001Z'));
+      store.dispatch(respond({ rating: 1 }));
+
+      expect(store.getState().pointBalance).toBe(0.5);
+      expect(store.getState().activeSince).toBe(Date.now());
+      expect(store.getState().activeSince).not.toBe(activeSince);
+      expect(createAppStore('/math').getState()).toMatchObject({
+        pointBalance: 0.5,
+        activeSince: Date.now(),
+      });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('keeps activeSince when a rating occurs within 48 hours', () => {
+    vi.useFakeTimers();
+
+    try {
+      vi.setSystemTime(new Date('2024-01-01T00:00:00Z'));
+      const store = createAppStore('/active', {}, [
+        {
+          id: 0,
+          type: ITEM_TYPES.question,
+          topic: 'Science',
+          task: 'Question?',
+          solution: 'Answer.',
+          responses: [],
+          rating: 0,
+        },
+      ]);
+      store.dispatch(respond({ rating: 2 }));
+      const activeSince = store.getState().activeSince;
+
+      vi.setSystemTime(new Date('2024-01-03T00:00:00Z'));
+      store.dispatch(respond({ rating: 3 }));
+
+      expect(store.getState().activeSince).toBe(activeSince);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('resets the deck timer when starting a new deck', () => {
     vi.useFakeTimers();
 

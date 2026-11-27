@@ -111,7 +111,7 @@ const handleTilePointerLeave = (
   }
 };
 
-export const Mosaic = ({ code }: { code?: string }) => {
+export const Mosaic = ({ code = '', editable = false }: { code?: string; editable?: boolean }) => {
   const dispatch = useDispatch<AppDispatch>();
   const tiles = useSelector((state: RootState) => state.mosaic.tiles);
   const currentColor = useSelector((state: RootState) => state.mosaic.currentColor);
@@ -121,10 +121,12 @@ export const Mosaic = ({ code }: { code?: string }) => {
   return (
     <div className="mosaic">
       <div
-        className="mosaic-grid"
-        onPointerMove={(event) => handleGridPointerMove(event, activePointer, setHoveredTile)}
-        onPointerUp={(event) => handleGridPointerUp(event, activePointer, setHoveredTile, dispatch)}
-        onPointerCancel={() => handleGridPointerCancel(activePointer, setHoveredTile)}
+        className={`mosaic-grid${editable ? ' mosaic-grid--editable' : ''}`}
+        onPointerMove={editable ? (event) => handleGridPointerMove(event, activePointer, setHoveredTile) : undefined}
+        onPointerUp={
+          editable ? (event) => handleGridPointerUp(event, activePointer, setHoveredTile, dispatch) : undefined
+        }
+        onPointerCancel={editable ? () => handleGridPointerCancel(activePointer, setHoveredTile) : undefined}
       >
         {code}
         {Array.from({ length: MOSAIC_GRID_SIZE }, (_, y) => (
@@ -133,14 +135,29 @@ export const Mosaic = ({ code }: { code?: string }) => {
               const tileKey = `${x},${y}`;
               return (
                 <Button
+                  aria-disabled={!editable}
                   data-mosaic-tile={tileKey}
                   key={tileKey}
                   variant="text"
-                  style={{ color: hoveredTile === tileKey ? currentColor : (tiles[tileKey] ?? 'transparent') }}
-                  onClick={(event) => handleTileClick(event, tileKey, dispatch)}
-                  onPointerDown={(event) => handleTilePointerDown(event, tileKey, activePointer, setHoveredTile)}
-                  onPointerEnter={(event) => handleTilePointerEnter(event, tileKey, activePointer, setHoveredTile)}
-                  onPointerLeave={(event) => handleTilePointerLeave(event, tileKey, activePointer, setHoveredTile)}
+                  style={{
+                    color: editable && hoveredTile === tileKey ? currentColor : (tiles[tileKey] ?? 'transparent'),
+                  }}
+                  onClick={editable ? (event) => handleTileClick(event, tileKey, dispatch) : undefined}
+                  onPointerDown={
+                    editable
+                      ? (event) => handleTilePointerDown(event, tileKey, activePointer, setHoveredTile)
+                      : undefined
+                  }
+                  onPointerEnter={
+                    editable
+                      ? (event) => handleTilePointerEnter(event, tileKey, activePointer, setHoveredTile)
+                      : undefined
+                  }
+                  onPointerLeave={
+                    editable
+                      ? (event) => handleTilePointerLeave(event, tileKey, activePointer, setHoveredTile)
+                      : undefined
+                  }
                 >
                   <Icon name="tile" />
                 </Button>

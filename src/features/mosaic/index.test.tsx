@@ -18,7 +18,7 @@ describe('Mosaic', () => {
     const store = createAppStore('/mosaic');
     const { container } = render(
       <Provider store={store}>
-        <Mosaic />
+        <Mosaic editable />
       </Provider>,
     );
 
@@ -32,6 +32,7 @@ describe('Mosaic', () => {
   });
 
   it('previews mouse hover, previews touch drags, and persists the tile on pointer-up', () => {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ pointBalance: 2 }));
     const store = createAppStore('/mosaic-color', {}, [
       {
         id: 0,
@@ -46,10 +47,11 @@ describe('Mosaic', () => {
 
     const { container } = render(
       <Provider store={store}>
-        <Mosaic />
+        <Mosaic editable />
       </Provider>,
     );
 
+    expect(container.querySelector('.mosaic-grid')).toHaveClass('mosaic-grid--editable');
     const initialColor = store.getState().mosaic.currentColor;
     const tiles = container.querySelectorAll<HTMLButtonElement>('.mosaic-grid button');
     const tile = tiles[0];
@@ -74,6 +76,7 @@ describe('Mosaic', () => {
       tiles: { '1,0': initialColor },
       currentColor: '#800000',
     });
+    expect(store.getState().pointBalance).toBe(1);
     expect(draggedTile).toHaveStyle({ color: initialColor });
 
     expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? '{}').mosaic).toEqual(store.getState().mosaic);
@@ -83,5 +86,26 @@ describe('Mosaic', () => {
 
     fireEvent.click(keyboardTile);
     expect(store.getState().mosaic.tiles['2,0']).toBe('#800000');
+    expect(store.getState().pointBalance).toBe(0);
+  });
+
+  it('is read-only without hover or drag previews when no tile is available', () => {
+    const store = createAppStore('/mosaic-read-only');
+    const { container } = render(
+      <Provider store={store}>
+        <Mosaic />
+      </Provider>,
+    );
+    const tile = container.querySelector<HTMLButtonElement>('.mosaic-grid button')!;
+
+    expect(tile).toHaveAttribute('aria-disabled', 'true');
+    expect(tile).not.toBeDisabled();
+    fireEvent.pointerEnter(tile, { pointerType: 'mouse' });
+    fireEvent.pointerDown(tile, { pointerType: 'touch', pointerId: 1 });
+    fireEvent.click(tile);
+
+    expect(tile.style.color).toBe('transparent');
+    expect(store.getState().mosaic.tiles).toEqual({});
+    expect(store.getState().pointBalance).toBe(0);
   });
 });

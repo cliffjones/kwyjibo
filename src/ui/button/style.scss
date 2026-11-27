@@ -43,12 +43,12 @@
   }
 
   &--rating {
-    border-radius: size.$icon;
+    border-radius: size.$icon-button;
     color: color.$icon-ink;
-    height: size.$icon;
+    height: size.$icon-button;
     min-height: auto;
     padding: 0;
-    width: size.$icon;
+    width: size.$icon-button;
 
     .icon {
       height: 100%;

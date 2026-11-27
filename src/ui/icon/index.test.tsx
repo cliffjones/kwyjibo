@@ -7,6 +7,7 @@ describe('Icon', () => {
       'check',
       'face-no',
       'face-yes',
+      'flame',
       'moon',
       'point-down',
       'point-right',

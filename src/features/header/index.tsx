@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { ALTERNATION_PATTERN, DEFAULT_LANG, LANG, PLACEHOLDER_PATTERN } from '../../constants';
+import { K_DELIMS } from '../../processing/constants';
+import { countDaysSince } from '../../processing/count-days-since';
 import { ratingToPercent } from '../../processing/rating-to-percent';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
@@ -26,11 +28,16 @@ export const Header = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { pathname, search, hash } = useLocation();
+
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
   const lightMode = useSelector((state: RootState) => state.kwyjibo.lightMode);
   const configData = useSelector((state: RootState) => state.kwyjibo.configData);
   const itemCount = useSelector((state: RootState) => state.kwyjibo.items.length);
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
+  const pointBalance = useSelector((state: RootState) => state.pointBalance);
+  const activeSince = useSelector((state: RootState) => state.activeSince);
+  const streakLength = countDaysSince(activeSince);
   const currentLanguage = configData.language || DEFAULT_LANG;
   const languages = LANGUAGES.some(({ code }) => code === currentLanguage)
     ? LANGUAGES
@@ -47,6 +54,13 @@ export const Header = ({
   }, [configData.title]);
 
   const ratingFace = lastRating ? faceNumberToName(lastRating) : '';
+  const showMosaic = () => {
+    const segments = pathname
+      .split('/')
+      .filter(Boolean)
+      .filter((segment) => segment !== 'm' && !segment.startsWith(`m${K_DELIMS.namespace}`));
+    navigate({ pathname: `/${[...segments, 'm'].join('/')}`, search, hash });
+  };
 
   let remainingMessage;
   if (remainingIds.length === itemCount) {
@@ -71,54 +85,66 @@ export const Header = ({
       </h1>
       {configData.title ? <p className="header-title header-title--secondary">{configData.title}</p> : null}
 
-      {lastRating && ratingFace ? (
-        <div className="header-toolbar" dir="ltr">
-          <div
-            key={ratingAnimationKey}
-            className="header-toolbar-rating"
-            title={`${configData.ratingMessage || LANG.ratingMessage} ${ratingToPercent(lastRating)}%`}
-          >
-            <div className={`icon-dot icon-dot--${ratingFace}`}>
-              <Icon name={`face-${ratingFace}` as IconName} />
+      <div className="header-toolbar" dir="ltr">
+        <div className="header-toolbar-line">
+          <Button variant="text" onClick={showMosaic} title="Show your mosaic">
+            <Icon name="tile" />
+            <span className="header-toolbar-text">{Math.floor(pointBalance).toLocaleString()}</span>
+          </Button>
+
+          {lastRating && ratingFace ? (
+            <div
+              key={ratingAnimationKey}
+              className="header-toolbar-rating"
+              title={`${configData.ratingMessage || LANG.ratingMessage} ${ratingToPercent(lastRating)}%`}
+            >
+              <div className={`icon-dot icon-dot--${ratingFace}`}>
+                <Icon name={`face-${ratingFace}` as IconName} />
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        {streakLength > 1 ? (
+          <div className="header-toolbar-line">
+            <div className="header-toolbar-line-unit" title="Your activity streak">
+              <span className="icon-box">
+                <Icon name="flame" />
+              </span>
+              <span className="header-toolbar-text">{streakLength.toLocaleString()}</span>
             </div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
 
       <div className="header-toolbar header-toolbar--right" dir="ltr">
-        {/* <Button
-          variant="text"
-          onClick={() => dispatch(setLightMode(!lightMode))}
-          title={configData.lightModeMessage || LANG.lightModeMessage}
-        >
-          <Icon name="tile" />
-        </Button> */}
+        <div className="header-toolbar-line">
+          <Selector
+            icon="globe"
+            title={configData.languageMessage || LANG.languageMessage}
+            onChange={({ currentTarget }) =>
+              navigate(currentTarget.value === DEFAULT_LANG ? '/' : `/${currentTarget.value}`)
+            }
+            value={currentLanguage}
+          >
+            {languages.map(({ code, name }) => (
+              <option key={code} value={code}>
+                {name}
+              </option>
+            ))}
+          </Selector>
 
-        <Selector
-          icon="globe"
-          title={configData.languageMessage || LANG.languageMessage}
-          onChange={({ currentTarget }) =>
-            navigate(currentTarget.value === DEFAULT_LANG ? '/' : `/${currentTarget.value}`)
-          }
-          value={currentLanguage}
-        >
-          {languages.map(({ code, name }) => (
-            <option key={code} value={code}>
-              {name}
-            </option>
-          ))}
-        </Selector>
-
-        <Button
-          variant="text"
-          onClick={() => dispatch(setLightMode(!lightMode))}
-          title={(configData.lightModeMessage || LANG.lightModeMessage).replace(
-            ALTERNATION_PATTERN,
-            lightMode ? '$1' : '$2',
-          )}
-        >
-          <Icon name={lightMode ? 'moon' : 'sun'} />
-        </Button>
+          <Button
+            variant="text"
+            onClick={() => dispatch(setLightMode(!lightMode))}
+            title={(configData.lightModeMessage || LANG.lightModeMessage).replace(
+              ALTERNATION_PATTERN,
+              lightMode ? '$1' : '$2',
+            )}
+          >
+            <Icon name={lightMode ? 'moon' : 'sun'} />
+          </Button>
+        </div>
       </div>
 
       {initializing || !remainingIds.length ? null : (

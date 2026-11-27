@@ -1,4 +1,4 @@
-import { configureStore, createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { getNextId } from '../processing/get-next-id';
 import { getTime } from '../processing/get-time';
 import { loadItems } from '../processing/load-items';
@@ -9,10 +9,15 @@ import { createInitialState } from './create-initial-state';
 import { getStorageKey } from './get-storage-key';
 import { loadMosaic } from './load-mosaic';
 import { loadPersistedState } from './load-persisted-state';
+import { loadProgress } from './load-progress';
 import { loadTokens } from './load-tokens';
 import { persistState } from './persist-state';
 import { saveMosaic } from './save-mosaic';
-import type { AppState, MosaicState } from './types';
+import { saveProgress } from './save-progress';
+import type { AppState, MosaicState, ProgressState } from './types';
+
+const ACTIVE_WINDOW_MS = 48 * 60 * 60 * 1000;
+const isValidRating = (rating: number) => rating >= 1 && rating <= 5;
 
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
@@ -40,12 +45,35 @@ const createMosaicReducer = (initialState: MosaicState) =>
     });
   });
 
+const createTilesEarnedReducer = (initialState: ProgressState['pointBalance']) =>
+  createReducer(initialState, (builder) => {
+    builder
+      .addCase(respond, (state, action) => {
+        if (isValidRating(action.payload.rating)) {
+          return state + action.payload.rating / 10;
+        }
+        return state;
+      })
+      .addCase(setMosaicTile, (state) => (state >= 1 ? state - 1 : state));
+  });
+
+const createActiveSinceReducer = (initialState: ProgressState['activeSince']) =>
+  createReducer(initialState, (builder) => {
+    builder.addCase(respond, (state, action) => {
+      const now = Date.now();
+      if (isValidRating(action.payload.rating) && (state === 0 || Math.abs(now - state) > ACTIVE_WINDOW_MS)) {
+        return now;
+      }
+      return state;
+    });
+  });
+
 // Creates a reducer for the app state, handling various actions triggered by the user.
 const createAppReducer = (initialState: AppState) => {
   return createReducer(initialState, (builder) => {
     builder
       .addCase(respond, (state, action) => {
-        if (state.currentId == null) {
+        if (state.currentId == null || !isValidRating(action.payload.rating)) {
           return;
         }
 
@@ -188,12 +216,33 @@ export const createAppStore = (
       : null;
   const initialState = restoredState ?? createInitialState(sourcePath, configData, items);
   const initialMosaic = loadMosaic();
+  const initialProgress = loadProgress();
+  const combinedReducer = combineReducers({
+    kwyjibo: createAppReducer(initialState),
+    tokens: (state: string[] = tokens) => state,
+    mosaic: createMosaicReducer(initialMosaic),
+    pointBalance: createTilesEarnedReducer(initialProgress.pointBalance),
+    activeSince: createActiveSinceReducer(initialProgress.activeSince),
+  });
 
   const store = configureStore({
-    reducer: {
-      kwyjibo: createAppReducer(initialState),
-      tokens: (state: string[] = tokens) => state,
-      mosaic: createMosaicReducer(initialMosaic),
+    reducer: (state: ReturnType<typeof combinedReducer> | undefined, action: Parameters<typeof combinedReducer>[1]) => {
+      if (state && setMosaicTile.match(action) && state.pointBalance < 1) {
+        return state;
+      }
+      const nextState = combinedReducer(state, action);
+      if (
+        respond.match(action) &&
+        state != null &&
+        (state.kwyjibo.currentId == null || !isValidRating(action.payload.rating))
+      ) {
+        return {
+          ...nextState,
+          pointBalance: state.pointBalance,
+          activeSince: state.activeSince,
+        };
+      }
+      return nextState;
     },
   });
 
@@ -204,9 +253,21 @@ export const createAppStore = (
 
   persistState(store.getState().kwyjibo);
   saveMosaic(store.getState().mosaic);
+  saveProgress({
+    pointBalance: store.getState().pointBalance,
+    activeSince: store.getState().activeSince,
+  });
   let previousMosaic = store.getState().mosaic;
+  let previousTilesEarned = store.getState().pointBalance;
+  let previousActiveSince = store.getState().activeSince;
   store.subscribe(() => {
     persistState(store.getState().kwyjibo);
+    const { pointBalance, activeSince } = store.getState();
+    if (pointBalance !== previousTilesEarned || activeSince !== previousActiveSince) {
+      previousTilesEarned = pointBalance;
+      previousActiveSince = activeSince;
+      saveProgress({ pointBalance, activeSince });
+    }
     const mosaic = store.getState().mosaic;
     if (mosaic !== previousMosaic) {
       previousMosaic = mosaic;

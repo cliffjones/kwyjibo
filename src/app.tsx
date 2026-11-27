@@ -8,7 +8,7 @@ import { Mosaic } from './features/mosaic';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
 import { getResults } from './get-results';
-import { ITEM_TYPES } from './processing/constants';
+import { ITEM_TYPES, K_DELIMS } from './processing/constants';
 import { getTime } from './processing/get-time';
 import { sortResponses } from './processing/sort-responses';
 import { reset, respond, setCustomData, type AppDispatch, type RootState } from './store';
@@ -35,6 +35,7 @@ export const App = ({ path }: { path: string }) => {
   const ratingTotal = useSelector((state: RootState) => state.kwyjibo.ratingTotal);
   const ratingCount = useSelector((state: RootState) => state.kwyjibo.ratingCount);
   const history = useSelector((state: RootState) => state.kwyjibo.history);
+  const pointBalance = useSelector((state: RootState) => state.pointBalance);
 
   const [revealed, setRevealed] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
@@ -43,8 +44,15 @@ export const App = ({ path }: { path: string }) => {
   const [ratingAnimationKey, setRatingAnimationKey] = useState(0);
   const [endTime, setEndTime] = useState(0);
 
-  const mosaicMode = path.split(/[/:]/).includes('m');
-  const mosaicCode = mosaicMode ? path.match(/m:([^/]+)/i)?.[1] : undefined;
+  const mosaicSegments = path
+    .split('/')
+    .filter(Boolean)
+    .filter((segment) => segment === 'm' || segment.startsWith(`m${K_DELIMS.namespace}`));
+  const mosaicMode = mosaicSegments.length > 0;
+  const mosaicEditable = pointBalance >= 1;
+  const mosaicCode = mosaicSegments
+    .find((segment) => segment.startsWith(`m${K_DELIMS.namespace}`))
+    ?.slice(`m${K_DELIMS.namespace}`.length);
 
   const handleReveal = () => {
     setRevealed(true);
@@ -91,94 +99,104 @@ export const App = ({ path }: { path: string }) => {
       />
 
       {mosaicMode ? (
-        <Card
-          heading={mosaicCode ? 'Shared Mosaic' : 'Your Mosaic'}
-          intro={mosaicCode ? undefined : 'Complete activities to earn more tiles.'}
-        >
-          <Mosaic code={mosaicCode} />
-        </Card>
-      ) : null}
-
-      {initializing ? (
         <>
-          <Setup customData={customData} handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))} />
+          {mosaicCode && (
+            <Card heading={'Shared Mosaic'}>
+              <Mosaic code={mosaicCode} />
+            </Card>
+          )}
 
-          {history.length ? (
-            <Suspense fallback={null}>
-              <History />
-            </Suspense>
-          ) : null}
-        </>
-      ) : confirmingReset ? (
-        <Card heading={configData.resetConfirmation || LANG.resetConfirmation}>
-          <ButtonSet>
-            <Button variant="yes" onClick={handleReset}>
-              <Icon name="check" />
-              {configData.yesButton || LANG.yesButton}
-            </Button>
-            <Button variant="no" onClick={cancelReset}>
-              <Icon name="x" />
-              {configData.noButton || LANG.noButton}
-            </Button>
-          </ButtonSet>
-        </Card>
-      ) : remainingIds.length && currentItem ? (
-        <>
-          <Card content={currentItem.task} topic={currentItem.topic} rating={currentItem.rating}>
-            {currentItem.type === ITEM_TYPES.quiz && sortedResponses.length ? (
-              <ButtonSet variant="responses">
-                {sortedResponses.map((response, index) => (
-                  <Button
-                    key={`${index}: ${response.text}`}
-                    onClick={() => handleRating(response.value, response.text)}
-                  >
-                    <Content text={response.text} />
-                  </Button>
-                ))}
-              </ButtonSet>
-            ) : currentItem.type === ITEM_TYPES.input ? (
-              <>
-                <Input
-                  label={currentItem.solution}
-                  value={inputValue}
-                  onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => setInputValue(value)}
-                />
-                <Rating
-                  handleRating={(rating) => {
-                    handleRating(rating, inputValue);
-                    setInputValue('');
-                  }}
-                />
-              </>
-            ) : currentItem.solution ? (
-              revealed ? null : (
-                <ButtonSet>
-                  <Button onClick={handleReveal}>
-                    <Icon name="point-down" />
-                    {configData.revealButton || LANG.revealButton}
-                  </Button>
-                </ButtonSet>
-              )
-            ) : (
-              <Rating handleRating={handleRating} />
-            )}
+          <Card heading={'Your Mosaic'} intro={mosaicEditable ? undefined : 'Complete activities to earn tiles.'}>
+            <Mosaic editable={mosaicEditable} />
           </Card>
+        </>
+      ) : (
+        <>
+          {initializing ? (
+            <>
+              <Setup
+                customData={customData}
+                handleTextChange={({ target: { value } }) => dispatch(setCustomData(value))}
+              />
 
-          {currentItem.solution && revealed && (
-            <Card content={currentItem.solution}>
-              <Rating handleRating={handleRating} />
+              {history.length ? (
+                <Suspense fallback={null}>
+                  <History />
+                </Suspense>
+              ) : null}
+            </>
+          ) : confirmingReset ? (
+            <Card heading={configData.resetConfirmation || LANG.resetConfirmation}>
+              <ButtonSet>
+                <Button variant="yes" onClick={handleReset}>
+                  <Icon name="check" />
+                  {configData.yesButton || LANG.yesButton}
+                </Button>
+                <Button variant="no" onClick={cancelReset}>
+                  <Icon name="x" />
+                  {configData.noButton || LANG.noButton}
+                </Button>
+              </ButtonSet>
+            </Card>
+          ) : remainingIds.length && currentItem ? (
+            <>
+              <Card content={currentItem.task} topic={currentItem.topic} rating={currentItem.rating}>
+                {currentItem.type === ITEM_TYPES.quiz && sortedResponses.length ? (
+                  <ButtonSet variant="responses">
+                    {sortedResponses.map((response, index) => (
+                      <Button
+                        key={`${index}: ${response.text}`}
+                        onClick={() => handleRating(response.value, response.text)}
+                      >
+                        <Content text={response.text} />
+                      </Button>
+                    ))}
+                  </ButtonSet>
+                ) : currentItem.type === ITEM_TYPES.input ? (
+                  <>
+                    <Input
+                      label={currentItem.solution}
+                      value={inputValue}
+                      onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => setInputValue(value)}
+                    />
+                    <Rating
+                      handleRating={(rating) => {
+                        handleRating(rating, inputValue);
+                        setInputValue('');
+                      }}
+                    />
+                  </>
+                ) : currentItem.solution ? (
+                  revealed ? null : (
+                    <ButtonSet>
+                      <Button onClick={handleReveal}>
+                        <Icon name="point-down" />
+                        {configData.revealButton || LANG.revealButton}
+                      </Button>
+                    </ButtonSet>
+                  )
+                ) : (
+                  <Rating handleRating={handleRating} />
+                )}
+              </Card>
+
+              {currentItem.solution && revealed && (
+                <Card content={currentItem.solution}>
+                  <Rating handleRating={handleRating} />
+                </Card>
+              )}
+            </>
+          ) : (
+            <Card heading={getResults(itemCount, ratingTotal, ratingCount, startTime, endTime, configData)}>
+              <ButtonSet>
+                <Button onClick={handleReset}>
+                  <Icon name="reset" />
+                  {configData.resetButton || LANG.resetButton}
+                </Button>
+              </ButtonSet>
             </Card>
           )}
         </>
-      ) : (
-        <Card heading={getResults(itemCount, ratingTotal, ratingCount, startTime, endTime, configData)}>
-          <ButtonSet>
-            <Button onClick={handleReset}>
-              <Icon name="reset" />
-              {configData.resetButton || LANG.resetButton}
-            </Button>
-          </ButtonSet>
-        </Card>
       )}
 
       <Footer />

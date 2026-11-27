@@ -1,4 +1,5 @@
 @use '../../style/color';
+@use '../../style/layer';
 @use '../../style/size';
 @use '../../style/space';
 
@@ -9,10 +10,13 @@
   align-items: center;
 
   &-title {
+    -webkit-text-stroke: size.$stroke color.$desk;
     font-size: size.$title;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     line-height: 1;
     margin: 0;
+    paint-order: stroke fill;
+    z-index: layer.$title;
 
     &--active {
       animation: header-title-pulse 60s infinite;
@@ -41,16 +45,34 @@
   }
 
   &-toolbar {
-    align-items: top;
+    align-items: flex-start;
     display: flex;
-    gap: space.$mid;
+    flex-direction: column;
+    gap: space.$small;
     left: space.$mid;
     position: absolute;
     top: space.$mid;
 
     &--right {
+      align-items: flex-end;
       left: auto;
       right: space.$mid;
+    }
+
+    &-line {
+      display: flex;
+      gap: space.$mid;
+
+      &-unit {
+        display: flex;
+        gap: space.$tiny;
+      }
+    }
+
+    &-text {
+      color: color.$pencil;
+      font-weight: normal;
+      line-height: 1;
     }
 
     &-rating {
@@ -88,7 +110,7 @@
 
 @keyframes header-title-pulse {
   0% {
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
   }
   0.4% {
     letter-spacing: 0.5em;
@@ -98,7 +120,7 @@
   }
   1%,
   100% {
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
   }
 }
 

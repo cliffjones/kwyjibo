@@ -4,7 +4,11 @@
   &-grid {
     display: flex;
     flex-direction: column;
-    touch-action: none;
+    touch-action: auto;
+
+    &--editable {
+      touch-action: none;
+    }
   }
 
   &-row {
@@ -31,7 +35,9 @@
     min-height: 0;
     min-width: 0;
     padding: 0;
-    pointer-events: auto;
+    cursor: default;
+    opacity: 1;
+    pointer-events: none;
     width: 4%;
 
     .icon {
@@ -39,5 +45,10 @@
       height: 100%;
       width: 200%;
     }
+  }
+
+  .mosaic-grid--editable .button {
+    cursor: pointer;
+    pointer-events: auto;
   }
 }

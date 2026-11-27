@@ -13,7 +13,11 @@ export const Link = ({
     props.target = '_blank';
   }
   return (
-    <a className={getClassString('link', isExternal ? `${variant} external` : variant)} href={href} {...props}>
+    <a
+      className={getClassString('link', isExternal ? [variant, 'external'].filter(Boolean).join(' ') : variant)}
+      href={href}
+      {...props}
+    >
       {children}
     </a>
   );

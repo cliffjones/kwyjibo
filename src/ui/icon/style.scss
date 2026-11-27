@@ -2,11 +2,24 @@
 @use '../../style/size';
 @use '../../style/space';
 
+.icon-box {
+  height: size.$icon;
+  position: relative;
+  width: size.$icon;
+
+  .icon {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
 .icon-dot {
   border-radius: size.$text;
   color: color.$icon-ink;
   height: 100%;
-  padding: 0;
   position: relative;
   width: 100%;
 
@@ -32,7 +45,7 @@
 
   .icon {
     height: 100%;
-    inset-inline-start: 0;
+    left: 0;
     position: absolute;
     top: 0;
     width: 100%;

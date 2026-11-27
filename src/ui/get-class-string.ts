@@ -3,7 +3,7 @@ export const getClassString = (baseClass: string, variant?: string) => {
   const variants =
     variant
       ?.split(' ')
-      .map((v) => v.trim())
+      .map((name) => name.trim())
       .filter(Boolean) ?? [];
-  return [baseClass, ...variants.map((v) => `${baseClass}--${v}`)].join(' ');
+  return [baseClass, ...variants.map((name) => `${baseClass}--${name}`)].join(' ');
 };

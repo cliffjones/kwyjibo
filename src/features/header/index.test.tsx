@@ -126,6 +126,23 @@ describe('Header', () => {
     expect(screen.getByTitle('Restart deck')).toBeInTheDocument();
   });
 
+  it('opens the mosaic by replacing existing mosaic path segments', () => {
+    const store = createAppStore('/science');
+
+    render(
+      <MemoryRouter basename="/k" initialEntries={['/k/science/m:old/dev/m?mode=quick#cards']}>
+        <Provider store={store}>
+          <Header confirmReset={vi.fn()} confirmingReset={false} />
+          <CurrentPath />
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByTitle('Show your mosaic'));
+
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/science/dev/m');
+  });
+
   it('shows native language names, keeps language codes as values, and navigates to the selected language', () => {
     const store = createAppStore('/es', { language: 'es' }, items);
 
