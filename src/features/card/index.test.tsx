@@ -26,13 +26,13 @@ describe('Card', () => {
     expect(screen.getByRole('button', { name: 'Answer' })).toBeInTheDocument();
   });
 
-  it('renders and invokes the close button alongside the topic', () => {
+  it('renders and invokes the close button in the right toolbar', () => {
     const onClose = vi.fn();
     render(<Card topic="Science" content="Question?" onClose={onClose} />, { wrapper: createWrapper() });
 
-    const tools = screen.getByText('Science', { selector: '.card-topic' }).parentElement;
     const closeButton = screen.getByTitle('Close');
-    expect(tools).toContainElement(closeButton);
+    expect(screen.getByText('Science', { selector: '.card-topic' }).parentElement).toHaveClass('card-toolbar');
+    expect(closeButton.parentElement).toHaveClass('card-toolbar', 'card-toolbar--right');
     fireEvent.click(closeButton);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
