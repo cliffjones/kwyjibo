@@ -1,10 +1,34 @@
+@use '../../style/color';
+@use '../../style/size';
 @use '../../style/space';
 
 .mosaic {
+  color: color.$pencil;
   display: flex;
   flex-direction: column;
   gap: space.$big;
   width: 100%;
+
+  &-options {
+    align-items: center;
+    display: flex;
+    gap: space.$mid;
+    justify-content: center;
+
+    .button {
+      padding: space.$small;
+
+      &--selected {
+        background: transparent;
+        pointer-events: none;
+      }
+
+      .icon {
+        height: size.$icon-button;
+        width: size.$icon-button;
+      }
+    }
+  }
 
   &-grid {
     display: flex;
@@ -13,47 +37,47 @@
 
     &--editable {
       touch-action: none;
-    }
-  }
 
-  &-row {
-    display: flex;
-    pointer-events: none;
-    width: 100%;
-
-    & + & {
-      margin-top: -4%;
+      &.mosaic-grid--editable .button {
+        cursor: pointer;
+        pointer-events: auto;
+      }
     }
 
-    &--offset {
-      transform: translateX(2%);
+    &-row {
+      display: flex;
+      pointer-events: none;
+      width: 100%;
+
+      & + & {
+        margin-top: -4%;
+      }
+
+      &--offset {
+        transform: translateX(2%);
+      }
     }
-  }
 
-  .button {
-    aspect-ratio: 1 / 2;
-    clip-path: polygon(50% 0%, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0% 50%, 25% 25%);
-    color: transparent;
-    flex: 0 0 4%;
-    justify-content: center;
-    height: auto;
-    min-height: 0;
-    min-width: 0;
-    padding: 0;
-    cursor: default;
-    opacity: 1;
-    pointer-events: none;
-    width: 4%;
+    .button {
+      aspect-ratio: 1 / 2;
+      clip-path: polygon(50% 0%, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0% 50%, 25% 25%);
+      color: transparent;
+      flex: 0 0 4%;
+      justify-content: center;
+      height: auto;
+      min-height: 0;
+      min-width: 0;
+      padding: 0;
+      cursor: default;
+      opacity: 1;
+      pointer-events: none;
+      width: 4%;
 
-    .icon {
-      flex: 0 0 200%;
-      height: 100%;
-      width: 200%;
+      .icon {
+        flex: 0 0 200%;
+        height: 100%;
+        width: 200%;
+      }
     }
-  }
-
-  .mosaic-grid--editable .button {
-    cursor: pointer;
-    pointer-events: auto;
   }
 }

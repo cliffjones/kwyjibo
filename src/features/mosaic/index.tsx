@@ -6,13 +6,14 @@ import {
   type RefObject,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { countDaysSince } from '../../processing/count-days-since';
 import { setMosaicTile, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
 import { MOSAIC_GRID_SIZE } from './constants';
 import { decodeMosaic } from './decode-mosaic';
 import { getRandomColor } from './get-random-color';
-import { MosaicEditorOptions } from './mosaic-editor-options';
+import { MosaicOptions } from './mosaic-options';
 import './style.scss';
 import type { ActivePointer, SetHoveredTile } from './types';
 
@@ -27,8 +28,13 @@ const updateHoveredTile = (
   setHoveredTile(tileKey);
 };
 
-const setTile = (dispatch: AppDispatch, tileKey: string) => {
-  dispatch(setMosaicTile({ tileKey, nextColor: getRandomColor() }));
+const setTile = (dispatch: AppDispatch, tileKey: string, colorOptionCount: number) => {
+  dispatch(
+    setMosaicTile({
+      tileKey,
+      colorOptions: Array.from({ length: colorOptionCount }, getRandomColor),
+    }),
+  );
 };
 
 const handleGridPointerMove = (
@@ -56,6 +62,7 @@ const handleGridPointerUp = (
   activePointer: RefObject<ActivePointer | null>,
   setHoveredTile: SetHoveredTile,
   dispatch: AppDispatch,
+  colorOptionCount: number,
 ) => {
   const pointer = activePointer.current;
   if (!pointer || pointer.id !== event.pointerId) {
@@ -63,7 +70,7 @@ const handleGridPointerUp = (
   }
 
   if (pointer.tileKey) {
-    setTile(dispatch, pointer.tileKey);
+    setTile(dispatch, pointer.tileKey, colorOptionCount);
   }
   activePointer.current = null;
   setHoveredTile(pointer.type === 'touch' ? null : pointer.tileKey);
@@ -74,9 +81,14 @@ const handleGridPointerCancel = (activePointer: RefObject<ActivePointer | null>,
   setHoveredTile(null);
 };
 
-const handleTileClick = (event: ReactMouseEvent<HTMLButtonElement>, tileKey: string, dispatch: AppDispatch) => {
+const handleTileClick = (
+  event: ReactMouseEvent<HTMLButtonElement>,
+  tileKey: string,
+  dispatch: AppDispatch,
+  colorOptionCount: number,
+) => {
   if (event.detail === 0) {
-    setTile(dispatch, tileKey);
+    setTile(dispatch, tileKey, colorOptionCount);
   }
 };
 
@@ -117,6 +129,9 @@ export const Mosaic = ({ code = '', editable = false }: { code?: string; editabl
   const dispatch = useDispatch<AppDispatch>();
   const storedTiles = useSelector((state: RootState) => state.mosaic.tiles);
   const currentColor = useSelector((state: RootState) => state.mosaic.currentColor);
+  const colorOptionCount = useSelector((state: RootState) =>
+    Math.min(4, Math.max(1, countDaysSince(state.activeSince))),
+  );
   const decodedTiles = code ? decodeMosaic(code) : null;
   const tiles = decodedTiles ?? storedTiles;
   const [hoveredTile, setHoveredTile] = useState<string | null>(null);
@@ -124,18 +139,20 @@ export const Mosaic = ({ code = '', editable = false }: { code?: string; editabl
 
   return (
     <div className="mosaic">
-      {editable && <MosaicEditorOptions />}
+      {editable && <MosaicOptions />}
 
       <div
         className={`mosaic-grid${editable ? ' mosaic-grid--editable' : ''}`}
         onPointerMove={editable ? (event) => handleGridPointerMove(event, activePointer, setHoveredTile) : undefined}
         onPointerUp={
-          editable ? (event) => handleGridPointerUp(event, activePointer, setHoveredTile, dispatch) : undefined
+          editable
+            ? (event) => handleGridPointerUp(event, activePointer, setHoveredTile, dispatch, colorOptionCount)
+            : undefined
         }
         onPointerCancel={editable ? () => handleGridPointerCancel(activePointer, setHoveredTile) : undefined}
       >
         {Array.from({ length: MOSAIC_GRID_SIZE }, (_, y) => (
-          <div className={`mosaic-row${y % 2 ? ' mosaic-row--offset' : ''}`} key={y}>
+          <div className={`mosaic-grid-row${y % 2 ? ' mosaic-grid-row--offset' : ''}`} key={y}>
             {Array.from({ length: y % 2 ? MOSAIC_GRID_SIZE - 1 : MOSAIC_GRID_SIZE }, (_, x) => {
               const tileKey = `${x},${y}`;
               return (
@@ -147,7 +164,9 @@ export const Mosaic = ({ code = '', editable = false }: { code?: string; editabl
                   style={{
                     color: editable && hoveredTile === tileKey ? currentColor : (tiles[tileKey] ?? 'transparent'),
                   }}
-                  onClick={editable ? (event) => handleTileClick(event, tileKey, dispatch) : undefined}
+                  onClick={
+                    editable ? (event) => handleTileClick(event, tileKey, dispatch, colorOptionCount) : undefined
+                  }
                   onPointerDown={
                     editable
                       ? (event) => handleTilePointerDown(event, tileKey, activePointer, setHoveredTile)

@@ -6,5 +6,9 @@ import type { MosaicState } from './types';
 // Load mosaic state from root data.
 export const loadMosaic = (): MosaicState => {
   const mosaic = loadRootData().mosaic;
-  return isMosaicState(mosaic) ? mosaic : { tiles: {}, currentColor: getRandomColor() };
+  if (isMosaicState(mosaic)) {
+    return mosaic;
+  }
+  const colorOptions = Array.from({ length: 4 }, getRandomColor);
+  return { tiles: {}, currentColor: colorOptions[0], colorOptions };
 };

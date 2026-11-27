@@ -22,12 +22,12 @@ describe('Mosaic', () => {
       </Provider>,
     );
 
-    const rows = container.querySelectorAll('.mosaic-row');
+    const rows = container.querySelectorAll('.mosaic-grid-row');
     expect(rows).toHaveLength(MOSAIC_GRID_SIZE);
 
     rows.forEach((row, index) => {
       expect(row.querySelectorAll('button')).toHaveLength(index % 2 ? MOSAIC_GRID_SIZE - 1 : MOSAIC_GRID_SIZE);
-      expect(row.classList.contains('mosaic-row--offset')).toBe(Boolean(index % 2));
+      expect(row.classList.contains('mosaic-grid-row--offset')).toBe(Boolean(index % 2));
     });
   });
 
@@ -75,6 +75,7 @@ describe('Mosaic', () => {
     expect(store.getState().mosaic).toEqual({
       tiles: { '1,0': initialColor },
       currentColor: '#800000',
+      colorOptions: ['#800000', '#800000', '#800000', '#800000'],
     });
     expect(store.getState().pointBalance).toBe(1);
     expect(draggedTile).toHaveStyle({ color: initialColor });
@@ -87,6 +88,36 @@ describe('Mosaic', () => {
     fireEvent.click(keyboardTile);
     expect(store.getState().mosaic.tiles['2,0']).toBe('#800000');
     expect(store.getState().pointBalance).toBe(0);
+  });
+
+  it('uses the streak to show color options and selects a painting color', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2024-01-03T00:00:00Z'));
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        activeSince: new Date('2024-01-01T00:00:00Z').getTime(),
+        mosaic: {
+          tiles: {},
+          currentColor: '#111111',
+          colorOptions: ['#111111', '#222222', '#333333', '#444444'],
+        },
+      }),
+    );
+    const store = createAppStore('/mosaic-options');
+    const { container } = render(
+      <Provider store={store}>
+        <Mosaic editable />
+      </Provider>,
+    );
+
+    const options = container.querySelectorAll('.mosaic-options button');
+    expect(options).toHaveLength(2);
+    expect(options[0]).toHaveClass('button--selected');
+    expect(options[1]).not.toHaveClass('button--selected');
+    fireEvent.click(options[1]);
+    expect(store.getState().mosaic.currentColor).toBe('#222222');
+    vi.useRealTimers();
   });
 
   it('is read-only without hover or drag previews when no tile is available', () => {

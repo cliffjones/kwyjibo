@@ -22,7 +22,8 @@ const isValidRating = (rating: number) => rating >= 1 && rating <= 5;
 export const selectTopics = createAction<string[]>('kwyjibo/selectTopics');
 export const setCustomData = createAction<string>('kwyjibo/setCustomData');
 export const setLightMode = createAction<boolean>('kwyjibo/setLightMode');
-export const setMosaicTile = createAction<{ tileKey: string; nextColor: string }>('kwyjibo/setMosaicTile');
+export const setMosaicColor = createAction<string>('kwyjibo/setMosaicColor');
+export const setMosaicTile = createAction<{ tileKey: string; colorOptions: string[] }>('kwyjibo/setMosaicTile');
 export const startDeck = createAction<
   | {
       customData: string;
@@ -39,10 +40,17 @@ export const reset = createAsyncThunk('kwyjibo/reset', async (path: string) => (
 
 const createMosaicReducer = (initialState: MosaicState) =>
   createReducer(initialState, (builder) => {
-    builder.addCase(setMosaicTile, (state, action) => {
-      state.tiles[action.payload.tileKey] = state.currentColor;
-      state.currentColor = action.payload.nextColor;
-    });
+    builder
+      .addCase(setMosaicColor, (state, action) => {
+        if (state.colorOptions.includes(action.payload)) {
+          state.currentColor = action.payload;
+        }
+      })
+      .addCase(setMosaicTile, (state, action) => {
+        state.tiles[action.payload.tileKey] = state.currentColor;
+        state.colorOptions = action.payload.colorOptions;
+        state.currentColor = action.payload.colorOptions[0];
+      });
   });
 
 const createTilesEarnedReducer = (initialState: ProgressState['pointBalance']) =>

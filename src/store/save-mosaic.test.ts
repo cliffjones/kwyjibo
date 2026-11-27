@@ -7,7 +7,7 @@ describe('saveMosaic', () => {
 
   it('saves mosaic data globally while preserving other root data', () => {
     window.localStorage.setItem('kwyjibo', JSON.stringify({ tokens: ['alpha'] }));
-    const mosaic = { tiles: { '0,0': '#123456' }, currentColor: '#abcdef' };
+    const mosaic = { tiles: { '0,0': '#123456' }, currentColor: '#abcdef', colorOptions: ['#abcdef'] };
 
     saveMosaic(mosaic);
 

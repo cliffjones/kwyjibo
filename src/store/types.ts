@@ -8,6 +8,7 @@ export type ProgressState = {
 export type MosaicState = {
   tiles: Record<string, string>;
   currentColor: string;
+  colorOptions: string[];
 };
 
 export type AppState = {

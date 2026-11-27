@@ -8,7 +8,15 @@ export const isMosaicState = (value: unknown): value is MosaicState => {
   }
 
   const mosaic = value as Record<string, unknown>;
-  if (!isColorCode(mosaic.currentColor) || !isPlainObject(mosaic.tiles)) {
+  if (
+    !isColorCode(mosaic.currentColor) ||
+    !isPlainObject(mosaic.tiles) ||
+    !Array.isArray(mosaic.colorOptions) ||
+    mosaic.colorOptions.length < 1 ||
+    mosaic.colorOptions.length > 4 ||
+    !mosaic.colorOptions.every(isColorCode) ||
+    !mosaic.colorOptions.includes(mosaic.currentColor)
+  ) {
     return false;
   }
 

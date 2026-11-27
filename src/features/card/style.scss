@@ -14,7 +14,7 @@
   text-align: center;
 
   &-toolbar {
-    align-items: top;
+    align-items: flex-start;
     display: flex;
     gap: space.$mid;
     justify-content: left;
@@ -33,7 +33,7 @@
     font-size: size.$text;
     line-height: 1;
     min-width: 0;
-    overflow: hidden;
+    overflow-x: clip;
     text-align: start;
     text-overflow: ellipsis;
     white-space: nowrap;

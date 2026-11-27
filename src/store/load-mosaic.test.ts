@@ -11,7 +11,7 @@ describe('loadMosaic', () => {
   });
 
   it('loads mosaic data from global root storage', () => {
-    const mosaic = { tiles: { '0,0': '#123456' }, currentColor: '#abcdef' };
+    const mosaic = { tiles: { '0,0': '#123456' }, currentColor: '#abcdef', colorOptions: ['#abcdef'] };
     window.localStorage.setItem('kwyjibo', JSON.stringify({ mosaic }));
 
     expect(loadMosaic()).toEqual(mosaic);
@@ -20,6 +20,10 @@ describe('loadMosaic', () => {
   it('creates an empty mosaic with a random current color when no data exists', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0.5);
 
-    expect(loadMosaic()).toEqual({ tiles: {}, currentColor: getRandomColor() });
+    expect(loadMosaic()).toEqual({
+      tiles: {},
+      currentColor: getRandomColor(),
+      colorOptions: [getRandomColor(), getRandomColor(), getRandomColor(), getRandomColor()],
+    });
   });
 });

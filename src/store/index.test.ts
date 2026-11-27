@@ -89,13 +89,13 @@ describe('app store', () => {
       },
     ];
     const firstStore = createAppStore('/science', {}, items);
-    firstStore.dispatch(setMosaicTile({ tileKey: '0,0', nextColor: '#112233' }));
+    firstStore.dispatch(setMosaicTile({ tileKey: '0,0', colorOptions: ['#112233'] }));
     const mosaic = firstStore.getState().mosaic;
 
     const secondStore = createAppStore('/math', {}, items);
     expect(secondStore.getState().mosaic).toEqual(mosaic);
 
-    secondStore.dispatch(setMosaicTile({ tileKey: '1,0', nextColor: '#445566' }));
+    secondStore.dispatch(setMosaicTile({ tileKey: '1,0', colorOptions: ['#445566'] }));
     expect(createAppStore('/science').getState().mosaic).toEqual(secondStore.getState().mosaic);
   });
 
@@ -248,7 +248,7 @@ describe('app store', () => {
 
   it('preserves mosaic colors when starting another deck', () => {
     const store = createAppStore('/mosaic');
-    store.dispatch(setMosaicTile({ tileKey: '0,0', nextColor: '#112233' }));
+    store.dispatch(setMosaicTile({ tileKey: '0,0', colorOptions: ['#112233'] }));
     const mosaic = store.getState().mosaic;
 
     store.dispatch(startDeck({ customData: '# Science\n\nQuestion?\nAnswer.' }));
