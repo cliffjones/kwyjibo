@@ -15,6 +15,7 @@ import { persistState } from './persist-state';
 import { saveMosaic } from './save-mosaic';
 import { saveProgress } from './save-progress';
 import type { AppState, MosaicState, ProgressState } from './types';
+import { MAX_MOSAIC_COLOR_OPTIONS, MIN_MOSAIC_COLOR_OPTIONS } from '../features/mosaic/constants';
 
 const ACTIVE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const isValidRating = (rating: number) => rating >= 1 && rating <= 5;
@@ -47,9 +48,13 @@ const createMosaicReducer = (initialState: MosaicState) =>
         }
       })
       .addCase(setMosaicTile, (state, action) => {
+        const colorOptions = action.payload.colorOptions.slice(0, MAX_MOSAIC_COLOR_OPTIONS);
+        if (colorOptions.length < MIN_MOSAIC_COLOR_OPTIONS) {
+          return;
+        }
         state.tiles[action.payload.tileKey] = state.currentColor;
-        state.colorOptions = action.payload.colorOptions;
-        state.currentColor = action.payload.colorOptions[0];
+        state.colorOptions = colorOptions;
+        state.currentColor = colorOptions[0];
       });
   });
 

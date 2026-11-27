@@ -10,7 +10,7 @@ import { countDaysSince } from '../../processing/count-days-since';
 import { setMosaicTile, type AppDispatch, type RootState } from '../../store';
 import { Button } from '../../ui/button';
 import { Icon } from '../../ui/icon';
-import { MOSAIC_GRID_SIZE } from './constants';
+import { MAX_MOSAIC_COLOR_OPTIONS, MIN_MOSAIC_COLOR_OPTIONS, MOSAIC_GRID_SIZE } from './constants';
 import { decodeMosaic } from './decode-mosaic';
 import { getRandomColor } from './get-random-color';
 import { MosaicOptions } from './mosaic-options';
@@ -130,7 +130,7 @@ export const Mosaic = ({ code = '', editable = false }: { code?: string; editabl
   const storedTiles = useSelector((state: RootState) => state.mosaic.tiles);
   const currentColor = useSelector((state: RootState) => state.mosaic.currentColor);
   const colorOptionCount = useSelector((state: RootState) =>
-    Math.min(4, Math.max(1, countDaysSince(state.activeSince))),
+    Math.max(MIN_MOSAIC_COLOR_OPTIONS, Math.min(countDaysSince(state.activeSince), MAX_MOSAIC_COLOR_OPTIONS)),
   );
   const decodedTiles = code ? decodeMosaic(code) : null;
   const tiles = decodedTiles ?? storedTiles;

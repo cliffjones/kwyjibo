@@ -1,4 +1,5 @@
 import { isPlainObject } from '../processing/is-plain-object';
+import { MAX_MOSAIC_COLOR_OPTIONS, MIN_MOSAIC_COLOR_OPTIONS } from '../features/mosaic/constants';
 import { isColorCode } from './is-color-code';
 import type { MosaicState } from './types';
 
@@ -12,8 +13,8 @@ export const isMosaicState = (value: unknown): value is MosaicState => {
     !isColorCode(mosaic.currentColor) ||
     !isPlainObject(mosaic.tiles) ||
     !Array.isArray(mosaic.colorOptions) ||
-    mosaic.colorOptions.length < 1 ||
-    mosaic.colorOptions.length > 4 ||
+    mosaic.colorOptions.length < MIN_MOSAIC_COLOR_OPTIONS ||
+    mosaic.colorOptions.length > MAX_MOSAIC_COLOR_OPTIONS ||
     !mosaic.colorOptions.every(isColorCode) ||
     !mosaic.colorOptions.includes(mosaic.currentColor)
   ) {

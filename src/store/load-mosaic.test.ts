@@ -23,7 +23,7 @@ describe('loadMosaic', () => {
     expect(loadMosaic()).toEqual({
       tiles: {},
       currentColor: getRandomColor(),
-      colorOptions: [getRandomColor(), getRandomColor(), getRandomColor(), getRandomColor()],
+      colorOptions: Array.from({ length: 10 }, getRandomColor),
     });
   });
 });
