@@ -12,20 +12,20 @@
   &-options {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     gap: space.$mid;
     justify-content: center;
 
     .button {
-      padding: space.$small;
+      height: size.$color-swatch;
+      min-height: 0;
+      overflow: hidden;
+      padding: 0;
+      width: size.$color-swatch;
 
       &--selected {
-        background: transparent;
+        outline: size.$focus solid color.$ink;
         pointer-events: none;
-      }
-
-      .icon {
-        height: size.$icon-button;
-        width: size.$icon-button;
       }
     }
   }
