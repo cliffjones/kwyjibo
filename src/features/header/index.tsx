@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
-import { ALTERNATION_PATTERN, DEFAULT_LANG, LANG, MOSAIC_PATH, PLACEHOLDER_PATTERN } from '../../constants';
-import { K_DELIMS } from '../../processing/constants';
+import { ALTERNATION_PATTERN, DEFAULT_LANG, LANG, PLACEHOLDER_PATTERN } from '../../constants';
+import { showMosaic } from '../../features/mosaic/show-mosaic';
 import { countDaysSince } from '../../processing/count-days-since';
 import { ratingToPercent } from '../../processing/rating-to-percent';
 import { setLightMode, type AppDispatch, type RootState } from '../../store';
@@ -26,9 +26,9 @@ export const Header = ({
   lastRating?: number;
   ratingAnimationKey?: number;
 }) => {
-  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { pathname, search, hash } = useLocation();
+  const { pathname: path } = useLocation();
+  const dispatch = useDispatch<AppDispatch>();
 
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
   const lightMode = useSelector((state: RootState) => state.kwyjibo.lightMode);
@@ -54,13 +54,6 @@ export const Header = ({
   }, [configData.title]);
 
   const ratingFace = lastRating ? faceNumberToName(lastRating) : '';
-  const showMosaic = () => {
-    const segments = pathname
-      .split('/')
-      .filter(Boolean)
-      .filter((segment) => segment !== MOSAIC_PATH && !segment.startsWith(`${MOSAIC_PATH}${K_DELIMS.namespace}`));
-    navigate({ pathname: `/${[...segments, MOSAIC_PATH].join('/')}`, search, hash });
-  };
 
   let remainingMessage;
   if (remainingIds.length === itemCount) {
@@ -87,7 +80,7 @@ export const Header = ({
 
       <div className="header-toolbar" dir="ltr">
         <div className="header-toolbar-line">
-          <Button variant="text" onClick={showMosaic} title="Show your mosaic">
+          <Button variant="text" onClick={() => showMosaic(path, navigate)} title="Show your mosaic">
             <Icon name="tile" />
             <span className="header-toolbar-text">{Math.floor(pointBalance).toLocaleString()}</span>
           </Button>

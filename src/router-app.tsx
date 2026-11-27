@@ -11,7 +11,7 @@ import { saveTokens } from './store/save-tokens';
 type RouteLoad = { path: string; sourcePath: string; store: AppStore } | { path: string; error: Error };
 
 export const RouterApp = () => {
-  const { pathname: path, search, hash } = useLocation();
+  const { pathname: path } = useLocation();
   const navigate = useNavigate();
   const [routeLoad, setRouteLoad] = useState<RouteLoad | null>(null);
 
@@ -40,7 +40,7 @@ export const RouterApp = () => {
     }
 
     if (path !== sourcePath) {
-      navigate({ pathname: sourcePath, search, hash }, { replace: true });
+      navigate({ pathname: sourcePath }, { replace: true });
       return () => {
         canceled = true;
       };
@@ -71,7 +71,7 @@ export const RouterApp = () => {
     return () => {
       canceled = true;
     };
-  }, [hash, navigate, path, search]);
+  }, [navigate, path]);
 
   if (!routeLoad || routeLoad.path !== path) {
     return <div>{LANG.loadingMessage}</div>;

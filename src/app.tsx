@@ -1,10 +1,12 @@
 import { Suspense, lazy, useState, type ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { LANG, MOSAIC_PATH } from './constants';
 import { Card } from './features/card';
 import { Footer } from './features/footer';
 import { Header } from './features/header';
 import { Mosaic } from './features/mosaic';
+import { hideMosaic } from './features/mosaic/hide-mosaic';
 import { Rating } from './features/rating';
 import { Setup } from './features/setup';
 import { getResults } from './get-results';
@@ -22,6 +24,7 @@ import { Input } from './ui/input';
 const History = lazy(() => import('./features/history').then(({ History }) => ({ default: History })));
 
 export const App = ({ path }: { path: string }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const initializing = useSelector((state: RootState) => state.kwyjibo.initializing);
@@ -101,7 +104,7 @@ export const App = ({ path }: { path: string }) => {
       {mosaicMode ? (
         <>
           {mosaicCode && (
-            <Card heading={'Shared Mosaic'} onClose={() => console.log('CLOSE')}>
+            <Card heading={'Shared Mosaic'} onClose={() => hideMosaic(path, navigate)}>
               <Mosaic code={mosaicCode} />
             </Card>
           )}
@@ -109,7 +112,7 @@ export const App = ({ path }: { path: string }) => {
           <Card
             heading={'Your Mosaic'}
             intro={mosaicEditable ? undefined : 'Complete activities to earn tiles.'}
-            onClose={() => console.log('CLOSE')}
+            onClose={() => hideMosaic(path, navigate)}
           >
             <Mosaic editable={mosaicEditable} />
           </Card>
