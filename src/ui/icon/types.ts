@@ -12,6 +12,7 @@ export type IconName =
   | 'point-down'
   | 'point-right'
   | 'reset'
+  | 'share'
   | 'sun'
   | 'tile'
   | 'x';

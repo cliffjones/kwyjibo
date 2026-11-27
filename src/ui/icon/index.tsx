@@ -4,7 +4,7 @@ import { IconName } from './types';
 export const Icon = ({ name }: { name: IconName }) => (
   <svg className="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none">
     {name === 'check' && (
-      <path d="m4 12 5 5L20 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="m4 12 5 9L20 3" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
     )}
 
     {name.startsWith('face-') && (
@@ -92,6 +92,15 @@ export const Icon = ({ name }: { name: IconName }) => (
       </>
     )}
 
+    {name === 'share' && (
+      <g stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="18" cy="5" r="3" />
+        <circle cx="6" cy="12" r="3" />
+        <circle cx="18" cy="19" r="3" />
+        <path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4" />
+      </g>
+    )}
+
     {name === 'sun' && (
       <>
         <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="3" />
@@ -111,6 +120,6 @@ export const Icon = ({ name }: { name: IconName }) => (
       />
     )}
 
-    {name === 'x' && <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />}
+    {name === 'x' && <path d="m4 4 16 16M20 4 4 20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />}
   </svg>
 );

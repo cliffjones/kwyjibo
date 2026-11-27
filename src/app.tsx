@@ -112,6 +112,9 @@ export const App = ({ path }: { path: string }) => {
           <Card
             heading={'Your Mosaic'}
             intro={mosaicEditable ? undefined : 'Complete activities to earn tiles.'}
+            shareHint="Copy mosaic link"
+            onShare={() => console.log('Copy a URL with the mosaic')}
+            closeHint="Exit mosaic mode"
             onClose={() => hideMosaic(path, navigate)}
           >
             <Mosaic editable={mosaicEditable} />

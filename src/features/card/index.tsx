@@ -18,6 +18,9 @@ export const Card = ({
   content,
   rating,
   topic,
+  shareHint,
+  onShare,
+  closeHint,
   onClose,
 }: {
   children?: ReactNode;
@@ -26,6 +29,9 @@ export const Card = ({
   content?: string;
   rating?: number;
   topic?: string;
+  shareHint?: string;
+  onShare?: () => void;
+  closeHint?: string;
   onClose?: () => void;
 }) => {
   const configData = useSelector((state: RootState) => state.kwyjibo.configData);
@@ -34,29 +40,33 @@ export const Card = ({
 
   return (
     <section className="card">
-      {topic || validRating ? (
-        <div className="card-toolbar">
-          {topic ? <div className="card-topic">{topic}</div> : null}
-          {validRating ? (
-            <div className="card-rating">
-              <div
-                className={`icon-dot icon-dot--${faceNumberToName(validRating)}`}
-                title={`${configData.lastRatingMessage || LANG.lastRatingMessage} ${ratingToPercent(validRating)}%`}
-              >
-                <Icon name={RATING_ICONS[Math.floor(validRating) - 1]} />
-              </div>
+      <div className="card-toolbar">
+        {topic ? <div className="card-topic">{topic}</div> : null}
+        {validRating ? (
+          <div className="card-rating">
+            <div
+              className={`icon-dot icon-dot--${faceNumberToName(validRating)}`}
+              title={`${configData.lastRatingMessage || LANG.lastRatingMessage} ${ratingToPercent(validRating)}%`}
+            >
+              <Icon name={RATING_ICONS[Math.floor(validRating) - 1]} />
             </div>
-          ) : null}
-        </div>
-      ) : null}
+          </div>
+        ) : null}
+      </div>
 
-      {onClose ? (
-        <div className="card-toolbar card-toolbar--right">
-          <Button variant="text" onClick={onClose} title="Close">
+      <div className="card-toolbar card-toolbar--right">
+        {onShare ? (
+          <Button variant="text" onClick={onShare} title="Copy mosaic link">
+            <Icon name="share" />
+          </Button>
+        ) : null}
+
+        {onClose ? (
+          <Button variant="text" onClick={onClose} title="Exit mosaic mode">
             <Icon name="x" />
           </Button>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
 
       {heading ? <h2 className="card-heading">{heading}</h2> : null}
 

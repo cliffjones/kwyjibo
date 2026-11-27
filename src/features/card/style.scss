@@ -17,28 +17,31 @@
     align-items: top;
     display: flex;
     gap: space.$mid;
-    justify-content: flex-start;
+    justify-content: left;
     left: space.$small;
     position: absolute;
+    right: space.$small;
     top: space.$small;
 
     &--right {
-      justify-content: flex-end;
-      left: auto;
-      right: space.$small;
+      justify-content: right;
     }
-  }
-
-  &-rating {
-    height: size.$text;
-    width: size.$text;
   }
 
   &-topic {
     color: color.$pencil;
     font-size: size.$text;
     line-height: 1;
+    min-width: 0;
+    overflow: hidden;
     text-align: start;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-rating {
+    height: size.$text;
+    width: size.$text;
   }
 
   &-heading {
