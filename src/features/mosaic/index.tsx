@@ -12,6 +12,7 @@ import { Icon } from '../../ui/icon';
 import { MOSAIC_GRID_SIZE } from './constants';
 import { decodeMosaic } from './decode-mosaic';
 import { getRandomColor } from './get-random-color';
+import { MosaicEditorOptions } from './mosaic-editor-options';
 import './style.scss';
 import type { ActivePointer, SetHoveredTile } from './types';
 
@@ -123,6 +124,8 @@ export const Mosaic = ({ code = '', editable = false }: { code?: string; editabl
 
   return (
     <div className="mosaic">
+      {editable && <MosaicEditorOptions />}
+
       <div
         className={`mosaic-grid${editable ? ' mosaic-grid--editable' : ''}`}
         onPointerMove={editable ? (event) => handleGridPointerMove(event, activePointer, setHoveredTile) : undefined}

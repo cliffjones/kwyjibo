@@ -1,4 +1,9 @@
+@use '../../style/space';
+
 .mosaic {
+  display: flex;
+  flex-direction: column;
+  gap: space.$big;
   width: 100%;
 
   &-grid {

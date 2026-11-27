@@ -37,7 +37,7 @@ export const Header = ({
   const remainingIds = useSelector((state: RootState) => state.kwyjibo.remainingIds);
   const pointBalance = useSelector((state: RootState) => state.pointBalance);
   const activeSince = useSelector((state: RootState) => state.activeSince);
-  const streakLength = countDaysSince(activeSince);
+  const streak = countDaysSince(activeSince);
   const currentLanguage = configData.language || DEFAULT_LANG;
   const languages = LANGUAGES.some(({ code }) => code === currentLanguage)
     ? LANGUAGES
@@ -98,13 +98,13 @@ export const Header = ({
           ) : null}
         </div>
 
-        {streakLength > 1 ? (
+        {streak > 1 ? (
           <div className="header-toolbar-line">
             <div className="header-toolbar-line-unit" title="Your activity streak">
               <span className="icon-box">
                 <Icon name="flame" />
               </span>
-              <span className="header-toolbar-text">{streakLength.toLocaleString()}</span>
+              <span className="header-toolbar-text">{streak.toLocaleString()}</span>
             </div>
           </div>
         ) : null}
