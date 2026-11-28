@@ -1,5 +1,13 @@
 {
   language: 'ur',
+  mosaicHint: 'اپنا موزیک دکھائیں',
+  streakHint: 'آپ کی سرگرمیوں کا تسلسل',
+  mosaicHeading: 'آپ کا موزیک',
+  sharedMosaicHeading: 'مشترکہ موزیک',
+  mosaicShareHint: 'موزیک کا لنک نقل کریں',
+  mosaicCloseHint: 'موزیک موڈ سے باہر نکلیں',
+  mosaicIntro: 'ٹائل حاصل کرنے کے لیے سرگرمیاں مکمل کریں۔',
+  mosaicOptionsPrompt: 'رنگ کے اختیارات:',
   languageMessage: 'اپنی زبان منتخب کریں',
   lightModeMessage: '{گہرے|ہلکے} موڈ پر جائیں',
   homeMessage: 'پہلے سے لوڈ کیے گئے ڈیٹا کے بغیر دوبارہ لوڈ کریں',

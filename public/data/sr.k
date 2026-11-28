@@ -1,5 +1,13 @@
 {
   language: 'sr',
+  mosaicHint: 'Прикажи свој мозаик',
+  streakHint: 'Твој низ активности',
+  mosaicHeading: 'Твој мозаик',
+  sharedMosaicHeading: 'Дељени мозаик',
+  mosaicShareHint: 'Копирај везу до мозаика',
+  mosaicCloseHint: 'Изађи из режима мозаика',
+  mosaicIntro: 'Заврши активности да освојиш плочице.',
+  mosaicOptionsPrompt: 'Опције боја:',
   languageMessage: 'Изаберите језик',
   lightModeMessage: 'Пребаци на {тамни|светли} режим',
   homeMessage: 'Освежи без унапред учитаних података',

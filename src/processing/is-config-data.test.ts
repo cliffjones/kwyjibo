@@ -10,6 +10,14 @@ describe('isConfigData', () => {
     expect(
       isConfigData({
         homeMessage: 'Home',
+        mosaicHint: 'Open mosaic',
+        streakHint: 'Activity streak',
+        mosaicHeading: 'Mosaic',
+        sharedMosaicHeading: 'Shared',
+        mosaicShareHint: 'Share mosaic',
+        mosaicCloseHint: 'Close mosaic',
+        mosaicIntro: 'Earn tiles.',
+        mosaicOptionsPrompt: 'Choose:',
         lightModeMessage: 'Change theme',
         preloadedDataHeading: 'Decks',
         customDataHeading: 'Custom',

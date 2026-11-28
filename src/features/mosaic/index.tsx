@@ -143,6 +143,7 @@ export const Mosaic = ({ code = '', editable = false }: { code?: string; editabl
 
       <div
         className={`mosaic-grid${editable ? ' mosaic-grid--editable' : ''}`}
+        dir="ltr"
         onPointerMove={editable ? (event) => handleGridPointerMove(event, activePointer, setHoveredTile) : undefined}
         onPointerUp={
           editable

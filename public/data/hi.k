@@ -1,5 +1,13 @@
 {
   language: 'hi',
+  mosaicHint: 'अपना मोज़ेक दिखाएँ',
+  streakHint: 'आपकी गतिविधि की लगातार श्रृंखला',
+  mosaicHeading: 'आपका मोज़ेक',
+  sharedMosaicHeading: 'साझा किया गया मोज़ेक',
+  mosaicShareHint: 'मोज़ेक लिंक कॉपी करें',
+  mosaicCloseHint: 'मोज़ेक मोड से बाहर निकलें',
+  mosaicIntro: 'टाइल पाने के लिए गतिविधियाँ पूरी करें।',
+  mosaicOptionsPrompt: 'रंग विकल्प:',
   languageMessage: 'अपनी भाषा चुनें',
   lightModeMessage: '{डार्क|लाइट} मोड पर जाएँ',
   homeMessage: 'पहले से लोड किए गए डेटा के बिना फिर से लोड करें',

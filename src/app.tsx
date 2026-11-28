@@ -116,17 +116,21 @@ export const App = ({ path }: { path: string }) => {
       {mosaicMode ? (
         <>
           {sharedMosaicCode && (
-            <Card heading={'Shared Mosaic'} closeHint="Exit mosaic mode" onClose={() => hideMosaic(path, navigate)}>
+            <Card
+              heading={configData.sharedMosaicHeading || LANG.sharedMosaicHeading}
+              closeHint={configData.mosaicCloseHint || LANG.mosaicCloseHint}
+              onClose={() => hideMosaic(path, navigate)}
+            >
               <Mosaic code={sharedMosaicCode} />
             </Card>
           )}
 
           <Card
-            heading={'Your Mosaic'}
-            intro={mosaicEditable ? undefined : 'Complete activities to earn tiles.'}
-            shareHint="Copy mosaic link"
+            heading={configData.mosaicHeading || LANG.mosaicHeading}
+            intro={mosaicEditable ? undefined : configData.mosaicIntro || LANG.mosaicIntro}
+            shareHint={configData.mosaicShareHint || LANG.mosaicShareHint}
             onShare={shareMosaic}
-            closeHint="Exit mosaic mode"
+            closeHint={configData.mosaicCloseHint || LANG.mosaicCloseHint}
             onClose={() => hideMosaic(path, navigate)}
           >
             <Mosaic editable={mosaicEditable} />

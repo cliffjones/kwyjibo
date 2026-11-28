@@ -26,6 +26,19 @@ describe('Card', () => {
     expect(screen.getByRole('button', { name: 'Answer' })).toBeInTheDocument();
   });
 
+  it('keeps toolbar layout left-to-right while detecting the topic text direction', () => {
+    const previousDirection = document.documentElement.dir;
+    document.documentElement.dir = 'rtl';
+
+    render(<Card topic="العلوم" rating={3} />, { wrapper: createWrapper() });
+
+    const topic = screen.getByText('العلوم', { selector: '.card-topic' });
+    expect(topic.parentElement).toHaveAttribute('dir', 'ltr');
+    expect(topic).toHaveAttribute('dir', 'auto');
+
+    document.documentElement.dir = previousDirection;
+  });
+
   it('renders and invokes the close button in the right toolbar', () => {
     const onClose = vi.fn();
     render(<Card topic="Science" content="Question?" closeHint="Dismiss card" onClose={onClose} />, {

@@ -1,5 +1,13 @@
 {
   language: 'tr',
+  mosaicHint: 'Mozaiğini göster',
+  streakHint: 'Etkinlik serin',
+  mosaicHeading: 'Mozaiğin',
+  sharedMosaicHeading: 'Paylaşılan mozaik',
+  mosaicShareHint: 'Mozaik bağlantısını kopyala',
+  mosaicCloseHint: 'Mozaik modundan çık',
+  mosaicIntro: 'Taş kazanmak için etkinlikleri tamamla.',
+  mosaicOptionsPrompt: 'Renk seçenekleri:',
   languageMessage: 'Dilinizi seçin',
   lightModeMessage: '{Koyu|Açık} moda geç',
   homeMessage: 'Önceden yüklenmiş veriler olmadan yenile',

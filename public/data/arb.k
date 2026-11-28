@@ -1,5 +1,13 @@
 {
   language: 'arb',
+  mosaicHint: 'اعرض فسيفساءك',
+  streakHint: 'سلسلة نشاطك',
+  mosaicHeading: 'فسيفساؤك',
+  sharedMosaicHeading: 'فسيفساء مشتركة',
+  mosaicShareHint: 'انسخ رابط الفسيفساء',
+  mosaicCloseHint: 'اخرج من وضع الفسيفساء',
+  mosaicIntro: 'أكمل الأنشطة لكسب البلاطات.',
+  mosaicOptionsPrompt: 'خيارات الألوان:',
   languageMessage: 'اختر لغتك',
   lightModeMessage: 'التبديل إلى الوضع {الداكن|الفاتح}',
   homeMessage: 'إعادة التحميل دون بيانات محمّلة مسبقًا',

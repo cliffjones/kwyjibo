@@ -1,5 +1,13 @@
 {
   language: 'pcm',
+  mosaicHint: 'Show your mosaic',
+  streakHint: 'Your activity streak',
+  mosaicHeading: 'Your mosaic',
+  sharedMosaicHeading: 'Mosaic wey dem share',
+  mosaicShareHint: 'Copy mosaic link',
+  mosaicCloseHint: 'Comot from mosaic mode',
+  mosaicIntro: 'Do activities make you earn tiles.',
+  mosaicOptionsPrompt: 'Color options:',
   languageMessage: 'Choose ya language',
   lightModeMessage: 'Change to {dark|light} mode',
   homeMessage: 'Reload am without data wey dem don load before',

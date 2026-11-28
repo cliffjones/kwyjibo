@@ -1,5 +1,13 @@
 {
   language: 'id',
+  mosaicHint: 'Tampilkan mosaik Anda',
+  streakHint: 'Rangkaian aktivitas Anda',
+  mosaicHeading: 'Mosaik Anda',
+  sharedMosaicHeading: 'Mosaik bersama',
+  mosaicShareHint: 'Salin tautan mosaik',
+  mosaicCloseHint: 'Keluar dari mode mosaik',
+  mosaicIntro: 'Selesaikan aktivitas untuk mendapatkan ubin.',
+  mosaicOptionsPrompt: 'Pilihan warna:',
   languageMessage: 'Pilih bahasa Anda',
   lightModeMessage: 'Beralih ke mode {gelap|terang}',
   homeMessage: 'Muat ulang tanpa data yang dimuat sebelumnya',

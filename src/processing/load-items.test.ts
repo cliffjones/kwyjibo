@@ -60,6 +60,14 @@ describe('loadItems', () => {
   it('preserves interface message properties from the loaded K-format config', async () => {
     const configData = {
       homeMessage: 'Home',
+      mosaicHint: 'Open mosaic',
+      streakHint: 'Activity streak',
+      mosaicHeading: 'Mosaic',
+      sharedMosaicHeading: 'Shared',
+      mosaicShareHint: 'Share mosaic',
+      mosaicCloseHint: 'Close mosaic',
+      mosaicIntro: 'Earn tiles.',
+      mosaicOptionsPrompt: 'Choose:',
       preloadedDataHeading: 'Decks',
       startButton: 'Begin',
       ratingLabel5: 'Excellent',

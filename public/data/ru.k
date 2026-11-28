@@ -1,5 +1,13 @@
 {
   language: 'ru',
+  mosaicHint: 'Показать свою мозаику',
+  streakHint: 'Ваша серия занятий',
+  mosaicHeading: 'Ваша мозаика',
+  sharedMosaicHeading: 'Общая мозаика',
+  mosaicShareHint: 'Скопировать ссылку на мозаику',
+  mosaicCloseHint: 'Выйти из режима мозаики',
+  mosaicIntro: 'Выполняйте занятия, чтобы получать плитки.',
+  mosaicOptionsPrompt: 'Варианты цветов:',
   languageMessage: 'Выберите язык',
   lightModeMessage: 'Переключить на {тёмную|светлую} тему',
   homeMessage: 'Обновить без предварительно загруженных данных',

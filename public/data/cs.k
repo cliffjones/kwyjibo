@@ -1,5 +1,13 @@
 {
   language: 'cs',
+  mosaicHint: 'Zobrazit svou mozaiku',
+  streakHint: 'Vaše série aktivit',
+  mosaicHeading: 'Vaše mozaika',
+  sharedMosaicHeading: 'Sdílená mozaika',
+  mosaicShareHint: 'Kopírovat odkaz na mozaiku',
+  mosaicCloseHint: 'Ukončit režim mozaiky',
+  mosaicIntro: 'Plněním aktivit získáte dlaždice.',
+  mosaicOptionsPrompt: 'Možnosti barev:',
   languageMessage: 'Vyberte jazyk',
   lightModeMessage: 'Přepnout na {tmavý|světlý} režim',
   homeMessage: 'Obnovit bez předem načtených dat',

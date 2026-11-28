@@ -1,9 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter, useLocation } from 'react-router';
-import { ITEM_TYPES } from '../../processing/constants';
+import { LANG } from '../../constants';
+import { ITEM_TYPES, MS_PER_DAY } from '../../processing/constants';
 import type { TaskItem } from '../../processing/types';
 import { createAppStore, startDeck } from '../../store';
+import { STORAGE_KEY } from '../../store/constants';
 import { getStorageKey } from '../../store/get-storage-key';
 import { Header } from './index';
 
@@ -100,10 +102,13 @@ describe('Header', () => {
   });
 
   it('uses configured header labels with defaults as fallback', () => {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ activeSince: Date.now() - 3 * MS_PER_DAY }));
     const store = createAppStore(
       '/custom-header',
       {
         homeMessage: 'Return home',
+        mosaicHint: 'Open mosaic',
+        streakHint: 'Activity streak',
         lightModeMessage: 'Use {Dark|Light} theme',
         ratingMessage: 'Custom rating:',
         resetButton: 'Restart deck',
@@ -122,6 +127,8 @@ describe('Header', () => {
 
     expect(screen.getByRole('link', { name: 'Kwyjibo' })).toHaveAttribute('title', 'Return home');
     expect(screen.getByTitle('Use Light theme')).toBeInTheDocument();
+    expect(screen.getByTitle('Open mosaic')).toBeInTheDocument();
+    expect(screen.getByTitle('Activity streak')).toBeInTheDocument();
     expect(screen.getByTitle('Custom rating: 100%')).toBeInTheDocument();
     expect(screen.getByTitle('Restart deck')).toBeInTheDocument();
   });
@@ -138,7 +145,7 @@ describe('Header', () => {
       </MemoryRouter>,
     );
 
-    fireEvent.click(screen.getByTitle('Show your mosaic'));
+    fireEvent.click(screen.getByTitle(LANG.mosaicHint));
 
     expect(screen.getByTestId('current-path')).toHaveTextContent('/science/dev/m');
   });

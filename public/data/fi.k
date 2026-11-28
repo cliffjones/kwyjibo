@@ -1,5 +1,13 @@
 {
   language: 'fi',
+  mosaicHint: 'Näytä mosaiikkisi',
+  streakHint: 'Aktiviteettiputkesi',
+  mosaicHeading: 'Mosaiikkisi',
+  sharedMosaicHeading: 'Jaettu mosaiikki',
+  mosaicShareHint: 'Kopioi mosaiikin linkki',
+  mosaicCloseHint: 'Poistu mosaiikkinäkymästä',
+  mosaicIntro: 'Suorita aktiviteetteja ansaitaksesi laattoja.',
+  mosaicOptionsPrompt: 'Värivaihtoehdot:',
   languageMessage: 'Valitse kieli',
   lightModeMessage: 'Vaihda {tummaan|vaaleaan} tilaan',
   homeMessage: 'Päivitä ilman esiladattuja tietoja',

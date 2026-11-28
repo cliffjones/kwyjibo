@@ -1,5 +1,13 @@
 {
   language: 'hu',
+  mosaicHint: 'Mozaik megjelenítése',
+  streakHint: 'A te aktivitássorozatod',
+  mosaicHeading: 'A te mozaikod',
+  sharedMosaicHeading: 'Megosztott mozaik',
+  mosaicShareHint: 'Mozaik hivatkozásának másolása',
+  mosaicCloseHint: 'Kilépés a mozaik módból',
+  mosaicIntro: 'Teljesíts tevékenységeket csempékért.',
+  mosaicOptionsPrompt: 'Színbeállítások:',
   languageMessage: 'Válasszon nyelvet',
   lightModeMessage: 'Váltás {sötét|világos} módra',
   homeMessage: 'Frissítés előre betöltött adatok nélkül',

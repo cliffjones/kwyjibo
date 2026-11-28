@@ -1,5 +1,13 @@
 {
   language: 'eo',
+  mosaicHint: 'Montru vian mozaikon',
+  streakHint: 'Via sinsekvo de aktiveco',
+  mosaicHeading: 'Via mozaiko',
+  sharedMosaicHeading: 'Komuna mozaiko',
+  mosaicShareHint: 'Kopii ligilon de mozaiko',
+  mosaicCloseHint: 'Eliri el mozaika reĝimo',
+  mosaicIntro: 'Kompletigu agadojn por gajni kahelojn.',
+  mosaicOptionsPrompt: 'Koloraj opcioj:',
   languageMessage: 'Elektu vian lingvon',
   lightModeMessage: 'Ŝanĝi al {Malhela|Hela} reĝimo',
   homeMessage: 'Reŝargi sen antaŭŝargitaj datumoj',

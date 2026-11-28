@@ -1,5 +1,13 @@
 {
   language: 'sv',
+  mosaicHint: 'Visa din mosaik',
+  streakHint: 'Din aktivitetsserie',
+  mosaicHeading: 'Din mosaik',
+  sharedMosaicHeading: 'Delad mosaik',
+  mosaicShareHint: 'Kopiera mosaiklänk',
+  mosaicCloseHint: 'Avsluta mosaikläget',
+  mosaicIntro: 'Slutför aktiviteter för att tjäna brickor.',
+  mosaicOptionsPrompt: 'Färgalternativ:',
   languageMessage: 'Välj språk',
   lightModeMessage: 'Byt till {mörkt|ljust} läge',
   homeMessage: 'Uppdatera utan förladdade data',

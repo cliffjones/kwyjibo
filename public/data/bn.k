@@ -1,5 +1,13 @@
 {
   language: 'bn',
+  mosaicHint: 'আপনার মোজাইক দেখুন',
+  streakHint: 'আপনার কার্যকলাপের ধারাবাহিকতা',
+  mosaicHeading: 'আপনার মোজাইক',
+  sharedMosaicHeading: 'শেয়ার করা মোজাইক',
+  mosaicShareHint: 'মোজাইকের লিংক কপি করুন',
+  mosaicCloseHint: 'মোজাইক মোড থেকে বের হন',
+  mosaicIntro: 'টাইল পেতে কার্যকলাপ সম্পন্ন করুন।',
+  mosaicOptionsPrompt: 'রঙের বিকল্প:',
   languageMessage: 'আপনার ভাষা বেছে নিন',
   lightModeMessage: '{গাঢ়|হালকা} মোডে যান',
   homeMessage: 'আগে থেকে লোড করা ডেটা ছাড়া আবার লোড করুন',

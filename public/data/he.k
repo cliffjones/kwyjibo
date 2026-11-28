@@ -1,5 +1,13 @@
 {
   language: 'he',
+  mosaicHint: 'הצגת הפסיפס שלך',
+  streakHint: 'רצף הפעילות שלך',
+  mosaicHeading: 'הפסיפס שלך',
+  sharedMosaicHeading: 'פסיפס משותף',
+  mosaicShareHint: 'העתקת קישור לפסיפס',
+  mosaicCloseHint: 'יציאה ממצב פסיפס',
+  mosaicIntro: 'השלימו פעילויות כדי להרוויח אריחים.',
+  mosaicOptionsPrompt: 'אפשרויות צבע:',
   languageMessage: 'בחרו שפה',
   lightModeMessage: 'מעבר למצב {כהה|בהיר}',
   homeMessage: 'רענון ללא נתונים שנטענו מראש',

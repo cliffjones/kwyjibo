@@ -1,5 +1,13 @@
 {
   language: 'lah',
+  mosaicHint: 'اپنا موزیک ویکھو',
+  streakHint: 'تہاڈی سرگرمی دی لگاتار لڑی',
+  mosaicHeading: 'تہاڈا موزیک',
+  sharedMosaicHeading: 'سانجھا موزیک',
+  mosaicShareHint: 'موزیک دا لنک نقل کرو',
+  mosaicCloseHint: 'موزیک موڈ توں باہر نکلو',
+  mosaicIntro: 'ٹائل حاصل کرن لئی سرگرمیاں پوری کرو۔',
+  mosaicOptionsPrompt: 'رنگ دے اختیار:',
   languageMessage: 'اپنی زبان چنو',
   lightModeMessage: '{تاریک|روشن} موڈ وچ بدلو',
   homeMessage: 'پہلاں لوڈ کیتے ڈیٹا توں بغیر تازہ کرو',

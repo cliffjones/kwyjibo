@@ -1,5 +1,13 @@
 {
   language: 'fr',
+  mosaicHint: 'Afficher votre mosaïque',
+  streakHint: 'Votre série d’activité',
+  mosaicHeading: 'Votre mosaïque',
+  sharedMosaicHeading: 'Mosaïque partagée',
+  mosaicShareHint: 'Copier le lien de la mosaïque',
+  mosaicCloseHint: 'Quitter le mode mosaïque',
+  mosaicIntro: 'Terminez des activités pour gagner des carreaux.',
+  mosaicOptionsPrompt: 'Options de couleur :',
   languageMessage: 'Choisissez votre langue',
   lightModeMessage: 'Passer en mode {sombre|clair}',
   homeMessage: 'Actualiser sans données préchargées',

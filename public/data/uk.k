@@ -1,5 +1,13 @@
 {
   language: 'uk',
+  mosaicHint: 'Показати свою мозаїку',
+  streakHint: 'Ваша серія активностей',
+  mosaicHeading: 'Ваша мозаїка',
+  sharedMosaicHeading: 'Спільна мозаїка',
+  mosaicShareHint: 'Копіювати посилання на мозаїку',
+  mosaicCloseHint: 'Вийти з режиму мозаїки',
+  mosaicIntro: 'Виконуйте завдання, щоб отримувати плитки.',
+  mosaicOptionsPrompt: 'Варіанти кольорів:',
   languageMessage: 'Виберіть мову',
   lightModeMessage: 'Перемкнути на {темний|світлий} режим',
   homeMessage: 'Оновити без попередньо завантажених даних',

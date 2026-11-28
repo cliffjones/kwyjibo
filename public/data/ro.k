@@ -1,5 +1,13 @@
 {
   language: 'ro',
+  mosaicHint: 'Afișează mozaicul tău',
+  streakHint: 'Seria ta de activități',
+  mosaicHeading: 'Mozaicul tău',
+  sharedMosaicHeading: 'Mozaic partajat',
+  mosaicShareHint: 'Copiază linkul mozaicului',
+  mosaicCloseHint: 'Ieși din modul mozaic',
+  mosaicIntro: 'Finalizează activități pentru a câștiga piese.',
+  mosaicOptionsPrompt: 'Opțiuni de culoare:',
   languageMessage: 'Alegeți limba',
   lightModeMessage: 'Schimbați la modul {întunecat|luminos}',
   homeMessage: 'Reîmprospătați fără date preîncărcate',

@@ -1,5 +1,13 @@
 {
   language: 'ja',
+  mosaicHint: 'モザイクを表示',
+  streakHint: 'あなたの活動継続日数',
+  mosaicHeading: 'あなたのモザイク',
+  sharedMosaicHeading: '共有モザイク',
+  mosaicShareHint: 'モザイクのリンクをコピー',
+  mosaicCloseHint: 'モザイクモードを終了',
+  mosaicIntro: 'タイルを獲得するには活動を完了してください。',
+  mosaicOptionsPrompt: '色のオプション：',
   languageMessage: '言語を選択',
   lightModeMessage: '{ダーク|ライト}モードに切り替え',
   homeMessage: '事前読み込みデータなしで再読み込み',

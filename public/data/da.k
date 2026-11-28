@@ -1,5 +1,13 @@
 {
   language: 'da',
+  mosaicHint: 'Vis din mosaik',
+  streakHint: 'Din aktivitetsrække',
+  mosaicHeading: 'Din mosaik',
+  sharedMosaicHeading: 'Delt mosaik',
+  mosaicShareHint: 'Kopiér mosaiklink',
+  mosaicCloseHint: 'Afslut mosaiktilstand',
+  mosaicIntro: 'Gennemfør aktiviteter for at optjene felter.',
+  mosaicOptionsPrompt: 'Farvevalg:',
   languageMessage: 'Vælg sprog',
   lightModeMessage: 'Skift til {mørk|lys} tilstand',
   homeMessage: 'Opdater uden forudindlæste data',

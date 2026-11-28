@@ -1,5 +1,13 @@
 {
   language: 'ko',
+  mosaicHint: '모자이크 보기',
+  streakHint: '활동 연속 기록',
+  mosaicHeading: '내 모자이크',
+  sharedMosaicHeading: '공유 모자이크',
+  mosaicShareHint: '모자이크 링크 복사',
+  mosaicCloseHint: '모자이크 모드 종료',
+  mosaicIntro: '타일을 얻으려면 활동을 완료하세요.',
+  mosaicOptionsPrompt: '색상 옵션:',
   languageMessage: '언어 선택',
   lightModeMessage: '{어두운|밝은} 모드로 전환',
   homeMessage: '미리 불러온 데이터 없이 새로고침',

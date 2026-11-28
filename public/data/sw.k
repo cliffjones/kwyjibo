@@ -1,5 +1,13 @@
 {
   language: 'sw',
+  mosaicHint: 'Onyesha mosaiki yako',
+  streakHint: 'Mfululizo wako wa shughuli',
+  mosaicHeading: 'Mosaiki yako',
+  sharedMosaicHeading: 'Mosaiki iliyoshirikiwa',
+  mosaicShareHint: 'Nakili kiungo cha mosaiki',
+  mosaicCloseHint: 'Toka kwenye hali ya mosaiki',
+  mosaicIntro: 'Kamilisha shughuli ili kupata vigae.',
+  mosaicOptionsPrompt: 'Chaguo za rangi:',
   languageMessage: 'Chagua lugha',
   lightModeMessage: 'Badili hadi hali ya {giza|mwanga}',
   homeMessage: 'Onyesha upya bila data iliyopakiwa awali',

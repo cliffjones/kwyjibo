@@ -80,7 +80,11 @@ export const Header = ({
 
       <div className="header-toolbar" dir="ltr">
         <div className="header-toolbar-line">
-          <Button variant="text" onClick={() => showMosaic(path, navigate)} title="Show your mosaic">
+          <Button
+            variant="text"
+            onClick={() => showMosaic(path, navigate)}
+            title={configData.mosaicHint || LANG.mosaicHint}
+          >
             <Icon name="tile" />
             <span className="header-toolbar-text">{Math.floor(pointBalance).toLocaleString()}</span>
           </Button>
@@ -100,7 +104,7 @@ export const Header = ({
 
         {streak > 1 ? (
           <div className="header-toolbar-line">
-            <div className="header-toolbar-line-unit" title="Your activity streak">
+            <div className="header-toolbar-line-unit" title={configData.streakHint || LANG.streakHint}>
               <span className="icon-box">
                 <Icon name="flame" />
               </span>

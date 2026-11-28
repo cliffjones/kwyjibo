@@ -1,5 +1,13 @@
 {
   language: 'nl',
+  mosaicHint: 'Toon je mozaïek',
+  streakHint: 'Je activiteitenreeks',
+  mosaicHeading: 'Je mozaïek',
+  sharedMosaicHeading: 'Gedeelde mozaïek',
+  mosaicShareHint: 'Mozaïeklink kopiëren',
+  mosaicCloseHint: 'Mozaïekmodus afsluiten',
+  mosaicIntro: 'Voltooi activiteiten om tegels te verdienen.',
+  mosaicOptionsPrompt: 'Kleuropties:',
   languageMessage: 'Kies je taal',
   lightModeMessage: 'Overschakelen naar de {donkere|lichte} modus',
   homeMessage: 'Vernieuwen zonder vooraf geladen gegevens',

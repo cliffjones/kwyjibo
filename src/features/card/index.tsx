@@ -40,8 +40,12 @@ export const Card = ({
 
   return (
     <section className="card">
-      <div className="card-toolbar">
-        {topic ? <div className="card-topic">{topic}</div> : null}
+      <div className="card-toolbar" dir="ltr">
+        {topic ? (
+          <div className="card-topic" dir="auto">
+            {topic}
+          </div>
+        ) : null}
         {validRating ? (
           <div className="card-rating">
             <div
@@ -54,7 +58,7 @@ export const Card = ({
         ) : null}
       </div>
 
-      <div className="card-toolbar card-toolbar--right">
+      <div className="card-toolbar card-toolbar--right" dir="ltr">
         {onShare ? (
           <Button variant="text" onClick={onShare} title={shareHint}>
             <Icon name="share" />

@@ -1,5 +1,13 @@
 {
   language: 'pl',
+  mosaicHint: 'Pokaż swoją mozaikę',
+  streakHint: 'Twoja seria aktywności',
+  mosaicHeading: 'Twoja mozaika',
+  sharedMosaicHeading: 'Udostępniona mozaika',
+  mosaicShareHint: 'Kopiuj link do mozaiki',
+  mosaicCloseHint: 'Zamknij tryb mozaiki',
+  mosaicIntro: 'Wykonuj aktywności, aby zdobywać kafelki.',
+  mosaicOptionsPrompt: 'Opcje kolorów:',
   languageMessage: 'Wybierz język',
   lightModeMessage: 'Przełącz na tryb {ciemny|jasny}',
   homeMessage: 'Odśwież bez wstępnie załadowanych danych',

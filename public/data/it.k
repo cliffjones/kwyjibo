@@ -1,5 +1,13 @@
 {
   language: 'it',
+  mosaicHint: 'Mostra il tuo mosaico',
+  streakHint: 'La tua serie di attività',
+  mosaicHeading: 'Il tuo mosaico',
+  sharedMosaicHeading: 'Mosaico condiviso',
+  mosaicShareHint: 'Copia il link del mosaico',
+  mosaicCloseHint: 'Esci dalla modalità mosaico',
+  mosaicIntro: 'Completa le attività per ottenere tessere.',
+  mosaicOptionsPrompt: 'Opzioni colore:',
   languageMessage: 'Scegli la tua lingua',
   lightModeMessage: 'Passa alla modalità {scura|chiara}',
   homeMessage: 'Ricarica senza dati precaricati',

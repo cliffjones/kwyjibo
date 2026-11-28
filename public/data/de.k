@@ -1,5 +1,13 @@
 {
   language: 'de',
+  mosaicHint: 'Dein Mosaik anzeigen',
+  streakHint: 'Deine Aktivitätsserie',
+  mosaicHeading: 'Dein Mosaik',
+  sharedMosaicHeading: 'Geteiltes Mosaik',
+  mosaicShareHint: 'Mosaik-Link kopieren',
+  mosaicCloseHint: 'Mosaikmodus beenden',
+  mosaicIntro: 'Schließe Aktivitäten ab, um Kacheln zu verdienen.',
+  mosaicOptionsPrompt: 'Farbauswahl:',
   languageMessage: 'Sprache auswählen',
   lightModeMessage: 'Zum {dunklen|hellen} Modus wechseln',
   homeMessage: 'Ohne vorgeladene Daten neu laden',

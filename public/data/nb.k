@@ -1,5 +1,13 @@
 {
   language: 'nb',
+  mosaicHint: 'Vis mosaikken din',
+  streakHint: 'Aktivitetsrekken din',
+  mosaicHeading: 'Mosaikken din',
+  sharedMosaicHeading: 'Delt mosaikk',
+  mosaicShareHint: 'Kopier mosaikklenken',
+  mosaicCloseHint: 'Avslutt mosaikkmodus',
+  mosaicIntro: 'Fullfør aktiviteter for å tjene brikker.',
+  mosaicOptionsPrompt: 'Fargevalg:',
   languageMessage: 'Velg språk',
   lightModeMessage: 'Bytt til {mørk|lys} modus',
   homeMessage: 'Oppdater uten forhåndslastede data',

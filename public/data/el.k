@@ -1,5 +1,13 @@
 {
   language: 'el',
+  mosaicHint: 'Εμφάνιση του μωσαϊκού σου',
+  streakHint: 'Το σερί δραστηριοτήτων σου',
+  mosaicHeading: 'Το μωσαϊκό σου',
+  sharedMosaicHeading: 'Κοινόχρηστο μωσαϊκό',
+  mosaicShareHint: 'Αντιγραφή συνδέσμου μωσαϊκού',
+  mosaicCloseHint: 'Έξοδος από τη λειτουργία μωσαϊκού',
+  mosaicIntro: 'Ολοκλήρωσε δραστηριότητες για να κερδίσεις πλακίδια.',
+  mosaicOptionsPrompt: 'Επιλογές χρωμάτων:',
   languageMessage: 'Επιλέξτε γλώσσα',
   lightModeMessage: 'Εναλλαγή σε {σκοτεινή|φωτεινή} λειτουργία',
   homeMessage: 'Ανανέωση χωρίς προφορτωμένα δεδομένα',

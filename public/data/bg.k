@@ -1,5 +1,13 @@
 {
   language: 'bg',
+  mosaicHint: 'Покажи мозайката си',
+  streakHint: 'Твоята поредица от активности',
+  mosaicHeading: 'Твоята мозайка',
+  sharedMosaicHeading: 'Споделена мозайка',
+  mosaicShareHint: 'Копирай връзката към мозайката',
+  mosaicCloseHint: 'Изход от режима на мозайка',
+  mosaicIntro: 'Изпълнявай дейности, за да печелиш плочки.',
+  mosaicOptionsPrompt: 'Цветови опции:',
   languageMessage: 'Изберете език',
   lightModeMessage: 'Превключване към {тъмен|светъл} режим',
   homeMessage: 'Обновяване без предварително заредени данни',

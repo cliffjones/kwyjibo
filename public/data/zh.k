@@ -1,5 +1,13 @@
 {
   language: 'zh',
+  mosaicHint: '显示你的拼贴画',
+  streakHint: '你的连续活动记录',
+  mosaicHeading: '你的拼贴画',
+  sharedMosaicHeading: '共享拼贴画',
+  mosaicShareHint: '复制拼贴画链接',
+  mosaicCloseHint: '退出拼贴画模式',
+  mosaicIntro: '完成活动即可获得拼块。',
+  mosaicOptionsPrompt: '颜色选项：',
   languageMessage: '选择语言',
   lightModeMessage: '切换到{深色|浅色}模式',
   homeMessage: '不使用预加载数据刷新',

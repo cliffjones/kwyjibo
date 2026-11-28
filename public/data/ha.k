@@ -1,5 +1,13 @@
 {
   language: 'ha',
+  mosaicHint: 'Nuna mosaic ɗinka',
+  streakHint: 'Jerin ayyukanka',
+  mosaicHeading: 'Mosaic ɗinka',
+  sharedMosaicHeading: 'Mosaic da aka raba',
+  mosaicShareHint: 'Kwafi hanyar haɗin mosaic',
+  mosaicCloseHint: 'Fita daga yanayin mosaic',
+  mosaicIntro: 'Kammala ayyuka domin samun fale-fale.',
+  mosaicOptionsPrompt: 'Zaɓuɓɓukan launi:',
   languageMessage: 'Zaɓi yare',
   lightModeMessage: 'Canja zuwa yanayin {duhu|haske}',
   homeMessage: 'Sabunta ba tare da bayanan da aka riga aka ɗora ba',

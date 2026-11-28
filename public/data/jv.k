@@ -1,5 +1,13 @@
 {
   language: 'jv',
+  mosaicHint: 'Tampilna mozaikmu',
+  streakHint: 'Runtutan aktivitasmu',
+  mosaicHeading: 'Mozaikmu',
+  sharedMosaicHeading: 'Mozaik sing dienggo bareng',
+  mosaicShareHint: 'Salin pranala mozaik',
+  mosaicCloseHint: 'Metu saka mode mozaik',
+  mosaicIntro: 'Rampungna kegiatan kanggo entuk ubin.',
+  mosaicOptionsPrompt: 'Pilihan warna:',
   languageMessage: 'Pilih basa sampeyan',
   lightModeMessage: 'Ganti menyang mode {peteng|padhang}',
   homeMessage: 'Muat maneh tanpa data sing wis dimuat',

@@ -1,5 +1,13 @@
 {
   language: 'vi',
+  mosaicHint: 'Hiển thị tranh ghép của bạn',
+  streakHint: 'Chuỗi hoạt động của bạn',
+  mosaicHeading: 'Tranh ghép của bạn',
+  sharedMosaicHeading: 'Tranh ghép được chia sẻ',
+  mosaicShareHint: 'Sao chép liên kết tranh ghép',
+  mosaicCloseHint: 'Thoát chế độ tranh ghép',
+  mosaicIntro: 'Hoàn thành hoạt động để nhận ô.',
+  mosaicOptionsPrompt: 'Tùy chọn màu:',
   languageMessage: 'Chọn ngôn ngữ',
   lightModeMessage: 'Chuyển sang chế độ {tối|sáng}',
   homeMessage: 'Tải lại mà không dùng dữ liệu tải sẵn',

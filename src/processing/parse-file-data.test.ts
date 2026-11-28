@@ -24,6 +24,14 @@ describe('parseFileData', () => {
   it('preserves all supported interface message properties in K-format config', () => {
     const config = {
       homeMessage: 'Home',
+      mosaicHint: 'Open mosaic',
+      streakHint: 'Activity streak',
+      mosaicHeading: 'Mosaic',
+      sharedMosaicHeading: 'Shared',
+      mosaicShareHint: 'Share mosaic',
+      mosaicCloseHint: 'Close mosaic',
+      mosaicIntro: 'Earn tiles.',
+      mosaicOptionsPrompt: 'Choose:',
       lightModeMessage: 'Change theme',
       preloadedDataHeading: 'Decks',
       customDataHeading: 'Custom',

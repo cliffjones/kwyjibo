@@ -1,5 +1,13 @@
 {
   language: 'fa',
+  mosaicHint: 'موزاییک خود را نمایش دهید',
+  streakHint: 'زنجیره فعالیت شما',
+  mosaicHeading: 'موزاییک شما',
+  sharedMosaicHeading: 'موزاییک به‌اشتراک‌گذاشته‌شده',
+  mosaicShareHint: 'پیوند موزاییک را کپی کنید',
+  mosaicCloseHint: 'از حالت موزاییک خارج شوید',
+  mosaicIntro: 'برای به‌دست‌آوردن کاشی‌ها فعالیت‌ها را کامل کنید.',
+  mosaicOptionsPrompt: 'گزینه‌های رنگ:',
   languageMessage: 'زبان خود را انتخاب کنید',
   lightModeMessage: 'تغییر به حالت {تیره|روشن}',
   homeMessage: 'بارگذاری دوباره بدون داده‌های ازپیش‌بارگذاری‌شده',

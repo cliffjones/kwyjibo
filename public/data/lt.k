@@ -1,5 +1,13 @@
 {
   language: 'lt',
+  mosaicHint: 'Rodyti savo mozaiką',
+  streakHint: 'Tavo veiklos serija',
+  mosaicHeading: 'Tavo mozaika',
+  sharedMosaicHeading: 'Bendrinama mozaika',
+  mosaicShareHint: 'Kopijuoti mozaikos nuorodą',
+  mosaicCloseHint: 'Išeiti iš mozaikos režimo',
+  mosaicIntro: 'Atlik veiklas ir gauk plytelių.',
+  mosaicOptionsPrompt: 'Spalvų parinktys:',
   languageMessage: 'Pasirinkite kalbą',
   lightModeMessage: 'Perjungti į {tamsų|šviesų} režimą',
   homeMessage: 'Atnaujinti be iš anksto įkeltų duomenų',

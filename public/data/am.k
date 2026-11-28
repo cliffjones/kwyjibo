@@ -1,5 +1,13 @@
 {
   language: 'am',
+  mosaicHint: 'ሞዛይክዎን ያሳዩ',
+  streakHint: 'የእንቅስቃሴ ተከታታይነትዎ',
+  mosaicHeading: 'የእርስዎ ሞዛይክ',
+  sharedMosaicHeading: 'የተጋራ ሞዛይክ',
+  mosaicShareHint: 'የሞዛይክ አገናኝን ቅዳ',
+  mosaicCloseHint: 'ከሞዛይክ ሁነታ ውጣ',
+  mosaicIntro: 'ሰቆችን ለማግኘት እንቅስቃሴዎችን ያጠናቅቁ።',
+  mosaicOptionsPrompt: 'የቀለም አማራጮች፡',
   languageMessage: 'ቋንቋዎን ይምረጡ',
   lightModeMessage: 'ወደ {ጨለማ|ብርሃን} ሁነታ ቀይር',
   homeMessage: 'አስቀድሞ የተጫነ ውሂብ ሳይኖር እንደገና አድስ',

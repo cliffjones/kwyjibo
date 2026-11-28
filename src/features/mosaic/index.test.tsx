@@ -8,6 +8,7 @@ import { Mosaic } from './index';
 describe('Mosaic', () => {
   beforeEach(() => {
     window.localStorage.clear();
+    document.documentElement.dir = 'ltr';
   });
 
   afterEach(() => {
@@ -15,7 +16,7 @@ describe('Mosaic', () => {
   });
 
   it('renders the configured tile rows with alternating column counts', () => {
-    const store = createAppStore('/mosaic');
+    const store = createAppStore('/mosaic', { mosaicOptionsPrompt: 'Choose a tile color:' });
     const { container } = render(
       <Provider store={store}>
         <Mosaic editable />
@@ -23,12 +24,26 @@ describe('Mosaic', () => {
     );
 
     const rows = container.querySelectorAll('.mosaic-grid-row');
+    expect(container.querySelector('.mosaic-options')).toHaveTextContent('Choose a tile color:');
     expect(rows).toHaveLength(MOSAIC_GRID_SIZE);
 
     rows.forEach((row, index) => {
       expect(row.querySelectorAll('button')).toHaveLength(index % 2 ? MOSAIC_GRID_SIZE - 1 : MOSAIC_GRID_SIZE);
       expect(row.classList.contains('mosaic-grid-row--offset')).toBe(Boolean(index % 2));
     });
+  });
+
+  it('keeps the mosaic grid left-to-right when the selected language is RTL', () => {
+    document.documentElement.dir = 'rtl';
+    const store = createAppStore('/mosaic-rtl');
+
+    const { container } = render(
+      <Provider store={store}>
+        <Mosaic />
+      </Provider>,
+    );
+
+    expect(container.querySelector('.mosaic-grid')).toHaveAttribute('dir', 'ltr');
   });
 
   it('previews mouse hover, previews touch drags, and persists the tile on pointer-up', () => {

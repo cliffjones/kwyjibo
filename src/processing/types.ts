@@ -8,6 +8,14 @@ export type ConfigData = {
   languageMessage?: string;
   lightModeMessage?: string;
   homeMessage?: string;
+  mosaicHint?: string;
+  streakHint?: string;
+  mosaicHeading?: string;
+  sharedMosaicHeading?: string;
+  mosaicShareHint?: string;
+  mosaicCloseHint?: string;
+  mosaicIntro?: string;
+  mosaicOptionsPrompt?: string;
   title?: string;
   heading?: string;
   cardsLoadedMessage?: string;

@@ -1,5 +1,13 @@
 {
   language: 'hr',
+  mosaicHint: 'Prikaži svoj mozaik',
+  streakHint: 'Tvoj niz aktivnosti',
+  mosaicHeading: 'Tvoj mozaik',
+  sharedMosaicHeading: 'Dijeljeni mozaik',
+  mosaicShareHint: 'Kopiraj poveznicu mozaika',
+  mosaicCloseHint: 'Izađi iz načina mozaika',
+  mosaicIntro: 'Dovrši aktivnosti i osvoji pločice.',
+  mosaicOptionsPrompt: 'Opcije boja:',
   languageMessage: 'Odaberite jezik',
   lightModeMessage: 'Prebaci na {tamni|svijetli} način',
   homeMessage: 'Osvježi bez unaprijed učitanih podataka',

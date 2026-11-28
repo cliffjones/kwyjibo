@@ -1,5 +1,13 @@
 {
   language: 'th',
+  mosaicHint: 'แสดงโมเสกของคุณ',
+  streakHint: 'สถิติกิจกรรมต่อเนื่องของคุณ',
+  mosaicHeading: 'โมเสกของคุณ',
+  sharedMosaicHeading: 'โมเสกที่แชร์',
+  mosaicShareHint: 'คัดลอกลิงก์โมเสก',
+  mosaicCloseHint: 'ออกจากโหมดโมเสก',
+  mosaicIntro: 'ทำกิจกรรมให้เสร็จเพื่อรับแผ่นกระเบื้อง',
+  mosaicOptionsPrompt: 'ตัวเลือกสี:',
   languageMessage: 'เลือกภาษา',
   lightModeMessage: 'เปลี่ยนเป็นโหมด{มืด|สว่าง}',
   homeMessage: 'รีเฟรชโดยไม่มีข้อมูลที่โหลดไว้ล่วงหน้า',

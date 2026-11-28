@@ -197,4 +197,22 @@ describe('App', () => {
     expect(screen.getByText(/Completed 1 cards with 100% accuracy in .*seconds\./)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Restart quiz' })).toBeInTheDocument();
   });
+
+  it('uses configured mosaic text', () => {
+    const store = createAppStore('/mosaic-text', {
+      mosaicHeading: 'Custom mosaic',
+      sharedMosaicHeading: 'Friend mosaic',
+      mosaicShareHint: 'Share this mosaic',
+      mosaicCloseHint: 'Leave mosaic',
+      mosaicIntro: 'Complete an activity to paint.',
+    });
+
+    renderApp('/mosaic-text/m:00123456', store);
+
+    expect(screen.getByRole('heading', { name: 'Custom mosaic' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Friend mosaic' })).toBeInTheDocument();
+    expect(screen.getAllByTitle('Leave mosaic')).toHaveLength(2);
+    expect(screen.getByTitle('Share this mosaic')).toBeInTheDocument();
+    expect(screen.getByText('Complete an activity to paint.')).toBeInTheDocument();
+  });
 });

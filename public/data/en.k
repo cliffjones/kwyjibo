@@ -1,5 +1,13 @@
 {
   language: 'en',
+  mosaicHint: 'Show your mosaic',
+  streakHint: 'Your activity streak',
+  mosaicHeading: 'Your Mosaic',
+  sharedMosaicHeading: 'Shared Mosaic',
+  mosaicShareHint: 'Copy mosaic link',
+  mosaicCloseHint: 'Exit mosaic mode',
+  mosaicIntro: 'Complete activities to earn tiles.',
+  mosaicOptionsPrompt: 'Color options:',
   languageMessage: 'Choose your language',
   lightModeMessage: 'Switch to {dark|light} mode',
   homeMessage: 'Refresh with no preloaded data',

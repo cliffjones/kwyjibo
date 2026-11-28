@@ -1,5 +1,13 @@
 {
   language: 'es',
+  mosaicHint: 'Mostrar tu mosaico',
+  streakHint: 'Tu racha de actividad',
+  mosaicHeading: 'Tu mosaico',
+  sharedMosaicHeading: 'Mosaico compartido',
+  mosaicShareHint: 'Copiar enlace del mosaico',
+  mosaicCloseHint: 'Salir del modo mosaico',
+  mosaicIntro: 'Completa actividades para ganar mosaicos.',
+  mosaicOptionsPrompt: 'Opciones de color:',
   languageMessage: 'Elige tu idioma',
   lightModeMessage: 'Cambiar al modo {oscuro|claro}',
   homeMessage: 'Recargar sin datos precargados',
